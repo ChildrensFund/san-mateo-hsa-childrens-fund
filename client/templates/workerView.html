@@ -17,8 +17,11 @@
   <!-- shows children -->
   <ul ng-repeat="child in children">
     <h3>{{child.childData.name}} wants a </h3>
+    <!-- shows each item in child's item array -->
     <li ng-repeat="itemIndex in child.childData.items">
-      {{itemIndex.item}} <div ng-show="itemIndex.pledged"> - Pledged by a donor!</div>
+      {{itemIndex.item}}
+      <!-- Annotates items only if pledged status is truthy -->
+      <div ng-show="itemIndex.pledged"> - Pledged by a donor</div>
     </li>
   </ul>
 </div>
