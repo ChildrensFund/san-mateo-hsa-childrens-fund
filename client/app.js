@@ -1,5 +1,6 @@
 angular.module('childrensFund', ['ui.router'])
 
+// ui-router configuration
 .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/');
 
@@ -15,7 +16,12 @@ angular.module('childrensFund', ['ui.router'])
 .controller('inputController', ['$scope', 'restful', function ($scope, restful) {
 
   $scope.post = function () {
-    restful.sendInputs($scope.childName, $scope.item1);
+    restful.sendInputs($scope.childName, $scope.item1).then( function (promise) {
+      if (promise) {
+        //calls GET after POST is complete
+        return $scope.get();
+      }
+    });
   };
 
   $scope.get = function () {
@@ -28,6 +34,8 @@ angular.module('childrensFund', ['ui.router'])
 
 }])
 
+
+// basic GET/POST logic
 .factory('restful', ['$http', function ($http) {
   return {
     sendInputs: function (childName, item1) {

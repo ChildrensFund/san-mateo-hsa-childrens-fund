@@ -1,9 +1,19 @@
 <div ng-controller="inputController">
+
+  <!-- input fields -->
   <input ng-model="childName" type="text" placeholder="childName">
   <input ng-model="item1" type="text" placeholder="item1">
+
+  <!-- click handler for POST -->
   <input ng-click="post()" type="submit" value="Submit">
-  <input ng-click="get()" type="button" value="Click here see what's in the temporary database!">
+
+  <!-- click handler for GET -->
+  <input ng-click="get()" type="button" value="Click here for GET request">
+
+  <!-- shows children -->
   <h2 ng-show="children" ng-repeat="child in children">{{child.name}} wants a {{child.items}} 
+
+    <!-- created pledge button for each child (pledge() not made yet) -->
     <input ng-click="pledge()" type="button" value="Pledge"/>
   </h2>
 </div>

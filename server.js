@@ -1,3 +1,9 @@
+/*
+
+Created basic server to get things running
+Moved this file outside of /server to make static file hosting easier
+
+*/
 var express = require('express');
 var app = express();
 var data = [];
