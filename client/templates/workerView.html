@@ -1,4 +1,4 @@
-<div ng-controller="inputController">
+<div>
  
   <br/>
 
@@ -14,14 +14,15 @@
   <!-- click handler for GET -->
   <input ng-click="get()" type="button" value="Click here to refresh">
 
-  <!-- shows children -->
+  <h2>Children</h2>
+    <!-- shows children -->
   <ul ng-repeat="child in children">
-    <h3>{{child.childData.name}} wants a </h3>
-    <!-- shows each item in child's item array -->
-    <li ng-repeat="itemIndex in child.childData.items">
-      {{itemIndex.item}}
+    {{child.childData.name}}'s wishlist:
+    <div ng-repeat="itemIndex in child.childData.items">
+      <!-- shows each item in child's item array -->
+      <li style="margin-left: 20px" ng-hide="itemIndex.pledged">{{itemIndex.item}}</li>
       <!-- Annotates items only if pledged status is truthy -->
-      <div ng-show="itemIndex.pledged"> - Pledged by a donor</div>
-    </li>
+      <li style="margin-left: 20px" ng-show="itemIndex.pledged">{{itemIndex.item}} - Pledged by a donor</li>
+    </div>
   </ul>
 </div>
