@@ -9,10 +9,12 @@
 
   <!-- shows children -->
   <ul ng-repeat="child in children">
-    <h3>{{child.name}} wants a </h3>
-    <li ng-repeat="itemIndex in child.items">
+    <h3>{{child.childData.name}} wants a </h3>
+    <li ng-repeat="itemIndex in child.childData.items">
   <!-- created pledge button for each child (pledge() not made yet) -->
-      {{itemIndex.item}} <input ng-click="pledge(child, $index)" type="button" value="Pledge"/>
+      {{itemIndex.item}} 
+      <input ng-hide="itemIndex.pledged" ng-click="pledge(child, $index)" type="button" value="Pledge"/>
+      <input ng-show="itemIndex.pledged" type="button" disabled="disabled" value="Pledged!"/>
     </li>
   </ul>
 

@@ -16,9 +16,9 @@
 
   <!-- shows children -->
   <ul ng-repeat="child in children">
-    <h3>{{child.name}} wants a </h3>
-    <li ng-repeat="itemIndex in child.items">
-      {{itemIndex.item}}
+    <h3>{{child.childData.name}} wants a </h3>
+    <li ng-repeat="itemIndex in child.childData.items">
+      {{itemIndex.item}} <div ng-show="itemIndex.pledged"> - Pledged by a donor!</div>
     </li>
   </ul>
 </div>

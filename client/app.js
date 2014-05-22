@@ -33,6 +33,8 @@ angular.module('childrensFund', ['ui.router'])
     if ($scope.childName && $scope.item1) {
       restful.createChild($scope.childName, $scope.item1).then( function (promise) {
         if (promise) {
+          $scope.childName = '';
+          $scope.item1 = '';
           //calls GET after POST is complete
           return $scope.get();
         }
@@ -51,8 +53,13 @@ angular.module('childrensFund', ['ui.router'])
   };
 
   $scope.pledge = function (childObj, index) {
-    childObj.items[index].pledged = true;
-    // restful.updateChild(childObj)  need to test!
+    childObj.childData.items[index].pledged = true;
+    console.log('Pledgee: ', childObj);
+    restful.updateChild(childObj).then(function (promise) {
+      if (promise) {
+        $scope.get();
+      }
+    });
   }
 
 }])
@@ -65,15 +72,18 @@ angular.module('childrensFund', ['ui.router'])
       return $http({
         method: 'POST',
         url: '/submit',
-        data: {
-          name: childName, 
-          items: [
-            {
-              item: item1,
-              pledged: false 
-            }
-          ]
-        }
+        data: { 
+          id: Math.floor(Math.random() * 100000), 
+          childData: {
+            name: childName, 
+            items: [
+              {
+                item: item1,
+                pledged: false 
+              }
+            ]
+          }
+        },
       }).success(function (data, status) {
         console.log('(Create) POST Success! ', data);
         return data;
@@ -85,7 +95,7 @@ angular.module('childrensFund', ['ui.router'])
     updateChild: function (childObj) {
       return $http({
         method: 'POST',
-        url: '/submit',
+        url: '/update',
         data: childObj
       }).success(function (data, status) {        
         console.log('(Update) POST Success! ', data);
