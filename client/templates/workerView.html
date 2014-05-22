@@ -1,0 +1,24 @@
+<div ng-controller="inputController">
+ 
+  <br/>
+
+  <h2>Worker's Portal</h2>
+
+  <!-- input fields -->
+  <input ng-model="childName" type="text" placeholder="childName">
+  <input ng-model="item1" type="text" placeholder="item1">
+
+  <!-- click handler for POST -->
+  <input ng-click="post()" type="submit" value="Submit">
+
+  <!-- click handler for GET -->
+  <input ng-click="get()" type="button" value="Click here to refresh">
+
+  <!-- shows children -->
+  <ul ng-repeat="child in children">
+    <h3>{{child.name}} wants a </h3>
+    <li ng-repeat="itemIndex in child.items">
+      {{itemIndex.item}}
+    </li>
+  </ul>
+</div>

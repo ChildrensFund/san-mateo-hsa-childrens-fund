@@ -8,20 +8,38 @@ angular.module('childrensFund', ['ui.router'])
     .state('/', {
       url: '/',
       views: {
-        inputsView: { templateUrl: '/templates/inputsView.html', controller: 'inputController' }
+        navMenuView: { templateUrl: '/templates/navMenu.html'}
       }
     })
+  .state('donorsPortal', {
+    url: '/donors',
+    views: {
+      navMenuView: { templateUrl: '/templates/navMenu.html'},
+      middleView: { templateUrl: 'templates/donorView.html', controller: 'inputController' }
+    }
+  })
+  .state('workersPortal', {
+    url: '/workers',
+    views: {
+      navMenuView: { templateUrl: '/templates/navMenu.html'},
+      middleView: { templateUrl: 'templates/workerView.html', controller: 'inputController' }
+    }
+  })
 }])
 
 .controller('inputController', ['$scope', 'restful', function ($scope, restful) {
 
   $scope.post = function () {
-    restful.sendInputs($scope.childName, $scope.item1).then( function (promise) {
-      if (promise) {
-        //calls GET after POST is complete
-        return $scope.get();
-      }
-    });
+    if ($scope.childName && $scope.item1) {
+      restful.createChild($scope.childName, $scope.item1).then( function (promise) {
+        if (promise) {
+          //calls GET after POST is complete
+          return $scope.get();
+        }
+      });
+    } else {
+      console.log('Invalid Input Values')
+    }
   };
 
   $scope.get = function () {
@@ -32,25 +50,48 @@ angular.module('childrensFund', ['ui.router'])
     });
   };
 
+  $scope.pledge = function (childObj, index) {
+    childObj.items[index].pledged = true;
+    // restful.updateChild(childObj)  need to test!
+  }
+
 }])
 
 
 // basic GET/POST logic
 .factory('restful', ['$http', function ($http) {
   return {
-    sendInputs: function (childName, item1) {
+    createChild: function (childName, item1) {
       return $http({
         method: 'POST',
         url: '/submit',
         data: {
           name: childName, 
-          items: item1
+          items: [
+            {
+              item: item1,
+              pledged: false 
+            }
+          ]
         }
       }).success(function (data, status) {
-        console.log('POST Success! ', data);
+        console.log('(Create) POST Success! ', data);
         return data;
       }).error(function (data, status) {
-        console.log('POST Error! ', data, status);
+        console.log('(Create) POST Error! ', data, status);
+      });
+    },
+
+    updateChild: function (childObj) {
+      return $http({
+        method: 'POST',
+        url: '/submit',
+        data: childObj
+      }).success(function (data, status) {        
+        console.log('(Update) POST Success! ', data);
+        return data;
+      }).error(function (data, status) {
+        console.log('(Update) POST Error! ', data, status);
       });
     },
 

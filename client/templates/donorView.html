@@ -1,0 +1,20 @@
+<div ng-controller="inputController">
+
+  <br/>
+
+  <h2>Donor's Portal</h2>
+
+  <!-- click handler for GET -->
+  <input ng-click="get()" type="button" value="Click here to refresh">
+
+  <!-- shows children -->
+  <ul ng-repeat="child in children">
+    <h3>{{child.name}} wants a </h3>
+    <li ng-repeat="itemIndex in child.items">
+  <!-- created pledge button for each child (pledge() not made yet) -->
+      {{itemIndex.item}} <input ng-click="pledge(child, $index)" type="button" value="Pledge"/>
+    </li>
+  </ul>
+
+
+</div>
