@@ -1,0 +1,7 @@
+<div ng-controller="inputController">
+  <input ng-model="childName" type="text" placeholder="childName">
+  <input ng-model="item1" type="text" placeholder="item1">
+  <input ng-click="post()" type="submit" value="Submit">
+  <input ng-click="get()" type="button" value="GET">
+  <h2 ng-show="data" ng-repeat="item in data">{{item.name}} wants a {{item.items}}</h2>
+</div>

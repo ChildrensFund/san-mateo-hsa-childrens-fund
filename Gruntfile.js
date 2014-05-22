@@ -11,7 +11,7 @@ module.exports = function(grunt) {
 
     nodemon: {
       dev: {
-        script: 'server/server.js'
+        script: 'server.js'
       },
       options: {
        ignore: ['node_modules/**']
@@ -27,12 +27,17 @@ module.exports = function(grunt) {
 
     jshint: {
       files: [
+       'client/*.js',
+       'server/*.js',
+       '*.js'
       ],
       options: {
         force: 'true',
         jshintrc: '.jshintrc',
         ignores: [
-          // '',
+          'README.md',
+          'bower_components/*',
+          'npm_modules/*'
         ]
       }
     },
@@ -102,8 +107,8 @@ module.exports = function(grunt) {
   ////////////////////////////////////////////////////
 
   grunt.registerTask('build', [
-    'nodemon',
-    // 'jshint',
+    'jshint',
+    'nodemon'
     // 'concat',
     // 'uglify',
     // 'cssmin'
