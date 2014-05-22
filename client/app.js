@@ -1,1 +1,1 @@
-angular.module('')
+angular.module('childrens-fund', [])
