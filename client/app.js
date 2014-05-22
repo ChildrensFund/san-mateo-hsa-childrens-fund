@@ -19,10 +19,9 @@ angular.module('childrensFund', ['ui.router'])
   };
 
   $scope.get = function () {
-    console.log('here:', restful);
     restful.getInputs().then(function (promise) {
       if (promise) {
-        $scope.data = promise.data;
+        $scope.children = promise.data;
       }
     });
   };
@@ -35,7 +34,10 @@ angular.module('childrensFund', ['ui.router'])
       return $http({
         method: 'POST',
         url: '/submit',
-        data: {name: childName, items: item1}
+        data: {
+          name: childName, 
+          items: item1
+        }
       }).success(function (data, status) {
         console.log('POST Success! ', data);
         return data;

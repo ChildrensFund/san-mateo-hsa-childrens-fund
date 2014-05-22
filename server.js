@@ -19,7 +19,8 @@ app.post('/submit', function (req, res) {
   });
   req.on('end', function () {
     console.log('Received: ', partial);
-    data.push(JSON.parse(partial));
+    partial = JSON.parse(partial);
+    data.push(partial);
     res.send(200);
   });
 });
