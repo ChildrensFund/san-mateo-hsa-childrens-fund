@@ -31,6 +31,18 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
       secondView: { templateUrl: 'templates/childrenFeedView.html', controller: 'inputController' }
     }
   })
+
+  // view for workers to create a new child tag
+  .state('createTag', {
+    url: '/create',
+    views: {
+      navMenuView: { templateUrl: '/templates/navMenu.html'},
+      firstView: { templateUrl: 'templates/childInputView.html', controller: 'inputController' },
+    }
+  })
+
+
+  // view for workers to update an existing new child tag
 }])
 
 .controller('inputController', ['$scope', 'restful', function ($scope, restful) {
