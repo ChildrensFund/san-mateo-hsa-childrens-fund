@@ -11,7 +11,7 @@ module.exports = function(grunt) {
 
     nodemon: {
       dev: {
-        script: 'server.js'
+        script: 'server/server.js'
       },
       options: {
        ignore: ['node_modules/**']
@@ -28,8 +28,7 @@ module.exports = function(grunt) {
     jshint: {
       files: [
        'client/*.js',
-       'server/*.js',
-       '*.js'
+       'server/**/*.js'
       ],
       options: {
         force: true,
