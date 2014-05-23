@@ -82,7 +82,7 @@ angular.module('childrensFund', ['ui.router'])
     createChild: function (childName, item1) {
       return $http({
         method: 'POST',
-        url: '/submit',
+        url: '/children',
         data: { 
           id: Math.floor(Math.random() * 100000), 
           childData: {
@@ -106,7 +106,7 @@ angular.module('childrensFund', ['ui.router'])
     updateChild: function (childObj) {
       return $http({
         method: 'POST',
-        url: '/update',
+        url: '/children',
         data: childObj
       }).success(function (data, status) {        
         console.log('(Update) POST Success! ', data);
@@ -119,7 +119,7 @@ angular.module('childrensFund', ['ui.router'])
     getChildren: function () {
       return $http({
         method: 'GET',
-        url: '/submit'
+        url: '/children'
       }).success(function (data, status) {
         console.log('GET Success! ', data);
         return data;

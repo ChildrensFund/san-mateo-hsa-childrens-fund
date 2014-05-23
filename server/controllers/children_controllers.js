@@ -25,12 +25,12 @@ module.exports = {
         } );
       } );
       
-      res.send( 200, results );
+      response.send( 200, results );
     } );
   },
   
   post: function( request, response, next ) {
-    var childData = req.body.childData;
+    var childData = request.body.childData;
     output.log( 'Handling POST:' );
     output.log( childData );
     
@@ -63,7 +63,7 @@ module.exports = {
         
         newChild.save().then( function( savedChild ) {
           Children.add( savedChild );
-          res.send( 200, savedChild );
+          response.send( 200, savedChild );
         } );
       }
     } );
