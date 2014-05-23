@@ -22,17 +22,17 @@
     <div ng-repeat="itemIndex in child.childData.items">
       <!-- Items repeat to simulate multiple items -->
       <div class="box xs inline" style="margin-left: 20px">
-        {{itemIndex.item}}
+        $(price data){{itemIndex.itemPrice}} {{itemIndex.item}}
         <input ng-hide="itemIndex.pledged" ng-click="pledge(child, $index)" type="button" value="Pledge"/>
         <input ng-show="itemIndex.pledged" type="button" disabled="disabled" value="Pledged"/>
       </div>
       <div class="box xs inline" style="margin-left: 20px">
-        {{itemIndex.item}}
+        $(price data){{itemIndex.itemPrice}} {{itemIndex.item}}
         <input ng-hide="itemIndex.pledged" ng-click="pledge(child, $index)" type="button" value="Pledge"/>
         <input ng-show="itemIndex.pledged" type="button" disabled="disabled" value="Pledged"/>
       </div>
       <div class="box xs inline" style="margin-left: 20px">
-        {{itemIndex.item}}
+        $(price data){{itemIndex.itemPrice}} {{itemIndex.item}}
         <input ng-hide="itemIndex.pledged" ng-click="pledge(child, $index)" type="button" value="Pledge"/>
         <input ng-show="itemIndex.pledged" type="button" disabled="disabled" value="Pledged"/>
       </div>
