@@ -11,8 +11,8 @@ var _db = bookshelf._db = bookshelf.initialize( {
   connection: {
     host: 'localhost',
     port: '3306',
-    user: 'root',
-    password: 'zamiel',
+    user: 'hsa',
+    password: '',
     database: 'hsa_cf'
   }
 } );
