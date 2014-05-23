@@ -1,7 +1,7 @@
-angular.module('childrensFund', ['ui.router'])
+var app = angular.module('childrensFund', ['ui.router'])
 
 // ui-router configuration
-.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
+app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/');
 
   // view for nagivation bar
