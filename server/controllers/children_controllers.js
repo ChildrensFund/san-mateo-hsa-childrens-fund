@@ -6,6 +6,7 @@
 var Children  = require( '../collections/children.js' );
 var Child     = require( '../models/child.js' );
 var output    = require( '../util/output.js' );
+var bookshelf = require( 'bookshelf' );
 var _         = require( 'underscore' );
 
 module.exports = {
@@ -14,7 +15,7 @@ module.exports = {
       var results = [];
       _.each( children.models, function( child ) {
         results.push( {
-          id: child.get( '_id' ),
+          id: child.get( 'id' ),
           childData: {
             name: child.get( 'name' ),
             items: [ { item: child.get( 'requestItem' )
@@ -31,8 +32,8 @@ module.exports = {
   
   post: function( request, response, next ) {
     var childData = request.body.childData;
-    output.log( 'Handling POST:' );
-    output.log( childData );
+//    output.log( 'Handling POST:' );
+//    output.log( childData );
     
     var child = {
       name: childData.name,
@@ -42,18 +43,23 @@ module.exports = {
     
     new Child( { name: child.name } ).fetch().then( function( found ) {
       if ( found ) {
-        found.set( 'requestItemStatus', (!(found.get( 'requestItemStatus' ))) );
-        var result = {
-          id: found.get( '_id' ),
-          childData: {
-            name: found.get( 'name' ),
-            items: [ { item: found.get( 'requestItem' )
-                     , pledged: found.get( 'requestItemStatus' )
-                     }
-                   ]
-          }
-        };
-        response.send( 200, result );
+        found.save( 'requestItemStatus', (!(found.get( 'requestItemStatus' ))), { method: 'update' } )
+          .then( function( savedChild ) {
+            var result = {
+              id: found.get( 'id' ),
+              childData: {
+                name: found.get( 'name' ),
+                items: [ { item: found.get( 'requestItem' )
+                         , pledged: found.get( 'requestItemStatus' )
+                         }
+                       ]
+              }
+            };
+            response.send( 200, result );
+          } )
+          .otherwise( function( error ) {
+            output.log( error );
+          } );
       } else {
         var newChild = new Child( {
           name: child.name,

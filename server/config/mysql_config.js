@@ -21,7 +21,11 @@ var _db = bookshelf._db = bookshelf.initialize( {
 _db.knex.schema.hasTable( 'children' ).then( function( exists ) {
   if ( !exists ) {
     _db.knex.schema.createTable( 'children', function( table ) {
-      table.increments('_id').primary();
+      table.increments( 'id' ).primary().unique(); /*
+      *   So, in order to update entries in the database using Model.save(), the schema
+      *   MUST include an increments column specifically labelled 'id' that must be both
+      *   the primary column and unique.
+      */
       table.string( 'name', 128 );
       table.string( 'requestItem', 128 );
       table.boolean( 'requestItemStatus' );
