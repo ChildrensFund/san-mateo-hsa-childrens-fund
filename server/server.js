@@ -1,3 +1,4 @@
+/*jslint node: true */
 'use strict';
 
 /*  This application will require the following npm modules to be installed:

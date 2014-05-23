@@ -1,3 +1,4 @@
+/*jslint node: true */
 'use strict';
 
 /*  This file contains the configuration for the ChildRouter (see

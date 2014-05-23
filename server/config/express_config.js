@@ -1,3 +1,4 @@
+/*jslint node: true */
 'use strict';
 
 /*  This file connects the server to the database, configures the ORM application

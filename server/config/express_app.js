@@ -1,3 +1,4 @@
+/*jslint node: true */
 'use strict';
 
 /*  This creates the application objects for this Node/Express server application  */

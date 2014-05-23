@@ -1,3 +1,4 @@
+/*jslint node: true */
 'use strict';
 
 /*  This file contains the logic for handling requests submitted with the /children

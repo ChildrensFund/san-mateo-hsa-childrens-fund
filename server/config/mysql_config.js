@@ -1,3 +1,4 @@
+/*jslint node: true */
 'use strict';
 
 /*  This file creates a connection to a database, then creates the proper schemas,
