@@ -1,0 +1,37 @@
+<p class="center">(childrenFeedView.html starts here)</p>
+  <h2 class="center">Children</h2>
+    <!-- shows children -->
+  <div class="center box lg" ng-repeat="child in children">
+    <img src="http://cdn.mhpbooks.com/uploads/2013/10/Success-Kid.jpg" alt="some kid">
+    <!-- child's name -->
+    <div>
+      {{child.childData.name}}
+    </div>
+    <!-- child's location -->
+    <div>
+      {{child.childData.name}}'s Location
+    </div>
+    <!-- blurb about child -->
+    <div>
+      Blurb about {{child.childData.name}}: blah blah blah blah blah
+    </div>
+    <div ng-repeat="itemIndex in child.childData.items">
+      <!-- Items repeat to simulate multiple items -->
+      <div class="box xs inline" style="margin-left: 20px">
+        $(price data){{itemIndex.itemPrice}} {{itemIndex.item}}
+        <input ng-hide="itemIndex.pledged" ng-click="pledge(child, $index)" type="button" value="Pledge"/>
+        <input ng-show="itemIndex.pledged" type="button" disabled="disabled" value="Pledged"/>
+      </div>
+      <div class="box xs inline" style="margin-left: 20px">
+        $(price data){{itemIndex.itemPrice}} {{itemIndex.item}}
+        <input ng-hide="itemIndex.pledged" ng-click="pledge(child, $index)" type="button" value="Pledge"/>
+        <input ng-show="itemIndex.pledged" type="button" disabled="disabled" value="Pledged"/>
+      </div>
+      <div class="box xs inline" style="margin-left: 20px">
+        $(price data){{itemIndex.itemPrice}} {{itemIndex.item}}
+        <input ng-hide="itemIndex.pledged" ng-click="pledge(child, $index)" type="button" value="Pledge"/>
+        <input ng-show="itemIndex.pledged" type="button" disabled="disabled" value="Pledged"/>
+      </div>
+    </div>
+    <br/>
+  </div>
