@@ -7,7 +7,6 @@
  *    bookshelf
  *    body-parser
  *    underscore
- *    q
  */
 var expressApp  = require( './config/express_app.js' );
 var output      = require( './util/output.js' );
