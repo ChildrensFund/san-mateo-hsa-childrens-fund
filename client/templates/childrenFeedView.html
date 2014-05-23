@@ -20,17 +20,19 @@
       <div class="box xs inline" style="margin-left: 20px">
         $(price data){{itemIndex.itemPrice}} {{itemIndex.item}}
         <input ng-hide="itemIndex.pledged" ng-click="pledge(child, $index)" type="button" value="Pledge"/>
-        <input ng-show="itemIndex.pledged" type="button" disabled="disabled" value="Pledged"/>
+        <p class="notPledgedText" ng-hide="itemIndex.pledged">Not pledged by a donor</p>
+        <p class="pledgedText" ng-show="itemIndex.pledged">Pledged by a donor</p>
+      </div>
+      <div class="box xs inline" style="margin-left: 20px">
+        $(price data){{itemIndex.itemPrice}} {{itemIndex.item}}
+        <p class="notPledgedText" ng-hide="itemIndex.pledged">Not pledged by a donor</p>
+        <p class="pledgedText" ng-show="itemIndex.pledged">Pledged by a donor</p>
       </div>
       <div class="box xs inline" style="margin-left: 20px">
         $(price data){{itemIndex.itemPrice}} {{itemIndex.item}}
         <input ng-hide="itemIndex.pledged" ng-click="pledge(child, $index)" type="button" value="Pledge"/>
-        <input ng-show="itemIndex.pledged" type="button" disabled="disabled" value="Pledged"/>
-      </div>
-      <div class="box xs inline" style="margin-left: 20px">
-        $(price data){{itemIndex.itemPrice}} {{itemIndex.item}}
-        <input ng-hide="itemIndex.pledged" ng-click="pledge(child, $index)" type="button" value="Pledge"/>
-        <input ng-show="itemIndex.pledged" type="button" disabled="disabled" value="Pledged"/>
+        <p class="notPledgedText" ng-hide="itemIndex.pledged">Not pledged by a donor</p>
+        <p class="pledgedText" ng-show="itemIndex.pledged">Pledged by a donor</p>
       </div>
     </div>
     <br/>
