@@ -1,0 +1,25 @@
+<div>
+
+  <br/>
+
+  <h2>Donor's Portal</h2>
+
+  <!-- click handler for GET -->
+  <input ng-click="get()" type="button" value="Click here to refresh">
+
+  <!-- shows children -->
+  <ul ng-repeat="child in children">
+    {{child.childData.name}}'s wishlist:
+    <div ng-repeat="itemIndex in child.childData.items">
+      <!-- shows each item in child's item array -->
+      <li style="margin-left: 20px">{{itemIndex.item}}
+        <!-- using ng-show/ng-hide, buttons show as Pledge or Pledged based on the item's status  -->
+        <input ng-hide="itemIndex.pledged" ng-click="pledge(child, $index)" type="button" value="Pledge"/>
+        <input ng-show="itemIndex.pledged" type="button" disabled="disabled" value="Pledged"/>
+      </li>
+    </div>
+  </ul>
+
+</div>
+
+
