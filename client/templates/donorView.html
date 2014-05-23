@@ -2,23 +2,43 @@
 
   <br/>
 
-  <h2>Donor's Portal</h2>
-
-  <!-- click handler for GET -->
-  <input ng-click="get()" type="button" value="Click here to refresh">
+  <h2 class="center">Donor's Portal</h2>
 
   <!-- shows children -->
-  <ul ng-repeat="child in children">
-    {{child.childData.name}}'s wishlist:
+  <div class="center box lg" ng-repeat="child in children">
+    <img src="http://cdn.mhpbooks.com/uploads/2013/10/Success-Kid.jpg" alt="some kid">
+    <!-- child's name -->
+    <div>
+      {{child.childData.name}}
+    </div>
+    <!-- child's location -->
+    <div>
+      {{child.childData.name}}'s Location
+    </div>
+    <!-- blurb about child -->
+    <div>
+      Blurb about {{child.childData.name}}: blah blah blah blah blah
+    </div>
     <div ng-repeat="itemIndex in child.childData.items">
-      <!-- shows each item in child's item array -->
-      <li style="margin-left: 20px">{{itemIndex.item}}
-        <!-- using ng-show/ng-hide, buttons show as Pledge or Pledged based on the item's status  -->
+      <!-- Items repeat to simulate multiple items -->
+      <div class="box xs inline" style="margin-left: 20px">
+        {{itemIndex.item}}
         <input ng-hide="itemIndex.pledged" ng-click="pledge(child, $index)" type="button" value="Pledge"/>
         <input ng-show="itemIndex.pledged" type="button" disabled="disabled" value="Pledged"/>
-      </li>
+      </div>
+      <div class="box xs inline" style="margin-left: 20px">
+        {{itemIndex.item}}
+        <input ng-hide="itemIndex.pledged" ng-click="pledge(child, $index)" type="button" value="Pledge"/>
+        <input ng-show="itemIndex.pledged" type="button" disabled="disabled" value="Pledged"/>
+      </div>
+      <div class="box xs inline" style="margin-left: 20px">
+        {{itemIndex.item}}
+        <input ng-hide="itemIndex.pledged" ng-click="pledge(child, $index)" type="button" value="Pledge"/>
+        <input ng-show="itemIndex.pledged" type="button" disabled="disabled" value="Pledged"/>
+      </div>
     </div>
-  </ul>
+    <br/>
+  </div>
 
 </div>
 

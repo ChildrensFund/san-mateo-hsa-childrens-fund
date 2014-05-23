@@ -1,0 +1,21 @@
+.center {
+  text-align: center;
+}
+
+.lg {
+  width: 700px;
+}
+
+.xs {
+  width: 150px;
+}
+
+.box {
+  border: 1px solid black;
+  border-radius: 1px;
+  margin: 0 auto;
+}
+
+.inline {
+  display: inline-block;
+}

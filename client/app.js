@@ -74,6 +74,8 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
     });
   }
 
+  $scope.get();
+
 }])
 
 // GET/POST logic
