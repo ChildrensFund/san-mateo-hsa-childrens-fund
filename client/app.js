@@ -17,8 +17,16 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
   .state('donorsPortal', {
     url: '/donors',
     views: {
-      navMenuView: { templateUrl: '/templates/navMenu.html'},
+      navMenuView: { templateUrl: 'templates/navMenu.html'},
       middleView: { templateUrl: 'templates/donorView.html', controller: 'inputController' }
+    }
+  })
+
+  .state('donorSignUp', {
+    url: '/donors/signup',
+    views: {
+      navMenuView: { templateUrl: '/templates/navMenu.html' },
+      middleView: { templateUrl: 'templates/authTemplates/donorSignUpView.html', controller: 'signupController' }
     }
   })
 
@@ -76,6 +84,24 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
 
   $scope.get();
 
+}])
+
+//Authentication logic
+.controller('signupController', ['$scope', '$http', function($scope, $http){
+  $scope.signupUser = function(){
+    $http({
+      method: 'POST',
+      url: '/donors/signup',
+      data: {
+        email: $scope.email,
+        password: $scope.password
+      }
+    }).success(function(data, status){
+      console.log('User Created!');
+    }).error(function(data, status){
+      console.log('User Not Created: Server Error');
+    })
+  }
 }])
 
 // GET/POST logic

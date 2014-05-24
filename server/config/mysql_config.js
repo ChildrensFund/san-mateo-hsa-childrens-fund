@@ -15,9 +15,43 @@ var Child = sequelize.define('children', {
   requestItemStatus: Sequelize.BOOLEAN
 });
 
-Child.sync();
+//These three tables are for user signin. Feel free to modify as needed, but the email, 
+// passwordHash, resetToken, and resetTokenSetTime are necessary for auth.
+var Donor = sequelize.define('donors', {
+  email: { type: Sequelize.STRING, unique: true },
+  passwordHash: Sequelize.STRING,
+  sessionToken: Sequelize.STRING,
+  resetToken: Sequelize.STRING,
+  resetTokenSetTime: Sequelize.DATE
+});
 
-module.exports = Child;
+var Staff = sequelize.define('staff', {
+  email: { type: Sequelize.STRING, unique: true },
+  passwordHash: Sequelize.STRING,
+  sessionToken: Sequelize.STRING,
+  resetToken: Sequelize.STRING,
+  resetTokenSetTime: Sequelize.DATE
+});
+
+var Admin = sequelize.define('admins', {
+  email: { type: Sequelize.STRING, unique: true },
+  passwordHash: Sequelize.STRING,
+  sessionToken: Sequelize.STRING,
+  resetToken: Sequelize.STRING,
+  resetTokenSetTime: Sequelize.DATE
+});
+
+Child.sync();
+Donor.sync();
+Staff.sync();
+Admin.sync();
+
+module.exports = {
+  Child: Child,
+  Donor: Donor,
+  Staff: Staff,
+  Admin: Admin
+};
 
 
 
