@@ -104,7 +104,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
 // GET/POST logic
 .factory('restful', ['$http', function ($http) {
   return {
-    createChild: function (childObj, reqObj, workerObj) {
+    createChild: function (childObj) {
       return $http({
         method: 'POST',
         url: '/children',
@@ -143,3 +143,49 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
     }
   }
 }])
+
+
+
+// temporary object
+// {
+//   child: {
+//     firstName: 'Amar',
+//     lastName: 'Patel',
+//     phone: '19166008929',
+//     gender: 'male',
+//     dob: 'my birthday',
+//     age: 24,
+//     location: 'San Francisco',
+//     cfNumber: '00001A',
+//     programArea: 'somewhere',
+//     bio: 'Amar hails from a heritage of awesome and bad-assery.'
+//   },
+
+//   request: {
+//     date: 'dateString',
+//     items: [
+//       { item: 'bike', status: null, price: null, date: 'itemReceivedDate', paymentDate: 'somedate' },
+//       { item: 'helmet', status: null, price: null, date: 'itemReceivedDate', paymentDate: 'somedate' },
+//       { item: 'babes', status: null, price: null, date: 'itemReceivedDate', paymentDate: 'somedate' }
+//     ]
+//   },
+
+//   worker: {
+//     workerFirstName: 'Wayland',
+//     workerLastName 'Gangsta-fresh',
+//     workerPhone: '12903812124',
+//     workerEmail: 'someemail',
+//     workerDepartment: 'someDept',
+//     supervisorFirstName: 'Marcus',
+//     supervisorLastName: 'Phillips',
+//     coordinatorFirstName: 'Tony',
+//     coordinatorLastName 'Phillips'
+//   },
+
+//   donor: {
+//     email: 'someemail',
+//     address: 'someString',
+//     firstName: 'asdf',
+//     lastName: 'jkl;'
+//   }
+// }
