@@ -12,4 +12,6 @@ module.exports = function( router ) {
     .post( controller.signup );
   router.route('/signin')
     .post( controller.signin );
+  router.route('/signout')
+    .post( controller.signout );
 };

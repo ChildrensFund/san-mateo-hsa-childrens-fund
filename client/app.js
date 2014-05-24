@@ -26,7 +26,23 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
     url: '/donors/signup',
     views: {
       navMenuView: { templateUrl: '/templates/navMenu.html' },
-      middleView: { templateUrl: 'templates/authTemplates/donorSignUpView.html', controller: 'signupController' }
+      middleView: { templateUrl: 'templates/authTemplates/donorSignUpView.html', controller: 'authController' }
+    }
+  })
+
+  .state('donorSignIn', {
+    url: '/donors/signin',
+    views: {
+      navMenuView: { templateUrl: '/templates/navMenu.html' },
+      middleView: { templateUrl: 'templates/authTemplates/donorLoginView.html', controller: 'authController' }
+    }
+  })
+
+  .state('donorSignOut', {
+    url: '/donors/signout',
+    views: {
+      navMenuView: { templateUrl: '/templates/navMenu.html' },
+      middleView: { templateUrl: 'templates/authTemplates/donorSignoutView.html', controller: 'authController' }
     }
   })
 
@@ -87,7 +103,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
 }])
 
 //Authentication logic
-.controller('signupController', ['$scope', '$http', function($scope, $http){
+.controller('authController', ['$scope', '$http', function($scope, $http){
   $scope.signupUser = function(){
     $http({
       method: 'POST',
@@ -101,6 +117,34 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
     }).error(function(data, status){
       console.log('User Not Created: Server Error');
     })
+  }
+
+  $scope.loginUser = function(){
+    if($scope.password === $scope.passwordConfirmation){
+      $http({
+        method: 'POST',
+        url: '/donors/signin',
+        data: {
+          email: $scope.email,
+          password: $scope.password
+        }
+      }).success(function(data, status){
+        console.log('User signed in');
+      }).error(function(data, status){
+        console.log('User not signed in: Server Error');
+      });
+    }
+  }
+
+  $scope.signoutUser = function(){
+    $http({
+      method: 'POST',
+      url: '/donors/signout',
+    }).success(function(data, status){
+      console.log('User signed out');
+    }).error(function(data, status){
+      console.log('User not signed out: Server Error');
+    });
   }
 }])
 

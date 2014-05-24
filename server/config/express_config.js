@@ -7,6 +7,7 @@
 //    This file is required by (root folder)/server/config/express_app.js
 var ouput       = require( '../util/output.js' );
 var bodyParser  = require( 'body-parser' );
+var cookieParser = require( 'cookie-parser' );
 var _           = require( 'underscore' );
 
 module.exports = function( app, express, routers ) {
@@ -14,6 +15,7 @@ module.exports = function( app, express, routers ) {
   app.set( 'base url', process.env.URL || 'http://localhost' );
   app.use( express.static( __dirname + '/../../client/' ));
   app.use( bodyParser() );
+  app.use( cookieParser() );
 
   //  Connect request paths to their respective routers
   _.each( routers, function( Router ) {
