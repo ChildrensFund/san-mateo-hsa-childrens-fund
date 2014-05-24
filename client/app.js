@@ -47,20 +47,30 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
 
 .controller('inputController', ['$scope', 'restful', function ($scope, restful) {
 
-  $scope.post = function () {
-    if ($scope.childName && $scope.item1) {
-      restful.createChild($scope.childName, $scope.item1).then( function (promise) {
-        if (promise) {
-          // Clears input fields after GET succeeds
-          $scope.childName = '';
-          $scope.item1 = '';
-          // calls GET after POST is complete
-          return $scope.get();
-        }
-      });
-    } else {
-      console.log('Invalid Input Values')
-    }
+  $scope.tempChildObj = {
+    items: [ {item: undefined, price: undefined}, {item: undefined, price: undefined}, {item: undefined, price: undefined} ]
+  };
+
+  // $scope.post = function () {
+  //   if ($scope.childName && $scope.item1) {
+  //     restful.createChild($scope.childName, $scope.item1).then( function (promise) {
+  //       if (promise) {
+  //         // Clears input fields after GET succeeds
+  //         $scope.childName = '';
+  //         $scope.item1 = '';
+  //         // calls GET after POST is complete
+  //         return $scope.get();
+  //       }
+  //     });
+  //   } else {
+  //     console.log('Invalid Input Values')
+  //   }
+  // };
+
+  $scope.post = function (childObj, reqObj, workerObj) {
+    // restful.createChild(childObj, reqObj, workerObj);
+    restful.createChild($scope.tempChildObj);
+    // console.log($scope.tempChildObj);
   };
 
   $scope.get = function () {
@@ -94,25 +104,14 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
 // GET/POST logic
 .factory('restful', ['$http', function ($http) {
   return {
-    createChild: function (childName, item1) {
+    createChild: function (childObj, reqObj, workerObj) {
       return $http({
         method: 'POST',
         url: '/children',
-        data: { 
-          id: Math.floor(Math.random() * 100000), 
-          childData: {
-            name: childName, 
-            items: [
-              {
-                item: item1,
-                pledged: false 
-              }
-            ]
-          }
-        },
+        data: childObj
       }).success(function (data, status) {
         console.log('(Create) POST Success! ', data);
-        return data;
+        // return data;
       }).error(function (data, status) {
         console.log('(Create) POST Error! ', data, status);
       });

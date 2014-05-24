@@ -1,24 +1,26 @@
 <div>
-  <input type="text" name="progArea" placeholder="Program Area"><br/>
-  <input type="text" name="workerFirstName" placeholder="Worker's First Name"><br/>
-  <input type="text" name="workerLastName" placeholder="Worker's Last Name"><br/>
-  <input type="text" name="workerPhone" placeholder="Worker's Phone"><br/>
-  <input type="text" name="coordFirstName" placeholder="Coordinator's First Name"><br/>
-  <input type="text" name="coordLastName" placeholder="Coordinator's Last Name"><br/>
-  <input type="text" name="superFirstName" placeholder="Supervisor's First Name"><br/>
-  <input type="text" name="superLastName" placeholder="Supervisor's Last Name"><br/>
-  <input type="text" name="caseNum" placeholder="Case Number"><br/>
-  <input ng-model="childName" type="text" name="childFirstName" placeholder="Child's First Name"><br/>
-  <input type="text" name="childLastName" placeholder="Child's Last Name"><br/>
-  <input type="text" name="childPhone" placeholder="Child's Phone"><br/>
-  <input type="text" name="childGender" placeholder="Child's Gender"><br/>
-  <input type="text" name="childDOB" placeholder="Child's DOB"><br/>
-  <input type="text" name="childAge" placeholder="Child's Age"><br/>
-  <input type="text" name="childLoc" placeholder="Child's Location"><br/>
-  <input ng-model="item1" type="text" name="item1" placeholder="First Item"><br/>
-  <input type="text" name="item2" placeholder="Second Item"><br/>
-  <input type="text" name="item3" placeholder="Third Item"><br/>
-  <input type="text" name="blurb" placeholder="Blurb"><br/>
+  <input ng-model="tempChildObj.child.programArea" type="text" name="programArea" placeholder="Program Area"><br/>
+  <input ng-model="tempChildObj.worker.workerFirstName" type="text" name="workerFirstName" placeholder="Worker's First Name"><br/>
+  <input ng-model="tempChildObj.worker.workerLastName" type="text" name="workerLastName" placeholder="Worker's Last Name"><br/>
+  <input ng-model="tempChildObj.worker.workerPhone" type="text" name="workerPhone" placeholder="Worker's Phone"><br/>
+  <input ng-model="tempChildObj.worker.coordinatorFirstName" type="text" name="coordinatorFirstName" placeholder="Coordinator's First Name"><br/>
+  <input ng-model="tempChildObj.worker.coordinatorLastName" type="text" name="coordinatorLastName" placeholder="Coordinator's Last Name"><br/>
+  <input ng-model="tempChildObj.worker.supervisorFirstName" type="text" name="supervisorFirstName" placeholder="Supervisor's First Name"><br/>
+  <input ng-model="tempChildObj.worker.supervisorLastName" type="text" name="supervisorLastName" placeholder="Supervisor's Last Name"><br/>
+  <input ng-model="tempChildObj.child.firstName" type="text" name="firstName" placeholder="Child's First Name"><br/>
+  <input ng-model="tempChildObj.child.lastName" type="text" name="lastName" placeholder="Child's Last Name"><br/>
+  <input ng-model="tempChildObj.child.phone" type="text" name="childPhone" placeholder="Child's Phone"><br/>
+  <input ng-model="tempChildObj.child.gender" type="text" name="gender" placeholder="Child's Gender"><br/>
+  <input ng-model="tempChildObj.child.dob" type="text" name="dob" placeholder="Child's DOB"><br/>
+  <input ng-model="tempChildObj.child.age" type="text" name="age" placeholder="Child's Age"><br/>
+  <input ng-model="tempChildObj.location" type="text" name="location" placeholder="Child's Location"><br/>
+  <input ng-model="tempChildObj.items[0].item" type="text" name="item1" placeholder="First Item"><br/>
+  <input ng-model="tempChildObj.items[0].price" type="text" name="item1Price" placeholder="First Item Price"><br/>
+  <input ng-model="tempChildObj.items[1].item" type="text" name="item2" placeholder="Second Item"><br/>
+  <input ng-model="tempChildObj.items[1].price" type="text" name="item2Price" placeholder="Second Item Price"><br/>
+  <input ng-model="tempChildObj.items[2].item" type="text" name="item3" placeholder="Third Item"><br/>
+  <input ng-model="tempChildObj.items[2].price" type="text" name="item3Price" placeholder="Third Item Price"><br/>
+  <input ng-model="tempChildObj.child.bio" type="text" name="bio" placeholder="Bio"><br/>
 
   <input ng-click="post()" type="button" name="submit" value="Submit">
   <br/>
