@@ -7,6 +7,12 @@
 
 var Donor = require('../config/mysql_config.js').Donor;
 var bcrypt = require('bcrypt');
+var signedIn = require('../lib/auth/auth.js').signedIn;
+
+module.exports.signedIn = function(request, response){
+  signedIn(request);
+  response.send(201);
+}
 
 module.exports.signup = function(request, response){
   console.log('################## SIGNUP FUNCTION CALLED ##################');
@@ -51,6 +57,7 @@ module.exports.signin = function(request, response){
               console.log('Session Token Saved to DB, save', hash, 'to user cookies');
               console.log('User is now signed in')
               response.cookie('sessionToken', hash);
+              response.cookie('type', 'donor');
               response.send(201);
             });
           });
@@ -72,11 +79,13 @@ module.exports.signout = function(request, response){
     Donor.find({where: {sessionToken: sessionToken}}).success(function(donor){
       if (!donor) {
         console.log('Donor not found in database, clearing session token');
+        response.cookie('type', null);
         response.cookie('sessionToken', null);
         response.send(200);
       } else {
         console.log('Donor found in database, clearing session token and database token')
         response.cookie('sessionToken', null);
+        response.cookie('type', null);
         donor.sessionToken = null;
         donor.save(['sessionToken']).success(function(donor){
           console.log('Donor session token cleared out of database + session');

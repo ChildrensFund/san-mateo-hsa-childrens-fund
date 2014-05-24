@@ -146,6 +146,13 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
       console.log('User not signed out: Server Error');
     });
   }
+
+  $scope.signedIn = function(){
+    $http({
+      method: 'POST',
+      url: '/donors/signedIn'
+    });
+  }
 }])
 
 // GET/POST logic
