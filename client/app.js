@@ -22,46 +22,6 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
     }
   })
 
-  .state('donorSignUp', {
-    url: '/donors/signup',
-    views: {
-      navMenuView: { templateUrl: '/templates/navMenu.html' },
-      middleView: { templateUrl: 'templates/authTemplates/donorSignUpView.html', controller: 'authController' }
-    }
-  })
-
-  .state('donorSignIn', {
-    url: '/donors/signin',
-    views: {
-      navMenuView: { templateUrl: '/templates/navMenu.html' },
-      middleView: { templateUrl: 'templates/authTemplates/donorLoginView.html', controller: 'authController' }
-    }
-  })
-
-  .state('donorSignOut', {
-    url: '/donors/signout',
-    views: {
-      navMenuView: { templateUrl: '/templates/navMenu.html' },
-      middleView: { templateUrl: 'templates/authTemplates/donorSignoutView.html', controller: 'authController' }
-    }
-  })
-
-  .state('donorForgotPassword', {
-    url: '/donors/sendreset',
-    views: {
-      navMenuView: { templateUrl: '/templates/navMenu.html' },
-      middleView: { templateUrl: 'templates/authTemplates/donorSendResetView.html', controller: 'authController' }
-    }
-  })
-
-  .state('donorResetPassword', {
-    url: '/donors/reset/:resetToken',
-    views: {
-      navMenuView: { templateUrl: '/templates/navMenu.html' },
-      middleView: { templateUrl: 'templates/authTemplates/donorResetView.html', controller: 'authController' }
-    }
-  })
-
   // view for workers (nav bar, input field and list of children)
   .state('workersPortal', {
     url: '/workers',
@@ -70,6 +30,48 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
       middleView: { templateUrl: 'templates/workerView.html', controller: 'inputController' }
     }
   })
+
+  //Authentication Handlers
+  .state('signup', {
+    url: '/{userType:donors|workers|admin}/signup',
+    views: {
+      navMenuView: { templateUrl: '/templates/navMenu.html' },
+      middleView: { templateUrl: 'templates/authentication/signupView.html', controller: 'authController' }
+    }
+  })
+
+  .state('signin', {
+    url: '/{userType:donors|workers|admin}/signin',
+    views: {
+      navMenuView: { templateUrl: '/templates/navMenu.html' },
+      middleView: { templateUrl: 'templates/authentication/signinView.html', controller: 'authController' }
+    }
+  })
+
+  .state('signout', {
+    url: '/{userType:donors|workers|admin}/signout',
+    views: {
+      navMenuView: { templateUrl: '/templates/navMenu.html' },
+      middleView: { templateUrl: 'templates/authentication/signoutView.html', controller: 'authController' }
+    }
+  })
+
+  .state('sendReset', {
+    url: '/{userType:donors|workers|admin}/send_reset',
+    views: {
+      navMenuView: { templateUrl: '/templates/navMenu.html' },
+      middleView: { templateUrl: 'templates/authentication/sendResetView.html', controller: 'authController' }
+    }
+  })
+
+  .state('resetPassword', {
+    url: '/{userType:donors|workers|admin}/reset_password/:resetToken',
+    views: {
+      navMenuView: { templateUrl: '/templates/navMenu.html' },
+      middleView: { templateUrl: 'templates/authentication/resetView.html', controller: 'authController' }
+    }
+  })
+  //End Authentication Handlers
 }])
 
 .controller('inputController', ['$scope', 'restful', function ($scope, restful) {
@@ -120,12 +122,13 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
 
 //Authentication logic
 .controller('authController', ['$scope', '$http', '$stateParams', function($scope, $http, $stateParams){
-  $scope.signupUser = function(){
+  $scope.signup = function(){
     if($scope.password === $scope.passwordConfirmation){
       $http({
         method: 'POST',
-        url: '/donors/signup',
+        url: '/auth/signup',
         data: {
+          userType: $stateParams.userType,
           email: $scope.email,
           password: $scope.password
         }
@@ -137,12 +140,13 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
     }
   };
 
-  $scope.loginUser = function(){
+  $scope.signin = function(){
     if($scope.password === $scope.passwordConfirmation){
       $http({
         method: 'POST',
-        url: '/donors/signin',
+        url: '/auth/signin',
         data: {
+          userType: $stateParams.userType,
           email: $scope.email,
           password: $scope.password
         }
@@ -154,10 +158,13 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
     }
   }
 
-  $scope.signoutUser = function(){
+  $scope.signout = function(){
     $http({
       method: 'POST',
-      url: '/donors/signout',
+      url: '/auth/signout',
+      data: {
+        userType: $stateParams.userType
+      }
     }).success(function(data, status){
       console.log('User signed out');
     }).error(function(data, status){
@@ -168,7 +175,23 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
   $scope.signedIn = function(){
     $http({
       method: 'POST',
-      url: '/donors/signedIn'
+      url: '/auth/signedIn',
+      data: {
+        userType: $stateParams.userType,
+      }
+    }).success(function(data, status){
+    }).error(function(data, status){
+    });
+  }
+
+  $scope.sendReset = function(){
+    $http({
+      method: 'POST',
+      url: '/auth/sendReset',
+      data: {
+        userType: $stateParams.userType,
+        email: $scope.email
+      }
     }).success(function(data, status){
       console.log('Reset token sent');
     }).error(function(data, status){
@@ -176,21 +199,12 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
     });
   }
 
-  $scope.sendReset = function(){
-    $http({
-      method: 'POST',
-      url: '/donors/sendReset',
-      data: {
-        email: $scope.email
-      }
-    });
-  }
-
   $scope.resetPassword = function(){
     $http({
       method: 'POST',
-      url: 'donors/resetPassword',
+      url: 'auth/resetPassword',
       data: {
+        userType: $stateParams.userType,
         password: $scope.password,
         resetToken: $stateParams.resetToken
       }

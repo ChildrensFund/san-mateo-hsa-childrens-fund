@@ -25,7 +25,7 @@ var Donor = sequelize.define('donors', {
   resetTokenSetTime: Sequelize.DATE
 });
 
-var Staff = sequelize.define('staff', {
+var Staff = sequelize.define('staffs', {
   email: { type: Sequelize.STRING, unique: true },
   passwordHash: Sequelize.STRING,
   sessionToken: Sequelize.STRING,

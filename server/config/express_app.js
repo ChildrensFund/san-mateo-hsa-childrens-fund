@@ -9,14 +9,12 @@ var _       = require( 'underscore' );
 //  Create ORM application and routers
 var app         = express();
 var ChildRouter = express.Router();
-var DonorRouter = express.Router();
+var AuthRouter  = express.Router();
 
 //  Collect routers for ease of reference
 var routers   = {};
 routers.Child = { name: ChildRouter, path: '/children', handler: '../routes/children_routes.js' };
-
-//  Authentication Routes
-routers.Donor = { name: DonorRouter, path: '/donors', handler: '../routes/donor_routes.js' };
+routers.Auth  = { name: AuthRouter,  path: '/auth',     handler: '../routes/auth_routes.js' };
 
 //  Configure the app
 require( './express_config.js' )( app, express, routers );
