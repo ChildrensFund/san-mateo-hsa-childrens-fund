@@ -23,7 +23,7 @@ var setUserType = function(request, response, userType){
       return Admin;
       break;
     default:
-      response.send(404);
+      response.send(404, 'Worker type other than donors/workers/admin was POSTed');
       break;
   }
 }
@@ -37,25 +37,31 @@ module.exports.signedIn = function(request, response){
     console.log('Signed out (no session token or no userType)');
     console.log('Session Token:', sessionToken);
     console.log('User Type:', userType);
-    return;
+    if(response) response.send(200, { signedIn: false });
+    return false;
   } else {
 
     if(userType !== request.body.userType){
       console.log('Complete: Unauthorized');
-      return;
+      if(response) response.send(200, { signedIn: false });
+      return false;
     }
 
     var User = setUserType(request, response, userType);
     User.find({where: {sessionToken: sessionToken}}).success(function(user){
       if(!user){
         console.log('Complete: User not signed in');
-        response.send(404);
+        if(response) response.send(200, { signedIn: false });
+        return false;
       } else {
         console.log('Complete: User is signed in');
-        response.send(200);
+        if(response) response.send(200, { signedIn: true });
+        return true;
       }
     }).error(function(err){
       console.log('Complete: Server error in db lookup');
+      if(response) response.send(500, 'Sequelize failure on DB lookup');
+      return undefined;
     });
   }
 };
@@ -93,6 +99,7 @@ module.exports.signin = function(request, response){
   User.find({where: {email: email}}).success(function(user){
     if(!user){
       console.log('user not found');
+      response.send(404, 'User not found');
     } else {
       bcrypt.compare(password, user.getDataValue('passwordHash'), function(err, isValid){
         if(isValid){
@@ -106,11 +113,12 @@ module.exports.signin = function(request, response){
               console.log('User is now signed in')
               response.cookie('sessionToken', hash);
               response.cookie('type', request.body.userType);
-              response.send(201);
+              response.send(204, 'User signed in');
             });
           });
         } else {
           console.log('Invalid login information');
+          response.send(401, 'Invalid login information');
         }
       });
     }
@@ -130,7 +138,7 @@ module.exports.signout = function(request, response){
         console.log('User not found in database, clearing session token');
         response.cookie('type', null);
         response.cookie('sessionToken', null);
-        response.send(200);
+        response.send(204, 'User signed out');
       } else {
         console.log('User found in database, clearing session token and database token')
         response.cookie('sessionToken', null);
@@ -139,7 +147,7 @@ module.exports.signout = function(request, response){
         user.save(['sessionToken']).success(function(user){
           console.log('User session token cleared out of database + session');
           console.log('User is now signed out')
-          response.send(200);
+          response.send(204, 'User signed out');
         });
       }
     });
@@ -153,7 +161,7 @@ module.exports.sendReset = function(request, response){
   User.find({where: {email: email}}).success(function(user){
     if(!user){
       console.log('Complete: email not found in database');
-      response.send(404);
+      response.send(404, 'User email not found');
     } else {
       console.log('User found, hashing new reset token');
       bcrypt.hash(Math.random().toString(), 8, function(err, hash){
@@ -163,7 +171,7 @@ module.exports.sendReset = function(request, response){
         user.save(['resetToken']).success(function(user){
           console.log('resetToken saved successfully')
           console.log('Complete: resetToken is:', hash);
-          response.send(201);
+          response.send(204, 'Reset Token Generated');
         });
       });
     }
@@ -178,7 +186,7 @@ module.exports.resetPassword = function(request, response){
   User.find({where: {resetToken: resetToken}}).success(function(user){
     if(!user){
       console.log('Complete: No user found with resetToken');
-      response.send(404);
+      response.send(404, 'Invalid Reset Token');
     } else {
       console.log('User found, hashing new password');
       bcrypt.hash(password, 8, function(err, hash){
@@ -187,9 +195,10 @@ module.exports.resetPassword = function(request, response){
         user.passwordHash = hash;
         user.save(['passwordHash', 'resetToken']).success(function(user){
           console.log('Complete: Password successfully saved');
-          response.send(201);
+          response.send(204, 'Password Saved Successfully');
         }).error(function(err){
           console.log('Complete: Error saving to the database:', err);
+          response.send(500, 'Error saving to the database');
         });
       })
     }
