@@ -46,6 +46,22 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
     }
   })
 
+  .state('donorForgotPassword', {
+    url: '/donors/sendreset',
+    views: {
+      navMenuView: { templateUrl: '/templates/navMenu.html' },
+      middleView: { templateUrl: 'templates/authTemplates/donorSendResetView.html', controller: 'authController' }
+    }
+  })
+
+  .state('donorResetPassword', {
+    url: '/donors/reset/:resetToken',
+    views: {
+      navMenuView: { templateUrl: '/templates/navMenu.html' },
+      middleView: { templateUrl: 'templates/authTemplates/donorResetView.html', controller: 'authController' }
+    }
+  })
+
   // view for workers (nav bar, input field and list of children)
   .state('workersPortal', {
     url: '/workers',
@@ -103,21 +119,23 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
 }])
 
 //Authentication logic
-.controller('authController', ['$scope', '$http', function($scope, $http){
+.controller('authController', ['$scope', '$http', '$stateParams', function($scope, $http, $stateParams){
   $scope.signupUser = function(){
-    $http({
-      method: 'POST',
-      url: '/donors/signup',
-      data: {
-        email: $scope.email,
-        password: $scope.password
-      }
-    }).success(function(data, status){
-      console.log('User Created!');
-    }).error(function(data, status){
-      console.log('User Not Created: Server Error');
-    })
-  }
+    if($scope.password === $scope.passwordConfirmation){
+      $http({
+        method: 'POST',
+        url: '/donors/signup',
+        data: {
+          email: $scope.email,
+          password: $scope.password
+        }
+      }).success(function(data, status){
+        console.log('User Created!');
+      }).error(function(data, status){
+        console.log('User Not Created: Server Error');
+      })
+    }
+  };
 
   $scope.loginUser = function(){
     if($scope.password === $scope.passwordConfirmation){
@@ -151,8 +169,38 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
     $http({
       method: 'POST',
       url: '/donors/signedIn'
+    }).success(function(data, status){
+      console.log('Reset token sent');
+    }).error(function(data, status){
+      console.log('Reset token not sent: Server Error');
     });
   }
+
+  $scope.sendReset = function(){
+    $http({
+      method: 'POST',
+      url: '/donors/sendReset',
+      data: {
+        email: $scope.email
+      }
+    });
+  }
+
+  $scope.resetPassword = function(){
+    $http({
+      method: 'POST',
+      url: 'donors/resetPassword',
+      data: {
+        password: $scope.password,
+        resetToken: $stateParams.resetToken
+      }
+    }).success(function(data, status){
+      console.log('Password successfully reset');
+    }).error(function(data, status){
+      console.log('Password not reset: Server Error');
+    });
+  }
+
 }])
 
 // GET/POST logic

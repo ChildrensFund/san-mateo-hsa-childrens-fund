@@ -12,7 +12,7 @@ var signedIn = require('../lib/auth/auth.js').signedIn;
 module.exports.signedIn = function(request, response){
   signedIn(request);
   response.send(201);
-}
+};
 
 module.exports.signup = function(request, response){
   console.log('################## SIGNUP FUNCTION CALLED ##################');
@@ -95,4 +95,52 @@ module.exports.signout = function(request, response){
       }
     });
   }
-}
+};
+
+module.exports.sendReset = function(request, response){
+  console.log('################## sendReset FUNCTION CALLED ##################');
+  var email = request.body.email;
+  Donor.find({where: {email: email}}).success(function(donor){
+    if(!donor){
+      console.log('Complete: email not found in database');
+      response.send(404);
+    } else {
+      console.log('Donor found, hashing new reset token');
+      bcrypt.hash(Math.random().toString(), 8, function(err, hash){
+        console.log('Hash created successfully, attempting to save to database');
+        hash = hash.replace(/\.|\/|\$/g, '');
+        donor.resetToken = hash;
+        donor.save(['resetToken']).success(function(donor){
+          console.log('resetToken saved successfully')
+          console.log('Complete: resetToken is:', hash);
+          response.send(201);
+        });
+      });
+    }
+  })
+};
+
+module.exports.resetPassword = function(request, response){
+  console.log('################## resetPassword FUNCTION CALLED ##################');
+  var password = request.body.password;
+  var resetToken = request.body.resetToken;
+  Donor.find({where: {resetToken: resetToken}}).success(function(donor){
+    if(!donor){
+      console.log('Complete: No donor found with resetToken');
+      response.send(404);
+    } else {
+      console.log('Donor found, hashing new password');
+      bcrypt.hash(password, 8, function(err, hash){
+        console.log('Password successfully hashed, saving to database and clearing resetToken');
+        donor.resetToken = null;
+        donor.passwordHash = hash;
+        donor.save(['passwordHash', 'resetToken']).success(function(donor){
+          console.log('Complete: Password successfully saved');
+          response.send(201);
+        }).error(function(err){
+          console.log('Complete: Error saving to the database:', err);
+        });
+      })
+    }
+  })
+};

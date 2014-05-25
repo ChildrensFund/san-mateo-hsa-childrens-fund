@@ -16,4 +16,8 @@ module.exports = function( router ) {
     .post( controller.signout );
   router.route('/signedIn')
     .post( controller.signedIn );
+  router.route('/sendReset')
+    .post( controller.sendReset );
+  router.route('/resetPassword')
+    .post( controller.resetPassword );
 };
