@@ -427,7 +427,7 @@ temporary object
         }
       }).error(function(){
         console.log('Server error: Preventing client access regardless');
-        deferred.resolve(false);
+        deferred.reject('There was a server error');
       });
     }
     return deferred.promise;
