@@ -17,6 +17,7 @@
     "angular": "~1.2.16",
     "angular-route": "~1.2.16",
     "angular-ui-router": "~0.2.10",
+    "angular-cookies": "~1.2.16",
     "underscore": "~1.6.0"
   }
 }

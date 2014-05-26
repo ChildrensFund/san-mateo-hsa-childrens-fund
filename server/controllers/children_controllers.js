@@ -4,7 +4,7 @@
 /*  This file contains the logic for handling requests submitted with the /children
  *  path.  */
 //    This file is required by (root folder)/server/routes/children_routes.js
-var Child     = require( '../config/mysql_config.js');
+var Child     = require( '../config/mysql_config.js').Child; //This line changed because mysql_config has to export many different sequelize objects
 var output    = require( '../util/output.js' );
 var _         = require( 'underscore' );
 

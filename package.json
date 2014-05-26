@@ -8,7 +8,9 @@
     "express": "^4.3.0",
     "mysql": "^2.3.0",
     "sequelize": "^1.7.5",
-    "underscore": "^1.6.0"
+    "underscore": "^1.6.0",
+    "bcrypt": "^0.7.8",
+    "cookie-parser": "^1.1.0"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
