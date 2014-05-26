@@ -9,7 +9,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
     .state('/', {
       url: '/',
       views: {
-        navMenuView: { templateUrl: '/templates/navMenu.html'}
+        navMenuView: { templateUrl: '/templates/developerViews/navMenu.html'}
       }
     })
 
@@ -17,9 +17,9 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
   .state('donorsPortal', {
     url: '/donors',
     views: {
-      navMenuView: { templateUrl: '/templates/navMenu.html'},
-      firstView: { templateUrl: 'templates/donorView.html', controller: 'inputController' },
-      secondView: { templateUrl: 'templates/donorChildrenFeedView.html', controller: 'inputController' }
+      navMenuView: { templateUrl: '/templates/developerViews/navMenu.html'},
+      firstView: { templateUrl: 'templates/userViews/donorView.html', controller: 'inputController' },
+      secondView: { templateUrl: 'templates/userViews/donorChildrenFeedView.html', controller: 'inputController' }
     }
   })
 
@@ -27,9 +27,9 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
   .state('workersPortal', {
     url: '/workers',
     views: {
-      navMenuView: { templateUrl: '/templates/navMenu.html'},
-      firstView: { templateUrl: 'templates/workerView.html', controller: 'inputController' },
-      secondView: { templateUrl: 'templates/workerChildrenFeedView.html', controller: 'inputController' }
+      navMenuView: { templateUrl: '/templates/developerViews/navMenu.html'},
+      firstView: { templateUrl: 'templates/userViews/workerView.html', controller: 'inputController' },
+      secondView: { templateUrl: 'templates/userViews/workerChildrenFeedView.html', controller: 'inputController' }
     }
   })
 
@@ -37,8 +37,8 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
   .state('createTag', {
     url: '/create',
     views: {
-      navMenuView: { templateUrl: '/templates/navMenu.html'},
-      firstView: { templateUrl: 'templates/workerChildInputView.html', controller: 'inputController' },
+      navMenuView: { templateUrl: '/templates/developerViews/navMenu.html'},
+      firstView: { templateUrl: 'templates/userViews/workerChildInputView.html', controller: 'inputController' },
     }
   })
 
@@ -46,7 +46,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
   .state('signup', {
     url: '/{userType:donors|workers|admin}/signup',
     views: {
-      navMenuView: { templateUrl: '/templates/navMenu.html' },
+      navMenuView: { templateUrl: '/templates/developerViews/navMenu.html' },
       firstView: { templateUrl: 'templates/authentication/signupView.html', controller: 'authController' }
     }
   })
@@ -54,7 +54,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
   .state('signin', {
     url: '/{userType:donors|workers|admin}/signin',
     views: {
-      navMenuView: { templateUrl: '/templates/navMenu.html' },
+      navMenuView: { templateUrl: '/templates/developerViews/navMenu.html' },
       firstView: { templateUrl: 'templates/authentication/signinView.html', controller: 'authController' }
     }
   })
@@ -62,7 +62,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
   .state('signout', {
     url: '/{userType:donors|workers|admin}/signout',
     views: {
-      navMenuView: { templateUrl: '/templates/navMenu.html' },
+      navMenuView: { templateUrl: '/templates/developerViews/navMenu.html' },
       firstView: { templateUrl: 'templates/authentication/signoutView.html', controller: 'authController' }
     }
   })
@@ -70,7 +70,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
   .state('sendReset', {
     url: '/{userType:donors|workers|admin}/send_reset',
     views: {
-      navMenuView: { templateUrl: '/templates/navMenu.html' },
+      navMenuView: { templateUrl: '/templates/developerViews/navMenu.html' },
       firstView: { templateUrl: 'templates/authentication/sendResetView.html', controller: 'authController' }
     }
   })
@@ -78,7 +78,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
   .state('resetPassword', {
     url: '/{userType:donors|workers|admin}/reset_password/:resetToken',
     views: {
-      navMenuView: { templateUrl: '/templates/navMenu.html' },
+      navMenuView: { templateUrl: '/templates/developerViews/navMenu.html' },
       firstView: { templateUrl: 'templates/authentication/resetView.html', controller: 'authController' }
     }
   })
