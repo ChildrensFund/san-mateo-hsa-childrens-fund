@@ -4,18 +4,10 @@ var app = angular.module('childrensFund', ['ui.router', 'ngCookies'])
 app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/');
 
-  // view for nagivation bar
   $stateProvider
-    .state('/', {
-      url: '/',
-      views: {
-        navMenuView: { templateUrl: '/templates/developerViews/navMenu.html'}
-      }
-    })
-
-  // view for donors (nav bar and list of children with pledge button)
-  .state('donorsPortal', {
-    url: '/donors',
+  // root view is for donors
+  .state('/', {
+    url: '/',
     views: {
       navMenuView: { templateUrl: '/templates/developerViews/navMenu.html'},
       firstView: { templateUrl: 'templates/userViews/donorView.html', controller: 'inputController' },
@@ -38,7 +30,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
     url: '/create',
     views: {
       navMenuView: { templateUrl: '/templates/developerViews/navMenu.html'},
-      firstView: { templateUrl: 'templates/userViews/workerChildInputView.html', controller: 'inputController' },
+      firstView: { templateUrl: 'templates/userViews/workerChildInputView.html', controller: 'inputController' }
     }
   })
 
@@ -139,8 +131,6 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
     });
   }
 
-  $scope.get();
-
 }])
 
 //Authentication logic
@@ -164,7 +154,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
   };
 
   $scope.signin = function(){
-    if($scope.password === $scope.passwordConfirmation){
+    if($scope.password){
       $http({
         method: 'POST',
         url: '/auth/signin',
@@ -436,12 +426,13 @@ temporary object
 .directive('workerVerify', ['protect', '$location', function (protect, $location) {
   return {
     restrict: 'A',
-    link: function () {
+    link: function (scope) {
       protect('workers').then(function (isWorker) {
         if (isWorker === false) {
           console.log('workerVerify changed path to /workers/signin');
           $location.path('/workers/signin');
         } else {
+          scope.get();
           console.log('workerVerify allowed access');
         }
       })
@@ -453,12 +444,13 @@ temporary object
 .directive('donorVerify', ['protect', '$location', function (protect, $location) {
   return {
     restrict: 'A',
-    link: function () {
+    link: function (scope) {
       protect('donors').then(function (isWorker) {
         if (isWorker === false) {
           console.log('donorVerify changed path to /donors/signin');
           $location.path('/donors/signin');
         } else {
+          scope.get();
           console.log('donorVerify allowed access');
         }
       })
@@ -470,7 +462,7 @@ temporary object
 .directive('adminVerify', ['protect', '$location', function (protect, $location) {
   return {
     restrict: 'A',
-    link: function () {
+    link: function (scope) {
       protect('admin').then(function (isWorker) {
         if (isWorker === false) {
           console.log('donorVerify changed path to /admin/signin');
