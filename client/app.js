@@ -184,10 +184,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
   $scope.signout = function(){
     $http({
       method: 'POST',
-      url: '/auth/signout',
-      data: {
-        userType: $stateParams.userType
-      }
+      url: '/auth/signout'
     }).success(function(data, status){
       console.log('User signed out');
     }).error(function(data, status){
