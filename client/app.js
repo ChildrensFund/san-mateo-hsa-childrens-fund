@@ -64,7 +64,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
   };
 
   $scope.post = function () {
-    $scope.tempChildObj.worker.accountID = 
+    // $scope.tempChildObj.worker.accountID = get signed-in worker's account ID here
     $scope.tempChildObj.request.createdAt = new Date();
     restful.createChild($scope.tempChildObj).then(function (promise) {
       if (promise) {
