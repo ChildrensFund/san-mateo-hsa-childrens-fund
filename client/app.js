@@ -401,7 +401,7 @@ temporary object
     if(!cookieSessionToken || !cookieUserType || cookieSessionToken === 'j:null' || cookieUserType === 'j:null'){
       console.log('Session token is null');
       deferred.resolve(false);
-    } else if (sessionCache.retrieveSessionToken() === cookieSessionToken && sessionCache.retrieveUserType() === cookieUserType) {
+    } else if (sessionCache.retrieveSessionToken() === cookieSessionToken && sessionCache.retrieveUserType() === cookieUserType && cookieUserType === pageType) {
       console.log('Cached credentials');
       deferred.resolve(true);
     } else {
