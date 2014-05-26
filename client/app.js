@@ -1,4 +1,4 @@
-var app = angular.module('childrensFund', ['ui.router'])
+var app = angular.module('childrensFund', ['ui.router', 'ngCookies'])
 
 // ui-router configuration
 app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
@@ -18,7 +18,10 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
     url: '/donors',
     views: {
       navMenuView: { templateUrl: 'templates/navMenu.html'},
-      middleView: { templateUrl: 'templates/donorView.html', controller: 'inputController' }
+      middleView: { 
+        templateUrl: 'templates/donorView.html',
+        controller: 'inputController' 
+      }
     }
   })
 
@@ -75,7 +78,6 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
 }])
 
 .controller('inputController', ['$scope', 'restful', function ($scope, restful) {
-
   $scope.post = function () {
     if ($scope.childName && $scope.item1) {
       restful.createChild($scope.childName, $scope.item1).then( function (promise) {
@@ -269,4 +271,78 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
       });
     }
   }
+}])
+
+// This module when invoked will see if the user is signed in and authorized to view the page. It returns a promise
+/* Valid parameters for protect = 'workers', 'donors', 'admin'
+  protect('donors').success(function(status){
+    if(status === false){
+      //User is not authorized, redirect to signin page
+    } else {
+      //User is authorized, serve normal page
+    }
+  });
+
+*/
+.factory('sessionCache', function(){
+  var cache = {};
+  var sessionCacheService = {};
+  sessionCacheService.updateSessionToken = function(sessionToken){
+    cache.sessionToken = sessionToken;
+  };
+
+  sessionCacheService.updateUserType = function(userType){
+    cache.userType = userType;
+  };
+
+  sessionCacheService.retrieveSessionToken = function(){
+    return cache.sessionToken;
+  };
+
+  sessionCacheService.retrieveUserType = function(){
+    return cache.userType;
+  };
+  return sessionCacheService;
+})
+
+.factory('protect', ['$cookies', '$q', '$http', 'sessionCache', function($cookies, $q, $http, sessionCache){
+  var cookieSessionToken = $cookies.sessionToken;
+  var cookieUserType = $cookies.type;
+ 
+  //pageType needs to be 'donors' || 'workers' || 'admin'
+  return function(pageType){
+    console.log('################ Page is protected, checking login status ################');
+    var deferred = $q.defer();
+    if(!cookieSessionToken || !cookieUserType || cookieSessionToken === 'j:null' || cookieUserType === 'j:null'){
+      console.log('Session token is null');
+      deferred.resolve(false);
+    } else if (sessionCache.retrieveSessionToken() === cookieSessionToken && sessionCache.retrieveUserType() === cookieUserType) {
+      console.log('Cached credentials');
+      deferred.resolve(true);
+    } else {
+      console.log('Client has sessionId cookie, but no sessionId is cached in Angular. Awaiting server verification');
+      $http({
+        method: 'POST',
+        url: '/auth/signedIn',
+        data: {
+          userType: pageType,
+        }
+      }).success(function(data, status){
+        if(data.signedIn){
+          console.log('Client authorized');
+          sessionCache.updateSessionToken(cookieSessionToken);
+          sessionCache.updateUserType(cookieUserType);
+          deferred.resolve(true);
+        } else {
+          console.log('Client unauthorized');
+          deferred.resolve(false);
+        }
+      }).error(function(){
+        console.log('Server error: Preventing client access regardless');
+        deferred.resolve(false);
+      });
+    }
+    return deferred.promise;
+  }
+
 }])
