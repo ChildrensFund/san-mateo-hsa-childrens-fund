@@ -32,14 +32,14 @@ module.exports = function(request){
     console.log('Signed out (no session token or no userType)');
     console.log('Session Token:', sessionToken);
     console.log('User Type:', userType);
-    deferred.resolve(false);
+    deferred.resolve({result: false});
   } else {
 
     var User = setUserType(request, null, userType);
     User.find({where: {sessionToken: sessionToken}}).success(function(user){
       if(!user){
         console.log('Complete: User not signed in');
-        deferred.resolve(false);
+        deferred.resolve({result: false});
       } else {
         console.log('Complete: User is signed in');
         console.log('Checking to see if whitelisted');
@@ -47,13 +47,18 @@ module.exports = function(request){
         for(var i = 0; i < whitelist.length; i++){
           if(whitelist[i] === userType){
             console.log('User is authorized');
-            deferred.resolve(true);
+            console.log(user.values.id);
+            deferred.resolve({
+              result: true,
+              id: user.values.id,
+              userType: userType
+            });
             found = true;
           }
         }
         if(found === false){
           console.log('User is not whitelisted, unauthorized');
-          deferred.resolve(false);
+          deferred.resolve({result: false});
         }
       }
     }).error(function(err){
