@@ -15,7 +15,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
 
   // view for donors (nav bar and list of children with pledge button)
   .state('donorsPortal', {
-    url: '/donor',
+    url: '/donors',
     views: {
       navMenuView: { templateUrl: '/templates/navMenu.html'},
       firstView: { templateUrl: 'templates/donorView.html', controller: 'inputController' }
@@ -24,7 +24,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
 
   // view for workers (nav bar, input field and list of children)
   .state('workersPortal', {
-    url: '/worker',
+    url: '/workers',
     views: {
       navMenuView: { templateUrl: '/templates/navMenu.html'},
       firstView: { templateUrl: 'templates/workerView.html', controller: 'inputController' },
@@ -46,7 +46,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
     url: '/{userType:donors|workers|admin}/signup',
     views: {
       navMenuView: { templateUrl: '/templates/navMenu.html' },
-      middleView: { templateUrl: 'templates/authentication/signupView.html', controller: 'authController' }
+      firstView: { templateUrl: 'templates/authentication/signupView.html', controller: 'authController' }
     }
   })
 
@@ -54,7 +54,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
     url: '/{userType:donors|workers|admin}/signin',
     views: {
       navMenuView: { templateUrl: '/templates/navMenu.html' },
-      middleView: { templateUrl: 'templates/authentication/signinView.html', controller: 'authController' }
+      firstView: { templateUrl: 'templates/authentication/signinView.html', controller: 'authController' }
     }
   })
 
@@ -62,7 +62,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
     url: '/{userType:donors|workers|admin}/signout',
     views: {
       navMenuView: { templateUrl: '/templates/navMenu.html' },
-      middleView: { templateUrl: 'templates/authentication/signoutView.html', controller: 'authController' }
+      firstView: { templateUrl: 'templates/authentication/signoutView.html', controller: 'authController' }
     }
   })
 
@@ -70,7 +70,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
     url: '/{userType:donors|workers|admin}/send_reset',
     views: {
       navMenuView: { templateUrl: '/templates/navMenu.html' },
-      middleView: { templateUrl: 'templates/authentication/sendResetView.html', controller: 'authController' }
+      firstView: { templateUrl: 'templates/authentication/sendResetView.html', controller: 'authController' }
     }
   })
 
@@ -78,7 +78,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
     url: '/{userType:donors|workers|admin}/reset_password/:resetToken',
     views: {
       navMenuView: { templateUrl: '/templates/navMenu.html' },
-      middleView: { templateUrl: 'templates/authentication/resetView.html', controller: 'authController' }
+      firstView: { templateUrl: 'templates/authentication/resetView.html', controller: 'authController' }
     }
   })
   //End Authentication Handlers
