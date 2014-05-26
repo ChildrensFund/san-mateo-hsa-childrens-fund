@@ -18,7 +18,8 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
     url: '/donor',
     views: {
       navMenuView: { templateUrl: '/templates/navMenu.html'},
-      firstView: { templateUrl: 'templates/donorView.html', controller: 'inputController' }
+      firstView: { templateUrl: 'templates/donorView.html', controller: 'inputController' },
+      secondView: { templateUrl: 'templates/donorChildrenFeedView.html', controller: 'inputController' }
     }
   })
 
@@ -28,7 +29,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
     views: {
       navMenuView: { templateUrl: '/templates/navMenu.html'},
       firstView: { templateUrl: 'templates/workerView.html', controller: 'inputController' },
-      secondView: { templateUrl: 'templates/childrenFeedView.html', controller: 'inputController' }
+      secondView: { templateUrl: 'templates/workerChildrenFeedView.html', controller: 'inputController' }
     }
   })
 
@@ -37,7 +38,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
     url: '/create',
     views: {
       navMenuView: { templateUrl: '/templates/navMenu.html'},
-      firstView: { templateUrl: 'templates/childInputView.html', controller: 'inputController' },
+      firstView: { templateUrl: 'templates/workerChildInputView.html', controller: 'inputController' },
     }
   })
 
@@ -62,7 +63,8 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
     }
   };
 
-  $scope.post = function (childObj) {
+  $scope.post = function () {
+    $scope.tempChildObj.worker.accountID = 
     $scope.tempChildObj.request.createdAt = new Date();
     restful.createChild($scope.tempChildObj).then(function (promise) {
       if (promise) {
@@ -146,7 +148,6 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
 /*
 
 temporary object
-var masterObj =
 {
   child: {
     firstName: 'Amar',
@@ -192,6 +193,7 @@ var masterObj =
   },
 
   worker: {
+    accountID: 'string',
     firstName: 'Wayland',
     lastName: 'Gangsta-fresh',
     phone: '12903812124',
