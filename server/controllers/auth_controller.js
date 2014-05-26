@@ -128,11 +128,12 @@ module.exports.signin = function(request, response){
 module.exports.signout = function(request, response){
   console.log('################## SIGNOUT FUNCTION CALLED ##################');
   var sessionToken = request.cookies.sessionToken;
-  var User = setUserType(request, response);
-  if (sessionToken === 'j:null') {
+  var userType = request.cookies.type;
+  if (sessionToken === 'j:null' || sessionToken === undefined || userType === 'j:null' || userType === undefined) {
     console.log('Session token null, doing nothing');
     response.send(200);
   } else {
+    var User = setUserType(request, response, userType);
     User.find({where: {sessionToken: sessionToken}}).success(function(user){
       if (!user) {
         console.log('User not found in database, clearing session token');
