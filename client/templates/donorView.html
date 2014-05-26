@@ -9,32 +9,31 @@
     <img src="http://cdn.mhpbooks.com/uploads/2013/10/Success-Kid.jpg" alt="some kid">
     <!-- child's name -->
     <div>
-      {{child.childData.name}}
+      {{child.child.name}}
     </div>
     <!-- child's location -->
     <div>
-      {{child.childData.name}}'s Location
+      {{child.child.name}}'s Location
     </div>
     <!-- blurb about child -->
     <div>
-      Blurb about {{child.childData.name}}: blah blah blah blah blah
+      Blurb: 
+      <br/>
+      {{child.child.bio}}
     </div>
-    <div ng-repeat="itemIndex in child.childData.items">
-      <!-- Items repeat to simulate multiple items -->
+    <div ng-repeat="item in child.request.items.items">
       <div class="box xs inline" style="margin-left: 20px">
-        $(price data){{itemIndex.itemPrice}} {{itemIndex.item}}
-        <input ng-hide="itemIndex.pledged" ng-click="pledge(child, $index)" type="button" value="Pledge"/>
-        <input ng-show="itemIndex.pledged" type="button" disabled="disabled" value="Pledged"/>
-      </div>
-      <div class="box xs inline" style="margin-left: 20px">
-        $(price data){{itemIndex.itemPrice}} {{itemIndex.item}}
-        <input ng-hide="itemIndex.pledged" ng-click="pledge(child, $index)" type="button" value="Pledge"/>
-        <input ng-show="itemIndex.pledged" type="button" disabled="disabled" value="Pledged"/>
-      </div>
-      <div class="box xs inline" style="margin-left: 20px">
-        $(price data){{itemIndex.itemPrice}} {{itemIndex.item}}
-        <input ng-hide="itemIndex.pledged" ng-click="pledge(child, $index)" type="button" value="Pledge"/>
-        <input ng-show="itemIndex.pledged" type="button" disabled="disabled" value="Pledged"/>
+        $(price data){{item.price}} {{item.item}}
+        <input 
+        ng-if="item.status === 'requested'" 
+        ng-click="pledge(child, $index)" 
+        type="button" 
+        value="Pledge"/>
+        <input 
+        ng-if="item.status !== 'requested'" 
+        type="button" 
+        disabled="disabled" 
+        value="Pledged"/>
       </div>
     </div>
     <br/>

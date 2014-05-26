@@ -6,34 +6,34 @@
   </div>
   <!-- child's name -->
   <div>
-    {{child.childData.name}}
+    {{child.child.name}}
   </div>
   <!-- child's location -->
   <div>
-    {{child.childData.name}}'s Location
+    {{child.child.name}}'s Location
   </div>
   <!-- blurb about child -->
   <div>
-    Blurb about {{child.childData.name}}: blah blah blah blah blah
+    Blurb: 
+    <br/>
+    {{child.child.bio}}
   </div>
-  <div ng-repeat="itemIndex in child.childData.items">
-    <!-- Items repeat to simulate multiple items -->
+  <div ng-repeat="item in child.request.items.items">
     <div class="box xs inline" style="margin-left: 20px">
-      $(price data){{itemIndex.itemPrice}} {{itemIndex.item}}
-      <input ng-hide="itemIndex.pledged" ng-click="pledge(child, $index)" type="button" value="Pledge"/>
-      <p class="notPledgedText" ng-hide="itemIndex.pledged">Not pledged by a donor</p>
-      <p class="pledgedText" ng-show="itemIndex.pledged">Pledged by a donor</p>
-    </div>
-    <div class="box xs inline" style="margin-left: 20px">
-      $(price data){{itemIndex.itemPrice}} {{itemIndex.item}}
-      <p class="notPledgedText" ng-hide="itemIndex.pledged">Not pledged by a donor</p>
-      <p class="pledgedText" ng-show="itemIndex.pledged">Pledged by a donor</p>
-    </div>
-    <div class="box xs inline" style="margin-left: 20px">
-      $(price data){{itemIndex.itemPrice}} {{itemIndex.item}}
-      <input ng-hide="itemIndex.pledged" ng-click="pledge(child, $index)" type="button" value="Pledge"/>
-      <p class="notPledgedText" ng-hide="itemIndex.pledged">Not pledged by a donor</p>
-      <p class="pledgedText" ng-show="itemIndex.pledged">Pledged by a donor</p>
+      $(price data){{item.price}} {{item.item}}
+
+      <!-- Visual Status -->
+      <p 
+      class="notPledgedText" 
+      ng-if="item.status === 'requested'">
+        Not pledged by a donor
+      </p>
+      <p 
+      class="pledgedText" 
+      ng-if="item.status !== 'requested'">
+        Pledged by a donor
+      </p>
+        <!-- add more here when other statuses are defiend -->
     </div>
   </div>
   <br/>

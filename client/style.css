@@ -6,14 +6,19 @@
   width: 700px;
 }
 
+.md {
+  width: 350px;
+}
+
 .xs {
   width: 150px;
 }
 
 .box {
   border: 1px solid black;
-  border-radius: 1px;
-  margin: 0 auto;
+  border-radius: 10px;
+  margin: 2px auto 2px;
+  padding: 2px 2px 2px 2px;
 }
 
 .inline {
