@@ -156,26 +156,50 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
 //     dob: 'my birthday',
 //     age: 24,
 //     location: 'San Francisco',
-//     cfNumber: '00001A',
+//     CFID: '00001A',
 //     programArea: 'somewhere',
 //     bio: 'Amar hails from a heritage of awesome and bad-assery.'
 //   },
 
 //   request: {
-//     date: 'dateString',
+//     createdAt: 'dateString',
 //     items: [
-//       { item: 'bike', status: null, price: null, date: 'itemReceivedDate', paymentDate: 'somedate' },
-//       { item: 'helmet', status: null, price: null, date: 'itemReceivedDate', paymentDate: 'somedate' },
-//       { item: 'babes', status: null, price: null, date: 'itemReceivedDate', paymentDate: 'somedate' }
+//       {
+//         item: 'bike', 
+//         status: null, 
+//         price: null, 
+//         date: 'itemReceivedDate', 
+//         paymentDate: 'somedate',
+//         hsaReceivedDate: 'somedate',
+//         childReceivedDate: 'somedate'
+//       },
+//       {
+//         item: 'helmet', 
+//         status: null, 
+//         price: null, 
+//         date: 'itemReceivedDate', 
+//         paymentDate: 'somedate',
+//         hsaReceivedDate: 'somedate',
+//         childReceivedDate: 'somedate'
+//       },
+//       {
+//         item: 'babes', 
+//         status: null, 
+//         price: null, 
+//         date: 'itemReceivedDate', 
+//         paymentDate: 'somedate',
+//         hsaReceivedDate: 'somedate',
+//         childReceivedDate: 'somedate'
+//       }
 //     ]
 //   },
 
 //   worker: {
-//     workerFirstName: 'Wayland',
-//     workerLastName 'Gangsta-fresh',
-//     workerPhone: '12903812124',
-//     workerEmail: 'someemail',
-//     workerDepartment: 'someDept',
+//     firstName: 'Wayland',
+//     lastName 'Gangsta-fresh',
+//     phone: '12903812124',
+//     email: 'someemail',
+//     department: 'someDept',
 //     supervisorFirstName: 'Marcus',
 //     supervisorLastName: 'Phillips',
 //     coordinatorFirstName: 'Tony',
@@ -184,8 +208,13 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
 
 //   donor: {
 //     email: 'someemail',
-//     address: 'someString',
-//     firstName: 'asdf',
-//     lastName: 'jkl;'
+//     address1: '1221 1st ave.',
+//     address1: 'apt se1801',
+//     city: 'seattle',
+//     state: 'washington',
+//     zip: '98101',
+//     firstName: 'amar',
+//     lastName: 'patel',
+//     phone: '9166008929'
 //   }
 // }
