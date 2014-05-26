@@ -15,22 +15,29 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
 
   // view for donors (nav bar and list of children with pledge button)
   .state('donorsPortal', {
-    url: '/donors',
+    url: '/donor',
     views: {
-      navMenuView: { templateUrl: 'templates/navMenu.html'},
-      middleView: { 
-        templateUrl: 'templates/donorView.html',
-        controller: 'inputController' 
-      }
+      navMenuView: { templateUrl: '/templates/navMenu.html'},
+      firstView: { templateUrl: 'templates/donorView.html', controller: 'inputController' }
     }
   })
 
   // view for workers (nav bar, input field and list of children)
   .state('workersPortal', {
-    url: '/workers',
+    url: '/worker',
     views: {
       navMenuView: { templateUrl: '/templates/navMenu.html'},
-      middleView: { templateUrl: 'templates/workerView.html', controller: 'inputController' }
+      firstView: { templateUrl: 'templates/workerView.html', controller: 'inputController' },
+      secondView: { templateUrl: 'templates/childrenFeedView.html', controller: 'inputController' }
+    }
+  })
+
+  // view for workers to create a new child tag
+  .state('createTag', {
+    url: '/create',
+    views: {
+      navMenuView: { templateUrl: '/templates/navMenu.html'},
+      firstView: { templateUrl: 'templates/childInputView.html', controller: 'inputController' },
     }
   })
 
@@ -75,6 +82,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
     }
   })
   //End Authentication Handlers
+
 }])
 
 .controller('inputController', ['$scope', 'restful', function ($scope, restful) {

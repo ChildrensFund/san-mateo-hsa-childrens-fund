@@ -2,24 +2,12 @@
  
   <br/>
 
-  <h2>Worker's Portal</h2>
+  <h2 class="center">Worker's Portal</h2>
 
   <!-- input fields -->
-  <input ng-model="childName" type="text" placeholder="childName">
-  <input ng-model="item1" type="text" placeholder="item1">
+  <div class="center">
+    <button ui-sref="createTag">Create New Child Tag</button><br/>
+  </div>
 
-  <!-- click handler for POST -->
-  <input ng-click="post()" type="submit" value="Submit">
 
-  <h2>Children</h2>
-    <!-- shows children -->
-  <ul ng-repeat="child in children">
-    {{child.childData.name}}'s wishlist:
-    <div ng-repeat="itemIndex in child.childData.items">
-      <!-- shows each item in child's item array -->
-      <li style="margin-left: 20px" ng-hide="itemIndex.pledged">{{itemIndex.item}}</li>
-      <!-- Annotates items only if pledged status is truthy -->
-      <li style="margin-left: 20px" ng-show="itemIndex.pledged">{{itemIndex.item}} - Pledged by a donor</li>
-    </div>
-  </ul>
 </div>

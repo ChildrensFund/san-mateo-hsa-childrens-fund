@@ -19,3 +19,10 @@
 .inline {
   display: inline-block;
 }
+
+.pledgedText {
+  color: green;
+}
+.notPledgedText {
+  color: red;
+}
