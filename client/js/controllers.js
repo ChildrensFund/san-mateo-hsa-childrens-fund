@@ -1,6 +1,7 @@
 app.controller('appCtrl', function($state, $scope, $rootScope){
-  $rootScope.$on('$stateChangeStart', function(){
+  $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
     console.log('state change detected');
+    console.log(toState);
   })
 })
 

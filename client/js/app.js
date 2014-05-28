@@ -1,7 +1,7 @@
 var app = angular.module('childrensFund', ['ui.router', 'ngCookies'])
 
 app.config(function($stateProvider, $locationProvider){
-
+  $locationProvider.html5Mode(true);
   $stateProvider
     // Command + K, Command + 3 to make this intelligible
     //################## Public ROUTES #####################
@@ -58,9 +58,8 @@ app.config(function($stateProvider, $locationProvider){
       data: { userType: 'workers' }
     })
       .state('workers.account', {
-        url: '/workers/account',
-        templateUrl: '/templates/workers/account.html',
-        controller: 'authController'
+        url: '/workers',
+        templateUrl: '/templates/workers/account.html'
       })
       .state('workers.signin', {
         url: '/workers/signin',
@@ -84,9 +83,8 @@ app.config(function($stateProvider, $locationProvider){
       data: { userType: 'admin' }
     })
       .state('admin.account', {
-        url: '/admin/account',
-        templateUrl: '/templates/admin/account.html',
-        controller: 'authController'
+        url: '/admin',
+        templateUrl: '/templates/admin/account.html'
       })
       .state('admin.signin', {
         url: '/admin/signin',
@@ -104,7 +102,7 @@ app.config(function($stateProvider, $locationProvider){
         controller: 'authController'
       })
 
-})
+});
 
 // ui-router configuration
 // app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
