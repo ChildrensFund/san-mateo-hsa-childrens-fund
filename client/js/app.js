@@ -4,14 +4,14 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
   $locationProvider.html5Mode(true);
 
   //Protect the donor/worker/admin account pages
-  $urlRouterProvider.when(/^\/account$|^\/workers$|^\/admin$/, function($match, $state, protect, $q){
-    console.log('regex caught');
-    var user;
-    $match[0] === '/account' ? user = 'donors' : user = $match[0].substring(1);
-    protect(user).then(function(authorized){
-      authorized ? $state.go(user + '.account') : $state.go(user + '.signin');
-    });
-  });
+  // $urlRouterProvider.when(/^\/account$|^\/workers$|^\/admin$/, function($match, $state, protect, $q){
+  //   console.log('regex caught');
+  //   var user;
+  //   $match[0] === '/account' ? user = 'donors' : user = $match[0].substring(1);
+  //   protect(user).then(function(authorized){
+  //     authorized ? $state.go(user + '.account') : $state.go(user + '.signin');
+  //   });
+  // });
 
   $urlRouterProvider.otherwise('/404');
 
@@ -46,7 +46,21 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
     })
       .state('donors.account', {
         url: '/account',
-        templateUrl: '/templates/donors/account.html'
+        templateUrl: '/templates/donors/account.html',
+        resolve: {
+          auth: function($q, $state, protect){
+            var deferred = $q.defer();
+            protect('donors').then(function(authorized){
+              if(authorized) {
+                deferred.resolve();
+              } else {
+                deferred.reject();
+                $state.go('donors.signin');
+              }
+            })
+            return deferred.promise;
+          }
+        }
       })
       .state('donors.signup', {
         url: '/signup',
@@ -76,7 +90,21 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
     })
       .state('workers.account', {
         url: '/workers',
-        templateUrl: '/templates/workers/account.html'
+        templateUrl: '/templates/workers/account.html',
+        resolve: {
+          auth: function($q, $state, protect){
+            var deferred = $q.defer();
+            protect('workers').then(function(authorized){
+              if(authorized) {
+                deferred.resolve();
+              } else {
+                deferred.reject();
+                $state.go('workers.signin');
+              }
+            })
+            return deferred.promise;
+          }
+        }
       })
       .state('workers.signin', {
         url: '/workers/signin',
@@ -101,7 +129,21 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
     })
       .state('admin.account', {
         url: '/admin',
-        templateUrl: '/templates/admin/account.html'
+        templateUrl: '/templates/admin/account.html',
+        resolve: {
+          auth: function($q, $state, protect){
+            var deferred = $q.defer();
+            protect('admin').then(function(authorized){
+              if(authorized) {
+                deferred.resolve();
+              } else {
+                deferred.reject();
+                $state.go('admin.signin');
+              }
+            })
+            return deferred.promise;
+          }
+        }
       })
       .state('admin.signin', {
         url: '/admin/signin',
