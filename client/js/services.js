@@ -70,6 +70,10 @@ app.factory('restful', ['$http', function ($http) {
     var cookieUserType = $cookies.type;
     console.log('################ Page is protected, checking login status ################');
     var deferred = $q.defer();
+    //Add handling to allow developer to access all portals
+    if(cookieUserType === 'developer'){
+      deferred.resolve(true);
+    }
     if(!cookieSessionToken || !cookieUserType || cookieSessionToken === 'j:null' || cookieUserType === 'j:null'){
       console.log('Session token is null');
       deferred.resolve(false);
@@ -104,13 +108,15 @@ app.factory('restful', ['$http', function ($http) {
 
 }])
 
-.factory('signout', function($http, $state){
+.factory('signout', function($http, $state, $cookies){
   return function(){
     return $http({
       method: 'POST',
       url: '/auth/signout'
     }).success(function(){
       console.log('User signed out');
+      $cookies.sessionToken = 'j:null';
+      $cookies.type = 'j:null';
       $state.go('home');
     }).error(function(){
       console.log('Something went wrong');

@@ -1,6 +1,10 @@
-app.controller('appController', function($scope, signout){
+app.controller('appController', function($scope, $cookies, signout){
   $scope.signout = function(){
     signout();
+  }
+
+  $scope.devSignin = function(){
+    $cookies.type = 'developer';
   }
 })
 

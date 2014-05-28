@@ -106,6 +106,11 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
           }
         }
       })
+      .state('workers.signup', {
+        url: '/workers/signup',
+        templateUrl: '/templates/authentication/signupView.html',
+        controller: 'authController'
+      })
       .state('workers.signin', {
         url: '/workers/signin',
         templateUrl: '/templates/authentication/signinView.html',
@@ -144,6 +149,11 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
             return deferred.promise;
           }
         }
+      })
+      .state('admin.signup', {
+        url: '/admin/signup',
+        templateUrl: '/templates/authentication/signupView.html',
+        controller: 'authController'
       })
       .state('admin.signin', {
         url: '/admin/signin',
