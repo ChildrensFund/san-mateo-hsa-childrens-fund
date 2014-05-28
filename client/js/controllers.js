@@ -1,12 +1,4 @@
-app.controller('appCtrl', function($state, $scope, $rootScope){
-  $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
-    console.log('state change detected');
-    console.log(toState);
-  })
-})
-
-
-.controller('inputController', ['$scope', 'restful', 'protect', function ($scope, restful, protect) {
+app.controller('inputController', ['$scope', 'restful', 'protect', function ($scope, restful, protect) {
 
   $scope.tempChildItemObj = {
     item: undefined, 
@@ -87,7 +79,7 @@ app.controller('appCtrl', function($state, $scope, $rootScope){
         method: 'POST',
         url: '/auth/signin',
         data: {
-          userType: $stateParams.userType,
+          userType: $state.current.data.userType,
           email: $scope.email,
           password: $scope.password
         }
