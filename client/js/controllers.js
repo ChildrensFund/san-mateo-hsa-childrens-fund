@@ -74,17 +74,19 @@ app.controller('inputController', ['$scope', 'restful', 'protect', function ($sc
   };
 
   $scope.signin = function(){
+    var userType = $state.current.data.userType;
     if($scope.password){
       $http({
         method: 'POST',
         url: '/auth/signin',
         data: {
-          userType: $state.current.data.userType,
+          userType: userType,
           email: $scope.email,
           password: $scope.password
         }
       }).success(function(data, status){
         console.log('User signed in');
+        $state.go(userType + '.account');
       }).error(function(data, status){
         console.log('User not signed in: Server Error');
       });
