@@ -21,6 +21,10 @@ app.config(function($stateProvider, $locationProvider){
       url: '/child',
       templateUrl: '/templates/public/child.html'
     })
+    .state('404', {
+      url: '/404',
+      templateUrl: '/templates/public/404.html'
+    })
     //################## Donor ROUTES #####################
     .state('donors', {
       abstract: true,
