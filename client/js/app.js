@@ -1,7 +1,8 @@
 var app = angular.module('childrensFund', ['ui.router', 'ngCookies'])
 
-app.config(function($stateProvider, $locationProvider){
+app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
   $locationProvider.html5Mode(true);
+  $urlRouterProvider.otherwise('/404');
   $stateProvider
     // Command + K, Command + 3 to make this intelligible
     //################## Public ROUTES #####################
