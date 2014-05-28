@@ -63,11 +63,11 @@ app.factory('restful', ['$http', function ($http) {
 })
 
 .factory('protect', ['$cookies', '$q', '$http', 'sessionCache', function($cookies, $q, $http, sessionCache){
-  var cookieSessionToken = $cookies.sessionToken;
-  var cookieUserType = $cookies.type;
- 
+  
   //pageType needs to be 'donors' || 'workers' || 'admin'
   return function(pageType){
+    var cookieSessionToken = $cookies.sessionToken;
+    var cookieUserType = $cookies.type;
     console.log('################ Page is protected, checking login status ################');
     var deferred = $q.defer();
     if(!cookieSessionToken || !cookieUserType || cookieSessionToken === 'j:null' || cookieUserType === 'j:null'){
