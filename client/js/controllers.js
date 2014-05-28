@@ -1,3 +1,9 @@
+app.controller('appController', function($scope, signout){
+  $scope.signout = function(){
+    signout();
+  }
+})
+
 app.controller('inputController', ['$scope', 'restful', 'protect', function ($scope, restful, protect) {
 
   $scope.tempChildItemObj = {

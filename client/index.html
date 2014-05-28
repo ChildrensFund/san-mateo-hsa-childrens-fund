@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="/assets/stylesheets/style.css">
     <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/dist/css/bootstrap.css">
   </head>
-<body>
+<body ng-controller="appController">
 
   <!-- ui-router view -->
 <!--   <div ui-view="navMenuView"></div>
@@ -21,6 +21,7 @@
         <li><a ui-sref="donors.account">Donor Account</a></li>
         <li><a ui-sref="workers.account">Worker Account</a></li>
         <li><a ui-sref="admin.account">Admin Account</a></li>
+        <li><a href="#" ng-click="signout()">Signout</a></li>
       </ul>
     </div>
   </nav>

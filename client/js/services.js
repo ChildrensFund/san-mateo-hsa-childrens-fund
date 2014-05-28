@@ -103,3 +103,16 @@ app.factory('restful', ['$http', function ($http) {
   }
 
 }])
+
+.factory('signout', function($http){
+  return function(){
+    return $http({
+      method: 'POST',
+      url: '/auth/signout'
+    }).success(function(){
+      console.log('User signed out');
+    }).error(function(){
+      console.log('Something went wrong');
+    })
+  }
+});
