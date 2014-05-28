@@ -72,9 +72,9 @@ app.factory('restful', ['$http', function ($http) {
     var deferred = $q.defer();
     //Add handling to allow developer to access all portals
     if(cookieUserType === 'developer'){
+      console.log('Logged in as developer, granting access');
       deferred.resolve(true);
-    }
-    if(!cookieSessionToken || !cookieUserType || cookieSessionToken === 'j:null' || cookieUserType === 'j:null'){
+    } else if(!cookieSessionToken || !cookieUserType || cookieSessionToken === 'j:null' || cookieUserType === 'j:null'){
       console.log('Session token is null');
       deferred.resolve(false);
     } else if (sessionCache.retrieveSessionToken() === cookieSessionToken && sessionCache.retrieveUserType() === cookieUserType && cookieUserType === pageType) {

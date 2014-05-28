@@ -4,7 +4,12 @@ app.controller('appController', function($scope, $cookies, signout){
   }
 
   $scope.devSignin = function(){
-    $cookies.type = 'developer';
+    if($cookies.type === 'j:null' || $cookies.type === undefined){
+      console.log('Signed in as developer');
+      $cookies.type = 'developer';
+    } else {
+      console.log('Sign out before using the master signin');
+    }
   }
 })
 
