@@ -2,6 +2,8 @@
 <html ng-app="childrensFund">
   <head>
     <title>San Mateo Children's Fund</title>
+    <link rel="stylesheet" href="/assets/stylesheets/style.css">
+    <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/dist/css/bootstrap.css">
   </head>
 <body>
 
@@ -10,11 +12,23 @@
   <div ui-view="firstView"></div>
   <div ui-view="secondView"></div> -->
 
-  <div ui-view></div>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <a ui-sref="home" class="navbar-brand">Children's Fund</a>
+      <ul class="nav navbar-nav">
+        <li><a ui-sref="cart">Cart</a></li>
+        <li><a ui-sref="children">Children</a></li>
+        <li><a ui-sref="donors.account">Donor Account</a></li>
+        <li><a ui-sref="workers.account">Worker Account</a></li>
+        <li><a ui-sref="admin.account">Admin Account</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container" ui-view></div>
 
 
   <!-- dependencies -->
-  <link rel="stylesheet" href="assets/stylesheets/style.css">
   <script src="/bower_components/angular/angular.js"></script>
   <script src="/bower_components/underscore/underscore.js"></script>
   <script src="/bower_components/angular-route/angular-route.js"></script>

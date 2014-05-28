@@ -4,7 +4,8 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
   $locationProvider.html5Mode(true);
 
   //Protect the donor/worker/admin account pages
-  $urlRouterProvider.when(/^\/account$|^\/workers$|^\/admin$/, function($match, $state, protect){
+  $urlRouterProvider.when(/^\/account$|^\/workers$|^\/admin$/, function($match, $state, protect, $q){
+    console.log('regex caught');
     var user;
     $match[0] === '/account' ? user = 'donors' : user = $match[0].substring(1);
     protect(user).then(function(authorized){
