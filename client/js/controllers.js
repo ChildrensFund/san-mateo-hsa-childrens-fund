@@ -60,7 +60,7 @@ app.controller('inputController', ['$scope', 'restful', 'protect', function ($sc
 }])
 
 //Authentication logic
-.controller('authController', ['$scope', '$http', '$state', function($scope, $http, $state){
+.controller('authController', ['$scope', '$http', '$state', '$cookies', function($scope, $http, $state, $cookies){
   $scope.signup = function(){
     if($scope.password === $scope.passwordConfirmation){
       $http({
@@ -90,10 +90,12 @@ app.controller('inputController', ['$scope', 'restful', 'protect', function ($sc
           email: $scope.email,
           password: $scope.password
         }
-      }).success(function(data, status){
+      }).success(function(data){
         console.log('User signed in');
+        $cookies.sessionToken = data.sessionToken;
+        $cookies.type = data.type;
         $state.go(userType + '.account');
-      }).error(function(data, status){
+      }).error(function(data){
         console.log('User not signed in: Server Error');
       });
     }

@@ -113,7 +113,7 @@ module.exports.signin = function(request, response){
               console.log('User is now signed in')
               response.cookie('sessionToken', hash);
               response.cookie('type', request.body.userType);
-              response.send(204, 'User signed in');
+              response.send({sessionToken: hash, type: request.body.userType});
             });
           });
         } else {
