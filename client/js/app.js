@@ -1,82 +1,194 @@
 var app = angular.module('childrensFund', ['ui.router', 'ngCookies'])
 
-// ui-router configuration
-app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
-  $urlRouterProvider.otherwise('/');
+app.config(function($stateProvider, $locationProvider){
 
   $stateProvider
-  // root view is for donors
-  .state('/', {
-    url: '/',
-    views: {
-      navMenuView: { templateUrl: '/templates/developerViews/navMenu.html'},
-      firstView: { templateUrl: 'templates/userViews/donorView.html', controller: 'inputController' },
-      secondView: { templateUrl: 'templates/userViews/donorChildrenFeedView.html', controller: 'inputController' }
-    }
-  })
+    // Command + K, Command + 3 to make this intelligible
+    //################## Public ROUTES #####################
+    .state('home', {
+      url: '/',
+      templateUrl: '/templates/public/home.html '
+    })
+    .state('cart', {
+      url: '/cart',
+      templateUrl: '/templates/public/cart.html'
+    })
+    .state('children', {
+      url: '/childrens',
+      templateUrl: '/templates/public/children.html'
+    })
+    .state('child', {
+      url: '/child',
+      templateUrl: '/templates/public/child.html'
+    })
+    //################## Donor ROUTES #####################
+    .state('donors', {
+      abstract: true,
+      template: '<ui-view/>',
+      data: { userType: 'donors' }
+    })
+      .state('donors.account', {
+        url: '/account',
+        templateUrl: '/templates/donors/account.html'
+      })
+      .state('donors.signup', {
+        url: '/signup',
+        templateUrl: '/templates/authentication/signupView.html',
+        controller: 'authController'
+      })
+      .state('donors.signin', {
+        url: '/signin',
+        templateUrl: '/templates/authentication/signinView.html',
+        controller: 'authController'
+      })
+      .state('donors.sendReset', {
+        url: '/send_reset',
+        templateUrl: '/templates/authentication/sendResetView.html',
+        controller: 'authController'
+      })
+      .state('donors.resetPassword', {
+        url: '/reset_password',
+        templateUrl: '/templates/authentication/passwordResetView.html',
+        controller: 'authController'
+      })
+    //################## Worker ROUTES #####################
+    .state('workers', {
+      abstract: true,
+      template: '<ui-view/>',
+      data: { userType: 'workers' }
+    })
+      .state('workers.account', {
+        url: '/workers/account',
+        templateUrl: '/templates/workers/account.html',
+        controller: 'authController'
+      })
+      .state('workers.signin', {
+        url: '/workers/signin',
+        templateUrl: '/templates/authentication/signinView.html',
+        controller: 'authController'
+      })
+      .state('workers.sendReset', {
+        url: '/workers/send_reset',
+        templateUrl: '/templates/authentication/sendResetView.html',
+        controller: 'authController'
+      })
+      .state('workers.resetPassword', {
+        url: '/workers/reset_password',
+        templateUrl: '/templates/authentication/resetPasswordView.html',
+        controller: 'authController'
+      })
+    //################## Admin ROUTES #####################
+    .state('admin', {
+      abstract: true,
+      template: '<ui-view/>',
+      data: { userType: 'admin' }
+    })
+      .state('admin.account', {
+        url: '/admin/account',
+        templateUrl: '/templates/admin/account.html',
+        controller: 'authController'
+      })
+      .state('admin.signin', {
+        url: '/admin/signin',
+        templateUrl: '/templates/authentication/signinView.html',
+        controller: 'authController'
+      })
+      .state('admin.sendReset', {
+        url: '/admin/send_reset',
+        templateUrl: '/templates/authentication/sendResetView.html',
+        controller: 'authController'
+      })
+      .state('admin.resetPassword', {
+        url: '/admin/reset_password',
+        templateUrl: '/templates/authentication/sendResetView.html',
+        controller: 'authController'
+      })
 
-  // view for workers (nav bar, input field and list of children)
-  .state('workersPortal', {
-    url: '/workers',
-    views: {
-      navMenuView: { templateUrl: '/templates/developerViews/navMenu.html'},
-      firstView: { templateUrl: 'templates/userViews/workerView.html', controller: 'inputController' },
-      secondView: { templateUrl: 'templates/userViews/workerChildrenFeedView.html', controller: 'inputController' }
-    }
-  })
+})
 
-  // view for workers to create a new child tag
-  .state('createTag', {
-    url: '/create',
-    views: {
-      navMenuView: { templateUrl: '/templates/developerViews/navMenu.html'},
-      firstView: { templateUrl: 'templates/userViews/workerChildInputView.html', controller: 'inputController' }
-    }
+app.controller('appCtrl', function($state, $scope, $rootScope){
+  $rootScope.$on('$stateChangeStart', function(){
+    console.log('state change detected');
   })
+})
 
-  //Authentication Handlers
-  .state('signup', {
-    url: '/{userType:donors|workers|admin}/signup',
-    views: {
-      navMenuView: { templateUrl: '/templates/developerViews/navMenu.html' },
-      firstView: { templateUrl: 'templates/authentication/signupView.html', controller: 'authController' }
-    }
-  })
+// ui-router configuration
+// app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
+//   $urlRouterProvider.otherwise('/');
 
-  .state('signin', {
-    url: '/{userType:donors|workers|admin}/signin',
-    views: {
-      navMenuView: { templateUrl: '/templates/developerViews/navMenu.html' },
-      firstView: { templateUrl: 'templates/authentication/signinView.html', controller: 'authController' }
-    }
-  })
+//   $stateProvider
+//   // root view is for donors
+//   .state('/', {
+//     url: '/',
+//     views: {
+//       navMenuView: { templateUrl: '/templates/developerViews/navMenu.html'},
+//       firstView: { templateUrl: 'templates/userViews/donorView.html', controller: 'inputController' },
+//       secondView: { templateUrl: 'templates/userViews/donorChildrenFeedView.html', controller: 'inputController' }
+//     }
+//   })
 
-  .state('signout', {
-    url: '/{userType:donors|workers|admin}/signout',
-    views: {
-      navMenuView: { templateUrl: '/templates/developerViews/navMenu.html' },
-      firstView: { templateUrl: 'templates/authentication/signoutView.html', controller: 'authController' }
-    }
-  })
+//   // view for workers (nav bar, input field and list of children)
+//   .state('workersPortal', {
+//     url: '/workers',
+//     views: {
+//       navMenuView: { templateUrl: '/templates/developerViews/navMenu.html'},
+//       firstView: { templateUrl: 'templates/userViews/workerView.html', controller: 'inputController' },
+//       secondView: { templateUrl: 'templates/userViews/workerChildrenFeedView.html', controller: 'inputController' }
+//     }
+//   })
 
-  .state('sendReset', {
-    url: '/{userType:donors|workers|admin}/send_reset',
-    views: {
-      navMenuView: { templateUrl: '/templates/developerViews/navMenu.html' },
-      firstView: { templateUrl: 'templates/authentication/sendResetView.html', controller: 'authController' }
-    }
-  })
+//   // view for workers to create a new child tag
+//   .state('createTag', {
+//     url: '/create',
+//     views: {
+//       navMenuView: { templateUrl: '/templates/developerViews/navMenu.html'},
+//       firstView: { templateUrl: 'templates/userViews/workerChildInputView.html', controller: 'inputController' }
+//     }
+//   })
 
-  .state('resetPassword', {
-    url: '/{userType:donors|workers|admin}/reset_password/:resetToken',
-    views: {
-      navMenuView: { templateUrl: '/templates/developerViews/navMenu.html' },
-      firstView: { templateUrl: 'templates/authentication/resetView.html', controller: 'authController' }
-    }
-  })
-  //End Authentication Handlers
+//   //Authentication Handlers
+//   .state('signup', {
+//     url: '/{userType:donors|workers|admin}/signup',
+//     views: {
+//       navMenuView: { templateUrl: '/templates/developerViews/navMenu.html' },
+//       firstView: { templateUrl: 'templates/authentication/signupView.html', controller: 'authController' }
+//     }
+//   })
 
-}])
+//   .state('signin', {
+//     url: '/{userType:donors|workers|admin}/signin',
+//     views: {
+//       navMenuView: { templateUrl: '/templates/developerViews/navMenu.html' },
+//       firstView: { templateUrl: 'templates/authentication/signinView.html', controller: 'authController' }
+//     }
+//   })
+
+//   .state('signout', {
+//     url: '/{userType:donors|workers|admin}/signout',
+//     views: {
+//       navMenuView: { templateUrl: '/templates/developerViews/navMenu.html' },
+//       firstView: { templateUrl: 'templates/authentication/signoutView.html', controller: 'authController' }
+//     }
+//   })
+
+//   .state('sendReset', {
+//     url: '/{userType:donors|workers|admin}/send_reset',
+//     views: {
+//       navMenuView: { templateUrl: '/templates/developerViews/navMenu.html' },
+//       firstView: { templateUrl: 'templates/authentication/sendResetView.html', controller: 'authController' }
+//     }
+//   })
+
+//   .state('resetPassword', {
+//     url: '/{userType:donors|workers|admin}/reset_password/:resetToken',
+//     views: {
+//       navMenuView: { templateUrl: '/templates/developerViews/navMenu.html' },
+//       firstView: { templateUrl: 'templates/authentication/resetView.html', controller: 'authController' }
+//     }
+//   })
+//   //End Authentication Handlers
+
+// }])
 
 .controller('inputController', ['$scope', 'restful', 'protect', function ($scope, restful, protect) {
 
@@ -134,14 +246,14 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
 }])
 
 //Authentication logic
-.controller('authController', ['$scope', '$http', '$stateParams', function($scope, $http, $stateParams){
+.controller('authController', ['$scope', '$http', '$state', function($scope, $http, $state){
   $scope.signup = function(){
     if($scope.password === $scope.passwordConfirmation){
       $http({
         method: 'POST',
         url: '/auth/signup',
         data: {
-          userType: $stateParams.userType,
+          userType: $state.current.data.userType,
           email: $scope.email,
           password: $scope.password
         }
@@ -187,7 +299,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
       method: 'POST',
       url: '/auth/signedIn',
       data: {
-        userType: $stateParams.userType,
+        userType: $state.current.data.userType,
       }
     }).success(function(data, status){
     }).error(function(data, status){
@@ -199,7 +311,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
       method: 'POST',
       url: '/auth/sendReset',
       data: {
-        userType: $stateParams.userType,
+        userType: $state.current.data.userType,
         email: $scope.email
       }
     }).success(function(data, status){
@@ -214,7 +326,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
       method: 'POST',
       url: 'auth/resetPassword',
       data: {
-        userType: $stateParams.userType,
+        userType: $state.current.data.userType,
         password: $scope.password,
         resetToken: $stateParams.resetToken
       }
