@@ -3,38 +3,13 @@ var app = angular.module('childrensFund', ['ui.router', 'ngCookies'])
 app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
   $locationProvider.html5Mode(true);
 
-
-  $urlRouterProvider.when('/account', function($state, protect){
-    console.log('Donor account page intercepted');
-    protect('donors').then(function(isDonor){
-      if(isDonor){
-        $state.go('donors.account');
-      } else {
-        $state.go('donors.signin');
-      }
-    })
-  });
-
-  $urlRouterProvider.when('/workers', function($state, protect){
-    console.log('Worker account page intercepted');
-    protect('workers').then(function(isWorker){
-      if(isWorker){
-        $state.go('workers.account');
-      } else {
-        $state.go('workers.signin');
-      }
-    })
-  });
-
-  $urlRouterProvider.when('/admin', function($state, protect){
-    console.log('Admin account page intercepted');
-    protect('admin').then(function(isAdmin){
-      if(isAdmin){
-        $state.go('admin.account');
-      } else {
-        $state.go('admin.signin');
-      }
-    })
+  //Protect the donor/worker/admin account pages
+  $urlRouterProvider.when(/^\/account$|^\/workers$|^\/admin$/, function($match, $state, protect){
+    var user;
+    $match[0] === '/account' ? user = 'donors' : user = $match[0].substring(1);
+    protect(user).then(function(authorized){
+      authorized ? $state.go(user + '.account') : $state.go(user + '.signin');
+    });
   });
 
   $urlRouterProvider.otherwise('/404');
