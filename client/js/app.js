@@ -28,50 +28,6 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
       url: '/404',
       templateUrl: '/templates/public/404.html'
     })
-    //################## Donor ROUTES #####################
-    .state('donors', {
-      abstract: true,
-      template: '<ui-view/>',
-      data: { userType: 'donors' }
-    })
-      .state('donors.account', {
-        url: '/account',
-        templateUrl: '/templates/donors/account.html',
-        resolve: {
-          auth: function($q, $state, protect){
-            var deferred = $q.defer();
-            protect('donors').then(function(authorized){
-              if(authorized) {
-                deferred.resolve();
-              } else {
-                deferred.reject();
-                $state.go('donors.signin');
-              }
-            })
-            return deferred.promise;
-          }
-        }
-      })
-      .state('donors.signup', {
-        url: '/signup',
-        templateUrl: '/templates/authentication/signupView.html',
-        controller: 'authController'
-      })
-      .state('donors.signin', {
-        url: '/signin',
-        templateUrl: '/templates/authentication/signinView.html',
-        controller: 'authController'
-      })
-      .state('donors.sendReset', {
-        url: '/send_reset',
-        templateUrl: '/templates/authentication/sendResetView.html',
-        controller: 'authController'
-      })
-      .state('donors.resetPassword', {
-        url: '/reset_password',
-        templateUrl: '/templates/authentication/passwordResetView.html',
-        controller: 'authController'
-      })
     //################## Worker ROUTES #####################
     .state('workers', {
       abstract: true,
