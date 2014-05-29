@@ -117,7 +117,21 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
     })
       .state('helpDesk.account', {
         url: '/help_desk',
-        templateUrl: '/templates/helpDesk/account.html'
+        templateUrl: '/templates/helpDesk/account.html',
+        resolve: {
+          auth: function($q, $state, protect){
+            var deferred = $q.defer();
+            protect('helpDesk').then(function(authorized){
+              if(authorized) {
+                deferred.resolve();
+              } else {
+                deferred.reject();
+                $state.go('helpDesk.signin');
+              }
+            })
+            return deferred.promise;
+          }
+        }
       })
       .state('helpDesk.signup', {
         url: '/help_desk/signup',
