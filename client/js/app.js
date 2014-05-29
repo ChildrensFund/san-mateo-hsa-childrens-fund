@@ -50,6 +50,11 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
         templateUrl: '/templates/workers/createChildTag.html',
         controller: 'inputController'
       })
+      .state('workers.account.myTags', {
+        url: '/myTags',
+        templateUrl: '/templates/workers/childrenFeed.html',
+        controller: 'inputController'
+      })
       .state('workers.signup', {
         url: '/workers/signup',
         templateUrl: '/templates/authentication/signupView.html',
