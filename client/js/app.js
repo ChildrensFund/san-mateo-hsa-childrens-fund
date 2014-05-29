@@ -109,7 +109,7 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
         templateUrl: '/templates/authentication/sendResetView.html',
         controller: 'authController'
       })
-    //################## Admin ROUTES #####################
+    //################## Help Desk ROUTES #####################
     .state('helpDesk', {
       abstract: true,
       template: '<ui-view/>',
