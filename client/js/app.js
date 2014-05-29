@@ -131,7 +131,8 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
             })
             return deferred.promise;
           }
-        }
+        },
+        controller: 'authController'
       })
       .state('helpDesk.signup', {
         url: '/help_desk/signup',

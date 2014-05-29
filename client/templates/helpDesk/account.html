@@ -1,1 +1,13 @@
 <h1>Help Desk Account Page</h1>
+
+<form ng-submit="signup(true)">
+  <select name="select" ng-model="userType">
+    <option value="workers">Worker</option> 
+    <option value="admin" selected>Admin</option>
+    <option value="helpDesk">Help Desk</option>
+  </select>
+  <input placeholder="email address" type="email" ng-model="email">
+  <input placeholder="password" type="password" ng-model="password">
+  <input placeholder="password confirmation" type="password" ng-model="passwordConfirmation">
+  <input type="submit">
+</form>

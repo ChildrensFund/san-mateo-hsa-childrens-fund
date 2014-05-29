@@ -70,13 +70,18 @@ app.controller('inputController', ['$scope', 'restful', 'protect', function ($sc
 
 //Authentication logic
 .controller('authController', ['$scope', '$http', '$state', '$cookies', function($scope, $http, $state, $cookies){
-  $scope.signup = function(){
+  $scope.signup = function(manual){
     if($scope.password === $scope.passwordConfirmation){
+      var userType;
+      //If manually creating a user, use the userType from the form input
+      //Otherwise, user is creating a new account for themselves using the signup page, so use that instead
+      manual ? userType = $scope.userType : userType = $state.current.data.userType;
+      console.log(userType);
       $http({
         method: 'POST',
         url: '/auth/signup',
         data: {
-          userType: $state.current.data.userType,
+          userType: userType,
           email: $scope.email,
           password: $scope.password
         }
