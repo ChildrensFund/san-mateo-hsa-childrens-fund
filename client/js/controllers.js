@@ -69,7 +69,7 @@ app.controller('inputController', ['$scope', 'restful', 'protect', function ($sc
 }])
 
 //Authentication logic
-.controller('authController', ['$scope', '$http', '$state', '$cookies', function($scope, $http, $state, $cookies){
+.controller('authController', ['$scope', '$http', '$state', '$cookies', '$stateParams', function($scope, $http, $state, $cookies, $stateParams){
   $scope.signup = function(manual){
     if($scope.password === $scope.passwordConfirmation){
       var userType, password, email;
@@ -164,7 +164,7 @@ app.controller('inputController', ['$scope', 'restful', 'protect', function ($sc
   $scope.resetPassword = function(){
     $http({
       method: 'POST',
-      url: 'auth/resetPassword',
+      url: '/auth/resetPassword',
       data: {
         userType: $state.current.data.userType,
         password: $scope.password,

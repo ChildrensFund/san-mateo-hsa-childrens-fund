@@ -61,7 +61,7 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
         controller: 'authController'
       })
       .state('workers.resetPassword', {
-        url: '/workers/reset_password',
+        url: '/workers/reset_password/:resetToken',
         templateUrl: '/templates/authentication/resetPasswordView.html',
         controller: 'authController'
       })
