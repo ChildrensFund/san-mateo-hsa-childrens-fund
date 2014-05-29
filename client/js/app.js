@@ -105,8 +105,8 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
         controller: 'authController'
       })
       .state('admin.resetPassword', {
-        url: '/admin/reset_password',
-        templateUrl: '/templates/authentication/sendResetView.html',
+        url: '/admin/reset_password/:resetToken',
+        templateUrl: '/templates/authentication/resetPasswordView.html',
         controller: 'authController'
       })
     //################## Help Desk ROUTES #####################
@@ -150,8 +150,8 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
         controller: 'authController'
       })
       .state('helpDesk.resetPassword', {
-        url: '/help_desk/reset_password',
-        templateUrl: '/templates/authentication/sendResetView.html',
+        url: '/help_desk/reset_password/:resetToken',
+        templateUrl: '/templates/authentication/resetPasswordView.html',
         controller: 'authController'
       })
 
