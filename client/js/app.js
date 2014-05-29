@@ -12,10 +12,6 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
       url: '/',
       templateUrl: '/templates/public/home.html '
     })
-    .state('cart', {
-      url: '/cart',
-      templateUrl: '/templates/public/cart.html'
-    })
     .state('children', {
       url: '/childrens',
       templateUrl: '/templates/public/children.html'
