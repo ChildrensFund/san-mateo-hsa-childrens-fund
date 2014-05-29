@@ -45,6 +45,11 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
           }
         }
       })
+      .state('workers.account.create', {
+        url: '/create',
+        templateUrl: '/templates/workers/createChildTag.html',
+        controller: 'inputController'
+      })
       .state('workers.signup', {
         url: '/workers/signup',
         templateUrl: '/templates/authentication/signupView.html',
