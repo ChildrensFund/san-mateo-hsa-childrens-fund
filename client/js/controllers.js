@@ -72,21 +72,29 @@ app.controller('inputController', ['$scope', 'restful', 'protect', function ($sc
 .controller('authController', ['$scope', '$http', '$state', '$cookies', function($scope, $http, $state, $cookies){
   $scope.signup = function(manual){
     if($scope.password === $scope.passwordConfirmation){
-      var userType;
-      //If manually creating a user, use the userType from the form input
-      //Otherwise, user is creating a new account for themselves using the signup page, so use that instead
-      manual ? userType = $scope.userType : userType = $state.current.data.userType;
+      var userType, password, email;
+      email = $scope.email;
+      if(manual){ //If admin or helpdesk is creating a new account, we want to generate a random password and passthrough userType
+        userType = $scope.userType;
+        password = Math.random().toString();
+      } else { //Otherwise, grab user submitted data from signin page
+        userType = $state.current.data.userType;
+        password = $scope.password;
+      }
       console.log(userType);
       $http({
         method: 'POST',
         url: '/auth/signup',
         data: {
           userType: userType,
-          email: $scope.email,
-          password: $scope.password
+          email: email,
+          password: password
         }
       }).success(function(data, status){
         console.log('User Created!');
+        //If the user was manually added, we need to immediately fire a sendReset, which
+        //will allow the user to enter their own password
+        if(manual) $scope.sendReset(userType, email);
       }).error(function(data, status){
         console.log('User Not Created: Server Error');
       })
@@ -138,13 +146,13 @@ app.controller('inputController', ['$scope', 'restful', 'protect', function ($sc
     });
   }
 
-  $scope.sendReset = function(){
+  $scope.sendReset = function(userType, email){
     $http({
       method: 'POST',
       url: '/auth/sendReset',
       data: {
-        userType: $state.current.data.userType,
-        email: $scope.email
+        userType: userType || $state.current.data.userType,
+        email: email || $scope.email
       }
     }).success(function(data, status){
       console.log('Reset token sent');
