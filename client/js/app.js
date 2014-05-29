@@ -14,11 +14,8 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
     })
     .state('children', {
       url: '/childrens',
-      templateUrl: '/templates/public/children.html'
-    })
-    .state('child', {
-      url: '/child',
-      templateUrl: '/templates/public/child.html'
+      templateUrl: '/templates/public/children.html',
+      controller: 'inputController'
     })
     .state('404', {
       url: '/404',
