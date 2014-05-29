@@ -45,6 +45,11 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
           }
         }
       })
+      .state('workers.account.nav', {
+        // url: '/workers/nav',
+        templateUrl: '/templates/workers/navMenu.html',
+        // controller: 'inputController'
+      })
       .state('workers.account.create', {
         url: '/create',
         templateUrl: '/templates/workers/createChildTag.html',

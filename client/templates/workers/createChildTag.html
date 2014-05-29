@@ -1,200 +1,198 @@
-<div>
-
-<!-- child data -->
-  <div class="box xs center">
-    <h2>Child Info</h2>
-    <input 
-    ng-model="tempChildObj.child.firstName" 
-    type="text" 
-    name="firstName" 
-    placeholder="Child's First Name"/><br/>
-    <input 
-    ng-model="tempChildObj.child.lastName" 
-    type="text" 
-    name="lastName" 
-    placeholder="Child's Last Name"/><br/>
-    <input 
-    ng-model="tempChildObj.child.phone" 
-    type="text" 
-    name="childPhone" 
-    placeholder="Child's Phone"/><br/>
-    <input 
-    ng-model="tempChildObj.child.gender" 
-    type="text" 
-    name="gender" 
-    placeholder="Child's Gender"/><br/>
-    <input 
-    ng-model="tempChildObj.child.dob" 
-    type="text" 
-    name="dob" 
-    placeholder="Child's DOB"/><br/>
-    <input 
-    ng-model="tempChildObj.child.age" 
-    type="text" 
-    name="age" 
-    placeholder="Child's Age"/><br/>
-    <input 
-    ng-model="tempChildObj.child.location" 
-    type="text" 
-    name="location" 
-    placeholder="Child's Location"/><br/>
-    <input 
-    ng-model="tempChildObj.child.programArea" 
-    type="text" 
-    name="programArea" 
-    placeholder="Program Area"/><br/>
-    <input 
-    ng-model="tempChildObj.child.bio" 
-    type="text" 
-    name="bio" 
-    placeholder="Bio"/><br/>
+<div class="container-fluid">
+  <div class="row">
+    <!-- child data -->
+    <div class="col-md-3">
+      <h2>Child Info</h2>
+      <input 
+      ng-model="tempChildObj.child.firstName" 
+      type="text" 
+      name="firstName" 
+      placeholder="Child's First Name"/><br/>
+      <input 
+      ng-model="tempChildObj.child.lastName" 
+      type="text" 
+      name="lastName" 
+      placeholder="Child's Last Name"/><br/>
+      <input 
+      ng-model="tempChildObj.child.phone" 
+      type="text" 
+      name="childPhone" 
+      placeholder="Child's Phone"/><br/>
+      <input 
+      ng-model="tempChildObj.child.gender" 
+      type="text" 
+      name="gender" 
+      placeholder="Child's Gender"/><br/>
+      <input 
+      ng-model="tempChildObj.child.dob" 
+      type="text" 
+      name="dob" 
+      placeholder="Child's DOB"/><br/>
+      <input 
+      ng-model="tempChildObj.child.age" 
+      type="text" 
+      name="age" 
+      placeholder="Child's Age"/><br/>
+      <input 
+      ng-model="tempChildObj.child.location" 
+      type="text" 
+      name="location" 
+      placeholder="Child's Location"/><br/>
+      <input 
+      ng-model="tempChildObj.child.programArea" 
+      type="text" 
+      name="programArea" 
+      placeholder="Program Area"/><br/>
+      <input 
+      ng-model="tempChildObj.child.bio" 
+      type="text" 
+      name="bio" 
+      placeholder="Bio"/>
+    </div>
+    <!-- Request Data -->
+    <div class="col-md-3">
+      <h2>Request Info</h2>
+      <input 
+      ng-model="tempChildObj.request.items[0].item" 
+      type="text" 
+      name="item1" 
+      placeholder="First Item"/><br/>
+      <input 
+      ng-model="tempChildObj.request.items[0].price" 
+      type="text" 
+      name="item1Price" 
+      placeholder="First Item Price"/><br/>
+      <input 
+      ng-model="tempChildObj.request.items[1].item" 
+      type="text" 
+      name="item2" 
+      placeholder="Second Item"/><br/>
+      <input 
+      ng-model="tempChildObj.request.items[1].price" 
+      type="text" 
+      name="item2Price" 
+      placeholder="Second Item Price"/><br/>
+      <input 
+      ng-model="tempChildObj.request.items[2].item" 
+      type="text" 
+      name="item3" 
+      placeholder="Third Item"/><br/>
+      <input 
+      ng-model="tempChildObj.request.items[2].price" 
+      type="text" 
+      name="item3Price" 
+      placeholder="Third Item Price"/></div>
+    <div class="col-md-3">
+      <h2>Worker Info</h2>
+      <input 
+      ng-model="tempChildObj.worker.firstName" 
+      type="text" 
+      name="workerFirstName" 
+      placeholder="Worker's First Name"/><br/>
+      <input 
+      ng-model="tempChildObj.worker.lastName" 
+      type="text" 
+      name="workerLastName" 
+      placeholder="Worker's Last Name"/><br/>
+      <input 
+      ng-model="tempChildObj.worker.phone" 
+      type="text" 
+      name="workerPhone" 
+      placeholder="Worker's Phone"/><br/>
+      <input 
+      ng-model="tempChildObj.worker.email" 
+      type="text" 
+      name="workerEmail" 
+      placeholder="Worker's Email"/><br/>
+      <input 
+      ng-model="tempChildObj.worker.department" 
+      type="text" 
+      name="workerDepartment" 
+      placeholder="Worker's Department"/><br/>
+      <input 
+      ng-model="tempChildObj.worker.coordinatorFirstName" 
+      type="text" 
+      name="coordinatorFirstName" 
+      placeholder="Coordinator's First Name"/><br/>
+      <input 
+      ng-model="tempChildObj.worker.coordinatorLastName" 
+      type="text" 
+      name="coordinatorLastName" 
+      placeholder="Coordinator's Last Name"/><br/>
+      <input 
+      ng-model="tempChildObj.worker.supervisorFirstName" 
+      type="text" 
+      name="supervisorFirstName" 
+      placeholder="Supervisor's First Name"/><br/>
+      <input 
+      ng-model="tempChildObj.worker.supervisorLastName" 
+      type="text" 
+      name="supervisorLastName" 
+      placeholder="Supervisor's Last Name"/>
+    </div>
+    <div class="col-md-3">
+      <h2>Donor Info</h2>
+      <input 
+      ng-model="tempChildObj.donor.firstName" 
+      type="text" 
+      name="donorFirstName" 
+      placeholder="Donor's First Name"/><br/>
+      <input 
+      ng-model="tempChildObj.donor.lastName" 
+      type="text" 
+      name="donorLastName" 
+      placeholder="Donor's Last Name"/><br/>
+      <input 
+      ng-model="tempChildObj.donor.phone" 
+      type="text" 
+      name="donorPhone" 
+      placeholder="Donor's Phone"/><br/>
+      <input 
+      ng-model="tempChildObj.donor.email" 
+      type="text" 
+      name="donorEmail" 
+      placeholder="Donor's Email"/><br/>
+      <input 
+      ng-model="tempChildObj.donor.address1" 
+      type="text" 
+      name="donorAddress1" 
+      placeholder="Donor's Address Line 1"/><br/>
+      <input 
+      ng-model="tempChildObj.donor.address2" 
+      type="text" 
+      name="donorAddress2" 
+      placeholder="Donor's Address Line 2"/><br/>
+      <input 
+      ng-model="tempChildObj.donor.city" 
+      type="text" 
+      name="donorCity" 
+      placeholder="Donor's City"/><br/>
+      <input 
+      ng-model="tempChildObj.donor.state" 
+      type="text" 
+      name="donorState" 
+      placeholder="Donor's State"/><br/>
+      <input 
+      ng-model="tempChildObj.donor.zip" 
+      type="text" 
+      name="donorZip" 
+      placeholder="Donor's Zip"/>
+    </div>
   </div>
+</div>
 
-<!-- request data -->
-  <div class="box xs center">
-    <h2>Request Info</h2>
-    <input 
-    ng-model="tempChildObj.request.items[0].item" 
-    type="text" 
-    name="item1" 
-    placeholder="First Item"/><br/>
-    <input 
-    ng-model="tempChildObj.request.items[0].price" 
-    type="text" 
-    name="item1Price" 
-    placeholder="First Item Price"/><br/>
-    <input 
-    ng-model="tempChildObj.request.items[1].item" 
-    type="text" 
-    name="item2" 
-    placeholder="Second Item"/><br/>
-    <input 
-    ng-model="tempChildObj.request.items[1].price" 
-    type="text" 
-    name="item2Price" 
-    placeholder="Second Item Price"/><br/>
-    <input 
-    ng-model="tempChildObj.request.items[2].item" 
-    type="text" 
-    name="item3" 
-    placeholder="Third Item"/><br/>
-    <input 
-    ng-model="tempChildObj.request.items[2].price" 
-    type="text" 
-    name="item3Price" 
-    placeholder="Third Item Price"/><br/>
-  </div>
-
-<!-- worker data -->
-  <div class="box xs center">
-    <h2>Worker Info</h2>
-    <input 
-    ng-model="tempChildObj.worker.firstName" 
-    type="text" 
-    name="workerFirstName" 
-    placeholder="Worker's First Name"/><br/>
-    <input 
-    ng-model="tempChildObj.worker.lastName" 
-    type="text" 
-    name="workerLastName" 
-    placeholder="Worker's Last Name"/><br/>
-    <input 
-    ng-model="tempChildObj.worker.phone" 
-    type="text" 
-    name="workerPhone" 
-    placeholder="Worker's Phone"/><br/>
-    <input 
-    ng-model="tempChildObj.worker.email" 
-    type="text" 
-    name="workerEmail" 
-    placeholder="Worker's Email"/><br/>
-    <input 
-    ng-model="tempChildObj.worker.department" 
-    type="text" 
-    name="workerDepartment" 
-    placeholder="Worker's Department"/><br/>
-    <input 
-    ng-model="tempChildObj.worker.coordinatorFirstName" 
-    type="text" 
-    name="coordinatorFirstName" 
-    placeholder="Coordinator's First Name"/><br/>
-    <input 
-    ng-model="tempChildObj.worker.coordinatorLastName" 
-    type="text" 
-    name="coordinatorLastName" 
-    placeholder="Coordinator's Last Name"/><br/>
-    <input 
-    ng-model="tempChildObj.worker.supervisorFirstName" 
-    type="text" 
-    name="supervisorFirstName" 
-    placeholder="Supervisor's First Name"/><br/>
-    <input 
-    ng-model="tempChildObj.worker.supervisorLastName" 
-    type="text" 
-    name="supervisorLastName" 
-    placeholder="Supervisor's Last Name"/><br/>
-  </div>
-
-<!-- donor data -->
-  <div class="box xs center">
-    <h2>Donor Info</h2>
-    <input 
-    ng-model="tempChildObj.donor.firstName" 
-    type="text" 
-    name="donorFirstName" 
-    placeholder="Donor's First Name"/><br/>
-    <input 
-    ng-model="tempChildObj.donor.lastName" 
-    type="text" 
-    name="donorLastName" 
-    placeholder="Donor's Last Name"/><br/>
-    <input 
-    ng-model="tempChildObj.donor.phone" 
-    type="text" 
-    name="donorPhone" 
-    placeholder="Donor's Phone"/><br/>
-    <input 
-    ng-model="tempChildObj.donor.email" 
-    type="text" 
-    name="donorEmail" 
-    placeholder="Donor's Email"/><br/>
-    <input 
-    ng-model="tempChildObj.donor.address1" 
-    type="text" 
-    name="donorAddress1" 
-    placeholder="Donor's Address Line 1"/><br/>
-    <input 
-    ng-model="tempChildObj.donor.address2" 
-    type="text" 
-    name="donorAddress2" 
-    placeholder="Donor's Address Line 2"/><br/>
-    <input 
-    ng-model="tempChildObj.donor.city" 
-    type="text" 
-    name="donorCity" 
-    placeholder="Donor's City"/><br/>
-    <input 
-    ng-model="tempChildObj.donor.state" 
-    type="text" 
-    name="donorState" 
-    placeholder="Donor's State"/><br/>
-    <input 
-    ng-model="tempChildObj.donor.zip" 
-    type="text" 
-    name="donorZip" 
-    placeholder="Donor's Zip"/><br/>
-  </div>
+<br/>
+<br/>
 
 <!-- buttons -->
   <div class="center">
-    <input 
+    <input
+    class="btn btn-success"
     ng-click="post()" 
     type="button" 
     name="submit" 
     value="Submit"/>
-    <br/>
-    <br/>
-    <a ui-sref="workers.account">Back</a>
+    <button class="btn btn-danger" ui-sref="workers.account">Back</button>
   </div>
   
 </div>
