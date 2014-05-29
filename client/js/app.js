@@ -109,6 +109,36 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
         templateUrl: '/templates/authentication/sendResetView.html',
         controller: 'authController'
       })
+    //################## Admin ROUTES #####################
+    .state('helpDesk', {
+      abstract: true,
+      template: '<ui-view/>',
+      data: { userType: 'helpDesk' }
+    })
+      .state('helpDesk.account', {
+        url: '/help_desk',
+        templateUrl: '/templates/helpDesk/account.html'
+      })
+      .state('helpDesk.signup', {
+        url: '/help_desk/signup',
+        templateUrl: '/templates/authentication/signupView.html',
+        controller: 'authController'
+      })
+      .state('helpDesk.signin', {
+        url: '/help_desk/signin',
+        templateUrl: '/templates/authentication/signinView.html',
+        controller: 'authController'
+      })
+      .state('helpDesk.sendReset', {
+        url: '/help_desk/send_reset',
+        templateUrl: '/templates/authentication/sendResetView.html',
+        controller: 'authController'
+      })
+      .state('helpDesk.resetPassword', {
+        url: '/help_desk/reset_password',
+        templateUrl: '/templates/authentication/sendResetView.html',
+        controller: 'authController'
+      })
 
 });
 

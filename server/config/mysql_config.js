@@ -41,16 +41,26 @@ var Admin = sequelize.define('admins', {
   resetTokenSetTime: Sequelize.DATE
 });
 
+var HelpDesk = sequelize.define('helpdesks', {
+  email: { type: Sequelize.STRING, unique: true },
+  passwordHash: Sequelize.STRING,
+  sessionToken: Sequelize.STRING,
+  resetToken: Sequelize.STRING,
+  resetTokenSetTime: Sequelize.DATE
+})
+
 Child.sync();
 Donor.sync();
 Staff.sync();
 Admin.sync();
+HelpDesk.sync();
 
 module.exports = {
   Child: Child,
   Donor: Donor,
   Staff: Staff,
-  Admin: Admin
+  Admin: Admin,
+  HelpDesk: HelpDesk
 };
 
 

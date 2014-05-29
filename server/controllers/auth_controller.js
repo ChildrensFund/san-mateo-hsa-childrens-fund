@@ -8,6 +8,7 @@
 var Donor = require('../config/mysql_config.js').Donor;
 var Staff = require('../config/mysql_config.js').Staff;
 var Admin = require('../config/mysql_config.js').Admin;
+var HelpDesk = require('../config/mysql_config.js').HelpDesk;
 var bcrypt = require('bcrypt');
 
 var setUserType = function(request, response, userType){
@@ -21,6 +22,9 @@ var setUserType = function(request, response, userType){
       break;
     case 'admin':
       return Admin;
+      break;
+    case 'helpDesk':
+      return HelpDesk;
       break;
     default:
       response.send(404, 'Worker type other than donors/workers/admin was POSTed');
