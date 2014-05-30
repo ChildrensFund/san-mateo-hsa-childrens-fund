@@ -15,7 +15,13 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
     //################## Public ROUTES #####################
     .state('root', {
       url: '/',
-      templateUrl: '/templates/public/home.html '
+      templateUrl: '/templates/public/home.html',
+      controller: 'childController'
+    })
+    .state('pledge', {
+      url: '/pledge',
+      templateUrl: '/templates/public/pledge.html',
+      controller: 'childController'
     })
     .state('404', {
       url: '/404',
