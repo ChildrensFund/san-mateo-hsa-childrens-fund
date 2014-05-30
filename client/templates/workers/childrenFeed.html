@@ -19,25 +19,35 @@
       <br/>
       {{child.child.bio}}
     </div>
-    <div ng-repeat="item in child.child.items">
-      <div class="box xs inline" style="margin-left: 20px">
-        ${{item.price}} for {{item.item}}
+
+    <!-- ITEMS -->
+    <div>
+      <!-- item1 -->
+      <div>
+        ${{ child.child.firstItemPrice }} for {{ child.child.firstItemName }}
+      </div>
+      <!-- item2 -->
+      <div>
+        ${{ child.child.secondItemPrice }} for {{ child.child.secondItemName }}
+      </div>
+      <!-- item3 -->
+      <div>
+        ${{ child.child.thirdItemPrice }} for {{ child.child.thirdItemName }}
       </div>
     </div>
     <div>
       <!-- Visual Status -->
       <p 
       class="notPledgedText" 
-      ng-if="child.status === 'requested'">
+      ng-hide="child.child.status">
         Not pledged by a donor
       </p>
       <p 
       class="pledgedText" 
-      ng-if="child.status !== 'requested'">
+      ng-show="child.child.status">
         Pledged by a donor
       </p>
     </div>
-    <br/>
   </div>
 </div>
 <div ng-hide="children">

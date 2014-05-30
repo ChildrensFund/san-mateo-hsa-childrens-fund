@@ -4,34 +4,46 @@
     <img src="http://cdn.mhpbooks.com/uploads/2013/10/Success-Kid.jpg" alt="some kid">
     <!-- child's name -->
     <div>
-      {{child.child.firstName}}
+      {{ child.child.firstName }}
     </div>
     <!-- child's location -->
     <div>
-      {{child.child.firstName}}'s Location
+      {{ child.child.firstName }}'s Location
     </div>
     <!-- blurb about child -->
     <div>
       Blurb: 
       <br/>
-      {{child.child.bio}}
+      {{ child.child.bio }}
     </div>
-    <div ng-repeat="item in child.request.items.items">
-      <div class="box xs inline" style="margin-left: 20px">
-        ${{item.price}} for {{item.item}}
-        <input 
-        ng-if="item.status === 'requested'" 
-        ng-click="pledge(child, $index)" 
-        type="button" 
-        value="Pledge"/>
-        <input 
-        ng-if="item.status !== 'requested'" 
-        type="button" 
-        disabled="disabled" 
-        value="Pledged"/>
+
+    <!-- ITEMS -->
+    <div>
+      <!-- item1 -->
+      <div>
+        ${{ child.child.firstItemPrice }} for {{ child.child.firstItemName }}
+      </div>
+      <!-- item2 -->
+      <div>
+        ${{ child.child.secondItemPrice }} for {{ child.child.secondItemName }}
+      </div>
+      <!-- item3 -->
+      <div>
+        ${{ child.child.thirdItemPrice }} for {{ child.child.thirdItemName }}
       </div>
     </div>
-    <br/>
+    <div>
+      <input 
+      ng-hide="child.child.status" 
+      ng-click="pledge(child, $index)" 
+      type="button" 
+      value="Pledge"/>
+      <input 
+      ng-show="child.child.status" 
+      type="button" 
+      disabled="disabled" 
+      value="Pledged"/>
+    </div>
   </div>
 </div>
 <div ng-hide="children">
