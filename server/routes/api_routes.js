@@ -8,5 +8,30 @@
 var controller  = require( '../controllers/api_controller.js' );
 
 module.exports = function( router ) {
+  router.route('/children')
+    .get()
+  router.route('/children/:id')
+    .get()
+    .post()
+  router.route('/children/:id/worker')
+    .get()
+  router.route('/children/:id/donor')
+    .get()
+    .post()
+  router.route('/workers')
+    .get()
+  router.route('/workers/:id')
+    .get()
+    .post()
+  router.route('/workers/:id/children')
+    .get()
+    .post()
+  router.route('/donors')
+    .get()
+  router.route('/donors/:id')
+    .get()
+    .post()
+  router.route('/donors/:id/children')
+    .get()
 
 };
