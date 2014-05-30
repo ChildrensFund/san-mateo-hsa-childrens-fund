@@ -13,7 +13,7 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
   }
 }])
 
-app.controller('inputController', ['$scope', 'restful', 'protect', '$cookies', function ($scope, restful, protect, $cookies) {
+app.controller('childController', ['$scope', 'restful', '$cookies', function ($scope, restful, $cookies) {
   $scope.tempChildItemObj = {
     item: undefined, 
     price: undefined, 

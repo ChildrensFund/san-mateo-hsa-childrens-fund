@@ -39,6 +39,18 @@ app.factory('restful', ['$http', '$cookies', function ($http, $cookies) {
       });
     },
 
+    getWorkersChildren: function () {
+      return $http({
+        method: 'GET',
+        url: '/api/workers/' + $cookies.id + '/children',
+      }).success(function (data, status) {
+        console.log('(getWorkersChildren) GET Success! ', data);
+        return data;
+      }).error(function (data, status) {
+        console.log('(getWorkersChildren) GET Error! ', data, status);
+      });
+    },
+
     getWorkerData: function () {
       return $http({
         method: 'GET',
