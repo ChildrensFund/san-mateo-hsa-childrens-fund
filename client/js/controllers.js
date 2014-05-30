@@ -128,6 +128,7 @@ app.controller('inputController', ['$scope', 'restful', 'protect', function ($sc
         console.log('User signed in');
         $cookies.sessionToken = data.sessionToken;
         $cookies.type = data.type;
+        $cookies.id = data.id;
         $state.go(userType + '.account');
       }).error(function(data){
         console.log('User not signed in: Server Error');

@@ -118,7 +118,7 @@ module.exports.signin = function(request, response){
             user.save(['sessionToken']).success(function(user){
               console.log('Session Token Saved to DB, save', hash, 'to user cookies');
               console.log('User is now signed in');
-              response.send({sessionToken: hash, type: request.body.userType});
+              response.send({sessionToken: hash, type: request.body.userType, id: user.getDataValue('id')});
             });
           });
         } else {
@@ -149,6 +149,7 @@ module.exports.signout = function(request, response){
         console.log('User found in database, clearing session token and database token')
         response.cookie('sessionToken', null);
         response.cookie('type', null);
+        response.cookie('id', null);
         user.sessionToken = null;
         user.save(['sessionToken']).success(function(user){
           console.log('User session token cleared out of database + session');
