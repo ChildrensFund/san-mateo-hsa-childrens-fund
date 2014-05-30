@@ -45,6 +45,21 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
           }
         }
       })
+      .state('workers.account.myAccount', {
+        url:'myAccount',
+        templateUrl: '/templates/workers/myAccount.html',
+        controller: 'inputController'
+      })
+      .state('workers.account.create', {
+        url: '/create',
+        templateUrl: '/templates/workers/createChildTag.html',
+        controller: 'inputController'
+      })
+      .state('workers.account.myTags', {
+        url: '/myTags',
+        templateUrl: '/templates/workers/childrenFeed.html',
+        controller: 'inputController'
+      })
       .state('workers.signup', {
         url: '/workers/signup',
         templateUrl: '/templates/authentication/signupView.html',
