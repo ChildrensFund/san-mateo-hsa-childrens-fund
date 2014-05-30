@@ -223,7 +223,7 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
 });
 
 
-
+/*
 // CURRENT MASTER OBJ (as of 5/30 @ 13:30)
 {
   child: {
@@ -274,3 +274,4 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
   }
 };
 
+*/
