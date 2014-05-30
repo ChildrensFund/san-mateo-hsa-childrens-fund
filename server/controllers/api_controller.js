@@ -13,28 +13,56 @@ var HelpDesk = require('../config/mysql_config.js').HelpDesk;
 var url = require('url');
 var path = require('path');
 
-// router.route('/children')
-  // .get( controller.fetchChildren );
-module.exports.fetchChildren = function(req, res){
-  Child.findAll().success(function(children){
-    res.send(children);
+var parseUrl = function(req){
+  var pathname = url.parse(req.url).pathname;
+  var array = pathname.split('/');
+  return array;
+}
+
+var setUserType = function(userPath){
+  switch(userPath){
+    case 'workers':
+      return Staff;
+      break;
+    case 'children':
+      return Child;
+      break;
+    case 'donors':
+      return Donor;
+      break;
+    default:
+      return undefined;
+      break;
+  }
+}
+
+module.exports.fetchUsers = function(req, res){
+  var urlArray = parseUrl(req);
+  var User = setUserType(urlArray[1]);
+  User.findAll().success(function(users){
+    res.send(users);
   });
 };
 
-// router.route('/children/:id')
-  // .get( controller.fetchChild )
-module.exports.fetchChild = function(req, res){
-  var pathname = url.parse(req.url).pathname;
-  var childId = pathname.split('/')[2];
-  Child.find({where: {id: childId}}).success(function(child){
-    res.send(child);
+module.exports.fetchUser = function(req, res){
+  var urlArray = parseUrl(req);
+  var User = setUserType(urlArray[1]);
+  var userId = urlArray[2];
+  User.findAll({where: {id: userId}}).success(function(user){
+    res.send(user);
   })
-};
+}
 
-  // .post( controller.editChild );
-module.exports.editChild = function(req, res){
-  res.send(200);
-};
+module.exports.editUser = function(req, res){
+  var urlArray = parseUrl(req);
+  var User = setUserType(urlArray[1]);
+  var userId = urlArray[2];
+  User.find({where: {id: userId}}).success(function(user){
+    user.updateAttributes(req.body).success(function(user){
+      res.send(user);
+    });
+  });
+}
 
 // router.route('/children/:id/worker')
   // .get( controller.fetchChildWorker );
@@ -55,26 +83,6 @@ module.exports.createChildDonor = function(req, res){
 
 };
 
-// router.route('/workers')
-  // .get( controller.fetchWorkers );
-module.exports.fetchWorkers = function(req, res){
-  res.send(200);
-
-};
-
-// router.route('/workers/:id')
-  // .get( controller.fetchWorker )
-module.exports.fetchWorker = function(req, res){
-  res.send(200);
-
-};
-
-  // .post( controller.editWorker );
-module.exports.editWorker = function(req, res){
-  res.send(200);
-
-};
-
 // router.route('/workers/:id/children')
   // .get( controller.fetchWorkerChildren )
 module.exports.fetchWorkerChildren = function(req, res){
@@ -88,29 +96,9 @@ module.exports.createWorkerChild = function(req, res){
 
 };
 
-// router.route('/donors')
-  // .get( controller.fetchDonors );
-module.exports.fetchDonors = function(req, res){
-  res.send(200);
-
-};
-
-// router.route('/donors/:id')
-  // .get( controller.fetchDonor )
-module.exports.fetchDonor = function(req, res){
-  res.send(200);
-
-};
-
-  // .post( controller.editDonor );
-module.exports.editDonor = function(req, res){
-  res.send(200);
-
-};
-
 // router.route('/donors/:id/children')
 //   .get( controller.fetchDonorChildren );
 module.exports.fetchDonorChildren = function(req, res){
   res.send(200);
-  
+
 };
