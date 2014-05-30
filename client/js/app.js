@@ -46,7 +46,7 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
         }
       })
       .state('workers.account.myAccount', {
-        url:'myAccount',
+        url:'/myAccount',
         templateUrl: '/templates/workers/myAccount.html',
         controller: 'inputController'
       })
