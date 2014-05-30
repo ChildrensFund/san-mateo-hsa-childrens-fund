@@ -223,8 +223,8 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
 });
 
 
-/*
-// CURRENT MASTER OBJ (as of 5/30 @ 13:00)
+
+// CURRENT MASTER OBJ (as of 5/30 @ 13:30)
 {
   child: {
     createdAt: 'dateString',
@@ -243,25 +243,23 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
       {
         item: 'bike', 
         price: 'number',
-        status: null, 
         hsaReceivedDate: 'somedate',
         childReceivedDate: 'somedate'
       },
       {
         item: 'helmet', 
         price: 'number',
-        status: null, 
         hsaReceivedDate: 'somedate',
         childReceivedDate: 'somedate'
       },
       {
         item: 'babes', 
         price: 'number',
-        status: null, 
         hsaReceivedDate: 'somedate',
         childReceivedDate: 'somedate'
       }
     ],
+    status: null,
     donor: {
       firstName: 'amar',
       lastName: 'patel',
@@ -275,4 +273,4 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
     }
   }
 };
-*/
+

@@ -15,27 +15,27 @@
     </div>
     <!-- blurb about child -->
     <div>
-      Blurb: 
+      Bio: 
       <br/>
       {{child.child.bio}}
     </div>
-    <div ng-repeat="item in child.request.items.items">
+    <div ng-repeat="item in child.child.items">
       <div class="box xs inline" style="margin-left: 20px">
         ${{item.price}} for {{item.item}}
-
-        <!-- Visual Status -->
-        <p 
-        class="notPledgedText" 
-        ng-if="item.status === 'requested'">
-          Not pledged by a donor
-        </p>
-        <p 
-        class="pledgedText" 
-        ng-if="item.status !== 'requested'">
-          Pledged by a donor
-        </p>
-          <!-- add more here when other statuses are defiend -->
       </div>
+    </div>
+    <div>
+      <!-- Visual Status -->
+      <p 
+      class="notPledgedText" 
+      ng-if="child.status === 'requested'">
+        Not pledged by a donor
+      </p>
+      <p 
+      class="pledgedText" 
+      ng-if="child.status !== 'requested'">
+        Pledged by a donor
+      </p>
     </div>
     <br/>
   </div>

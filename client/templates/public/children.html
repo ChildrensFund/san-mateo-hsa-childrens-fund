@@ -23,24 +23,26 @@
     </div>
     <!-- blurb about child -->
     <div>
-      Blurb: 
+      Bio: 
       <br/>
       {{child.child.bio}}
     </div>
-    <div ng-repeat="item in child.request.items.items">
+    <div ng-repeat="item in child.child.items">
       <div class="box xs inline" style="margin-left: 20px">
-        $(price data){{item.price}} {{item.item}}
-        <input 
-        ng-if="item.status === 'requested'" 
-        ng-click="pledge(child, $index)" 
-        type="button" 
-        value="Pledge"/>
-        <input 
-        ng-if="item.status !== 'requested'" 
-        type="button" 
-        disabled="disabled" 
-        value="Pledged"/>
+        ${{item.price}} for {{item.item}}
       </div>
+    </div>
+    <div>
+      <input 
+      ng-if="child.status === 'requested'" 
+      ng-click="pledge(child, $index)" 
+      type="button" 
+      value="Pledge"/>
+      <input 
+      ng-if="child.status !== 'requested'" 
+      type="button" 
+      disabled="disabled" 
+      value="Pledged"/>
     </div>
     <br/>
   </div>
