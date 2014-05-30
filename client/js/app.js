@@ -6,15 +6,11 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
   $urlRouterProvider.otherwise('/404');
 
   $stateProvider
-    // Command + K, Command + 3 to make this intelligible
+    // Command + K, Command + 3 to make this intelligible  
     //################## Public ROUTES #####################
     .state('home', {
       url: '/',
-      templateUrl: '/templates/public/home.html '
-    })
-    .state('children', {
-      url: '/childrens',
-      templateUrl: '/templates/public/children.html',
+      templateUrl: '/templates/public/home.html',
       controller: 'inputController'
     })
     .state('404', {
