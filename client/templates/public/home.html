@@ -1,1 +1,51 @@
 <h1>Home</h1>
+
+<!-- HSF TEXT -->
+<div>
+  <img src="../../assets/images/placeholders/hsa_info.png" alt="">
+</div>
+<!-- NEWS AND EVENTS -->
+<div>
+  <img src="../../assets/images/placeholders/news_and_events.png" alt="">
+</div>
+
+
+<div>
+  <h1>Children</h1>
+  <div class="center box lg" ng-repeat="child in children">
+    <img src="http://cdn.mhpbooks.com/uploads/2013/10/Success-Kid.jpg" alt="some kid">
+    <!-- child's name -->
+    <div>
+      {{child.child.firstName}}
+    </div>
+    <!-- child's location -->
+    <div>
+      {{child.child.firstName}}'s Location
+    </div>
+    <!-- blurb about child -->
+    <div>
+      Blurb: 
+      <br/>
+      {{child.child.bio}}
+    </div>
+    <div ng-repeat="item in child.request.items.items">
+      <div class="box xs inline" style="margin-left: 20px">
+        $(price data){{item.price}} {{item.item}}
+        <input 
+        ng-if="item.status === 'requested'" 
+        ng-click="pledge(child, $index)" 
+        type="button" 
+        value="Pledge"/>
+        <input 
+        ng-if="item.status !== 'requested'" 
+        type="button" 
+        disabled="disabled" 
+        value="Pledged"/>
+      </div>
+    </div>
+    <br/>
+  </div>
+</div>
+<div ng-hide="children">
+  <p class="center">no children data!</p>
+</div>

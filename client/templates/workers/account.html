@@ -1,1 +1,15 @@
+<!-- Worker's Navigation Bar -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <a ui-sref="home" class="navbar-brand">Back To Root</a>
+    <ul class="nav navbar-nav">
+      <li><a ui-sref=".myAccount">My Account</a></li>
+      <li><a ui-sref=".myTags">My Children Tags</a></li>
+      <li><a ui-sref=".create">Create Child Tag</a></li>
+      <li><a href="#" ng-click="signout()">Signout</a></li>
+    </ul>
+  </div>
+</nav>
+
 <h1>Worker Account</h1>
+<div ui-view></div>
