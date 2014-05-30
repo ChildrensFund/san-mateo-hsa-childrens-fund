@@ -8,7 +8,7 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
   $stateProvider
     // Command + K, Command + 3 to make this intelligible  
     //################## Public ROUTES #####################
-    .state('home', {
+    .state('root', {
       url: '/',
       templateUrl: '/templates/public/home.html',
       controller: 'inputController'
