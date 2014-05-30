@@ -1,4 +1,9 @@
-var app = angular.module('childrensFund', ['ui.router', 'ngCookies'])
+var app = angular.module('childrensFund', ['ui.router', 'ngCookies', 'xeditable'])
+
+// for editable fields
+app.run(function(editableOptions) {
+  editableOptions.theme = 'bs3';
+});
 
 app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
   $locationProvider.html5Mode(true);
@@ -48,7 +53,19 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
       .state('workers.account.myAccount', {
         url:'/myAccount',
         templateUrl: '/templates/workers/myAccount.html',
-        controller: 'inputController'
+        controller: 'workerController',
+        resolve: {
+          getWorkerData: function ($q, $state, restful) {
+            var deferred = $q.defer();
+            restful.getWorkerData().then(function (promise) {
+              if (promise) {
+                deferred.resolve();
+              }
+            });
+            return deferred.promise;
+          }
+        }
+        // controller: 'inputController'
       })
       .state('workers.account.create', {
         url: '/create',
