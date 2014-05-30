@@ -1,0 +1,9 @@
+<form ng-submit="signup(true)">
+  <select name="select" ng-model="userType">
+    <option value="workers">Worker</option> 
+    <option value="admin" selected>Admin</option>
+    <option value="helpDesk">Help Desk</option>
+  </select>
+  <input placeholder="email address" type="email" ng-model="email">
+  <input type="submit">
+</form>

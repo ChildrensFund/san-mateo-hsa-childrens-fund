@@ -68,6 +68,19 @@ app.controller('inputController', ['$scope', 'restful', 'protect', function ($sc
 
 }])
 
+.controller('usersController', ['$scope', '$http', '$state', function($scope, $http, $state){
+  console.log('Fetching Users');
+  $http({
+    method: 'GET',
+    url: '/users' + $state.current.url
+  }).success(function(users){
+    console.log('Users fetched successfully');
+    $scope.users = users;
+  }).error(function(err){
+    console.log('Users not fetched successfully: Server Error');
+  })
+}])
+
 //Authentication logic
 .controller('authController', ['$scope', '$http', '$state', '$cookies', '$stateParams', function($scope, $http, $state, $cookies, $stateParams){
   $scope.signup = function(manual){
