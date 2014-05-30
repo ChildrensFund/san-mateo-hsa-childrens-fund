@@ -30,7 +30,7 @@ app.factory('restful', ['$http', '$cookies', function ($http, $cookies) {
     getChildren: function () {
       return $http({
         method: 'GET',
-        url: '/children'
+        url: '/api/workers/' + $cookies.id + '/children',
       }).success(function (data, status) {
         console.log('GET Success! ', data);
         return data;
