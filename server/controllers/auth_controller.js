@@ -117,9 +117,7 @@ module.exports.signin = function(request, response){
             user.sessionToken = hash;
             user.save(['sessionToken']).success(function(user){
               console.log('Session Token Saved to DB, save', hash, 'to user cookies');
-              console.log('User is now signed in')
-              response.cookie('sessionToken', hash);
-              response.cookie('type', request.body.userType);
+              console.log('User is now signed in');
               response.send({sessionToken: hash, type: request.body.userType});
             });
           });
