@@ -54,7 +54,15 @@ var Staff = sequelize.define('staffs', {
   passwordHash: Sequelize.STRING,
   sessionToken: Sequelize.STRING,
   resetToken: Sequelize.STRING,
-  resetTokenSetTime: Sequelize.DATE
+  resetTokenSetTime: Sequelize.DATE,
+  firstName: Sequelize.STRING,
+  lastName: Sequelize.STRING,
+  phone: Sequelize.INTEGER,
+  department: Sequelize.STRING,
+  supervisorFirstName: Sequelize.STRING,
+  supervisorLastName: Sequelize.STRING,
+  coordinatorFirstName: Sequelize.STRING,
+  coordinatorLastName: Sequelize.STRING
 });
 
 var Admin = sequelize.define('admins', {
