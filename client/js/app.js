@@ -134,6 +134,26 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
         },
         controller: 'authController'
       })
+        .state('helpDesk.account.create', {
+          url: '/create',
+          templateUrl: '/templates/helpDesk/account/create.html',
+          controller: 'authController'
+        })
+        .state('helpDesk.account.workers', {
+          url: '/workers',
+          templateUrl: '/templates/helpDesk/account/users.html',
+          controller: 'usersController'
+        })
+        .state('helpDesk.account.admin', {
+          url: '/admin',
+          templateUrl: '/templates/helpDesk/account/users.html',
+          controller: 'usersController'
+        })
+        .state('helpDesk.account.helpDesk', {
+          url: '/help_desk',
+          templateUrl: '/templates/helpDesk/account/users.html',
+          controller: 'usersController'
+        })
       .state('helpDesk.signup', {
         url: '/help_desk/signup',
         templateUrl: '/templates/authentication/signupView.html',
