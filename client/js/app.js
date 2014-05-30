@@ -6,11 +6,15 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
   $urlRouterProvider.otherwise('/404');
 
   $stateProvider
-    // Command + K, Command + 3 to make this intelligible  
+    // Command + K, Command + 3 to make this intelligible
     //################## Public ROUTES #####################
     .state('home', {
       url: '/',
-      templateUrl: '/templates/public/home.html',
+      templateUrl: '/templates/public/home.html '
+    })
+    .state('children', {
+      url: '/childrens',
+      templateUrl: '/templates/public/children.html',
       controller: 'inputController'
     })
     .state('404', {
@@ -40,21 +44,6 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
             return deferred.promise;
           }
         }
-      })
-      .state('workers.account.myAccount', {
-        url:'myAccount',
-        templateUrl: '/templates/workers/myAccount.html',
-        controller: 'inputController'
-      })
-      .state('workers.account.create', {
-        url: '/create',
-        templateUrl: '/templates/workers/createChildTag.html',
-        controller: 'inputController'
-      })
-      .state('workers.account.myTags', {
-        url: '/myTags',
-        templateUrl: '/templates/workers/childrenFeed.html',
-        controller: 'inputController'
       })
       .state('workers.signup', {
         url: '/workers/signup',
@@ -170,16 +159,16 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
         },
         controller: 'authController'
       })
-        .state('helpDesk.account.create', {
-          url: '/create',
-          templateUrl: '/templates/helpDesk/account/create.html',
-          controller: 'authController'
-        })
         .state('helpDesk.account.accountManagement', {
           abstract: true,
           template: '<ui-view/>',
           controller: 'usersController'
         })
+          .state('helpDesk.account.accountManagement.create', {
+            url: '/create',
+            templateUrl: '/templates/helpDesk/account/create.html',
+            controller: 'authController'
+          })
           .state('helpDesk.account.accountManagement.workers', {
             url: '/workers',
             templateUrl: '/templates/helpDesk/account/users.html',
