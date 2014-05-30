@@ -5,25 +5,40 @@
  *  path.  */
 //    This file is required by (root folder)/server/routes/donor_routes.js
 
+var Child = require('../config/mysql_config.js').Child;
 var Donor = require('../config/mysql_config.js').Donor;
 var Staff = require('../config/mysql_config.js').Staff;
 var Admin = require('../config/mysql_config.js').Admin;
 var HelpDesk = require('../config/mysql_config.js').HelpDesk;
+var url = require('url');
+var path = require('path');
 
 // router.route('/children')
   // .get( controller.fetchChildren );
-module.exports.fetchChildren = function(req, res){};
+module.exports.fetchChildren = function(req, res){
+  Child.findAll().success(function(children){
+    res.send(children);
+  });
+};
 
 // router.route('/children/:id')
   // .get( controller.fetchChild )
-module.exports.fetchChild = function(req, res){};
+module.exports.fetchChild = function(req, res){
+  var pathname = url.parse(req.url).pathname;
+  var childId = pathname.split('/')[2];
+  Child.find({where: {id: childId}}).success(function(child){
+    res.send(child);
+  })
+};
 
   // .post( controller.editChild );
-module.exports.editChild = function(req, res){};
+module.exports.editChild = function(req, res){
+};
 
 // router.route('/children/:id/worker')
   // .get( controller.fetchChildWorker );
-module.exports.fetchChildWorker = function(req, res){};
+module.exports.fetchChildWorker = function(req, res){
+};
 
 // router.route('/children/:id/donor')
   // .get( controller.fetchChildDonor )
