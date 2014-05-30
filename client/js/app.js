@@ -89,6 +89,31 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
           }
         }
       })
+        .state('admin.account.accountManagement', {
+          abstract: true,
+          template: '<ui-view/>',
+          controller: 'usersController'
+        })
+          .state('admin.account.accountManagement.create', {
+            url: '/create',
+            templateUrl: '/templates/admin/account/create.html',
+            controller: 'authController'
+          })
+          .state('admin.account.accountManagement.workers', {
+            url: '/workers',
+            templateUrl: '/templates/admin/account/users.html',
+            controller: 'usersController'
+          })
+          .state('admin.account.accountManagement.admin', {
+            url: '/admin',
+            templateUrl: '/templates/admin/account/users.html',
+            controller: 'usersController'
+          })
+          .state('admin.account.accountManagement.helpDesk', {
+            url: '/help_desk',
+            templateUrl: '/templates/admin/account/users.html',
+            controller: 'usersController'
+          })
       .state('admin.signup', {
         url: '/admin/signup',
         templateUrl: '/templates/authentication/signupView.html',
@@ -139,21 +164,26 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
           templateUrl: '/templates/helpDesk/account/create.html',
           controller: 'authController'
         })
-        .state('helpDesk.account.workers', {
-          url: '/workers',
-          templateUrl: '/templates/helpDesk/account/users.html',
+        .state('helpDesk.account.accountManagement', {
+          abstract: true,
+          template: '<ui-view/>',
           controller: 'usersController'
         })
-        .state('helpDesk.account.admin', {
-          url: '/admin',
-          templateUrl: '/templates/helpDesk/account/users.html',
-          controller: 'usersController'
-        })
-        .state('helpDesk.account.helpDesk', {
-          url: '/help_desk',
-          templateUrl: '/templates/helpDesk/account/users.html',
-          controller: 'usersController'
-        })
+          .state('helpDesk.account.accountManagement.workers', {
+            url: '/workers',
+            templateUrl: '/templates/helpDesk/account/users.html',
+            controller: 'usersController'
+          })
+          .state('helpDesk.account.accountManagement.admin', {
+            url: '/admin',
+            templateUrl: '/templates/helpDesk/account/users.html',
+            controller: 'usersController'
+          })
+          .state('helpDesk.account.accountManagement.helpDesk', {
+            url: '/help_desk',
+            templateUrl: '/templates/helpDesk/account/users.html',
+            controller: 'usersController'
+          })
       .state('helpDesk.signup', {
         url: '/help_desk/signup',
         templateUrl: '/templates/authentication/signupView.html',
