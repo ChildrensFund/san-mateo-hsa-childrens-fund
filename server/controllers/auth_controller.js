@@ -8,7 +8,11 @@
 var Donor = require('../config/mysql_config.js').Donor;
 var Staff = require('../config/mysql_config.js').Staff;
 var Admin = require('../config/mysql_config.js').Admin;
+var HelpDesk = require('../config/mysql_config.js').HelpDesk;
+var nodemailer = require('nodemailer');
 var bcrypt = require('bcrypt');
+
+var transport = nodemailer.createTransport("Direct", {debug: true});
 
 var setUserType = function(request, response, userType){
   var userType = userType || request.body.userType;
@@ -21,6 +25,9 @@ var setUserType = function(request, response, userType){
       break;
     case 'admin':
       return Admin;
+      break;
+    case 'helpDesk':
+      return HelpDesk;
       break;
     default:
       response.send(404, 'Worker type other than donors/workers/admin was POSTed');
@@ -159,6 +166,7 @@ module.exports.sendReset = function(request, response){
   console.log('################## sendReset FUNCTION CALLED ##################');
   var email = request.body.email;
   var User = setUserType(request, response);
+  var userType = request.body.userType;
   User.find({where: {email: email}}).success(function(user){
     if(!user){
       console.log('Complete: email not found in database');
@@ -170,8 +178,39 @@ module.exports.sendReset = function(request, response){
         hash = hash.replace(/\.|\/|\$/g, '');
         user.resetToken = hash;
         user.save(['resetToken']).success(function(user){
-          console.log('resetToken saved successfully')
+          console.log('resetToken saved successfully');
           console.log('Complete: resetToken is:', hash);
+
+          var htmlString;
+          switch(userType){
+            case 'workers':
+              htmlString = '<a href="http://localhost:4568/workers/reset_password/' + hash + '">Reset Link</a>';
+              break;
+            case 'admin':
+              htmlString = '<a href="http://localhost:4568/admin/reset_password/' + hash + '">Reset Link</a>';
+              break;
+            case 'helpDesk':
+              htmlString = '<a href="http://localhost:4568/help_desk/reset_password/' + hash + '">Reset Link</a>';
+              break;
+          }
+
+          var message = {
+            from: 'HSA CF TEST <hsacf@example.com>',
+            to: '"" <' + user.email + ' >',
+            subject: 'HSA CF TEST Password Reset',
+            html: htmlString
+          };
+
+          transport.sendMail(message, function(error, response){
+            if (error) {
+              console.log('Error occured');
+              console.log(error.message);
+            } else {
+              console.log(response);
+              console.log('Message sent successfully!');
+            }
+          });
+
           response.send(204, 'Reset Token Generated');
         });
       });

@@ -72,7 +72,7 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
         controller: 'authController'
       })
       .state('workers.resetPassword', {
-        url: '/workers/reset_password',
+        url: '/workers/reset_password/:resetToken',
         templateUrl: '/templates/authentication/resetPasswordView.html',
         controller: 'authController'
       })
@@ -116,8 +116,53 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
         controller: 'authController'
       })
       .state('admin.resetPassword', {
-        url: '/admin/reset_password',
+        url: '/admin/reset_password/:resetToken',
+        templateUrl: '/templates/authentication/resetPasswordView.html',
+        controller: 'authController'
+      })
+    //################## Help Desk ROUTES #####################
+    .state('helpDesk', {
+      abstract: true,
+      template: '<ui-view/>',
+      data: { userType: 'helpDesk' }
+    })
+      .state('helpDesk.account', {
+        url: '/help_desk',
+        templateUrl: '/templates/helpDesk/account.html',
+        resolve: {
+          auth: function($q, $state, protect){
+            var deferred = $q.defer();
+            protect('helpDesk').then(function(authorized){
+              if(authorized) {
+                deferred.resolve();
+              } else {
+                deferred.reject();
+                $state.go('helpDesk.signin');
+              }
+            })
+            return deferred.promise;
+          }
+        },
+        controller: 'authController'
+      })
+      .state('helpDesk.signup', {
+        url: '/help_desk/signup',
+        templateUrl: '/templates/authentication/signupView.html',
+        controller: 'authController'
+      })
+      .state('helpDesk.signin', {
+        url: '/help_desk/signin',
+        templateUrl: '/templates/authentication/signinView.html',
+        controller: 'authController'
+      })
+      .state('helpDesk.sendReset', {
+        url: '/help_desk/send_reset',
         templateUrl: '/templates/authentication/sendResetView.html',
+        controller: 'authController'
+      })
+      .state('helpDesk.resetPassword', {
+        url: '/help_desk/reset_password/:resetToken',
+        templateUrl: '/templates/authentication/resetPasswordView.html',
         controller: 'authController'
       })
 

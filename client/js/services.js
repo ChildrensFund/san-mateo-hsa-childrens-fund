@@ -64,7 +64,7 @@ app.factory('restful', ['$http', function ($http) {
 
 .factory('protect', ['$cookies', '$q', '$http', 'sessionCache', function($cookies, $q, $http, sessionCache){
   
-  //pageType needs to be 'donors' || 'workers' || 'admin'
+  //pageType needs to be 'donors' || 'workers' || 'admin' || 'helpDesk'
   return function(pageType){
     var cookieSessionToken = $cookies.sessionToken;
     var cookieUserType = $cookies.type;
