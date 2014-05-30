@@ -42,7 +42,7 @@ app.factory('restful', ['$http', '$cookies', function ($http, $cookies) {
     getWorkerData: function () {
       return $http({
         method: 'GET',
-        url: '/api/workers/' + $cookies.id,
+        url: '/api/workers/' + $cookies.id
       }).success(function (data, status) {
         console.log('(Worker Data) GET Success! ', data);
         return data;
