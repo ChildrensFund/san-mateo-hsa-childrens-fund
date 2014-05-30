@@ -1,5 +1,5 @@
 // GET/POST logic
-app.factory('restful', ['$http', function ($http) {
+app.factory('restful', ['$http', '$cookies', function ($http, $cookies) {
   return {
     createChild: function (childObj) {
       return $http({
@@ -37,7 +37,33 @@ app.factory('restful', ['$http', function ($http) {
       }).error(function (data, status) {
         console.log('GET Error! ', data, status);
       });
+    },
+
+    getWorkerData: function () {
+      return $http({
+        method: 'GET',
+        url: '/api/workers/' + $cookies.id,
+      }).success(function (data, status) {
+        console.log('(Worker Data) GET Success! ', data);
+        return data;
+      }).error(function (data, status) {
+        console.log('(Worker Data) GET Error! ', data, status);
+      });
+    },
+
+    postWorkerData: function (workerObj) {
+      return $http({
+        method: 'POST',
+        url: '/api/workers/' + $cookies.id,
+        data: workerObj
+      }).success(function (data, status) {
+        console.log('(Worker Data) POST Success! ', data);
+        return data;
+      }).error(function (data, status) {
+        console.log('(Worker Data) POST Error! ', data, status);
+      });
     }
+
   }
 }])
 

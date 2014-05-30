@@ -1,4 +1,4 @@
-app.controller('appController', function($scope, $cookies, signout){
+app.controller('appController', ['$scope', '$cookies', 'signout', function ($scope, $cookies, signout){
   $scope.signout = function(){
     signout();
   }
@@ -11,10 +11,9 @@ app.controller('appController', function($scope, $cookies, signout){
       console.log('Sign out before using the master signin');
     }
   }
-})
+}])
 
 app.controller('inputController', ['$scope', 'restful', 'protect', function ($scope, restful, protect) {
-
   $scope.tempChildItemObj = {
     item: undefined, 
     status: undefined, 
@@ -191,3 +190,51 @@ app.controller('inputController', ['$scope', 'restful', 'protect', function ($sc
   }
 
 }])
+
+
+
+// Worker Account Controller
+.controller('workerController', ['$scope', 'restful', function ($scope, restful) {
+
+  $scope.getWorkerData = function () {
+    restful.getWorkerData().then(function (promise) {
+      if (promise) {
+        $scope.workerData = promise.data;
+      }
+    });
+  };
+
+  $scope.postWorkerData = function (key, val) {
+    var workerObj = {};
+    workerObj.worker = {};
+    workerObj.worker[key] = val;
+
+    restful.postWorkerData(workerObj).then(function (promise) {
+      if (promise) {
+        $scope.getWorkerData();
+      }
+    })
+  };
+
+}])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
