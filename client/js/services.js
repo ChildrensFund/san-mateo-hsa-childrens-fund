@@ -4,7 +4,7 @@ app.factory('restful', ['$http', '$cookies', function ($http, $cookies) {
     createChild: function (childObj) {
       return $http({
         method: 'POST',
-        url: '/children',
+        url: '/api/workers/' + $cookies.id + '/children',
         data: childObj
       }).success(function (data, status) {
         console.log('(Create) POST Success! ', data);

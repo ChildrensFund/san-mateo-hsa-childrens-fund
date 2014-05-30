@@ -32,7 +32,6 @@ app.controller('inputController', ['$scope', 'restful', 'protect', '$cookies', f
   };
 
   $scope.post = function () {
-    $scope.tempChildObj.child.workerAccountID = $cookies.id;
     $scope.tempChildObj.child.createdAt = new Date();
     restful.createChild($scope.tempChildObj).then(function (promise) {
       if (promise) {
