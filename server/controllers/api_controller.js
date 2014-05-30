@@ -67,38 +67,83 @@ module.exports.editUser = function(req, res){
 // router.route('/children/:id/worker')
   // .get( controller.fetchChildWorker );
 module.exports.fetchChildWorker = function(req, res){
-  res.send(200);
+  var urlArray = parseUrl(req);
+  var User = setUserType(urlArray[1]);
+  var userId = urlArray[2];
+  Child.find({where: {id: userId}}).success(function(child){
+    child.getStaff().success(function(worker){
+      res.send(worker);
+    })
+  });
 };
 
 // router.route('/children/:id/donor')
   // .get( controller.fetchChildDonor )
 module.exports.fetchChildDonor = function(req, res){
-  res.send(200);
-
+  var urlArray = parseUrl(req);
+  var User = setUserType(urlArray[1]);
+  var userId = urlArray[2];
+  Child.find({where: {id: userId}}).success(function(child){
+    child.getDonor().success(function(donor){
+      res.send(donor);
+    })
+  })
 };
 
   // .post( controller.createChildDonor );
 module.exports.createChildDonor = function(req, res){
-  res.send(200);
-
+  var urlArray = parseUrl(req);
+  var userId = urlArray[2];
+  //Find the child
+  Child.find({where: {id: userId}}).success(function(child){
+    //Create the new donor
+    Donor.create(req.body).success(function(donor){
+      //Associate child and donor
+      child.setDonor(donor).success(function(){
+        //Hacky solution -> manually setting donor id on child
+        child.donorId = donor.id;
+        child.save(['donorId']).success(function(child){
+          res.send({child: child, donor: donor});
+        })
+      })
+    })
+  });
 };
 
 // router.route('/workers/:id/children')
   // .get( controller.fetchWorkerChildren )
 module.exports.fetchWorkerChildren = function(req, res){
-  res.send(200);
-
+  var urlArray = parseUrl(req);
+  var workerId = urlArray[2];
+  Staff.find({where: {id: workerId}}).success(function(worker){
+    worker.getChildren().success(function(children){
+      res.send(children);
+    })
+  })
 };
 
   // .post( controller.createWorkerChild );
 module.exports.createWorkerChild = function(req, res){
-  res.send(200);
-
+  var urlArray = parseUrl(req);
+  var workerId = urlArray[2];
+  Staff.find({where: {id: workerId}}).success(function(worker){
+    req.body.staffId = workerId;
+    Child.create(req.body).success(function(child){
+      child.setStaff(worker).success(function(){
+        res.send({child: child, worker: worker});
+      })
+    })
+  })
 };
 
 // router.route('/donors/:id/children')
 //   .get( controller.fetchDonorChildren );
 module.exports.fetchDonorChildren = function(req, res){
-  res.send(200);
-
+  var urlArray = parseUrl(req);
+  var donorId = urlArray[2];
+  Donor.find({where: {id: donorId}}).success(function(donor){
+    donor.getChildren().success(function(children){
+      res.send(children);
+    })
+  })
 };

@@ -81,16 +81,17 @@ var HelpDesk = sequelize.define('helpdesks', {
   resetTokenSetTime: Sequelize.DATE
 })
 
+Donor.hasMany(Child);
+Staff.hasMany(Child);
+Child.hasOne(Donor);
+Child.hasOne(Staff);
+
 Child.sync();
 Donor.sync();
 Staff.sync();
 Admin.sync();
 HelpDesk.sync();
 
-Donor.hasMany(Child);
-Child.hasOne(Donor);
-Child.belongsTo(Staff);
-Staff.hasMany(Child);
 
 module.exports = {
   Child: Child,
