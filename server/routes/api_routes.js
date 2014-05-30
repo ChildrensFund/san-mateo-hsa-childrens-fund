@@ -9,29 +9,29 @@ var controller  = require( '../controllers/api_controller.js' );
 
 module.exports = function( router ) {
   router.route('/children')
-    .get()
+    .get( controller.fetchChildren );
   router.route('/children/:id')
-    .get()
-    .post()
+    .get( controller.fetchChild )
+    .post( controller.editChild );
   router.route('/children/:id/worker')
-    .get()
+    .get( controller.fetchChildWorker );
   router.route('/children/:id/donor')
-    .get()
-    .post()
+    .get( controller.fetchChildDonor )
+    .post( controller.createChildDonor );
   router.route('/workers')
-    .get()
+    .get( controller.fetchWorkers );
   router.route('/workers/:id')
-    .get()
-    .post()
+    .get( controller.fetchWorker )
+    .post( controller.editWorker );
   router.route('/workers/:id/children')
-    .get()
-    .post()
+    .get( controller.fetchWorkerChildren )
+    .post( controller.createWorkerChild );
   router.route('/donors')
-    .get()
+    .get( controller.fetchDonors );
   router.route('/donors/:id')
-    .get()
-    .post()
+    .get( controller.fetchDonor )
+    .post( controller.editDonor );
   router.route('/donors/:id/children')
-    .get()
+    .get( controller.fetchDonorChildren );
 
 };
