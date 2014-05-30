@@ -4,7 +4,7 @@ app.factory('restful', ['$http', '$cookies', function ($http, $cookies) {
     createChild: function (childObj) {
       return $http({
         method: 'POST',
-        url: '/children',
+        url: '/api/workers/' + $cookies.id + '/children',
         data: childObj
       }).success(function (data, status) {
         console.log('(Create) POST Success! ', data);
@@ -30,12 +30,24 @@ app.factory('restful', ['$http', '$cookies', function ($http, $cookies) {
     getChildren: function () {
       return $http({
         method: 'GET',
-        url: '/children'
+        url: '/api/workers/' + $cookies.id + '/children',
       }).success(function (data, status) {
         console.log('GET Success! ', data);
         return data;
       }).error(function (data, status) {
         console.log('GET Error! ', data, status);
+      });
+    },
+
+    getWorkersChildren: function () {
+      return $http({
+        method: 'GET',
+        url: '/api/workers/' + $cookies.id + '/children',
+      }).success(function (data, status) {
+        console.log('(getWorkersChildren) GET Success! ', data);
+        return data;
+      }).error(function (data, status) {
+        console.log('(getWorkersChildren) GET Error! ', data, status);
       });
     },
 

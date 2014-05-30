@@ -13,27 +13,26 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
   }
 }])
 
-app.controller('inputController', ['$scope', 'restful', 'protect', function ($scope, restful, protect) {
+app.controller('childController', ['$scope', 'restful', '$cookies', function ($scope, restful, $cookies) {
   $scope.tempChildItemObj = {
     item: undefined, 
-    status: undefined, 
     price: undefined, 
-    paymentDate: undefined, 
     hsaReceivedDate: undefined, 
     childReceivedDate: undefined
   };
 
+
+
   // sets basic template for creating new child tags
   $scope.tempChildObj = {
-    request: {
+    child: {
       // had to use extend otherwise all item field populate simultaneously 
       items: [_.extend({},$scope.tempChildItemObj), _.extend({},$scope.tempChildItemObj), _.extend({},$scope.tempChildItemObj)] 
     }
   };
 
   $scope.post = function () {
-    // $scope.tempChildObj.worker.accountID = get signed-in worker's account ID here
-    $scope.tempChildObj.request.createdAt = new Date();
+    $scope.tempChildObj.child.createdAt = new Date();
     restful.createChild($scope.tempChildObj).then(function (promise) {
       if (promise) {
         return $scope.get();
@@ -50,6 +49,7 @@ app.controller('inputController', ['$scope', 'restful', 'protect', function ($sc
     });
   };
 
+  //  FIX ME!!!
   $scope.pledge = function (childObj, index) {
     // for a given child's item, sets pledged to true
     childObj.request.items[index].status = 'pledged';

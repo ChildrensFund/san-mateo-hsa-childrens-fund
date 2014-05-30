@@ -15,12 +15,13 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
     //################## Public ROUTES #####################
     .state('root', {
       url: '/',
-      templateUrl: '/templates/public/home.html '
+      templateUrl: '/templates/public/home.html',
+      controller: 'childController'
     })
-    .state('children', {
-      url: '/childrens',
-      templateUrl: '/templates/public/children.html',
-      controller: 'inputController'
+    .state('pledge', {
+      url: '/pledge',
+      templateUrl: '/templates/public/pledge.html',
+      controller: 'childController'
     })
     .state('404', {
       url: '/404',
@@ -65,17 +66,27 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
             return deferred.promise;
           }
         }
-        // controller: 'inputController'
       })
       .state('workers.account.create', {
         url: '/create',
         templateUrl: '/templates/workers/createChildTag.html',
-        controller: 'inputController'
+        controller: 'childController'
       })
       .state('workers.account.myTags', {
         url: '/myTags',
         templateUrl: '/templates/workers/childrenFeed.html',
-        controller: 'inputController'
+        controller: 'childController',
+        resolve: {
+          getWorkersChildren: function ($q, $state, restful) {
+            var deferred = $q.defer();
+            restful.getWorkersChildren().then(function (promise) {
+              if (promise) {
+                deferred.resolve();
+              }
+            });
+            return deferred.promise;
+          }
+        }
       })
       .state('workers.signup', {
         url: '/workers/signup',

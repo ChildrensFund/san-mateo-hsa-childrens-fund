@@ -8,16 +8,10 @@
   </head>
 <body ng-controller="appController">
 
-  <!-- ui-router view -->
-<!--   <div ui-view="navMenuView"></div>
-  <div ui-view="firstView"></div>
-  <div ui-view="secondView"></div> -->
-
   <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
       <a ui-sref="root" class="navbar-brand">Developer Panel</a>
       <ul class="nav navbar-nav">
-        <!-- <li><a ui-sref="children">Children</a></li> -->
         <li><a ui-sref="root">/</a></li>
         <li><a ui-sref="workers.account">Worker Account</a></li>
         <li><a ui-sref="admin.account">Admin Account</a></li>
@@ -32,9 +26,6 @@
 
 
   <!-- dependencies -->
-
-
-
   <script src="/bower_components/angular/angular.js"></script>
   <script src="/bower_components/underscore/underscore.js"></script>
   <script src="/bower_components/angular-route/angular-route.js"></script>
