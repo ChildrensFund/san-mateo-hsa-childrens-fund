@@ -55,6 +55,11 @@ Staff.sync();
 Admin.sync();
 HelpDesk.sync();
 
+Donor.hasMany(Child);
+Child.hasOne(Donor);
+Child.belongsTo(Staff);
+Staff.hasMany(Child);
+
 module.exports = {
   Child: Child,
   Donor: Donor,
