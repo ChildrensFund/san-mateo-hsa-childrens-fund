@@ -1,7 +1,15 @@
 <div>
   <h2 class="center">Children</h2>
 
-  <div class="box lg" ng-repeat="child in children">
+
+<!-- 
+  What about child images??? 
+ -->
+
+
+
+
+  <div class="box lg" ng-repeat="child in children | orderBy:'createdAt'">
 
     <div>
       <table class="table table-condensed table-striped">
@@ -141,12 +149,6 @@
 <div ng-hide="children">
   <p class="center">no children data!</p>
 </div>
-
-
-<!-- 
-  IMG????
- -->
-
 
 
 

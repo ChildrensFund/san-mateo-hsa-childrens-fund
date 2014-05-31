@@ -1,6 +1,6 @@
 <div>
   <h1>Children</h1>
-  <div class="center box lg" ng-repeat="child in children">
+  <div class="center box lg" ng-repeat="child in children | orderBy:'createdAt'">
     <img src="http://cdn.mhpbooks.com/uploads/2013/10/Success-Kid.jpg" alt="some kid">
     <!-- child's name -->
     <div>
@@ -44,12 +44,29 @@
       disabled="disabled" 
       value="Pledged"/>
     </div> -->
+    <div ng-controller="pledgeController">
+      
     <div>
+<!--       <input 
+      ng-click="pledgeButton(child, $index)"
+      type="button" 
+      value="PledgeButton"/> -->
       <input 
-      ng-click="pledgeButton(child)"
+      ng-click="pledgeButton(child, $index)"
+      ui-sref="pledge"
       type="button" 
       value="PledgeButton"/>      
     </div>
+
+
+
+    </div>
+
+
+
+
+
+
   </div>
 </div>
 <div ng-hide="children">

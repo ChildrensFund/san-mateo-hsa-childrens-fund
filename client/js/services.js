@@ -31,7 +31,7 @@ app.factory('restful', ['$http', '$cookies', function ($http, $cookies) {
     getChildren: function () {
       return $http({
         method: 'GET',
-        url: '/api/workers/' + $cookies.id + '/children',
+        url: '/api/children/',
       }).success(function (data, status) {
         console.log('GET Success! ', data);
         return data;
@@ -161,5 +161,19 @@ app.factory('restful', ['$http', '$cookies', function ($http, $cookies) {
     }).error(function(){
       console.log('Something went wrong');
     })
+  }
+})
+
+
+.service('childObjSaver', function () {
+  var childIndex = null;
+  var childObj = {};
+  return {
+    setChildObj: function (obj) {
+      childObj = obj;
+    },
+    getChildObj: function () {
+      return childObj;
+    }
   }
 });

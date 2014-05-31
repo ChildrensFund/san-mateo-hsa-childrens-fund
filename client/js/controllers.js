@@ -52,20 +52,13 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
     postObj.id = childObj.id;
     // postObj.status = 0;
     postObj.status = 1;
+    
     restful.updateChild(postObj).then(function (promise) {
       if (promise) {
         $scope.get();
       }
     });
   }
-
-  $scope.currentChild;
-
-  $scope.pledgeButton = function (child) {
-    $scope.currentChild = child;
-    $state.go('pledge', {child: child});
-    console.log('currentChild:  ',$scope.currentChild);
-  };
 
   // for testing purposes:
   // $scope.pledge({id: 1});
@@ -227,11 +220,13 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
 
 }])
 
+.controller('pledgeController', ['$scope', '$state', 'childObjSaver', function ($scope, $state, childObjSaver) {
+  $scope.currentChild = childObjSaver.getChildObj() || {};
+  $scope.pledgeButton = function (child, index) {
+    childObjSaver.setChildObj(child);
+  }
 
-
-
-
-
+}])
 
 
 
