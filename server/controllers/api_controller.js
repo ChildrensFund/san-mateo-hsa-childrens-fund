@@ -55,13 +55,15 @@ module.exports.fetchUser = function(req, res){
   User.find({where: {id: userId}})
   .success(function(user){
     if(!user) {
-      res.send(404, 'User not found');
+      return new Promise(function(resolve, reject){
+        reject('User not found');
+      });
     } else {
       res.send(user);
     }
   })
   .error(function(err){
-    res.send(500, 'Database lookup error');
+    res.send(404);
   })
 }
 
@@ -72,7 +74,9 @@ module.exports.editUser = function(req, res){
   User.find({where: {id: userId}})
   .success(function(user){
     if(!user){
-      res.send(404, 'User not found');
+      return new Promise(function(resolve, reject){
+        reject('User not found');
+      });
     } else {
       return user.updateAttributes(req.body);
     }
@@ -81,7 +85,7 @@ module.exports.editUser = function(req, res){
     res.send(user);
   })
   .error(function(err){
-    res.send(500, 'Database error');
+    res.send(500);
   });
 }
 
@@ -94,7 +98,9 @@ module.exports.fetchChildWorker = function(req, res){
   Child.find({where: {id: userId}})
   .success(function(child){
     if(!child){
-      res.send(404, 'Child not found');
+      return new Promise(function(resolve, reject){
+        reject('User not found');
+      });
     } else {
       return child.getStaff();
     }
@@ -116,7 +122,9 @@ module.exports.fetchChildDonor = function(req, res){
   Child.find({where: {id: userId}})
   .success(function(child){
     if(!child){
-      res.send(404, 'Child not found');
+      return new Promise(function(resolve, reject){
+        reject('User not found');
+      })
     } else {
       return child.getDonor();
     }
@@ -138,7 +146,9 @@ module.exports.createChildDonor = function(req, res){
   Child.find({where: {id: userId}})
   .success(function(returnedChild){
     if(!returnedChild){
-      res.send(404, 'Child not found');
+      return new Promise(function(resolve, reject){
+        reject('User not found');
+      })
     } else {
       child = returnedChild;
       return Donor.create(req.body);
@@ -146,7 +156,9 @@ module.exports.createChildDonor = function(req, res){
   })
   .success(function(returnedDonor){
     if(!returnedDonor){
-      res.send(404, 'Donor not found');
+      return new Promise(function(resolve, reject){
+        reject('Donor not created');
+      })
     } else {
       donor = returnedDonor;
       return child.setDonor(donor);
@@ -160,7 +172,7 @@ module.exports.createChildDonor = function(req, res){
     res.send({child: child, donor: donor});
   })
   .error(function(err){
-    res.send(500, 'Database error');
+    res.send(500);
   });
 };
 
@@ -172,7 +184,9 @@ module.exports.fetchWorkerChildren = function(req, res){
   Staff.find({where: {id: workerId}})
   .success(function(worker){
     if(!worker){
-      res.send(404, 'Worker not found');
+      return new Promise(function(resolve, reject){
+        reject('User not found');
+      })
     } else {
       return worker.getChildren();
     }
@@ -181,7 +195,7 @@ module.exports.fetchWorkerChildren = function(req, res){
     res.send(children);
   })
   .error(function(err){
-    res.send(500, 'Database error');
+    res.send(500);
   })
 };
 
@@ -193,7 +207,9 @@ module.exports.createWorkerChild = function(req, res){
   Staff.find({where: {id: workerId}})
   .success(function(returnedWorker){
     if(!returnedWorker) { 
-      res.send(404, 'Worker not found');
+      return new Promise(function(resolve, reject){
+        reject('User not found');
+      })
     } else {
       worker = returnedWorker;
       req.body.staffId = workerId;
@@ -201,18 +217,14 @@ module.exports.createWorkerChild = function(req, res){
     }
   })
   .success(function(returnedChild){
-    if(!returnedChild){
-      res.send(404, 'Child not found');
-    } else {
-      child = returnedChild;
-      return child.setStaff(worker); 
-    }
+    child = returnedChild;
+    return child.setStaff(worker);
   })
   .success(function(){
     res.send({child: child, worker: worker});
   })
   .error(function(err){
-    res.send(500, 'Database error');
+    res.send(500);
   })
 };
 
@@ -224,19 +236,17 @@ module.exports.fetchDonorChildren = function(req, res){
   Donor.find({where: {id: donorId}})
   .success(function(donor){
     if(!donor){
-      res.send(404, 'Donor not found');
+      return new Promise(function(resolve, reject){
+        reject('User not found');
+      })
     } else {
       return donor.getChildren();
     }
   })
   .success(function(children){
-    if(!children){
-      res.send(404, 'Children not found');
-    } else {
-      res.send(children); 
-    }
+    res.send(children);
   })
   .error(function(err){
-    res.send(500, 'Database error');
+    res.send(500);
   })
 };
