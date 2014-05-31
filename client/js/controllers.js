@@ -113,7 +113,17 @@ app.controller('childController', ['$scope', 'restful', '$cookies', function ($s
         $cookies.sessionToken = data.sessionToken;
         $cookies.type = data.type;
         $cookies.id = data.id;
-        $location.path('/workers');
+        switch(data.type){
+          case 'workers':
+            $location.path('/workers');
+            break;
+          case 'admin':
+            $location.path('/admin');
+            break;
+          case 'helpDesk':
+            $location.path('/help_desk');
+            break;
+        }
         // setTimeout(function(){
           // $state.go(userType + '.account');
         // }, 500);
