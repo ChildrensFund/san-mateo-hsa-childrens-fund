@@ -1,6 +1,5 @@
 var app = angular.module('childrensFund', ['ui.router', 'ngCookies', 'xeditable'])
 
-// for editable fields
 app.run(function(editableOptions) {
   editableOptions.theme = 'bs3';
 });
@@ -19,7 +18,7 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
       controller: 'childController'
     })
     .state('pledge', {
-      url: '/pledge',
+      url: '/pledge?child',
       templateUrl: '/templates/public/pledge.html',
       controller: 'childController'
     })

@@ -13,10 +13,8 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
   }
 }])
 
-app.controller('childController', ['$scope', 'restful', '$cookies', function ($scope, restful, $cookies) {
-  // sets basic template for creating new child tags
+app.controller('childController', ['$scope', 'restful', '$cookies', '$state', function ($scope, restful, $cookies, $state) {
   $scope.tempChildObj = {};
-
 
   $scope.post = function () {
     restful.postChild($scope.tempChildObj).then(function (promise) {
@@ -29,7 +27,6 @@ app.controller('childController', ['$scope', 'restful', '$cookies', function ($s
   $scope.get = function () {
     restful.getChildren().then(function (promise) {
       if (promise) {
-        // sets $scope.children as received server data
         $scope.children = promise.data;
       }
     });
@@ -40,6 +37,7 @@ app.controller('childController', ['$scope', 'restful', '$cookies', function ($s
   $scope.pledge = function (childObj) {
     var postObj = {};
     postObj.id = childObj.id;
+    // postObj.status = 0;
     postObj.status = 1;
     restful.pledgeChild(postObj).then(function (promise) {
       if (promise) {
@@ -47,6 +45,17 @@ app.controller('childController', ['$scope', 'restful', '$cookies', function ($s
       }
     });
   }
+
+  $scope.currentChild;
+
+  $scope.pledgeButton = function (child) {
+    $scope.currentChild = child;
+    $state.go('pledge', {child: child});
+    console.log('currentChild:  ',$scope.currentChild);
+  };
+
+  // for testing purposes:
+  // $scope.pledge({id: 1});
 
 }])
 

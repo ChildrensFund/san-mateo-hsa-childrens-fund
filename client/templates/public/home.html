@@ -32,7 +32,7 @@
         ${{ child.thirdItemPrice }} for {{ child.thirdItemName }}
       </div>
     </div>
-    <div>
+<!--     <div>
       <input 
       ng-hide="child.status" 
       ng-click="pledge(child)" 
@@ -43,6 +43,12 @@
       type="button" 
       disabled="disabled" 
       value="Pledged"/>
+    </div> -->
+    <div>
+      <input 
+      ng-click="pledgeButton(child)"
+      type="button" 
+      value="PledgeButton"/>      
     </div>
   </div>
 </div>
