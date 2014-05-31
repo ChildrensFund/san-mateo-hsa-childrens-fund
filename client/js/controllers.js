@@ -190,9 +190,7 @@ app.controller('childController', ['$scope', 'restful', '$cookies', function ($s
 
   $scope.postWorkerData = function (key, val) {
     var workerObj = {};
-    workerObj.worker = {};
-    workerObj.worker[key] = val;
-
+    workerObj[key] = val;
     restful.postWorkerData(workerObj).then(function (promise) {
       if (promise) {
         $scope.getWorkerData();

@@ -57,7 +57,7 @@ var Staff = sequelize.define('staffs', {
   resetTokenSetTime: Sequelize.DATE,
   firstName: Sequelize.STRING,
   lastName: Sequelize.STRING,
-  phone: Sequelize.INTEGER,
+  phone: Sequelize.STRING,
   department: Sequelize.STRING,
   supervisorFirstName: Sequelize.STRING,
   supervisorLastName: Sequelize.STRING,
