@@ -39,12 +39,8 @@ var setUserType = function(userPath){
 module.exports.fetchUsers = function(req, res){
   var urlArray = parseUrl(req);
   var User = setUserType(urlArray[1]);
-  User.findAll()
-  .success(function(users){
+  User.findAll().success(function(users){
     res.send(users);
-  })
-  .error(function(){
-    res.send(500);
   });
 };
 
@@ -52,18 +48,13 @@ module.exports.fetchUser = function(req, res){
   var urlArray = parseUrl(req);
   var User = setUserType(urlArray[1]);
   var userId = urlArray[2];
-  User.find({where: {id: userId}})
-  .success(function(user){
+  User.find({where: {id: userId}}).success(function(user){
+    if(!user) res.send(404);
     if(!user) {
-      return new Promise(function(resolve, reject){
-        reject('User not found');
-      });
+      res.send(404);
     } else {
       res.send(user);
     }
-  })
-  .error(function(err){
-    res.send(404);
   })
 }
 
@@ -71,21 +62,14 @@ module.exports.editUser = function(req, res){
   var urlArray = parseUrl(req);
   var User = setUserType(urlArray[1]);
   var userId = urlArray[2];
-  User.find({where: {id: userId}})
-  .success(function(user){
+  User.find({where: {id: userId}}).success(function(user){
     if(!user){
-      return new Promise(function(resolve, reject){
-        reject('User not found');
-      });
+      res.send(404);
     } else {
-      return user.updateAttributes(req.body);
+      user.updateAttributes(req.body).success(function(user){
+        res.send(user);
+      });
     }
-  })
-  .success(function(user){
-    res.send(user);
-  })
-  .error(function(err){
-    res.send(500);
   });
 }
 
@@ -95,21 +79,14 @@ module.exports.fetchChildWorker = function(req, res){
   var urlArray = parseUrl(req);
   var User = setUserType(urlArray[1]);
   var userId = urlArray[2];
-  Child.find({where: {id: userId}})
-  .success(function(child){
+  Child.find({where: {id: userId}}).success(function(child){
     if(!child){
-      return new Promise(function(resolve, reject){
-        reject('User not found');
-      });
+      res.send(404);
     } else {
-      return child.getStaff();
+      child.getStaff().success(function(worker){
+        res.send(worker);
+      })
     }
-  })
-  .success(function(worker){
-    res.send(worker);
-  })
-  .error(function(err){
-    res.send(404);
   });
 };
 
@@ -119,60 +96,39 @@ module.exports.fetchChildDonor = function(req, res){
   var urlArray = parseUrl(req);
   var User = setUserType(urlArray[1]);
   var userId = urlArray[2];
-  Child.find({where: {id: userId}})
-  .success(function(child){
+  Child.find({where: {id: userId}}).success(function(child){
     if(!child){
-      return new Promise(function(resolve, reject){
-        reject('User not found');
-      })
+      res.send(404);
     } else {
-      return child.getDonor();
+      child.getDonor().success(function(donor){
+        res.send(donor);
+      })
     }
   })
-  .success(function(donor){
-    res.send(donor);
-  })
-  .error(function(err){
-    res.send(500);
-  });
 };
 
   // .post( controller.createChildDonor );
 module.exports.createChildDonor = function(req, res){
   var urlArray = parseUrl(req);
   var userId = urlArray[2];
-  var child, donor;
   //Find the child
-  Child.find({where: {id: userId}})
-  .success(function(returnedChild){
-    if(!returnedChild){
-      return new Promise(function(resolve, reject){
-        reject('User not found');
-      })
+  Child.find({where: {id: userId}}).success(function(child){
+    if(!child) res.send(404);
+    if(!child){
+      res.send(404);
     } else {
-      child = returnedChild;
-      return Donor.create(req.body);
-    }
-  })
-  .success(function(returnedDonor){
-    if(!returnedDonor){
-      return new Promise(function(resolve, reject){
-        reject('Donor not created');
+      //Create the new donor
+      Donor.create(req.body).success(function(donor){
+        //Associate child and donor
+        child.setDonor(donor).success(function(){
+          //Hacky solution -> manually setting donor id on child
+          child.donorId = donor.id;
+          child.save(['donorId']).success(function(child){
+            res.send({child: child, donor: donor});
+          })
+        })
       })
-    } else {
-      donor = returnedDonor;
-      return child.setDonor(donor);
     }
-  })
-  .success(function(){
-    child.donorId = donor.id;
-    return child.save(['donorId'])
-  })
-  .success(function(child){
-    res.send({child: child, donor: donor});
-  })
-  .error(function(err){
-    res.send(500);
   });
 };
 
@@ -181,21 +137,14 @@ module.exports.createChildDonor = function(req, res){
 module.exports.fetchWorkerChildren = function(req, res){
   var urlArray = parseUrl(req);
   var workerId = urlArray[2];
-  Staff.find({where: {id: workerId}})
-  .success(function(worker){
+  Staff.find({where: {id: workerId}}).success(function(worker){
     if(!worker){
-      return new Promise(function(resolve, reject){
-        reject('User not found');
-      })
+      res.send(404);
     } else {
-      return worker.getChildren();
+      worker.getChildren().success(function(children){
+        res.send(children);
+      })
     }
-  })
-  .success(function(children){
-    res.send(children);
-  })
-  .error(function(err){
-    res.send(500);
   })
 };
 
@@ -203,28 +152,17 @@ module.exports.fetchWorkerChildren = function(req, res){
 module.exports.createWorkerChild = function(req, res){
   var urlArray = parseUrl(req);
   var workerId = urlArray[2];
-  var child, worker;
-  Staff.find({where: {id: workerId}})
-  .success(function(returnedWorker){
-    if(!returnedWorker) { 
-      return new Promise(function(resolve, reject){
-        reject('User not found');
-      })
+  Staff.find({where: {id: workerId}}).success(function(worker){
+    if(!worker) { 
+      res.send(404); 
     } else {
-      worker = returnedWorker;
       req.body.staffId = workerId;
-      return Child.create(req.body);
+      Child.create(req.body).success(function(child){
+        child.setStaff(worker).success(function(){
+          res.send({child: child, worker: worker});
+        })
+      })
     }
-  })
-  .success(function(returnedChild){
-    child = returnedChild;
-    return child.setStaff(worker);
-  })
-  .success(function(){
-    res.send({child: child, worker: worker});
-  })
-  .error(function(err){
-    res.send(500);
   })
 };
 
@@ -233,20 +171,13 @@ module.exports.createWorkerChild = function(req, res){
 module.exports.fetchDonorChildren = function(req, res){
   var urlArray = parseUrl(req);
   var donorId = urlArray[2];
-  Donor.find({where: {id: donorId}})
-  .success(function(donor){
+  Donor.find({where: {id: donorId}}).success(function(donor){
     if(!donor){
-      return new Promise(function(resolve, reject){
-        reject('User not found');
-      })
+      res.send(404);
     } else {
-      return donor.getChildren();
+      donor.getChildren().success(function(children){
+        res.send(children);
+      })
     }
-  })
-  .success(function(children){
-    res.send(children);
-  })
-  .error(function(err){
-    res.send(500);
   })
 };
