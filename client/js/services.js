@@ -154,9 +154,12 @@ app.factory('restful', ['$http', '$cookies', function ($http, $cookies) {
       url: '/auth/signout'
     }).success(function(){
       console.log('User signed out');
-      $cookies.sessionToken = undefined;
-      $cookies.type = undefined;
-      $cookies.id = undefined;
+      // $cookies.sessionToken = undefined;
+      // $cookies.type = undefined;
+      // $cookies.id = undefined;
+      docCookies.removeItem('sessionToken');
+      docCookies.removeItem('type');
+      docCookies.removeItem('id');
       $state.go('root');
     }).error(function(){
       console.log('Something went wrong');
