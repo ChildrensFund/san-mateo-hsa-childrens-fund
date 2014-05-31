@@ -1,29 +1,30 @@
 // GET/POST logic
 app.factory('restful', ['$http', '$cookies', function ($http, $cookies) {
   return {
-    createChild: function (childObj) {
+
+    postChild: function (childObj) {
       return $http({
         method: 'POST',
         url: '/api/workers/' + $cookies.id + '/children',
         data: childObj
       }).success(function (data, status) {
-        console.log('(Create) POST Success! ', data);
+        console.log('(postChild) POST Success! ', data);
         return data;
       }).error(function (data, status) {
-        console.log('(Create) POST Error! ', data, status);
+        console.log('(postChild) POST Error! ', data, status);
       });
     },
 
-    updateChild: function (childObj) {
+    pledgeChild: function (childObj) {
       return $http({
         method: 'POST',
-        url: '/children',
+        url: '/api/children/' + childObj.id,
         data: childObj
-      }).success(function (data, status) {        
-        console.log('(Update) POST Success! ', data);
+      }).success(function (data, status) {
+        console.log('(pledgeChild) POST Success! ', data);
         return data;
       }).error(function (data, status) {
-        console.log('(Update) POST Error! ', data, status);
+        console.log('(pledgeChild) POST Error! ', data, status);
       });
     },
 
