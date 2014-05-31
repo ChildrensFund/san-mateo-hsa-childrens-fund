@@ -124,6 +124,9 @@ app.controller('childController', ['$scope', 'restful', '$cookies', function ($s
       method: 'POST',
       url: '/auth/signout'
     }).success(function(data, status){
+      $cookies.sessionToken = 'j:null';
+      $cookies.type = 'j:null';
+      $cookies.id = 'j:null';
       console.log('User signed out');
     }).error(function(data, status){
       console.log('User not signed out: Server Error');

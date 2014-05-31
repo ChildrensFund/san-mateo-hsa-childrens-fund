@@ -155,6 +155,7 @@ app.factory('restful', ['$http', '$cookies', function ($http, $cookies) {
       console.log('User signed out');
       $cookies.sessionToken = 'j:null';
       $cookies.type = 'j:null';
+      $cookies.id = 'j:null';
       $state.go('root');
     }).error(function(){
       console.log('Something went wrong');

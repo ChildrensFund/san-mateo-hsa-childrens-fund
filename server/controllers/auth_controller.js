@@ -147,9 +147,9 @@ module.exports.signout = function(request, response){
         response.send(204, 'User signed out');
       } else {
         console.log('User found in database, clearing session token and database token')
-        response.cookie('sessionToken', null);
-        response.cookie('type', null);
-        response.cookie('id', null);
+        // response.cookie('sessionToken', null);
+        // response.cookie('type', null);
+        // response.cookie('id', null);
         user.sessionToken = null;
         user.save(['sessionToken']).success(function(user){
           console.log('User session token cleared out of database + session');
