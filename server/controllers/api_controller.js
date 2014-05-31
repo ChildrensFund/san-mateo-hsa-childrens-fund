@@ -48,7 +48,8 @@ module.exports.fetchUser = function(req, res){
   var urlArray = parseUrl(req);
   var User = setUserType(urlArray[1]);
   var userId = urlArray[2];
-  User.findAll({where: {id: userId}}).success(function(user){
+  User.find({where: {id: userId}}).success(function(user){
+    if(!user) res.send(404);
     res.send(user);
   })
 }
@@ -58,6 +59,7 @@ module.exports.editUser = function(req, res){
   var User = setUserType(urlArray[1]);
   var userId = urlArray[2];
   User.find({where: {id: userId}}).success(function(user){
+    if(!user) res.send(404);
     user.updateAttributes(req.body).success(function(user){
       res.send(user);
     });
@@ -71,6 +73,7 @@ module.exports.fetchChildWorker = function(req, res){
   var User = setUserType(urlArray[1]);
   var userId = urlArray[2];
   Child.find({where: {id: userId}}).success(function(child){
+    if(!child) res.send(404);
     child.getStaff().success(function(worker){
       res.send(worker);
     })
@@ -84,6 +87,7 @@ module.exports.fetchChildDonor = function(req, res){
   var User = setUserType(urlArray[1]);
   var userId = urlArray[2];
   Child.find({where: {id: userId}}).success(function(child){
+    if(!child) res.send(404);
     child.getDonor().success(function(donor){
       res.send(donor);
     })
@@ -96,6 +100,7 @@ module.exports.createChildDonor = function(req, res){
   var userId = urlArray[2];
   //Find the child
   Child.find({where: {id: userId}}).success(function(child){
+    if(!child) res.send(404);
     //Create the new donor
     Donor.create(req.body).success(function(donor){
       //Associate child and donor
@@ -116,6 +121,7 @@ module.exports.fetchWorkerChildren = function(req, res){
   var urlArray = parseUrl(req);
   var workerId = urlArray[2];
   Staff.find({where: {id: workerId}}).success(function(worker){
+    if(!worker) res.send(404);
     worker.getChildren().success(function(children){
       res.send(children);
     })
@@ -127,6 +133,7 @@ module.exports.createWorkerChild = function(req, res){
   var urlArray = parseUrl(req);
   var workerId = urlArray[2];
   Staff.find({where: {id: workerId}}).success(function(worker){
+    if(!worker) res.send(404);
     req.body.staffId = workerId;
     Child.create(req.body).success(function(child){
       child.setStaff(worker).success(function(){
@@ -142,6 +149,7 @@ module.exports.fetchDonorChildren = function(req, res){
   var urlArray = parseUrl(req);
   var donorId = urlArray[2];
   Donor.find({where: {id: donorId}}).success(function(donor){
+    if(!donor) res.send(404);
     donor.getChildren().success(function(children){
       res.send(children);
     })
