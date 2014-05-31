@@ -14,25 +14,12 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
 }])
 
 app.controller('childController', ['$scope', 'restful', '$cookies', function ($scope, restful, $cookies) {
-  $scope.tempChildItemObj = {
-    item: undefined, 
-    price: undefined, 
-    hsaReceivedDate: undefined, 
-    childReceivedDate: undefined
-  };
-
-
-
   // sets basic template for creating new child tags
-  $scope.tempChildObj = {
-    child: {
-      // had to use extend otherwise all item field populate simultaneously 
-      items: [_.extend({},$scope.tempChildItemObj), _.extend({},$scope.tempChildItemObj), _.extend({},$scope.tempChildItemObj)] 
-    }
-  };
+  $scope.tempChildObj = { child: {} };
 
+
+  // COME BACK TO THIS WHEN NESTED ROUTES ARE FIXED
   $scope.post = function () {
-    $scope.tempChildObj.child.createdAt = new Date();
     restful.createChild($scope.tempChildObj).then(function (promise) {
       if (promise) {
         return $scope.get();
@@ -40,6 +27,7 @@ app.controller('childController', ['$scope', 'restful', '$cookies', function ($s
     });
   };
 
+  // COME BACK TO THIS WHEN NESTED ROUTES ARE FIXED
   $scope.get = function () {
     restful.getChildren().then(function (promise) {
       if (promise) {
@@ -49,17 +37,12 @@ app.controller('childController', ['$scope', 'restful', '$cookies', function ($s
     });
   };
 
-  //  FIX ME!!!
+  // COME BACK TO THIS WHEN NESTED ROUTES ARE FIXED
   $scope.pledge = function (childObj, index) {
-    // for a given child's item, sets pledged to true
     childObj.request.items[index].status = 'pledged';
 
-    // then POSTs it to the server
     restful.updateChild(childObj).then(function (promise) {
       if (promise) {
-
-        //after POST is completed, GETs updated data
-          //necessary to updated Pledge/Pledged! buttons
         $scope.get();
       }
     });
