@@ -2,7 +2,7 @@
 app.factory('restful', ['$http', '$cookies', function ($http, $cookies) {
   return {
 
-    postChild: function (childObj) {
+    createChild: function (childObj) {
       return $http({
         method: 'POST',
         url: '/api/workers/' + $cookies.id + '/children',
@@ -15,7 +15,7 @@ app.factory('restful', ['$http', '$cookies', function ($http, $cookies) {
       });
     },
 
-    pledgeChild: function (childObj) {
+    updateChild: function (childObj) {
       return $http({
         method: 'POST',
         url: '/api/children/' + childObj.id,

@@ -15,9 +15,10 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
 
 app.controller('childController', ['$scope', 'restful', '$cookies', '$state', function ($scope, restful, $cookies, $state) {
   $scope.tempChildObj = {};
+  var postObj;
 
-  $scope.post = function () {
-    restful.postChild($scope.tempChildObj).then(function (promise) {
+  $scope.create = function () {
+    restful.createChild($scope.tempChildObj).then(function (promise) {
       if (promise) {
         return $scope.get();
       }
@@ -32,14 +33,26 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
     });
   };
 
+  $scope.update = function (id, key, value) {
+    postObj = {};
+    postObj.id = id;
+    postObj[key] = value;
+
+    restful.updateChild(postObj).then(function (promise) {
+      if (promise) {
+        $scope.get();
+      }
+    });
+  };
+
   $scope.get();
 
   $scope.pledge = function (childObj) {
-    var postObj = {};
+    postObj = {};
     postObj.id = childObj.id;
     // postObj.status = 0;
     postObj.status = 1;
-    restful.pledgeChild(postObj).then(function (promise) {
+    restful.updateChild(postObj).then(function (promise) {
       if (promise) {
         $scope.get();
       }
