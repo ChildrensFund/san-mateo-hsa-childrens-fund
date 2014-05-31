@@ -15,7 +15,7 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
 
 app.controller('childController', ['$scope', 'restful', '$cookies', function ($scope, restful, $cookies) {
   // sets basic template for creating new child tags
-  $scope.tempChildObj = { child: {} };
+  $scope.tempChildObj = {};
 
 
   // COME BACK TO THIS WHEN NESTED ROUTES ARE FIXED
@@ -36,6 +36,8 @@ app.controller('childController', ['$scope', 'restful', '$cookies', function ($s
       }
     });
   };
+
+  $scope.get();
 
   // COME BACK TO THIS WHEN NESTED ROUTES ARE FIXED
   $scope.pledge = function (childObj, index) {
@@ -190,6 +192,8 @@ app.controller('childController', ['$scope', 'restful', '$cookies', function ($s
       }
     });
   };
+
+  $scope.getWorkerData();
 
   $scope.postWorkerData = function (key, val) {
     var workerObj = {};

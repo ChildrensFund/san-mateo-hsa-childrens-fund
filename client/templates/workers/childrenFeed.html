@@ -7,44 +7,44 @@
     </div>
     <!-- child's name -->
     <div>
-      {{child.child.firstName}}
+      {{child.firstName}}
     </div>
     <!-- child's location -->
     <div>
-      {{child.child.firstName}}'s Location
+      {{child.firstName}}'s Location
     </div>
     <!-- blurb about child -->
     <div>
       Bio: 
       <br/>
-      {{child.child.bio}}
+      {{child.bio}}
     </div>
 
     <!-- ITEMS -->
     <div>
       <!-- item1 -->
       <div>
-        ${{ child.child.firstItemPrice }} for {{ child.child.firstItemName }}
+        ${{ child.firstItemPrice }} for {{ child.firstItemName }}
       </div>
       <!-- item2 -->
       <div>
-        ${{ child.child.secondItemPrice }} for {{ child.child.secondItemName }}
+        ${{ child.secondItemPrice }} for {{ child.secondItemName }}
       </div>
       <!-- item3 -->
       <div>
-        ${{ child.child.thirdItemPrice }} for {{ child.child.thirdItemName }}
+        ${{ child.thirdItemPrice }} for {{ child.thirdItemName }}
       </div>
     </div>
     <div>
       <!-- Visual Status -->
       <p 
       class="notPledgedText" 
-      ng-hide="child.child.status">
+      ng-hide="child.status">
         Not pledged by a donor
       </p>
       <p 
       class="pledgedText" 
-      ng-show="child.child.status">
+      ng-show="child.status">
         Pledged by a donor
       </p>
     </div>

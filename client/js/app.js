@@ -54,18 +54,7 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
       .state('workers.account.myAccount', {
         url:'/myAccount',
         templateUrl: '/templates/workers/myAccount.html',
-        controller: 'workerController',
-        resolve: {
-          getWorkerData: function ($q, $state, restful) {
-            var deferred = $q.defer();
-            restful.getWorkerData().then(function (promise) {
-              if (promise) {
-                deferred.resolve();
-              }
-            });
-            return deferred.promise;
-          }
-        }
+        controller: 'workerController'
       })
       .state('workers.account.create', {
         url: '/create',
@@ -75,18 +64,7 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
       .state('workers.account.myTags', {
         url: '/myTags',
         templateUrl: '/templates/workers/childrenFeed.html',
-        controller: 'childController',
-        resolve: {
-          getWorkersChildren: function ($q, $state, restful) {
-            var deferred = $q.defer();
-            restful.getWorkersChildren().then(function (promise) {
-              if (promise) {
-                deferred.resolve();
-              }
-            });
-            return deferred.promise;
-          }
-        }
+        controller: 'childController'
       })
       .state('workers.signup', {
         url: '/workers/signup',
