@@ -4,12 +4,6 @@ Thank you for your tax-deductible donation!
 <p>
 Our tax ID number is: <strong>94-6000532</strong>
 </p>
-<p>
-Please make checks payable to: <strong>Children's Fund</strong>
-</p>
-<p>
-And mail to: <strong>Children's Fund, 472 Harbor Blvd. Bldg C, Belmont, CA 94002</strong>
-</p>
 
 
 <h2>
@@ -18,35 +12,111 @@ And mail to: <strong>Children's Fund, 472 Harbor Blvd. Bldg C, Belmont, CA 94002
 </h2>
 
 <div>
-  <input 
-  ng-model="donor.firstName"
-  type="text"
-  placeholder="First Name"/>
-  <input 
-  ng-model="donor.lastName"
-  type="text"
-  placeholder="Last Name"/>
-  <input 
-  ng-model="donor.address1"
-  type="text"
-  placeholder="Address Line 1"/>
-  <input 
-  ng-model="donor.address2"
-  type="text"
-  placeholder="Address Line 2"/>
-  <input 
-  ng-model="donor.city"
-  type="text"
-  placeholder="City"/>
-  <input 
-  ng-model="donor.state"
-  type="text"
-  placeholder="State"/>
-  <input 
-  ng-model="donor.zip"
-  type="text"
-  placeholder="Zip Code"/>
+
 </div>
+
+<form role="form">
+
+  <div class="form-group">
+    <label>First Name</label>
+    <input 
+    ng-model="donor.firstName"
+    type="text"
+    class="form-control"
+    placeholder="First Name"/>
+  </div>
+
+  <div class="form-group">
+    <label>Last Name</label>
+    <input 
+    ng-model="donor.lastName"
+    type="text"
+    class="form-control"
+    placeholder="Last Name"/>
+  </div>
+
+  <div class="form-group">
+    <label>Address Line 1</label>
+    <input 
+    ng-model="donor.address1"
+    type="text"
+    class="form-control"
+    placeholder="Address Line 1"/>
+  </div>
+
+  <div class="form-group">
+    <label>Address Line 2</label>
+    <input 
+    ng-model="donor.address2"
+    type="text"
+    class="form-control"
+    placeholder="Address Line 2"/>
+  </div>
+
+  <div class="form-group">
+    <label>City</label>
+    <input 
+    ng-model="donor.city"
+    type="text"
+    class="form-control"
+    placeholder="City"/>
+  </div>
+
+  <div class="form-group">
+    <label>State</label>
+    <input 
+    ng-model="donor.state"
+    type="text"
+    class="form-control"
+    placeholder="State"/>
+  </div>
+
+  <div class="form-group">
+    <label>Zip Code</label>
+    <input 
+    ng-model="donor.zip"
+    type="text"
+    class="form-control"
+    placeholder="Zip Code"/>
+  </div>
+
+  <div class="checkbox">
+    <label>I would like my donation to go to the following program(s):</label>
+    <br/>
+    <label>
+      <input style="margin-left: 20px" type="checkbox" ng-model="donor.childrensFund" ng-true-value="true" ng-false-value="false">Children's Fund - General fund (supporting all Children's Fund Programs)
+      <br/>
+      <input style="margin-left: 20px" type="checkbox" ng-model="donor.maureen" ng-true-value="true" ng-false-value="false">Maureen Borland Orthodontics Fund (Write Orthodontics Fund in memo section)
+      <br/>
+      <input style="margin-left: 20px" type="checkbox" ng-model="donor.schoolSupply" ng-true-value="true" ng-false-value="false">School Supply and Backpack Drive (Write School Drive in memo section)
+      <br/>
+      <input style="margin-left: 20px" type="checkbox" ng-model="donor.dental" ng-true-value="true" ng-false-value="false">Children's Special Dental Needs Fund (Write Special Dental Fund in memo section)
+      <br/>
+      <input style="margin-left: 20px" type="checkbox" ng-model="donor.costumes" ng-true-value="true" ng-false-value="false">Costumes for Kids (Write Costumes for Kids memo section)
+      <br/>
+      <p>
+      Please make checks payable to <strong>Children's Fund</strong> located at <strong>Children's Fund, 472 Harbor Blvd. Bldg C, Belmont, CA 94002</strong>
+      </p>
+    </label>
+  </div>
+
+  <div class="radio">
+    <label>
+      <input type="radio" ng-model="donor.paymentMethod" value="items">I will be donating the requested items:<br/>
+      <div style="margin-left: 40px">
+        list child's items here <br/>
+        list child's items here <br/>
+        list child's items here <br/>
+      </div>
+      <input type="radio" ng-model="donor.paymentMethod" value="cash">I will be donating cash for all of {{ kid's name }}'s items.<br/>
+      <input type="radio" ng-model="donor.paymentMethod" value="check">I will be donating a check for all of {{ kid's name }}'s items.<br/>
+      <p>
+      Please make checks payable to <strong>Children's Fund</strong> located at <strong>Children's Fund, 472 Harbor Blvd. Bldg C, Belmont, CA 94002</strong>
+      </p>
+    </label>
+  </div>
+  <button type="submit" class="btn btn-default">Submit</button>
+</form>
 
 
 
