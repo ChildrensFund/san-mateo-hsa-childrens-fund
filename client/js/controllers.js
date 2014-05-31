@@ -18,16 +18,14 @@ app.controller('childController', ['$scope', 'restful', '$cookies', function ($s
   $scope.tempChildObj = {};
 
 
-  // COME BACK TO THIS WHEN NESTED ROUTES ARE FIXED
   $scope.post = function () {
-    restful.createChild($scope.tempChildObj).then(function (promise) {
+    restful.postChild($scope.tempChildObj).then(function (promise) {
       if (promise) {
         return $scope.get();
       }
     });
   };
 
-  // COME BACK TO THIS WHEN NESTED ROUTES ARE FIXED
   $scope.get = function () {
     restful.getChildren().then(function (promise) {
       if (promise) {
@@ -39,11 +37,11 @@ app.controller('childController', ['$scope', 'restful', '$cookies', function ($s
 
   $scope.get();
 
-  // COME BACK TO THIS WHEN NESTED ROUTES ARE FIXED
-  $scope.pledge = function (childObj, index) {
-    childObj.request.items[index].status = 'pledged';
-
-    restful.updateChild(childObj).then(function (promise) {
+  $scope.pledge = function (childObj) {
+    var postObj = {};
+    postObj.id = childObj.id;
+    postObj.status = 1;
+    restful.pledgeChild(postObj).then(function (promise) {
       if (promise) {
         $scope.get();
       }
