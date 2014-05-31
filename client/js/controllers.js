@@ -112,7 +112,9 @@ app.controller('childController', ['$scope', 'restful', '$cookies', function ($s
         $cookies.sessionToken = data.sessionToken;
         $cookies.type = data.type;
         $cookies.id = data.id;
-        $state.go(userType + '.account');
+        setTimeout(function(){
+          $state.go(userType + '.account');
+        }, 500);
       }).error(function(data){
         console.log('User not signed in: Server Error');
       });
