@@ -64,8 +64,9 @@ app.controller('childController', ['$scope', 'restful', '$cookies', function ($s
 }])
 
 //Authentication logic
-.controller('authController', ['$scope', '$http', '$state', '$cookies', '$stateParams', '$location', 'oneTimeAuthorization',
-  function($scope, $http, $state, $cookies, $stateParams, $location, oneTimeAuthorization){
+.controller('authController', ['$scope', '$http', '$state', '$cookies', 
+  '$stateParams', '$location', 'oneTimeAuthorization', 'sessionCache',
+  function($scope, $http, $state, $cookies, $stateParams, $location, oneTimeAuthorization, sessionCache){
   $scope.signup = function(manual){
     if($scope.password === $scope.passwordConfirmation){
       var userType, password, email;
@@ -113,6 +114,8 @@ app.controller('childController', ['$scope', 'restful', '$cookies', function ($s
         $cookies.sessionToken = data.sessionToken;
         $cookies.type = data.type;
         $cookies.id = data.id;
+        sessionCache.updateSessionToken(data.sessionToken);
+        sessionCache.updateUserType(data.type);
         oneTimeAuthorization.authorize();
         switch(data.type){
           case 'workers':
