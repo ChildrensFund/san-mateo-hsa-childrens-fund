@@ -66,6 +66,7 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
 .controller('authController', ['$scope', '$http', '$state', '$cookies', 
   '$stateParams', '$location', 'oneTimeAuthorization', 'sessionCache',
   function($scope, $http, $state, $cookies, $stateParams, $location, oneTimeAuthorization, sessionCache){
+
   $scope.signup = function(manual){
     if($scope.password === $scope.passwordConfirmation){
       var userType, password, email;
@@ -73,6 +74,7 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
       if(manual){ //If admin or helpdesk is creating a new account, we want to generate a random password and passthrough userType
         userType = $scope.userType;
         password = Math.random().toString();
+        $scope.email = '';
       } else { //Otherwise, grab user submitted data from signin page
         userType = $state.current.data.userType;
         password = $scope.password;
