@@ -2,7 +2,7 @@
 app.factory('restful', ['$http', '$cookies', function ($http, $cookies) {
   return {
 
-    postChild: function (childObj) {
+    createChild: function (childObj) {
       return $http({
         method: 'POST',
         url: '/api/workers/' + $cookies.id + '/children',
@@ -15,7 +15,7 @@ app.factory('restful', ['$http', '$cookies', function ($http, $cookies) {
       });
     },
 
-    pledgeChild: function (childObj) {
+    updateChild: function (childObj) {
       return $http({
         method: 'POST',
         url: '/api/children/' + childObj.id,
@@ -31,7 +31,7 @@ app.factory('restful', ['$http', '$cookies', function ($http, $cookies) {
     getChildren: function () {
       return $http({
         method: 'GET',
-        url: '/api/workers/' + $cookies.id + '/children',
+        url: '/api/children/',
       }).success(function (data, status) {
         console.log('GET Success! ', data);
         return data;
@@ -74,6 +74,19 @@ app.factory('restful', ['$http', '$cookies', function ($http, $cookies) {
         return data;
       }).error(function (data, status) {
         console.log('(Worker Data) POST Error! ', data, status);
+      });
+    },
+
+    postDonor: function (postObj) {
+      return $http({
+        method: 'POST',
+        url: '/api/children/' + postObj.id + '/donor',
+        data: postObj.donor
+      }).success(function (data, status) {
+        console.log('(Donor) POST Success! ', data);
+        return data;
+      }).error(function (data, status) {
+        console.log('(Donor) POST Error! ', data, status);
       });
     }
 
@@ -187,4 +200,28 @@ app.factory('restful', ['$http', '$cookies', function ($http, $cookies) {
       console.log('Something went wrong');
     })
   }
+})
+
+
+.service('childObjSaver', function () {
+  var childIndex = null;
+  var childObj = {};
+  return {
+    setChildObj: function (obj) {
+      obj = obj || {};
+      childObj = obj;
+    },
+    getChildObj: function () {
+      return childObj;
+    }
+  }
+})
+
+
+.filter('unpledged', function() {
+  return function(input) {
+    console.log(input);
+    if (!input.status) 
+      return input;
+  }  
 });

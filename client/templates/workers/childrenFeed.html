@@ -1,55 +1,165 @@
 <div>
   <h2 class="center">Children</h2>
-  <!-- shows children -->
-  <div class="center box lg" ng-repeat="child in children">
+
+<!-- 
+  Add child images!!!
+ -->
+
+  <div class="box lg" ng-repeat="child in children | orderBy:'createdAt' :true">
+
     <div>
-      <img src="http://cdn.mhpbooks.com/uploads/2013/10/Success-Kid.jpg" alt="some kid">
-    </div>
-    <!-- child's name -->
-    <div>
-      {{child.firstName}}
-    </div>
-    <!-- child's location -->
-    <div>
-      {{child.firstName}}'s Location
-    </div>
-    <!-- blurb about child -->
-    <div>
-      Bio: 
-      <br/>
-      {{child.bio}}
+      <table class="table table-condensed table-striped">
+        <thead>
+          <tr>
+            <th>Field</th>
+            <th>Value (Click to edit)</th>
+            <th>Field</th>
+            <th>Value (Click to edit)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>First Name</td>
+            <td editable-text="child.firstName" onaftersave="update(child.id, 'firstName', child.firstName)">
+              {{ child.firstName || 'Enter a Value' }}
+            </td>
+            <td>Item 1</td>
+            <td editable-text="child.firstItemName" onaftersave="update(child.id, 'firstItemName', child.firstItemName)">{{ child.firstItemName || 'Enter a Value' }}</td>
+          </tr>
+
+          <tr>
+            <td>Last Name</td>
+            <td editable-text="child.lastName" onaftersave="update(child.id, 'lastName', child.lastName)">
+              {{ child.lastName || 'Enter a Value' }}
+            </td>
+            <td>Item 1 Price</td>
+            <td editable-text="child.firstItemPrice" onaftersave="update(child.id, 'firstItemPrice', child.firstItemPrice)">{{ child.firstItemPrice || 'Enter a Value' }}</td>
+          </tr>
+
+
+          <tr>
+            <td>Phone</td>
+            <td editable-text="child.phone" onaftersave="update(child.id, 'phone', child.phone)">
+              {{ child.phone || 'Enter a Value' }}
+            </td>
+            <td>Item 1 HSA Receive Date</td>
+            <td editable-text="child.firstItemHsaReceivedDate" onaftersave="update(child.id, 'firstItemHsaReceivedDate', child.firstItemHsaReceivedDate)">
+              {{ child.firstItemHsaReceivedDate || 'Enter a Value' }}
+            </td>
+          </tr>
+
+          <tr>
+            <td>Gender</td>
+            <td editable-text="child.gender" onaftersave="update(child.id, 'gender', child.gender)">
+              {{ child.gender || 'Enter a Value' }}
+            </td>
+            <td>Item 1 Child Receive Date</td>
+            <td editable-text="child.firstItemChildReceivedDate" onaftersave="update(child.id, 'firstItemChildReceivedDate', child.firstItemChildReceivedDate)">
+              {{ child.firstItemChildReceivedDate || 'Enter a Value' }}
+            </td>
+          </tr>
+
+          <tr>
+            <td>Date of Birth</td>
+            <td editable-text="child.dob" onaftersave="update(child.id, 'dob', child.dob)">
+              {{ child.dob || 'Enter a Value' }}
+            </td>
+            <td>Item 2 Price</td>
+            <td editable-text="child.secondItemPrice" onaftersave="update(child.id, 'secondItemPrice', child.secondItemPrice)">{{ child.secondItemPrice || 'Enter a Value' }}</td>
+          </tr>
+
+          <tr>
+            <td>Age</td>
+            <td editable-text="child.age" onaftersave="update(child.id, 'age', child.age)">
+              {{ child.age || 'Enter a Value' }}
+            </td>
+            <td>Item 2 Name</td>
+            <td editable-text="child.secondItemName" onaftersave="update(child.id, 'secondItemName', child.secondItemName)">{{ child.secondItemName || 'Enter a Value' }}</td>
+          </tr>
+
+          <tr>
+            <td>Location</td>
+            <td editable-text="child.location" onaftersave="update(child.id, 'location', child.location)">
+              {{ child.location || 'Enter a Value' }}
+            </td>
+            <td>Item 2 HSA Receive Date</td>
+            <td editable-text="child.secondItemHsaReceivedDate" onaftersave="update(child.id, 'secondItemHsaReceivedDate', child.secondItemHsaReceivedDate)">{{ child.secondItemHsaReceivedDate || 'Enter a Value' }}</td>
+          </tr>
+
+          <tr>
+            <td>Program Area</td>
+            <td editable-text="child.programArea" onaftersave="update(child.id, 'programArea', child.programArea)">
+              {{ child.programArea || 'Enter a Value' }}
+            </td>
+            <td>Item 2 Child Receive Date</td>
+            <td editable-text="child.secondItemChildReceivedDate" onaftersave="update(child.id, 'secondItemChildReceivedDate', child.secondItemChildReceivedDate)">{{ child.secondItemChildReceivedDate || 'Enter a Value' }}</td>
+          </tr>
+
+          <tr>
+            <td>Bio</td>
+            <td editable-text="child.bio" onaftersave="update(child.id, 'bio', child.bio)">
+              {{ child.bio || 'Enter a Value' }}
+            </td>
+            <td>Item 3 Name</td>
+            <td editable-text="child.thirdItemName" onaftersave="update(child.id, 'thirdItemName', child.thirdItemName)">{{ child.thirdItemName || 'Enter a Value' }}</td>
+          </tr>
+
+          <tr>
+            <td>Status</td>
+            <!-- Not Pledged -->
+            <td
+            class="notPledgedText" 
+            ng-hide="child.status">
+            Not pledged
+            </td>
+            <!-- Pledged -->
+            <td
+            class="pledgedText" 
+            ng-show="child.status">
+              Pledged
+            </td>
+            <td>Item 3 Price</td>
+            <td editable-text="child.thirdItemPrice" onaftersave="update(child.id, 'thirdItemPrice', child.thirdItemPrice)">{{ child.thirdItemPrice || 'Enter a Value' }}</td>
+          </tr>
+
+          <tr>
+            <td></td>
+            <td></td>
+            <td>Item 3 HSA Receive Date</td>
+            <td editable-text="child.thirdItemHsaReceivedDate" onaftersave="update(child.id, 'thirdItemHsaReceivedDate', child.thirdItemHsaReceivedDate)">{{ child.thirdItemHsaReceivedDate || 'Enter a Value' }}</td>
+          </tr>
+
+          <tr>
+            <td></td>
+            <td></td>
+            <td>Item 3 Child Receive Date</td>
+            <td editable-text="child.thirdItemChildReceivedDate" onaftersave="update(child.id, 'thirdItemChildReceivedDate', child.thirdItemChildReceivedDate)">{{ child.thirdItemChildReceivedDate || 'Enter a Value' }}</td>
+          </tr>
+
+        </tbody>
+      </table>
     </div>
 
-    <!-- ITEMS -->
-    <div>
-      <!-- item1 -->
-      <div>
-        ${{ child.firstItemPrice }} for {{ child.firstItemName }}
-      </div>
-      <!-- item2 -->
-      <div>
-        ${{ child.secondItemPrice }} for {{ child.secondItemName }}
-      </div>
-      <!-- item3 -->
-      <div>
-        ${{ child.thirdItemPrice }} for {{ child.thirdItemName }}
-      </div>
-    </div>
-    <div>
-      <!-- Visual Status -->
-      <p 
-      class="notPledgedText" 
-      ng-hide="child.status">
-        Not pledged by a donor
-      </p>
-      <p 
-      class="pledgedText" 
-      ng-show="child.status">
-        Pledged by a donor
-      </p>
-    </div>
   </div>
 </div>
 <div ng-hide="children">
   <p class="center">no children data!</p>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -46,7 +46,13 @@ var Donor = sequelize.define('donors', {
   address2: Sequelize.STRING,
   city: Sequelize.STRING,
   state: Sequelize.STRING,
-  zip: Sequelize.INTEGER
+  zip: Sequelize.INTEGER,
+  childrensFund: Sequelize.STRING,
+  maureen: Sequelize.STRING,
+  schoolSupply: Sequelize.STRING,
+  dental: Sequelize.STRING,
+  costumes: Sequelize.STRING,
+  paymentMethod: Sequelize.STRING
 });
 
 var Staff = sequelize.define('staffs', {
