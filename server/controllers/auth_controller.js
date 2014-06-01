@@ -108,24 +108,28 @@ module.exports.signin = function(request, response){
       console.log('user not found');
       response.send(404, 'User not found');
     } else {
-      bcrypt.compare(password, user.getDataValue('passwordHash'), function(err, isValid){
-        if(isValid){
-          console.log('User found, welcome', user.getDataValue('email'));
-          console.log('Creating Session Token');
-          bcrypt.hash(Math.random().toString(), 8, function(err, hash){
-            console.log('Your hash is:', hash);
-            user.sessionToken = hash;
-            user.save(['sessionToken']).success(function(user){
-              console.log('Session Token Saved to DB, save', hash, 'to user cookies');
-              console.log('User is now signed in');
-              response.send({sessionToken: hash, type: request.body.userType, id: user.getDataValue('id')});
+      if(!user.hasAccess){
+        response.send(401, 'Access has been revoked, contact an Admin');
+      } else {
+        bcrypt.compare(password, user.getDataValue('passwordHash'), function(err, isValid){
+          if(isValid){
+            console.log('User found, welcome', user.getDataValue('email'));
+            console.log('Creating Session Token');
+            bcrypt.hash(Math.random().toString(), 8, function(err, hash){
+              console.log('Your hash is:', hash);
+              user.sessionToken = hash;
+              user.save(['sessionToken']).success(function(user){
+                console.log('Session Token Saved to DB, save', hash, 'to user cookies');
+                console.log('User is now signed in');
+                response.send({sessionToken: hash, type: request.body.userType, id: user.getDataValue('id')});
+              });
             });
-          });
-        } else {
-          console.log('Invalid login information');
-          response.send(401, 'Invalid login information');
-        }
-      });
+          } else {
+            console.log('Invalid login information');
+            response.send(401, 'Invalid login information');
+          }
+        });
+      }
     }
   });
 };
@@ -243,3 +247,25 @@ module.exports.resetPassword = function(request, response){
     }
   })
 };
+
+module.exports.access = function(request, response){
+  console.log('################## Access FUNCTION CALLED ##################');
+  var id = request.body.id;
+  var hasAccess = request.body.hasAccess;
+  var User = setUserType(request, response);
+
+  User.find({where: {id: id}}).success(function(user){
+    if(!user){
+      response.send(404, 'Invalid Id');
+    } else {
+      user.updateAttributes({
+        hasAccess: hasAccess
+      }).success(function(user){
+        response.send(204, 'User access changed');
+      }).error(function(){response.send(500);});
+    }
+  }).error(function(){response.send(500);});
+
+}
+
+

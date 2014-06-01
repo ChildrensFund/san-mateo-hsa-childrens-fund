@@ -55,7 +55,69 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
     $scope.users = users;
   }).error(function(err){
     console.log('Users not fetched successfully: Server Error');
-  })
+  });
+
+  $scope.revokeAccess = function(user){
+    var userType;
+    switch($state.current.url){
+      case '/help_desk':
+        userType = 'helpDesk';
+        break;
+      case '/admin':
+        userType = 'admin';
+        break;
+      case '/workers':
+        userType = 'workers';
+        break;
+      default:
+        break;
+    }
+    $http({
+      method: 'POST',
+      url: '/auth/access',
+      data: {
+        id: user.id,
+        hasAccess: false,
+        userType: userType
+      }
+    }).success(function(){
+      console.log('User access revoked');
+      user.hasAccess = false;
+    }).error(function(){
+      console.log('Something went wrong');
+    })
+  };
+
+  $scope.grantAccess = function(user){
+    var userType;
+    switch($state.current.url){
+      case '/help_desk':
+        userType = 'helpDesk';
+        break;
+      case '/admin':
+        userType = 'admin';
+        break;
+      case '/workers':
+        userType = 'workers';
+        break;
+      default:
+        break;
+    }
+    $http({
+      method: 'POST',
+      url: '/auth/access',
+      data: {
+        id: user.id,
+        hasAccess: true,
+        userType: userType
+      }
+    }).success(function(){
+      console.log('User access granted');
+      user.hasAccess = true;
+    }).error(function(){
+      console.log('Something went wrong');
+    });
+  };
 }])
 
 //Authentication logic
