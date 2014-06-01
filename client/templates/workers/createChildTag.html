@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row">
     <!-- child data -->
-    <div class="col-md-6">
+    <div class="col-md-4">
       <h2>Child Info</h2>
       <input 
       ng-model="tempChildObj.firstName" 
@@ -58,7 +58,7 @@
       placeholder="Bio"/>
     </div>
     <!-- Request Data -->
-    <div class="col-md-6">
+    <div class="col-md-4">
       <h2>Request Info</h2>
       <input 
       ng-model="tempChildObj.firstItemName" 
@@ -96,7 +96,36 @@
       ng-model="tempChildObj.thirdItemPrice" 
       type="text" 
       name="item3Price" 
-      placeholder="Third Item Price"/></div>
+      placeholder="Third Item Price"/>
+    </div>
+
+    <div class="col-md-4">
+      <!--  -->
+      <div
+        upload-button
+
+        // Mandatory, the url of the backend that is going to handle the upload
+        url="/upload"
+
+        // Optional, file param name for upload
+        param="child-image"
+
+        // Optional, object to send as form data with the upload
+        data="formData"
+
+        accept="image/*"
+
+        on-upload="onUpload(files)" // Optional callback when uploading starts
+        on-success="onSuccess(response)" // Optional callback
+        on-error="onError(response)" // Optional callback
+        >
+      Image Upload
+      </div>
+    <!--  -->
+    </div>
+
+
+
 </div>
 
 

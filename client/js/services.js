@@ -204,7 +204,6 @@ app.factory('restful', ['$http', '$cookies', function ($http, $cookies) {
 
 
 .service('childObjSaver', function () {
-  var childIndex = null;
   var childObj = {};
   return {
     setChildObj: function (obj) {
@@ -216,12 +215,3 @@ app.factory('restful', ['$http', '$cookies', function ($http, $cookies) {
     }
   }
 })
-
-
-.filter('unpledged', function() {
-  return function(input) {
-    console.log(input);
-    if (!input.status) 
-      return input;
-  }  
-});
