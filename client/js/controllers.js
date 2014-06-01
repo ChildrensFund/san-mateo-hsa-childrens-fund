@@ -47,22 +47,6 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
 
   $scope.get();
 
-  $scope.pledge = function (childObj) {
-    postObj = {};
-    postObj.id = childObj.id;
-    // postObj.status = 0;
-    postObj.status = 1;
-    
-    restful.updateChild(postObj).then(function (promise) {
-      if (promise) {
-        $scope.get();
-      }
-    });
-  }
-
-  // for testing purposes:
-  // $scope.pledge({id: 1});
-
 }])
 
 .controller('usersController', ['$scope', '$http', '$state', function($scope, $http, $state){
@@ -220,11 +204,39 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
 
 }])
 
-.controller('pledgeController', ['$scope', '$state', 'childObjSaver', function ($scope, $state, childObjSaver) {
-  $scope.currentChild = childObjSaver.getChildObj() || {};
+.controller('pledgeController', ['$scope', 'restful', 'childObjSaver', function ($scope, restful, childObjSaver) {
+  $scope.currentChild = childObjSaver.getChildObj() || undefined;
+  var postObj;
+
   $scope.pledgeButton = function (child, index) {
     childObjSaver.setChildObj(child);
   }
+
+  $scope.donorSubmit = function () {
+
+    // set status to 1
+    postObj = {};
+    postObj.id = $scope.currentChild.id;
+    postObj.status = 1;
+    
+    restful.updateChild(postObj).then(function (promise) {
+      if (promise) {
+    // add donor
+        postObj.donor = $scope.donor;
+        restful.postDonor(postObj).then(function (promise) {
+          if (promise) {
+
+            // reset childObjSaver
+            childObjSaver.setChildObj();
+            console.log(childObjSaver.getChildObj());
+
+
+            // $state.go('donationSubmitted');
+          }
+        })
+      }
+    });
+  };
 
 }])
 

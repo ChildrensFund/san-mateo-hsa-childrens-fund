@@ -24,6 +24,12 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
       controller: 'pledgeController'
     })
 
+    .state('donationSubmitted', {
+      url: '/submitted',
+      templateUrl: '/templates/public/donationSubmitted.html',
+      controller: 'pledgeController'
+    })
+
     .state('404', {
       url: '/404',
       templateUrl: '/templates/public/404.html'

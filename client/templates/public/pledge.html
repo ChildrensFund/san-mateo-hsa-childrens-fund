@@ -1,20 +1,14 @@
 <div>
+  <h2>
+    Donation submission for {{ currentChild.firstName }} from {{ currentChild.location }}
+  </h2>
+
   <p>
   Thank you for your tax-deductible donation!
   </p>
   <p>
   Our tax ID number is: <strong>94-6000532</strong>
   </p>
-
-
-  <h2>
-    current child's data:
-    {{ currentChild }}
-  </h2>
-
-  <div>
-
-  </div>
 
   <form role="form">
 
@@ -104,20 +98,26 @@
     <div class="radio">
       <label>
         <input type="radio" ng-model="donor.paymentMethod" value="items">I will be donating the requested items:<br/>
-        <div style="margin-left: 40px">
-          list child's items here <br/>
-          list child's items here <br/>
-          list child's items here <br/>
+        <div>
+        <ul>
+          <li>{{ currentChild.firstItemName }}</li>
+          <li>{{ currentChild.secondItemName }}</li>
+          <li>{{ currentChild.thirdItemName }}</li>
+        </ul>
         </div>
-        <input type="radio" ng-model="donor.paymentMethod" value="cash">I will be donating cash for all of {{ currentChild.firstName }}'s items.<br/>
-        <input type="radio" ng-model="donor.paymentMethod" value="check">I will be donating a check for all of {{ currentChild.firstName }}'s items.<br/>
+        <input type="radio" ng-model="donor.paymentMethod" value="cash">I will be donating cash for all of <strong>{{ currentChild.firstName }}</strong>'s items.<br/>
+        <input type="radio" ng-model="donor.paymentMethod" value="check">I will be donating a check for all of <strong>{{ currentChild.firstName }}</strong>'s items.<br/>
         <p>
         Please make checks payable to <strong>Children's Fund</strong> located at <strong>Children's Fund, 472 Harbor Blvd. Bldg C, Belmont, CA 94002</strong>
         </p>
       </label>
     </div>
-    <button type="submit" class="btn btn-default">Submit</button>
+    <button ng-click="donorSubmit()" type="submit" class="btn btn-default">Submit</button>
   </form>
+
+  <br/>
+  <br/>
+  <br/>
 
 
 

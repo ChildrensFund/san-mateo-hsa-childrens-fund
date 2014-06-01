@@ -75,6 +75,19 @@ app.factory('restful', ['$http', '$cookies', function ($http, $cookies) {
       }).error(function (data, status) {
         console.log('(Worker Data) POST Error! ', data, status);
       });
+    },
+
+    postDonor: function (postObj) {
+      return $http({
+        method: 'POST',
+        url: '/api/children/' + postObj.id + '/donor',
+        data: postObj.donor
+      }).success(function (data, status) {
+        console.log('(Donor) POST Success! ', data);
+        return data;
+      }).error(function (data, status) {
+        console.log('(Donor) POST Error! ', data, status);
+      });
     }
 
   }
@@ -170,10 +183,20 @@ app.factory('restful', ['$http', '$cookies', function ($http, $cookies) {
   var childObj = {};
   return {
     setChildObj: function (obj) {
+      obj = obj || {};
       childObj = obj;
     },
     getChildObj: function () {
       return childObj;
     }
   }
+})
+
+
+.filter('unpledged', function() {
+  return function(input) {
+    console.log(input);
+    if (!input.status) 
+      return input;
+  }  
 });
