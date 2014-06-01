@@ -103,18 +103,10 @@
       <!--  -->
       <div
         upload-button
-
-        // Mandatory, the url of the backend that is going to handle the upload
-        url="/upload"
-
-        // Optional, file param name for upload
+        url="../images"
         param="child-image"
-
-        // Optional, object to send as form data with the upload
         data="formData"
-
         accept="image/*"
-
         on-upload="onUpload(files)" // Optional callback when uploading starts
         on-success="onSuccess(response)" // Optional callback
         on-error="onError(response)" // Optional callback
