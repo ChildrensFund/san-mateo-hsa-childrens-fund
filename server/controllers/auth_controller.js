@@ -142,8 +142,8 @@ module.exports.signout = function(request, response){
     User.find({where: {sessionToken: sessionToken}}).success(function(user){
       if (!user) {
         console.log('User not found in database, clearing session token');
-        response.cookie('type', null);
-        response.cookie('sessionToken', null);
+        // response.cookie('type', null);
+        // response.cookie('sessionToken', null);
         response.send(204, 'User signed out');
       } else {
         console.log('User found in database, clearing session token and database token')

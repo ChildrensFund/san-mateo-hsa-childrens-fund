@@ -5,6 +5,10 @@
  *  path.  */
 //    This file is required by (root folder)/server/routes/donor_routes.js
 
+// NOTE: Sequelize has a strange promise implementation, can possibly refactor to bluebird, but
+// for now it'll look a bit messy because every error has to be handled (no way to propagate
+// promise chain using return new Promise)
+
 var Child = require('../config/mysql_config.js').Child;
 var Donor = require('../config/mysql_config.js').Donor;
 var Staff = require('../config/mysql_config.js').Staff;
@@ -49,12 +53,13 @@ module.exports.fetchUser = function(req, res){
   var User = setUserType(urlArray[1]);
   var userId = urlArray[2];
   User.find({where: {id: userId}}).success(function(user){
-    if(!user) res.send(404);
     if(!user) {
       res.send(404);
     } else {
       res.send(user);
     }
+  }).error(function(err){
+    res.send(500);
   })
 }
 
@@ -68,8 +73,12 @@ module.exports.editUser = function(req, res){
     } else {
       user.updateAttributes(req.body).success(function(user){
         res.send(user);
+      }).error(function(err){
+        res.send(500);
       });
     }
+  }).error(function(err){
+    res.send(500);
   });
 }
 
@@ -85,8 +94,12 @@ module.exports.fetchChildWorker = function(req, res){
     } else {
       child.getStaff().success(function(worker){
         res.send(worker);
+      }).error(function(err){
+        res.send(500);
       })
     }
+  }).error(function(err){
+    res.send(500);
   });
 };
 
@@ -102,8 +115,12 @@ module.exports.fetchChildDonor = function(req, res){
     } else {
       child.getDonor().success(function(donor){
         res.send(donor);
+      }).error(function(err){
+        res.send(500);
       })
     }
+  }).error(function(err){
+    res.send(500);
   })
 };
 
@@ -113,7 +130,6 @@ module.exports.createChildDonor = function(req, res){
   var userId = urlArray[2];
   //Find the child
   Child.find({where: {id: userId}}).success(function(child){
-    if(!child) res.send(404);
     if(!child){
       res.send(404);
     } else {
@@ -125,11 +141,11 @@ module.exports.createChildDonor = function(req, res){
           child.donorId = donor.id;
           child.save(['donorId']).success(function(child){
             res.send({child: child, donor: donor});
-          })
-        })
-      })
+          }).error(function(err){res.send(500);});
+        }).error(function(err){res.send(500);});
+      }).error(function(err){res.send(500);});
     }
-  });
+  }).error(function(err){res.send(500);});
 };
 
 // router.route('/workers/:id/children')
@@ -143,9 +159,9 @@ module.exports.fetchWorkerChildren = function(req, res){
     } else {
       worker.getChildren().success(function(children){
         res.send(children);
-      })
+      }).error(function(err){res.send(500);});
     }
-  })
+  }).error(function(err){res.send(500);});
 };
 
   // .post( controller.createWorkerChild );
@@ -160,10 +176,10 @@ module.exports.createWorkerChild = function(req, res){
       Child.create(req.body).success(function(child){
         child.setStaff(worker).success(function(){
           res.send({child: child, worker: worker});
-        })
-      })
+        }).error(function(err){res.send(500);});
+      }).error(function(err){res.send(500);});
     }
-  })
+  }).error(function(err){res.send(500);});
 };
 
 // router.route('/donors/:id/children')
@@ -177,7 +193,7 @@ module.exports.fetchDonorChildren = function(req, res){
     } else {
       donor.getChildren().success(function(children){
         res.send(children);
-      })
+      }).error(function(err){res.send(500);});
     }
-  })
+  }).error(function(err){res.send(500);});
 };

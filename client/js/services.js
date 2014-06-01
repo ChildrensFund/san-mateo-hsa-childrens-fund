@@ -93,6 +93,24 @@ app.factory('restful', ['$http', '$cookies', function ($http, $cookies) {
   }
 }])
 
+//Cookies don't update instantly, which causes problems when allowing a user into
+//their account page after signin. When the server sends a response saying "yes, you're
+//who you say you are", this allows the user to passthrough without having to check server vs.
+//cookies.
+.factory('oneTimeAuthorization', function(){
+  var authorized = false;
+  return {
+    authorize: function(){
+      authorized = true;
+    },
+    isAuthorized: function(){
+      var temp = authorized;
+      authorized = false;
+      return temp;
+    }
+  }
+})
+
 .factory('sessionCache', function(){
   var cache = {};
   var sessionCacheService = {};
@@ -114,7 +132,8 @@ app.factory('restful', ['$http', '$cookies', function ($http, $cookies) {
   return sessionCacheService;
 })
 
-.factory('protect', ['$cookies', '$q', '$http', 'sessionCache', function($cookies, $q, $http, sessionCache){
+.factory('protect', ['$cookies', '$q', '$http', 'sessionCache', 'oneTimeAuthorization', 
+  function($cookies, $q, $http, sessionCache, oneTimeAuthorization){
   
   //pageType needs to be 'donors' || 'workers' || 'admin' || 'helpDesk'
   return function(pageType){
@@ -122,8 +141,12 @@ app.factory('restful', ['$http', '$cookies', function ($http, $cookies) {
     var cookieUserType = $cookies.type;
     console.log('################ Page is protected, checking login status ################');
     var deferred = $q.defer();
+    if(oneTimeAuthorization.isAuthorized()){
+      console.log('One time authorization token used');
+      deferred.resolve(true);
+    }
     //Add handling to allow developer to access all portals
-    if(cookieUserType === 'developer'){
+      else if(cookieUserType === 'developer'){
       console.log('Logged in as developer, granting access');
       deferred.resolve(true);
     } else if(!cookieSessionToken || !cookieUserType || cookieSessionToken === 'j:null' || cookieUserType === 'j:null'){
@@ -167,10 +190,12 @@ app.factory('restful', ['$http', '$cookies', function ($http, $cookies) {
       url: '/auth/signout'
     }).success(function(){
       console.log('User signed out');
-      $cookies.sessionToken = 'j:null';
-      $cookies.type = 'j:null';
-      $cookies.id = 'j:null';
-      $state.go('root');
+      docCookies.removeItem('sessionToken');
+      docCookies.removeItem('type');
+      docCookies.removeItem('id');
+      console.log($state.current.name);
+      var array = $state.current.name.split('.');
+      $state.go(array[0] + '.signin');
     }).error(function(){
       console.log('Something went wrong');
     })

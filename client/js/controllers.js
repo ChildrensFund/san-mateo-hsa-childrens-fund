@@ -63,7 +63,8 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
 }])
 
 //Authentication logic
-.controller('authController', ['$scope', '$http', '$state', '$cookies', '$stateParams', function($scope, $http, $state, $cookies, $stateParams){
+.controller('authController', ['$scope', '$http', '$state', '$cookies', '$stateParams', '$location', 'oneTimeAuthorization',
+  function($scope, $http, $state, $cookies, $stateParams, $location, oneTimeAuthorization){
   $scope.signup = function(manual){
     if($scope.password === $scope.passwordConfirmation){
       var userType, password, email;
@@ -111,7 +112,21 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
         $cookies.sessionToken = data.sessionToken;
         $cookies.type = data.type;
         $cookies.id = data.id;
-        $state.go(userType + '.account');
+        oneTimeAuthorization.authorize();
+        switch(data.type){
+          case 'workers':
+            $location.path('/workers');
+            break;
+          case 'admin':
+            $location.path('/admin');
+            break;
+          case 'helpDesk':
+            $location.path('/help_desk');
+            break;
+        }
+        // setTimeout(function(){
+          // $state.go(userType + '.account');
+        // }, 500);
       }).error(function(data){
         console.log('User not signed in: Server Error');
       });
