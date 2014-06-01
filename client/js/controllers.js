@@ -120,6 +120,33 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
   };
 }])
 
+.controller('adminController', ['$scope', '$http', '$state', function($scope, $http, $state){
+  console.log($state.current.name);
+  if($state.current.name === 'admin.account.children'){
+    $http({
+      method: 'GET',
+      url: '/api/children?page=1'
+    }).success(function(children){
+      $scope.numChildren = children.shift();
+      $scope.children = children;
+    }).error(function(err){
+      console.log(err);
+    })
+  } else if ($state.current.name === 'admin.account.workers'){
+    $http({
+      method: 'GET',
+      url: '/api/workers?page=1'
+    }).success(function(workers){
+      $scope.numWorkers = workers.shift();
+      $scope.workers = workers;
+    }).error(function(err){
+      console.log(err);
+    })
+  }
+
+
+}])
+
 //Authentication logic
 .controller('authController', ['$scope', '$http', '$state', '$cookies', 
   '$stateParams', '$location', 'oneTimeAuthorization', 'sessionCache',

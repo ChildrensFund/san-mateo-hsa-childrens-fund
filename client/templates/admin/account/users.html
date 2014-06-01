@@ -2,7 +2,7 @@
 
 <table class="table table-striped">
   <tr><th>User ID</th><th>Email</th><th>Privileges</th></tr>
-  <tr ng-repeat="user in users"><td>{{ user.id }}</td><td>{{ user.email }}</td>
+  <tr ng-repeat="user in users track by $index"><td>{{ user.id }}</td><td>{{ user.email }}</td>
     <td>
       <button class="btn btn-primary" ng-click="grantAccess(user)" ng-hide="user.hasAccess">Grant Access</button>
       <button class="btn btn-danger" ng-click="revokeAccess(user)" ng-show="user.hasAccess">Revoke Access</button>

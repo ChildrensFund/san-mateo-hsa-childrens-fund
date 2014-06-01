@@ -117,8 +117,19 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
           }
         }
       })
+        .state('admin.account.children', {
+          url: '/children',
+          controller: 'adminController',
+          templateUrl: '/templates/admin/children.html'
+        })
+        .state('admin.account.workers', {
+          url: '/workers',
+          controller: 'adminController',
+          templateUrl: '/templates/admin/workers.html'
+        })
         .state('admin.account.accountManagement', {
           abstract: true,
+          url: '/manage',
           template: '<ui-view/>',
           controller: 'usersController'
         })
