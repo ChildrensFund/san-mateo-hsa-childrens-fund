@@ -1,15 +1,11 @@
 <div>
   <h2 class="center">Children</h2>
 
-
 <!-- 
-  What about child images??? 
+  Add child images!!!
  -->
 
-
-
-
-  <div class="box lg" ng-repeat="child in children | orderBy:'createdAt'">
+  <div class="box lg" ng-repeat="child in children | orderBy:'createdAt' :true">
 
     <div>
       <table class="table table-condensed table-striped">
