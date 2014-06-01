@@ -20,7 +20,13 @@ var path = require('path');
 var parseUrl = function(req){
   var pathname = url.parse(req.url).pathname;
   var array = pathname.split('/');
-  return array;
+  if(url.parse(req.url).query){
+    var page = url.parse(req.url).query.split('=')[1];
+  }
+  return {
+    pathArray: array,
+    page: page
+  };
 }
 
 var setUserType = function(userPath){
@@ -41,15 +47,22 @@ var setUserType = function(userPath){
 }
 
 module.exports.fetchUsers = function(req, res){
-  var urlArray = parseUrl(req);
+  var page = parseUrl(req).page;
+  console.log(page);
+  var urlArray = parseUrl(req).pathArray;
   var User = setUserType(urlArray[1]);
-  User.findAll().success(function(users){
-    res.send(users);
+  User.findAndCountAll({
+    limit: 20,
+    offset: (20 * (page-1))
+  }).success(function(results){
+    var array = results.rows;
+    array.unshift(results.count);
+    res.send(array);
   });
 };
 
 module.exports.fetchUser = function(req, res){
-  var urlArray = parseUrl(req);
+  var urlArray = parseUrl(req).pathArray;
   var User = setUserType(urlArray[1]);
   var userId = urlArray[2];
   User.find({where: {id: userId}}).success(function(user){
@@ -64,7 +77,7 @@ module.exports.fetchUser = function(req, res){
 }
 
 module.exports.editUser = function(req, res){
-  var urlArray = parseUrl(req);
+  var urlArray = parseUrl(req).pathArray;
   var User = setUserType(urlArray[1]);
   var userId = urlArray[2];
   User.find({where: {id: userId}}).success(function(user){
@@ -85,7 +98,7 @@ module.exports.editUser = function(req, res){
 // router.route('/children/:id/worker')
   // .get( controller.fetchChildWorker );
 module.exports.fetchChildWorker = function(req, res){
-  var urlArray = parseUrl(req);
+  var urlArray = parseUrl(req).pathArray;
   var User = setUserType(urlArray[1]);
   var userId = urlArray[2];
   Child.find({where: {id: userId}}).success(function(child){
@@ -106,7 +119,7 @@ module.exports.fetchChildWorker = function(req, res){
 // router.route('/children/:id/donor')
   // .get( controller.fetchChildDonor )
 module.exports.fetchChildDonor = function(req, res){
-  var urlArray = parseUrl(req);
+  var urlArray = parseUrl(req).pathArray;
   var User = setUserType(urlArray[1]);
   var userId = urlArray[2];
   Child.find({where: {id: userId}}).success(function(child){
@@ -126,7 +139,7 @@ module.exports.fetchChildDonor = function(req, res){
 
   // .post( controller.createChildDonor );
 module.exports.createChildDonor = function(req, res){
-  var urlArray = parseUrl(req);
+  var urlArray = parseUrl(req).pathArray;
   var userId = urlArray[2];
   //Find the child
   Child.find({where: {id: userId}}).success(function(child){
@@ -151,7 +164,7 @@ module.exports.createChildDonor = function(req, res){
 // router.route('/workers/:id/children')
   // .get( controller.fetchWorkerChildren )
 module.exports.fetchWorkerChildren = function(req, res){
-  var urlArray = parseUrl(req);
+  var urlArray = parseUrl(req).pathArray;
   var workerId = urlArray[2];
   Staff.find({where: {id: workerId}}).success(function(worker){
     if(!worker){
@@ -166,7 +179,7 @@ module.exports.fetchWorkerChildren = function(req, res){
 
   // .post( controller.createWorkerChild );
 module.exports.createWorkerChild = function(req, res){
-  var urlArray = parseUrl(req);
+  var urlArray = parseUrl(req).pathArray;
   var workerId = urlArray[2];
   Staff.find({where: {id: workerId}}).success(function(worker){
     if(!worker) { 
@@ -185,7 +198,7 @@ module.exports.createWorkerChild = function(req, res){
 // router.route('/donors/:id/children')
 //   .get( controller.fetchDonorChildren );
 module.exports.fetchDonorChildren = function(req, res){
-  var urlArray = parseUrl(req);
+  var urlArray = parseUrl(req).pathArray;
   var donorId = urlArray[2];
   Donor.find({where: {id: donorId}}).success(function(donor){
     if(!donor){
