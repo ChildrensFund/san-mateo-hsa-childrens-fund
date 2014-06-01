@@ -68,7 +68,8 @@ var Staff = sequelize.define('staffs', {
   supervisorFirstName: Sequelize.STRING,
   supervisorLastName: Sequelize.STRING,
   coordinatorFirstName: Sequelize.STRING,
-  coordinatorLastName: Sequelize.STRING
+  coordinatorLastName: Sequelize.STRING,
+  hasAccess: {type: Sequelize.BOOLEAN, defaultValue: true}
 });
 
 var Admin = sequelize.define('admins', {
@@ -76,7 +77,8 @@ var Admin = sequelize.define('admins', {
   passwordHash: Sequelize.STRING,
   sessionToken: Sequelize.STRING,
   resetToken: Sequelize.STRING,
-  resetTokenSetTime: Sequelize.DATE
+  resetTokenSetTime: Sequelize.DATE,
+  hasAccess: {type: Sequelize.BOOLEAN, defaultValue: true}
 });
 
 var HelpDesk = sequelize.define('helpdesks', {
@@ -84,8 +86,9 @@ var HelpDesk = sequelize.define('helpdesks', {
   passwordHash: Sequelize.STRING,
   sessionToken: Sequelize.STRING,
   resetToken: Sequelize.STRING,
-  resetTokenSetTime: Sequelize.DATE
-})
+  resetTokenSetTime: Sequelize.DATE,
+  hasAccess: {type: Sequelize.BOOLEAN, defaultValue: true}
+});
 
 Donor.hasMany(Child);
 Staff.hasMany(Child);
