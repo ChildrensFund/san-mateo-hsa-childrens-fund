@@ -131,9 +131,9 @@ app.factory('restful', ['$http', '$cookies', function ($http, $cookies) {
     if(oneTimeAuthorization.isAuthorized()){
       console.log('One time authorization token used');
       deferred.resolve(true);
-    };
+    }
     //Add handling to allow developer to access all portals
-    if(cookieUserType === 'developer'){
+      else if(cookieUserType === 'developer'){
       console.log('Logged in as developer, granting access');
       deferred.resolve(true);
     } else if(!cookieSessionToken || !cookieUserType || cookieSessionToken === 'j:null' || cookieUserType === 'j:null'){
