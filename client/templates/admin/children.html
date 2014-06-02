@@ -14,8 +14,12 @@
         <table class="table">
           <tr><th>Child ID</th><td>{{child.id}}</td></tr>
           <tr><th>CFID</th><td>{{child.cfid}}</td></tr>
-          <tr><th>Worker</th><td>{{child.worker}}</td></tr>
-          <tr><td><button class="btn btn-primary" data-toggle="modal" data-target="#myModal" ng-click="setChildForModal(child)">Change Worker</button></td></tr>
+          <tr>
+            <th>Worker</th>
+            <td>{{child.worker.firstName}}</td>
+            <td>{{child.worker.lastName}}</td>
+            <td><button class="btn btn-primary" data-toggle="modal" data-target="#myModal" ng-click="setChildForModal(child)">Change Worker</button></td>
+          </tr>
         </table>
       </div>
     </div>
