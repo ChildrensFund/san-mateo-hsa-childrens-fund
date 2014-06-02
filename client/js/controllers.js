@@ -144,6 +144,18 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
     })
   }
 
+  $scope.getWorker = function(child){
+    $http({
+      method: 'GET',
+      url: '/api/children/' + child.id + '/worker'
+    }).success(function(worker){
+      console.log(worker);
+      child.worker = worker;
+    }).error(function(err){
+      console.log(err);
+    });
+  };
+
 
 }])
 
