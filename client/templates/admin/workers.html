@@ -1,5 +1,24 @@
 <h1>List of Workers ({{numWorkers}})</h1>
 
-<ul>
-  <li ng-repeat="worker in workers">{{worker}}</li>
-</ul>
+<div class="panel-group" id="accordion">
+  <div class="panel panel-default" ng-repeat="worker in workers">
+    <div class="panel-heading">
+      <h4 class="panel-title" ng-click="getChildren(worker)">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{worker.id}}">
+          {{worker.firstName}} {{worker.lastName}}
+        </a>
+      </h4>
+    </div>
+    <div id="collapse{{worker.id}}" class="panel-collapse collapse">
+      <div class="panel-body">
+        <table class="table">
+          <tr><th>Worker ID</th><td>{{worker.id}}</td></tr>
+          <tr><th>CFID</th><td>{{worker.cfid}}</td></tr>
+          <tr><th>Children</th><th>First Name</th><th>Last Name</th></tr>
+          <tr ng-repeat="child in worker.children"><td></td><td>{{child.firstName}}</td><td>{{child.lastName}}</td></tr>
+          <tr><th></th><td></td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
