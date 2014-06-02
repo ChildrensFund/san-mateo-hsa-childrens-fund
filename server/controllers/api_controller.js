@@ -215,6 +215,10 @@ module.exports.createWorkerChild = function(req, res){
       res.send(404); 
     } else {
       req.body.staffId = workerId;
+      req.body.cfid = '';
+      for(var i = 0; i < 5; i++){
+        req.body.cfid += String.fromCharCode(65 + Math.floor(Math.random() * 26));
+      }
       Child.create(req.body).success(function(child){
         child.setStaff(worker).success(function(){
           res.send({child: child, worker: worker});
