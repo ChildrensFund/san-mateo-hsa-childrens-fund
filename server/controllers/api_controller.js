@@ -240,9 +240,41 @@ module.exports.fetchDonorChildren = function(req, res){
   }).error(function(err){res.send(500);});
 };
 
+module.exports.fetchWorker = function(req, res){
+  var parsedUrl = url.parse(req.url);
+  var pathname = parsedUrl.pathname;
+  var query = parsedUrl.query;
+  var lastName = query.split('=')[1];
+  Staff.findAll({where: {lastName: lastName}}).success(function(workers){
+    res.send(workers);
+  }).error(function(){
+    res.send(500);
+  });
+};
 
-
-
+module.exports.swapChildWorker = function(req, res){
+  var urlArray = parseUrl(req).pathArray;
+  var childId = urlArray[2];
+  var newWorkerId = req.body.workerId;
+  Child.find({where: {id: childId}})
+  .success(function(child){
+    if(!child){
+      res.send(404, 'Child not found');
+    } else {
+      child.staffId = newWorkerId;
+      child.save(['staffId'])
+      .success(function(child){
+        res.send(child);
+      })
+      .error(function(err){
+        res.send(500);
+      })
+    }
+  })
+  .error(function(){
+    res.send(500);
+  })
+};
 
 
 

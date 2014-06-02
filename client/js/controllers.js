@@ -167,6 +167,40 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
     });
   };
 
+  $scope.setChildForModal = function(child){
+    $scope.modalChild = child;
+  };
+
+  $scope.fetchWorker = function(){
+    var workerQuery = $scope.workerQuery;
+    $scope.workerQuery = '';
+    $http({
+      method: 'GET',
+      url: '/api/worker?lastName=' + workerQuery
+    }).success(function(workers){
+      Array.isArray(workers) ? $scope.matchedWorkers = workers : $scope.matchedWorkers = [workers];
+    }).error(function(err){
+      console.log(err);
+    })
+  };
+
+  $scope.setWorker = function(worker){
+    $scope.swapWorker = worker;
+  };
+
+  $scope.saveWorker = function(){
+    http({
+      method: 'GET',
+      url: '/api/children/' + modalChild.id + '/swap',
+      data: {
+        workerId: $scope.swapWorker.id
+      }
+    }).success(function(child){
+      console.log(child);
+    }).error(function(err){
+      console.log(err);
+    })
+  };
 
 }])
 

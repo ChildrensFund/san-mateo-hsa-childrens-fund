@@ -15,8 +15,35 @@
           <tr><th>Child ID</th><td>{{child.id}}</td></tr>
           <tr><th>CFID</th><td>{{child.cfid}}</td></tr>
           <tr><th>Worker</th><td>{{child.worker}}</td></tr>
-          <tr><th></th><td></td></tr>
+          <tr><td><button class="btn btn-primary" data-toggle="modal" data-target="#myModal" ng-click="setChildForModal(child)">Change Worker</button></td></tr>
         </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">{{modalChild.firstName}} {{modalChild.lastName}}</h4>
+      </div>
+      <div class="modal-body">
+        <h2>Change Worker for Child: {{modalChild.firstName}} {{modalChild.lastName}}</h2>
+        <form role="form" class="form-inline" ng-submit="fetchWorker()">
+          <div class="form-group">
+            <input placeholder="Input worker last name" class="form-control" ng-model="workerQuery">
+            <input type="submit" class="btn btn-primary">
+          </div>
+          <table class="table">
+            <tr ng-repeat="worker in matchedWorkers" ng-click="setWorker(worker)"><td>{{worker.firstName}} {{worker.lastName}}</td></tr>
+          </table>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" ng-click="saveWorker()">Save changes</button>
       </div>
     </div>
   </div>
