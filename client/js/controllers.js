@@ -252,7 +252,22 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
 
 }])
 
+.controller('imageController', ['$scope', function ($scope) {
+  $scope.startUploading = function() {
+    console.log('uploading....')
+  };
+  $scope.uploadComplete = function (content) {
+    if (console) console.log(content);
+      $scope.response = content; // Presumed content is a json string!
+      $scope.response.style = {
+          color: $scope.response.color,
+          "font-weight": "bold"
+      };
 
+      // Clear form (reason for using the 'ng-model' directive on the input elements)
+      $scope.color = '';
+    }
+}])
 
 
 

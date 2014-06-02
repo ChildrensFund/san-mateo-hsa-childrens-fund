@@ -1,4 +1,4 @@
-/*jslint node: true */
+/* jslint node: true */
 'use strict';
 
 /*  This file contains the logic for handling requests submitted with the /donor
@@ -9,31 +9,27 @@
 // for now it'll look a bit messy because every error has to be handled (no way to propagate
 // promise chain using return new Promise)
 
-// var Child = require('../config/mysql_config.js').Child;
-// var Donor = require('../config/mysql_config.js').Donor;
-// var Staff = require('../config/mysql_config.js').Staff;
-// var Admin = require('../config/mysql_config.js').Admin;
-// var HelpDesk = require('../config/mysql_config.js').HelpDesk;
 var url = require('url');
 var path = require('path');
 var fs = require('fs');
 
-module.exports.saveImage = function (req, res) {
-  console.log('HERE!!!: ', req.method);
-  var partial = '';
-  req.on('data', function (chunk) {
-    partial += chunk;
-  });
-  req.on('end', function () {
-    
-  })
+module.exports = {
+
+  get: function (req, res) {
+    console.log('Served image!');
+    res.send(200);
+  },
+
+  post: function (req, res) {
+    console.log('HERE!!!: ', req.method);
+    var partial = '';
+    res.send(200);
+  }
+
 };
 
-module.exports.serveImage = function (req, res) {
 
-};
-
-
+/*
 module.exports.fetchUsers = function(req, res){
   var urlArray = parseUrl(req);
   var User = setUserType(urlArray[1]);
@@ -75,3 +71,4 @@ module.exports.editUser = function(req, res){
     res.send(500);
   });
 }
+*/

@@ -5,10 +5,10 @@
  *  (root folder)/server/config/express_app.js). Requests with the '/api'
  *  path are handled here. */
 //    This file is required by (root folder)/server/config/express_app.js
-var controller  = require( '../controllers/upload_controller.js' );
+var controller  = require( '../controllers/images_controller.js' );
 
 module.exports = function( router ) {
   router.route('/images')
-    .post( controller.saveImage )
-    .get ( controller.serveImage );
+    .get ( controller.get )
+    .post( controller.post );
 };

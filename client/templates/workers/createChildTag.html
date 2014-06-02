@@ -99,41 +99,35 @@
       placeholder="Third Item Price"/>
     </div>
 
-    <div class="col-md-4">
-      <!--  -->
-      <div
-        upload-button
-        url="../images"
-        param="child-image"
-        data="formData"
-        accept="image/*"
-        on-upload="onUpload(files)" // Optional callback when uploading starts
-        on-success="onSuccess(response)" // Optional callback
-        on-error="onError(response)" // Optional callback
-        >
-      Image Upload
-      </div>
-    <!--  -->
+
+    <div class="col-md-4" ng-controller="imageController">
+      <form ng-upload="uploadComplete(content)" action="/images">
+        <p>
+          <label>Favourite Color:</label> <input type="text" name="color" ng-model="color">
+          <input type="file" name="file">
+        </p>
+        <p>
+          <input type="submit" class="btn" value="Submit">
+        </p>
+      </form>
     </div>
 
 
 
-</div>
 
-
-<br/>
-
-<br/>
-
-<!-- buttons -->
-  <div class="center">
-    <input
-    class="btn btn-success"
-    ng-click="create()" 
-    type="button" 
-    name="submit" 
-    value="Submit"/>
-    <button class="btn btn-danger" ui-sref="workers.account">Back</button>
+    <br/>
+    <br/>
+  <!-- end of .row -->
   </div>
-  
+
+    <!-- buttons -->
+    <div class="center">
+      <input
+      class="btn btn-success"
+      ng-click="create()" 
+      type="button" 
+      name="submit" 
+      value="Submit"/>
+      <button class="btn btn-danger" ui-sref="workers.account">Back</button>
+    </div>
 </div>
