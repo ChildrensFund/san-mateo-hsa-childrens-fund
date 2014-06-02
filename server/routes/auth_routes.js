@@ -20,4 +20,6 @@ module.exports = function( router ) {
     .post( controller.sendReset );
   router.route('/resetPassword')
     .post( controller.resetPassword );
+  router.route('/access')
+    .post( controller.access );
 };

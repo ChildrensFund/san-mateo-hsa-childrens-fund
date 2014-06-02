@@ -34,7 +34,7 @@ module.exports.getUsers = function(req, res){
   User.findAll().success(function(users){
     var arr = [];
     for(var i = 0; i < users.length; i++){
-      arr[i] = {id: users[i].id, email: users[i].email};
+      arr[i] = {id: users[i].id, email: users[i].email, hasAccess: users[i].hasAccess};
     }
     res.send(arr);
   });

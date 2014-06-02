@@ -4,12 +4,8 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
   }
 
   $scope.devSignin = function(){
-    if($cookies.type === 'j:null' || $cookies.type === undefined){
-      console.log('Signed in as developer');
-      $cookies.type = 'developer';
-    } else {
-      console.log('Sign out before using the master signin');
-    }
+    console.log('Signed in as developer');
+    $cookies.type = 'developer';
   }
 }])
 
@@ -59,12 +55,103 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
     $scope.users = users;
   }).error(function(err){
     console.log('Users not fetched successfully: Server Error');
-  })
+  });
+
+  $scope.revokeAccess = function(user){
+    var userType;
+    switch($state.current.url){
+      case '/help_desk':
+        userType = 'helpDesk';
+        break;
+      case '/admin':
+        userType = 'admin';
+        break;
+      case '/workers':
+        userType = 'workers';
+        break;
+      default:
+        break;
+    }
+    $http({
+      method: 'POST',
+      url: '/auth/access',
+      data: {
+        id: user.id,
+        hasAccess: false,
+        userType: userType
+      }
+    }).success(function(){
+      console.log('User access revoked');
+      user.hasAccess = false;
+    }).error(function(){
+      console.log('Something went wrong');
+    })
+  };
+
+  $scope.grantAccess = function(user){
+    var userType;
+    switch($state.current.url){
+      case '/help_desk':
+        userType = 'helpDesk';
+        break;
+      case '/admin':
+        userType = 'admin';
+        break;
+      case '/workers':
+        userType = 'workers';
+        break;
+      default:
+        break;
+    }
+    $http({
+      method: 'POST',
+      url: '/auth/access',
+      data: {
+        id: user.id,
+        hasAccess: true,
+        userType: userType
+      }
+    }).success(function(){
+      console.log('User access granted');
+      user.hasAccess = true;
+    }).error(function(){
+      console.log('Something went wrong');
+    });
+  };
+}])
+
+.controller('adminController', ['$scope', '$http', '$state', function($scope, $http, $state){
+  console.log($state.current.name);
+  if($state.current.name === 'admin.account.children'){
+    $http({
+      method: 'GET',
+      url: '/api/children?page=1'
+    }).success(function(children){
+      $scope.numChildren = children.shift();
+      $scope.children = children;
+    }).error(function(err){
+      console.log(err);
+    })
+  } else if ($state.current.name === 'admin.account.workers'){
+    $http({
+      method: 'GET',
+      url: '/api/workers?page=1'
+    }).success(function(workers){
+      $scope.numWorkers = workers.shift();
+      $scope.workers = workers;
+    }).error(function(err){
+      console.log(err);
+    })
+  }
+
+
 }])
 
 //Authentication logic
-.controller('authController', ['$scope', '$http', '$state', '$cookies', '$stateParams', '$location', 'oneTimeAuthorization',
-  function($scope, $http, $state, $cookies, $stateParams, $location, oneTimeAuthorization){
+.controller('authController', ['$scope', '$http', '$state', '$cookies', 
+  '$stateParams', '$location', 'oneTimeAuthorization', 'sessionCache',
+  function($scope, $http, $state, $cookies, $stateParams, $location, oneTimeAuthorization, sessionCache){
+
   $scope.signup = function(manual){
     if($scope.password === $scope.passwordConfirmation){
       var userType, password, email;
@@ -72,6 +159,7 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
       if(manual){ //If admin or helpdesk is creating a new account, we want to generate a random password and passthrough userType
         userType = $scope.userType;
         password = Math.random().toString();
+        $scope.email = '';
       } else { //Otherwise, grab user submitted data from signin page
         userType = $state.current.data.userType;
         password = $scope.password;
@@ -112,6 +200,8 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
         $cookies.sessionToken = data.sessionToken;
         $cookies.type = data.type;
         $cookies.id = data.id;
+        sessionCache.updateSessionToken(data.sessionToken);
+        sessionCache.updateUserType(data.type);
         oneTimeAuthorization.authorize();
         switch(data.type){
           case 'workers':

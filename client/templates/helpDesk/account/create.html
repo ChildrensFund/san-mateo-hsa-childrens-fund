@@ -1,4 +1,5 @@
-<form ng-submit="signup(true)">
+<h1>Create New User</h1>
+<form ng-submit="signup(true)" ng-hide="submitting">
   <select name="select" ng-model="userType">
     <option value="workers">Worker</option> 
     <option value="admin" selected>Admin</option>
