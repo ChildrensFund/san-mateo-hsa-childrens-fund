@@ -252,21 +252,36 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
 
 }])
 
-.controller('imageController', ['$scope', function ($scope) {
-  $scope.startUploading = function() {
-    console.log('uploading....')
+.controller('imageController', ['$scope', '$upload', function($scope, $upload) {
+  $scope.onFileSelect = function($files) {
+    var file = $files[0];
+    console.log(file);
+      $scope.upload = $upload.upload({
+        url: '/images',
+        method: 'POST',
+        // headers: {'Content-Type': 'image/png'},
+        // transformRequest: angular.identity,
+        // withCredentials: true,
+        data: {myObj: $scope.$parent.tempChildObj.firstName + $scope.$parent.tempChildObj.lastName},
+        file: file,
+        /* set the file formData name ('Content-Desposition'). Default is 'file' */
+        // fileFormDataName: file.name, //or a list of names for multiple files (html5).
+        /* customize how data is added to formData. See #40#issuecomment-28612000 for sample code */
+        //formDataAppender: function(formData, key, val){}
+      }).progress(function(evt) {
+        console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
+      }).success(function(data, status, headers, config) {
+        // file is uploaded successfully
+        console.log(data, 'yay');
+      });
+      //.error(...)
+      //.then(success, error, progress); 
+      //.xhr(function(xhr){xhr.upload.addEventListener(...)})// access and attach any event listener to XMLHttpRequest.
+    /* alternative way of uploading, send the file binary with the file's content-type.
+       Could be used to upload files to CouchDB, imgur, etc... html5 FileReader is needed. 
+       It could also be used to monitor the progress of a normal http post/put request with large data*/
+    // $scope.upload = $upload.http({...})  see 88#issuecomment-31366487 for sample code.
   };
-  $scope.uploadComplete = function (content) {
-    if (console) console.log(content);
-      $scope.response = content; // Presumed content is a json string!
-      $scope.response.style = {
-          color: $scope.response.color,
-          "font-weight": "bold"
-      };
-
-      // Clear form (reason for using the 'ng-model' directive on the input elements)
-      $scope.color = '';
-    }
 }])
 
 

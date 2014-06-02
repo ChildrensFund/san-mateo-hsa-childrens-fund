@@ -101,14 +101,14 @@
 
 
     <div class="col-md-4" ng-controller="imageController">
-      <form ng-upload="uploadComplete(content)" action="/images">
-        <p>
-          <label>Favourite Color:</label> <input type="text" name="color" ng-model="color">
-          <input type="file" name="file">
-        </p>
-        <p>
-          <input type="submit" class="btn" value="Submit">
-        </p>
+      <form>
+        <!-- <input type="text" name="firstName" ng-model="$parent.tempChildObj.firstName" placeholder=""> -->
+                <input name="file" type="file" accept="image/*" ng-file-select="onFileSelect($files)" >
+                <div ng-file-drop="onFileSelect($files)" ng-file-drag-over-class="optional-css-class"
+                      ng-show="dropSupported">drop files here</div>
+<!--                 <div ng-file-drop-available="dropSupported=true" 
+                      ng-show="!dropSupported">HTML5 Drop File is not supported!</div> -->
+                <button ng-click="upload.abort()">Cancel Upload</button>
       </form>
     </div>
 

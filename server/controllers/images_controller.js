@@ -1,13 +1,9 @@
 /* jslint node: true */
 'use strict';
 
-/*  This file contains the logic for handling requests submitted with the /donor
+/*  This file contains the logic for handling requests submitted with the /images
  *  path.  */
-//    This file is required by (root folder)/server/routes/donor_routes.js
-
-// NOTE: Sequelize has a strange promise implementation, can possibly refactor to bluebird, but
-// for now it'll look a bit messy because every error has to be handled (no way to propagate
-// promise chain using return new Promise)
+//    This file is required by (root folder)/server/routes/images_routes.js
 
 var url = require('url');
 var path = require('path');
@@ -21,54 +17,19 @@ module.exports = {
   },
 
   post: function (req, res) {
-    console.log('HERE!!!: ', req.method);
-    var partial = '';
-    res.send(200);
+    console.log('############# IMAGE UPLOAD POST #############');
+
+    var imageFolder = path.normalize(__dirname + '/../images/');
+    var fstream;
+    req.pipe(req.busboy);
+    req.busboy.on('file', function (fieldname, file, filename) {
+        console.log("text: ",fieldname, file, filename); 
+        fstream = fs.createWriteStream(imageFolder + filename);
+        file.pipe(fstream);
+        fstream.on('close', function () {
+          res.send(200);
+        });
+    });
   }
 
 };
-
-
-/*
-module.exports.fetchUsers = function(req, res){
-  var urlArray = parseUrl(req);
-  var User = setUserType(urlArray[1]);
-  User.findAll().success(function(users){
-    res.send(users);
-  });
-};
-
-module.exports.fetchUser = function(req, res){
-  var urlArray = parseUrl(req);
-  var User = setUserType(urlArray[1]);
-  var userId = urlArray[2];
-  User.find({where: {id: userId}}).success(function(user){
-    if(!user) {
-      res.send(404);
-    } else {
-      res.send(user);
-    }
-  }).error(function(err){
-    res.send(500);
-  })
-}
-
-module.exports.editUser = function(req, res){
-  var urlArray = parseUrl(req);
-  var User = setUserType(urlArray[1]);
-  var userId = urlArray[2];
-  User.find({where: {id: userId}}).success(function(user){
-    if(!user){
-      res.send(404);
-    } else {
-      user.updateAttributes(req.body).success(function(user){
-        res.send(user);
-      }).error(function(err){
-        res.send(500);
-      });
-    }
-  }).error(function(err){
-    res.send(500);
-  });
-}
-*/
