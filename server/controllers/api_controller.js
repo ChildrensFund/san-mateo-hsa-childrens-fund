@@ -16,6 +16,7 @@ var Admin = require('../config/mysql_config.js').Admin;
 var HelpDesk = require('../config/mysql_config.js').HelpDesk;
 var url = require('url');
 var path = require('path');
+var nodemailer = require('nodemailer');
 
 var parseUrl = function(req){
   var pathname = url.parse(req.url).pathname;
@@ -124,6 +125,29 @@ module.exports.fetchChildDonor = function(req, res){
   })
 };
 
+var donorMailer = function donorMailer (reqBody) {
+  var transport = nodemailer.createTransport("Direct", {debug: true});
+
+  var htmlString = '<h2>Hey ' + reqBody.firstName + ' thanks for donating!</h2><h4>Make sure you do</h4><ul><li>this</li><li>and this</li><li>also this</li></ul>';
+  
+  var message = {
+    from: 'HSA CF DONOR CONFIRMATION <hsacf@example.com>',
+    to: '"" <' + reqBody.email + ' >',
+    subject: 'HSA CF DONOR CONFIRMATION',
+    html: htmlString
+  };
+
+  transport.sendMail(message, function(error, response){
+    if (error) {
+      console.log(error.message);
+      console.log('(Donor confirmation message) Error!');
+    } else {
+      console.log(response);
+      console.log('(Donor confirmation message) Success!');
+    }
+  });
+};
+
   // .post( controller.createChildDonor );
 module.exports.createChildDonor = function(req, res){
   var urlArray = parseUrl(req);
@@ -140,6 +164,11 @@ module.exports.createChildDonor = function(req, res){
           //Hacky solution -> manually setting donor id on child
           child.donorId = donor.id;
           child.save(['donorId']).success(function(child){
+
+
+            donorMailer(req.body);
+
+
             res.send({child: child, donor: donor});
           }).error(function(err){res.send(500);});
         }).error(function(err){res.send(500);});
@@ -197,3 +226,12 @@ module.exports.fetchDonorChildren = function(req, res){
     }
   }).error(function(err){res.send(500);});
 };
+
+
+
+
+
+
+
+
+
