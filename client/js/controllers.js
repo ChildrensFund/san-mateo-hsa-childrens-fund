@@ -202,6 +202,10 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
     })
   };
 
+  $scope.generateReport = function(){
+    console.log($scope.startDate, $scope.endDate);
+  };
+
 }])
 
 //Authentication logic

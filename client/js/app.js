@@ -127,6 +127,11 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
           controller: 'adminController',
           templateUrl: '/templates/admin/workers.html'
         })
+        .state('admin.account.reports', {
+          url: '/reports',
+          controller: 'adminController',
+          templateUrl: '/templates/admin/reports.html'
+        })
         .state('admin.account.accountManagement', {
           abstract: true,
           url: '/manage',
