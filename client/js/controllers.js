@@ -189,9 +189,9 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
   };
 
   $scope.saveWorker = function(){
-    http({
-      method: 'GET',
-      url: '/api/children/' + modalChild.id + '/swap',
+    $http({
+      method: 'POST',
+      url: '/api/children/' + $scope.modalChild.id + '/swap',
       data: {
         workerId: $scope.swapWorker.id
       }
