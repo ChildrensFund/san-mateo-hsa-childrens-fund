@@ -25,6 +25,7 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
     restful.getChildren().then(function (promise) {
       if (promise) {
         $scope.children = promise.data;
+        $scope.children.shift();
       }
     });
   };
