@@ -1,0 +1,15 @@
+1. In terminal issue the command: chmod 777 server/reports
+  MySQL needs write access to the folder to generate reports
+
+2. In node_modules/sequelize/lib/dialects/abstract/query.js, add
+
+  if(this.options.outfile){
+    return;
+  }
+
+  Above the //raw queries on line 217. This is to fix a Sequelize bug
+  which didn't account for logfile exporting. Specifically, sequelize
+  is always expecting a set from MySQL, but logfiles only send back an
+  OK response. As there's no set to work with, when sequelize attempts
+  to call set.map, it throws an error. My fix simply prevents further
+  action since there's nothing left to do.
