@@ -2,9 +2,9 @@
   <h1>Children</h1>
 
   <ul class="pagination" ng-show="pages && pages.length > 1">
-    <li><a href="#" ng-show="page > 1" ng-click="get(pageNumber - 1)">&laquo;</a></li>
+    <li><a href="#" ng-show="page > 1" ng-click="get(page - 1)">&laquo;</a></li>
     <li ng-repeat="pageNumber in pages" ng-click="get(pageNumber)"><a href="#">{{pageNumber}}</a></li>
-    <li><a href="#" ng-show="page < pages.length" ng-click="get(pageNumber + 1)">&raquo;</a></li>
+    <li><a href="#" ng-show="page < pages.length" ng-click="get(page + 1)">&raquo;</a></li>
   </ul>
 
   <div class="center box lg" ng-repeat="child in children | orderBy:'createdAt' :true | filter:{status: null}">
