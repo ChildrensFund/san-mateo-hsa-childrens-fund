@@ -10,45 +10,62 @@
   Our tax ID number is: <strong>94-6000532</strong>
   </p>
 
-  <form role="form">
 
-    <div class="form-group">
-      <label>First Name</label>
+  <form name="donor_info" role="form" novalidate ng-submit="donorSubmit()">
+    <div class="form-group" style="width: 300px">
+      <label>First Name</label>  (Required)
       <input 
+      ng-pattern="/[\D]/g"
+      required
       ng-model="donor.firstName"
       type="text"
       class="form-control"
-      placeholder="First Name"/>
+      placeholder="John"/>
     </div>
 
-    <div class="form-group">
-      <label>Last Name</label>
+    <div class="form-group" style="width: 300px">
+      <label>Last Name</label>  (Required)
       <input 
+      ng-pattern="/[\D]/g"
+      required
       ng-model="donor.lastName"
       type="text"
       class="form-control"
-      placeholder="Last Name"/>
-    </div>
+      placeholder="Smith"/>
+    </div>    
 
-    <div class="form-group">
-      <label>Email</label>
+    <div class="form-group" style="width: 300px">
+      <label>Phone</label>  (Required)
       <input 
-      ng-model="donor.email"
+      ng-pattern="/[\d]/g"
+      required
+      ng-model="donor.phone"
       type="text"
       class="form-control"
-      placeholder="Email"/>
+      placeholder="(650) 555-2627"/>
     </div>
 
-    <div class="form-group">
-      <label>Address Line 1</label>
+    <div class="form-group" style="width: 300px">
+      <label>Email</label>  (Required)
       <input 
+      required
+      ng-model="donor.email"
+      type="email"
+      class="form-control"
+      placeholder="name@example.com"/>
+    </div>
+
+    <div class="form-group" style="width: 300px">
+      <label>Address Line 1</label>  (Required)
+      <input 
+      required
       ng-model="donor.address1"
       type="text"
       class="form-control"
-      placeholder="Address Line 1"/>
+      placeholder="944 Market Ave Street"/>
     </div>
 
-    <div class="form-group">
+    <div class="form-group" style="width: 300px">
       <label>Address Line 2</label>
       <input 
       ng-model="donor.address2"
@@ -57,52 +74,39 @@
       placeholder="Address Line 2"/>
     </div>
 
-    <div class="form-group">
-      <label>City</label>
+    <div class="form-group" style="width: 300px">
+      <label>City</label>  (Required)
       <input 
+      ng-pattern="/[\D]/g"
+      required
       ng-model="donor.city"
       type="text"
       class="form-control"
-      placeholder="City"/>
+      placeholder="San Francisco"/>
     </div>
 
-    <div class="form-group">
-      <label>State</label>
+    <div class="form-group" style="width: 300px">
+      <label>State</label>  (Required)
       <input 
+      ng-pattern="/[\D]/g"
+      required
       ng-model="donor.state"
       type="text"
       class="form-control"
-      placeholder="State"/>
+      placeholder="CA"/>
     </div>
 
-    <div class="form-group">
-      <label>Zip Code</label>
+    <div class="form-group" style="width: 300px">
+      <label>Zip Code</label>  (Required)
       <input 
+      ng-minlength=5
+      ng-pattern="/[\d]/g"
+      required
       ng-model="donor.zip"
-      type="text"
+      type="number"
       class="form-control"
-      placeholder="Zip Code"/>
+      placeholder="94103"/>
     </div>
-
-<!--     <div class="checkbox">
-      <label>I would like my donation to go to the following program(s):</label>
-      <br/>
-      <label>
-        <input style="margin-left: 20px" type="checkbox" ng-model="donor.childrensFund" ng-true-value="true" ng-false-value="false">Children's Fund - General fund (supporting all Children's Fund Programs)
-        <br/>
-        <input style="margin-left: 20px" type="checkbox" ng-model="donor.maureen" ng-true-value="true" ng-false-value="false">Maureen Borland Orthodontics Fund (Write Orthodontics Fund in memo section)
-        <br/>
-        <input style="margin-left: 20px" type="checkbox" ng-model="donor.schoolSupply" ng-true-value="true" ng-false-value="false">School Supply and Backpack Drive (Write School Drive in memo section)
-        <br/>
-        <input style="margin-left: 20px" type="checkbox" ng-model="donor.dental" ng-true-value="true" ng-false-value="false">Children's Special Dental Needs Fund (Write Special Dental Fund in memo section)
-        <br/>
-        <input style="margin-left: 20px" type="checkbox" ng-model="donor.costumes" ng-true-value="true" ng-false-value="false">Costumes for Kids (Write Costumes for Kids memo section)
-        <br/>
-        <p>
-        Please make checks payable to <strong>Children's Fund</strong> located at <strong>Children's Fund, 472 Harbor Blvd. Bldg C, Belmont, CA 94002</strong>
-        </p>
-      </label>
-    </div> -->
 
     <div class="radio">
       <label>
@@ -121,15 +125,42 @@
         </p>
       </label>
     </div>
-    <button ng-click="donorSubmit()" type="submit" class="btn btn-default">Submit</button>
+    <button type="submit" class="btn btn-default" ng-disabled="donor_info.$invalid">Submit</button>
   </form>
 
-  <br/>
-  <br/>
-  <br/>
-
-
-
-
-
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

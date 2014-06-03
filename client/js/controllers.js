@@ -16,7 +16,7 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
   $scope.create = function () {
     restful.createChild($scope.tempChildObj).then(function (promise) {
       if (promise) {
-        return $scope.get();
+        $state.go('workers.account.myTags');
       }
     });
   };
@@ -445,6 +445,7 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
 
   // Image is saved to root/server/images/ childCFID .(mimetype of image)
   $scope.uploadImageThenCreateChild = function () {
+    if ($scope.file) {
       $scope.$parent.tempChildObj.image = '';
       $scope.$parent.tempChildObj.image += randNum();
       $scope.$parent.tempChildObj.image += getMimetype($scope.file);
@@ -460,12 +461,15 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
         // upload kid to db
         $scope.$parent.create();
       });
+    } else {
+        $scope.$parent.create();
+    }
   };
 
 }])
 
 
-var randNum = function () {
+var randNum = function randNum () {
   return Math.floor(Math.random()*10e10);
 };
 
