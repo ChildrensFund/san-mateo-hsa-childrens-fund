@@ -14,6 +14,21 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
   var postObj;
 
   $scope.create = function () {
+
+
+    // sanitize phone numbers
+    if ($scope.tempChildObj.phone) {
+      $scope.tempChildObj.phone = sanitizePhone($scope.tempChildObj.phone);
+    }
+    // sanitize item price ($)
+    if ($scope.tempChildObj.firstItemPrice || 
+        $scope.tempChildObj.secondItemPrice || 
+        $scope.tempChildObj.thirdItemPrice) 
+    {
+      $scope.tempChildObj.firstItemPrice = sanitizePrice($scope.tempChildObj.firstItemPrice);
+      $scope.tempChildObj.secondItemPrice = sanitizePrice($scope.tempChildObj.secondItemPrice);
+      $scope.tempChildObj.thirdItemPrice = sanitizePrice($scope.tempChildObj.thirdItemPrice);
+    }
     restful.createChild($scope.tempChildObj).then(function (promise) {
       if (promise) {
         $state.go('workers.account.myTags');
@@ -36,6 +51,14 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
   };
 
   $scope.update = function (id, key, value) {
+    // sanitize phone numbers
+    if (key === 'phone') {
+      value = sanitizePhone(value);
+    }
+    // sanitize item price ($)
+    if (key.substr(key.length-5,key.length) === 'Price') {
+      value = sanitizePrice(value);
+    }
     postObj = {};
     postObj.id = id;
     postObj[key] = value;
@@ -379,6 +402,7 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
   $scope.getWorkerData();
 
   $scope.postWorkerData = function (key, val) {
+    // sanitze phone numbers
     var workerObj = {};
     workerObj[key] = val;
     restful.postWorkerData(workerObj).then(function (promise) {
@@ -428,13 +452,12 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
   var fileName;
 
   var getMimetype = function (file) {
-    var uploadedFilename = file.name, found = false, index = uploadedFilename.length;
-    while (!found) {
-      if (uploadedFilename[index] === '.') { found = true; }
-      if (index < 0) { return res.send(404, 'Incorrect uploadedFilename'); }
-      index--;
+    var uploadedFilename = file.name;
+    for (var i = uploadedFilename.length; i >= 0; i--) {
+      if (uploadedFilename[i] === '.') {
+        return uploadedFilename.slice(i,uploadedFilename.length);
+      }
     }
-    return uploadedFilename.substr(index + 1, uploadedFilename.length);
   };
 
 
@@ -442,8 +465,24 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
     $scope.file = $files[0];
   };
 
+  $scope.updatePhoto = function (id) {
+    var imageNumber = randNum();
+    var newName = '';
+    newName += imageNumber;
+    newName += getMimetype($scope.file);
+    delete $scope.file.name
+    $scope.file.name = newName;
+    $upload.upload({
+      url: '/images',
+      method: 'POST',
+      file: $scope.file,
+    }).success(function(data, status, headers, config) {
+      console.log('Image Upload Success!...Updating kid now...');
+      $scope.$parent.update(id, 'image', $scope.file.name);
+    });
 
-  // Image is saved to root/server/images/ childCFID .(mimetype of image)
+  };
+
   $scope.uploadImageThenCreateChild = function () {
     if ($scope.file) {
       $scope.$parent.tempChildObj.image = '';
@@ -451,17 +490,17 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
       $scope.$parent.tempChildObj.image += getMimetype($scope.file);
       delete $scope.file.name
       $scope.file.name = $scope.$parent.tempChildObj.image;
-
       $upload.upload({
         url: '/images',
         method: 'POST',
         file: $scope.file,
       }).success(function(data, status, headers, config) {
-        console.log('Success!...uploading kid now...');
+        console.log('Image Upload Success!...Creating kid now...');
         // upload kid to db
         $scope.$parent.create();
       });
     } else {
+        console.log('No Image Upload...Creating kid...');
         $scope.$parent.create();
     }
   };
@@ -473,6 +512,31 @@ var randNum = function randNum () {
   return Math.floor(Math.random()*10e10);
 };
 
+var sanitizePhone = function sanitizePhone (str) {
+  var clean, sol = '';
+  if (str) {
+    clean = str.match(/\d+/g).join('').split('').reverse();
+    if (clean.length <= 11) {
+      for (var i=0;i<clean.length;i++) {
+        if (i === 4 || i === 7 || i === 10) {
+          sol += '-';
+        }
+        sol += clean[i];
+      }
+      return sol.split('').reverse().join('');
+    } else {
+      return clean.reverse().join('');
+    }
+  }
+  return undefined;
+};
+
+var sanitizePrice = function sanitizePrice (str) {
+  if (str) {
+    return str.match(/[0-9.]/g).join('');
+  }
+  return undefined;
+};
 
 
 

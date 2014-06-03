@@ -12,7 +12,7 @@ var sequelize = new Sequelize('hsa_cf', 'hsa', '');
 var Child = sequelize.define('children', {
   firstName: Sequelize.STRING,
   lastName: Sequelize.STRING,
-  phone: Sequelize.INTEGER,
+  phone: Sequelize.STRING,
   gender: Sequelize.STRING,
   dob: Sequelize.STRING,
   age: Sequelize.INTEGER,

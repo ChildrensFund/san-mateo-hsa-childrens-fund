@@ -13,6 +13,18 @@
           this isn't aligned!
           <br/>
           <img ng-src="http://localhost:4568/images/{{ child.image }}" alt="{{ child.firstName }}">
+          <div ng-controller="imageController">
+          <div ng-hide="child.image">
+            Choose a photo!
+          </div>
+          <div ng-show="child.image">
+            Change this photo!
+          </div>
+            <input type="file" accept="image/*" ng-file-select="onFileSelect($files)">
+            <div ng-show="file">
+              <input type="button" ng-click="updatePhoto(child.id)" value="Update Photo">
+            </div>
+          </div>
         </div>
         <thead>
           <tr>

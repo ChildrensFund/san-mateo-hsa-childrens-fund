@@ -21,10 +21,10 @@ app.factory('restful', ['$http', '$cookies', function ($http, $cookies) {
         url: '/api/children/' + childObj.id,
         data: childObj
       }).success(function (data, status) {
-        console.log('(pledgeChild) POST Success! ', data);
+        console.log('(updateChild) POST Success! ', data);
         return data;
       }).error(function (data, status) {
-        console.log('(pledgeChild) POST Error! ', data, status);
+        console.log('(updateChild) POST Error! ', data, status);
       });
     },
 
