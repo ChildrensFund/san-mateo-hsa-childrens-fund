@@ -39,3 +39,12 @@ body {
 .redBorder {
   border: 1px solid red;
 }
+
+/* Admin Dashboard Styles */
+
+#admin-navbar{
+}
+
+#admin-navbar a{
+  color: black;
+}

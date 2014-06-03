@@ -1,11 +1,39 @@
-<h1>Admin Account</h1>
+<nav class="navbar navbar-default navbar-fixed-top hsa-nav" id="admin-navbar" role="navigation">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Admin Dashboard</a>
+    </div>
 
-<button ui-sref="admin.account.accountManagement.create" class="btn btn-primary">Add New User</button>
-<button ui-sref="admin.account.accountManagement.workers" class="btn btn-primary">Show Workers</button>
-<button ui-sref="admin.account.accountManagement.admin" class="btn btn-primary">Show Admin</button>
-<button ui-sref="admin.account.accountManagement.helpDesk" class="btn btn-primary">Show Help Desk Users</button>
-<button ui-sref="admin.account.children" class="btn btn-primary">Show Children</button>
-<button ui-sref="admin.account.workers" class="btn btn-primary">Show Workers</button>
-<button ui-sref="admin.account.reports" class="btn btn-primary">Generate Reports</button>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a ui-sref="admin.account.children">Children</a></li>
+        <li><a ui-sref="admin.account.workers">Workers</a></li>
+        <li><a ui-sref="admin.account.reports">Generate Reports</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Manage Accounts <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a ui-sref="admin.account.accountManagement.create">Add New User</a></li>
+            <li class="divider"></li>
+            <li><a ui-sref="admin.account.accountManagement.workers">Worker Accounts</a></li>
+            <li><a ui-sref="admin.account.accountManagement.helpDesk">Help Desk Accounts</a></li>
+            <li><a ui-sref="admin.account.accountManagement.admin">Admin Accounts</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Sign Out</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
 
 <div ui-view></div>
