@@ -149,10 +149,16 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
 .controller('adminController', ['$scope', '$http', '$state', '$location', function($scope, $http, $state, $location){
   
   $scope.fetchAllChildren = function(page){
+    var queryString = '';
+    if($scope.userQuery){
+      var userQuery = $scope.userQuery;
+      $scope.userQuery = '';
+      queryString = '&query=' + userQuery;
+    }
     $scope.page = page;
     $http({
       method: 'GET',
-      url: '/api/children?page=' + page
+      url: '/api/children?page=' + page + queryString
     }).success(function(children){
       $scope.numChildren = children.shift();
       $scope.children = children;
@@ -166,10 +172,16 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
   }
 
   $scope.fetchAllWorkers = function(page){
+    var queryString = '';
+    if($scope.userQuery){
+      var userQuery = $scope.userQuery;
+      $scope.userQuery = '';
+      queryString = '&query=' + userQuery;
+    }
     $scope.page = page;
     $http({
       method: 'GET',
-      url: '/api/workers?page=' + page
+      url: '/api/workers?page=' + page + queryString
     }).success(function(workers){
       $scope.numWorkers = workers.shift();
       $scope.workers = workers;

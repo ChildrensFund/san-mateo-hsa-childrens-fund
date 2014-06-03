@@ -24,10 +24,12 @@ var parseUrl = function(req){
   var array = pathname.split('/');
   if(url.parse(req.url).query){
     var page = url.parse(req.url).query.split('=')[1];
+    var query = url.parse(req.url).query.split('=')[2];
   }
   return {
     pathArray: array,
-    page: page
+    page: page,
+    query: query
   };
 }
 
@@ -50,9 +52,14 @@ var setUserType = function(userPath){
 
 module.exports.fetchUsers = function(req, res){
   var page = parseUrl(req).page;
+  var query = parseUrl(req).query;
   var urlArray = parseUrl(req).pathArray;
   var User = setUserType(urlArray[1]);
+  var sqlQuery;
+  query ? sqlQuery = ["lastName LIKE '" + query + "%'"] : '';
+
   User.findAndCountAll({
+    where: sqlQuery,
     limit: 20,
     offset: (20 * (page-1))
   }).success(function(results){

@@ -1,5 +1,10 @@
 <h1>List of Workers ({{numWorkers}})</h1>
 
+<form class="form-inline" ng-submit="fetchAllWorkers(1)">
+  <input placeholder="Search by Last Name" class="form-control" ng-model="userQuery">
+  <input type="submit" class="btn btn-primary">
+</form>
+
 <ul class="pagination" ng-show="pages && pages.length > 1">
   <li ng-class="page === 1 ? 'disabled' : ''"><a href="#" ng-click="(page - 1) > 0 && fetchAllWorkers(page - 1)">&laquo;</a></li>
   <li ng-repeat="pageNumber in pages" ng-click="fetchAllWorkers(pageNumber)" ng-class="page === pageNumber ? 'active': ''"><a href="#">{{pageNumber}}</a></li>
