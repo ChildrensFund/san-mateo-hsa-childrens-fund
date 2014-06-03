@@ -52,16 +52,27 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
 }])
 
 .controller('usersController', ['$scope', '$http', '$state', function($scope, $http, $state){
-  console.log('Fetching Users');
-  $http({
-    method: 'GET',
-    url: '/users' + $state.current.url
-  }).success(function(users){
-    console.log('Users fetched successfully');
-    $scope.users = users;
-  }).error(function(err){
-    console.log('Users not fetched successfully: Server Error');
-  });
+
+  $scope.fetchUsers = function(page){
+    $scope.page = page;
+    $http({
+      method: 'GET',
+      url: '/users' + $state.current.url + '?page=' + page
+    }).success(function(users){
+      console.log('Users fetched successfully');
+      $scope.page = page;
+      $scope.numUsers = users.shift();
+      $scope.users = users;
+      $scope.pages = [];
+      for(var i = 0; i < $scope.numUsers/20; i++){
+        $scope.pages.push(i + 1);
+      }
+    }).error(function(err){
+      console.log('Users not fetched successfully: Server Error');
+    })
+  }
+
+  $scope.fetchUsers(1);
 
   $scope.revokeAccess = function(user){
     var userType;
