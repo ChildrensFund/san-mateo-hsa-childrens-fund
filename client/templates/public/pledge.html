@@ -15,6 +15,8 @@
     <div class="form-group">
       <label>First Name</label>
       <input 
+      ng-minlength=1
+      ng-pattern="[a-zA-Z]"
       ng-model="donor.firstName"
       type="text"
       class="form-control"
@@ -24,6 +26,8 @@
     <div class="form-group">
       <label>Last Name</label>
       <input 
+      ng-minlength=1
+      ng-pattern="[a-zA-Z]"
       ng-model="donor.lastName"
       type="text"
       class="form-control"
@@ -34,7 +38,7 @@
       <label>Email</label>
       <input 
       ng-model="donor.email"
-      type="text"
+      type="email"
       class="form-control"
       placeholder="Email"/>
     </div>
