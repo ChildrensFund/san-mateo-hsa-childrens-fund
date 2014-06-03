@@ -111,10 +111,10 @@ module.exports.fetchChildWorker = function(req, res){
   var User = setUserType(urlArray[1]);
   var userId = urlArray[2];
   Child.find({where: {id: userId}}).success(function(child){
-    if(!child){
+    if(!child || child.staffId === null){
       res.send(404);
     } else {
-      child.getStaff().success(function(worker){
+      Staff.find({where: {id: child.staffId}}).success(function(worker){
         res.send(worker);
       }).error(function(err){
         res.send(500);

@@ -226,6 +226,9 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
 
   $scope.setChildForModal = function(child){
     $scope.modalChild = child;
+    $scope.matchedWorkers = null;
+    $scope.swapWorker = null;
+    $scope.success = null;
   };
 
   $scope.fetchWorker = function(){
@@ -253,7 +256,9 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
         workerId: $scope.swapWorker.id
       }
     }).success(function(child){
-      $scope.
+      $scope.success = true;
+      $scope.swapWorker = null;
+      $scope.modalChild = child;
       console.log(child);
     }).error(function(err){
       console.log(err);
