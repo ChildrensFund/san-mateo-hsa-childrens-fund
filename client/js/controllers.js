@@ -21,9 +21,15 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
     });
   };
 
-  $scope.get = function () {
-    restful.getChildren().then(function (promise) {
+  $scope.get = function (pageNumber) {
+    $scope.page = pageNumber;
+    restful.getChildren(pageNumber).then(function (promise) {
       if (promise) {
+        $scope.numChildren = promise.data.shift();
+        $scope.pages = [];
+        for(var i = 0; i < $scope.numChildren/20; i++){
+          $scope.pages.push(i + 1);
+        }
         $scope.children = promise.data;
       }
     });
@@ -41,7 +47,7 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
     });
   };
 
-  $scope.get();
+  $scope.get(1);
 
 }])
 

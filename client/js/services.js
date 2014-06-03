@@ -28,10 +28,14 @@ app.factory('restful', ['$http', '$cookies', function ($http, $cookies) {
       });
     },
 
-    getChildren: function () {
+    getChildren: function (pageNumber) {
+      var queryUrl = '/api/children';
+      if(pageNumber){
+        queryUrl += '?page=' + pageNumber;
+      }
       return $http({
         method: 'GET',
-        url: '/api/children/',
+        url: queryUrl
       }).success(function (data, status) {
         console.log('GET Success! ', data);
         return data;
