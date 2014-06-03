@@ -10,7 +10,7 @@ var Staff = require('../config/mysql_config.js').Staff;
 var Admin = require('../config/mysql_config.js').Admin;
 var HelpDesk = require('../config/mysql_config.js').HelpDesk;
 var nodemailer = require('nodemailer');
-var bcrypt = require('bcrypt');
+var bcrypt = require('bcrypt-nodejs');
 
 var transport = nodemailer.createTransport("Direct", {debug: true});
 
@@ -79,7 +79,7 @@ module.exports.signup = function(request, response){
   var password = request.body.password;
   var User = setUserType(request, response);
   // Hash password
-  bcrypt.hash(password, 8, function(err, hash){
+  bcrypt.hash(password, null, null, function(err, hash){
     console.log(email);
     console.log(hash);
     User.create({
@@ -115,7 +115,7 @@ module.exports.signin = function(request, response){
           if(isValid){
             console.log('User found, welcome', user.getDataValue('email'));
             console.log('Creating Session Token');
-            bcrypt.hash(Math.random().toString(), 8, function(err, hash){
+            bcrypt.hash(Math.random().toString(), null, null, function(err, hash){
               console.log('Your hash is:', hash);
               user.sessionToken = hash;
               user.save(['sessionToken']).success(function(user){
@@ -176,7 +176,7 @@ module.exports.sendReset = function(request, response){
       response.send(404, 'User email not found');
     } else {
       console.log('User found, hashing new reset token');
-      bcrypt.hash(Math.random().toString(), 8, function(err, hash){
+      bcrypt.hash(Math.random().toString(), null, null, function(err, hash){
         console.log('Hash created successfully, attempting to save to database');
         hash = hash.replace(/\.|\/|\$/g, '');
         user.resetToken = hash;
@@ -232,7 +232,7 @@ module.exports.resetPassword = function(request, response){
       response.send(404, 'Invalid Reset Token');
     } else {
       console.log('User found, hashing new password');
-      bcrypt.hash(password, 8, function(err, hash){
+      bcrypt.hash(password, null, null, function(err, hash){
         console.log('Password successfully hashed, saving to database and clearing resetToken');
         user.resetToken = null;
         user.passwordHash = hash;

@@ -21,9 +21,15 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
     });
   };
 
-  $scope.get = function () {
-    restful.getChildren().then(function (promise) {
+  $scope.get = function (pageNumber) {
+    $scope.page = pageNumber;
+    restful.getChildren(pageNumber).then(function (promise) {
       if (promise) {
+        $scope.numChildren = promise.data.shift();
+        $scope.pages = [];
+        for(var i = 0; i < $scope.numChildren/20; i++){
+          $scope.pages.push(i + 1);
+        }
         $scope.children = promise.data;
       }
     });
@@ -41,21 +47,41 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
     });
   };
 
-  $scope.get();
+  $scope.get(1);
 
 }])
 
 .controller('usersController', ['$scope', '$http', '$state', function($scope, $http, $state){
-  console.log('Fetching Users');
-  $http({
-    method: 'GET',
-    url: '/users' + $state.current.url
-  }).success(function(users){
-    console.log('Users fetched successfully');
-    $scope.users = users;
-  }).error(function(err){
-    console.log('Users not fetched successfully: Server Error');
-  });
+
+  $state.current.name === 'admin.account.accountManagement.workers' ||
+  $state.current.name === 'helpDesk.account.accountManagement.workers' ? $scope.workerPage = true : $scope.workerPage = false;
+
+  $scope.fetchUsers = function(page){
+    var queryString = '';
+    if($scope.userQuery){
+      var userQuery = $scope.userQuery;
+      $scope.userQuery = '';
+      queryString = '&query=' + userQuery;
+    }
+    $scope.page = page;
+    $http({
+      method: 'GET',
+      url: '/users' + $state.current.url + '?page=' + page + queryString
+    }).success(function(users){
+      console.log('Users fetched successfully');
+      $scope.page = page;
+      $scope.numUsers = users.shift();
+      $scope.users = users;
+      $scope.pages = [];
+      for(var i = 0; i < $scope.numUsers/20; i++){
+        $scope.pages.push(i + 1);
+      }
+    }).error(function(err){
+      console.log('Users not fetched successfully: Server Error');
+    })
+  }
+
+  $scope.fetchUsers(1);
 
   $scope.revokeAccess = function(user){
     var userType;
@@ -120,30 +146,136 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
   };
 }])
 
-.controller('adminController', ['$scope', '$http', '$state', function($scope, $http, $state){
-  console.log($state.current.name);
-  if($state.current.name === 'admin.account.children'){
+.controller('adminController', ['$scope', '$http', '$state', '$location', function($scope, $http, $state, $location){
+  
+  $scope.fetchAllChildren = function(page){
+    var queryString = '';
+    if($scope.userQuery){
+      var userQuery = $scope.userQuery;
+      $scope.userQuery = '';
+      queryString = '&query=' + userQuery;
+    }
+    $scope.page = page;
     $http({
       method: 'GET',
-      url: '/api/children?page=1'
+      url: '/api/children?page=' + page + queryString
     }).success(function(children){
       $scope.numChildren = children.shift();
       $scope.children = children;
-    }).error(function(err){
-      console.log(err);
-    })
-  } else if ($state.current.name === 'admin.account.workers'){
-    $http({
-      method: 'GET',
-      url: '/api/workers?page=1'
-    }).success(function(workers){
-      $scope.numWorkers = workers.shift();
-      $scope.workers = workers;
+      $scope.pages = [];
+      for(var i = 0; i < $scope.numChildren/20; i++){
+        $scope.pages.push(i + 1);
+      }
     }).error(function(err){
       console.log(err);
     })
   }
 
+  $scope.fetchAllWorkers = function(page){
+    var queryString = '';
+    if($scope.userQuery){
+      var userQuery = $scope.userQuery;
+      $scope.userQuery = '';
+      queryString = '&query=' + userQuery;
+    }
+    $scope.page = page;
+    $http({
+      method: 'GET',
+      url: '/api/workers?page=' + page + queryString
+    }).success(function(workers){
+      $scope.numWorkers = workers.shift();
+      $scope.workers = workers;
+      $scope.pages = [];
+      for(var i = 0; i < $scope.numWorkers/20; i++){
+        $scope.pages.push(i + 1);
+      }
+    }).error(function(err){
+      console.log(err);
+    })
+  }
+
+  if($state.current.name === 'admin.account.children'){
+    $scope.fetchAllChildren(1);
+  } else if ($state.current.name === 'admin.account.workers'){
+    $scope.fetchAllWorkers(1);
+  }
+
+
+  $scope.getWorker = function(child){
+    $http({
+      method: 'GET',
+      url: '/api/children/' + child.id + '/worker'
+    }).success(function(worker){
+      console.log(worker);
+      child.worker = worker;
+    }).error(function(err){
+      console.log(err);
+    });
+  };
+
+  $scope.getChildren = function(worker){
+    $http({
+      method: 'GET',
+      url: '/api/workers/' + worker.id + '/children'
+    }).success(function(children){
+      worker.children = children;
+    }).error(function(err){
+      console.log(err);
+    });
+  };
+
+  $scope.setChildForModal = function(child){
+    $scope.modalChild = child;
+  };
+
+  $scope.fetchWorker = function(){
+    var workerQuery = $scope.workerQuery;
+    $scope.workerQuery = '';
+    $http({
+      method: 'GET',
+      url: '/api/worker?lastName=' + workerQuery
+    }).success(function(workers){
+      Array.isArray(workers) ? $scope.matchedWorkers = workers : $scope.matchedWorkers = [workers];
+    }).error(function(err){
+      console.log(err);
+    })
+  };
+
+  $scope.setWorker = function(worker){
+    $scope.swapWorker = worker;
+  };
+
+  $scope.saveWorker = function(){
+    $http({
+      method: 'POST',
+      url: '/api/children/' + $scope.modalChild.id + '/swap',
+      data: {
+        workerId: $scope.swapWorker.id
+      }
+    }).success(function(child){
+      console.log(child);
+    }).error(function(err){
+      console.log(err);
+    })
+  };
+
+  $scope.generateReport = function(){
+    if($scope.startDate < $scope.endDate){
+      $http({
+        method: 'POST',
+        url: '/api/generate',
+        data: {
+          startDate: $scope.startDate,
+          endDate: $scope.endDate
+        }
+      }).success(function(data){
+        console.log('Report generated');
+        window.location = '/api/download/' + data.filename;
+      }).error(function(){
+        console.log('Report not generated, server error');
+      });
+    }
+  };
 
 }])
 
@@ -342,10 +474,51 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
 
 }])
 
+.controller('imageController', ['$scope', '$upload', '$cookies', function($scope, $upload, $cookies) {
+
+  var fileName;
+
+  var getMimetype = function (file) {
+    var uploadedFilename = file.name, found = false, index = uploadedFilename.length;
+    while (!found) {
+      if (uploadedFilename[index] === '.') { found = true; }
+      if (index < 0) { return res.send(404, 'Incorrect uploadedFilename'); }
+      index--;
+    }
+    return uploadedFilename.substr(index + 1, uploadedFilename.length);
+  };
 
 
+  $scope.onFileSelect = function($files) {
+    $scope.file = $files[0];
+  };
 
 
+  // Image is saved to root/server/images/ childCFID .(mimetype of image)
+  $scope.uploadImageThenCreateChild = function () {
+      $scope.$parent.tempChildObj.image = '';
+      $scope.$parent.tempChildObj.image += randNum();
+      $scope.$parent.tempChildObj.image += getMimetype($scope.file);
+      delete $scope.file.name
+      $scope.file.name = $scope.$parent.tempChildObj.image;
+
+      $upload.upload({
+        url: '/images',
+        method: 'POST',
+        file: $scope.file,
+      }).success(function(data, status, headers, config) {
+        console.log('Success!...uploading kid now...');
+        // upload kid to db
+        $scope.$parent.create();
+      });
+  };
+
+}])
+
+
+var randNum = function () {
+  return Math.floor(Math.random()*10e10);
+};
 
 
 

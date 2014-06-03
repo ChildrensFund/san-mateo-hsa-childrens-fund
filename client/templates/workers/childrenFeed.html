@@ -9,6 +9,11 @@
 
     <div>
       <table class="table table-condensed table-striped">
+        <div>
+          this isn't aligned!
+          <br/>
+          <img ng-src="http://localhost:4568/images/{{ child.image }}" alt="{{ child.firstName }}">
+        </div>
         <thead>
           <tr>
             <th>Field</th>
@@ -123,8 +128,18 @@
           </tr>
 
           <tr>
-            <td></td>
-            <td></td>
+            <td ng-show="!child.status"></td>
+            <td ng-show="!child.status"></td>
+            <td ng-show="child.status">
+              HSA Status
+            </td>
+            <td ng-show="child.status">
+              <select class="form-control" ng-model="hsaStatusModel" ng-change="update(child.id, 'hsaStatus', hsaStatusModel)">
+                <option value="0" ng-selected="child.hsaStatus === 0">Not Received</option>
+                <option value="1" ng-selected="child.hsaStatus === 1">Received</option>
+                <option value="2" ng-selected="child.hsaStatus === 2">Complete</option>
+              </select>
+            </td>
             <td>Item 3 HSA Receive Date</td>
             <td editable-text="child.thirdItemHsaReceivedDate" onaftersave="update(child.id, 'thirdItemHsaReceivedDate', child.thirdItemHsaReceivedDate)">{{ child.thirdItemHsaReceivedDate || 'Enter a Value' }}</td>
           </tr>

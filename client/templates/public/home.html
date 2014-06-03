@@ -1,7 +1,22 @@
 <div>
   <h1>Children</h1>
-  <div class="center box lg" ng-repeat="child in children | orderBy:'createdAt' :true | filter:{status: null}">
-    <img src="http://cdn.mhpbooks.com/uploads/2013/10/Success-Kid.jpg" alt="some kid">
+  <ul class="pagination" ng-show="pages && pages.length > 1">
+    <li ng-class="page === 1 ? 'disabled' : ''"><a href="#" ng-click="(page - 1) > 0 && get(page - 1)">&laquo;</a></li>
+    <li ng-repeat="pageNumber in pages" ng-click="get(pageNumber)" ng-class="page === pageNumber ? 'active': ''"><a href="#">{{pageNumber}}</a></li>
+    <li ng-class="page === pages.length ? 'disabled' : ''"><a href="#" ng-click="(page + 1) <= pages.length && get(page + 1)">&raquo;</a></li>
+  </ul>
+
+  <div class="center box lg" ng-repeat="child in children | orderBy:'createdAt' :true">
+
+  <!-- 
+
+  Commented out the "status" filter for child objects
+
+  <div class="center box lg" ng-repeat="child in children | orderBy:'createdAt' :true | filter:{status: null}"> 
+
+
+  -->
+    <img ng-src="http://localhost:4568/images/{{ child.image }}" alt="{{ child.firstName }}">
     <!-- child's name -->
     <div>
       {{ child.firstName }}

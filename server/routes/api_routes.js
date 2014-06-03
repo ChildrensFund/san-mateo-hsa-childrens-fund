@@ -33,5 +33,13 @@ module.exports = function( router ) {
     .post( controller.editUser );
   router.route('/donors/:id/children')
     .get( controller.fetchDonorChildren );
+  router.route('/worker')
+    .get( controller.fetchWorker );
+  router.route('/children/:id/swap')
+    .post( controller.swapChildWorker );
+  router.route('/generate')
+    .post( controller.generateReport );
+  router.route('/download/:filepath')
+    .get( controller.serveDownload );
 
 };

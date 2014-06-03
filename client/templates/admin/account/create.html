@@ -1,10 +1,10 @@
 <h1>Create New User</h1>
-<form ng-submit="signup(true)" ng-hide="submitting">
-  <select name="select" ng-model="userType">
+<form ng-submit="signup(true)" ng-hide="submitting" class="form-inline">
+  <select name="select" ng-model="userType" class="form-control">
     <option value="workers">Worker</option> 
     <option value="admin" selected>Admin</option>
     <option value="helpDesk">Help Desk</option>
   </select>
-  <input placeholder="email address" type="email" ng-model="email">
-  <input type="submit">
+  <input placeholder="email address" type="email" ng-model="email" class="form-control">
+  <input type="submit" class="btn btn-primary">
 </form>

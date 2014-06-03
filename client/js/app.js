@@ -1,4 +1,4 @@
-var app = angular.module('childrensFund', ['ui.router', 'ngCookies', 'xeditable'])
+var app = angular.module('childrensFund', ['ui.router', 'ngCookies', 'xeditable', 'angularFileUpload'])
 
 app.run(function (editableOptions) {
   editableOptions.theme = 'bs3';
@@ -126,6 +126,11 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
           url: '/workers',
           controller: 'adminController',
           templateUrl: '/templates/admin/workers.html'
+        })
+        .state('admin.account.reports', {
+          url: '/reports',
+          controller: 'adminController',
+          templateUrl: '/templates/admin/reports.html'
         })
         .state('admin.account.accountManagement', {
           abstract: true,

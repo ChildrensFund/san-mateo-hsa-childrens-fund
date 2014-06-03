@@ -10,6 +10,7 @@ var bodyParser  = require( 'body-parser' );
 var cookieParser = require( 'cookie-parser' );
 var path = require('path');
 var _           = require( 'underscore' );
+var busboy = require('connect-busboy');
 
 module.exports = function( app, express, routers ) {
   app.set( 'port', process.env.PORT || 4568 );
@@ -20,6 +21,7 @@ module.exports = function( app, express, routers ) {
   app.use( '/templates', express.static( __dirname + '/../../client/templates' ));
   app.use( bodyParser() );
   app.use( cookieParser() );
+  app.use( busboy() );
 
   //  Connect request paths to their respective routers
   _.each( routers, function( Router ) {

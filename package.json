@@ -9,10 +9,20 @@
     "mysql": "^2.3.0",
     "sequelize": "^1.7.5",
     "underscore": "^1.6.0",
-    "bcrypt": "^0.7.8",
     "cookie-parser": "^1.1.0",
     "q": "^1.0.1",
-    "nodemailer": "^0.6.5"
+    "nodemailer": "^0.6.5",
+    "busboy": "^0.2.6",
+    "bcrypt-nodejs": "0.0.3",
+    "connect-busboy": "0.0.1",
+    "grunt": "^0.4.5",
+    "grunt-nodemon": "^0.2.1",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-uglify": "^0.4.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-contrib-concat": "^0.4.0",
+    "grunt-contrib-cssmin": "^0.9.0",
+    "grunt-shell": "^0.7.0"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
