@@ -12,13 +12,17 @@ var ChildRouter = express.Router();
 var AuthRouter  = express.Router();
 var UsersRouter = express.Router();
 var ApiRouter = express.Router();
+var ImagesRouter = express.Router();
 
 //  Collect routers for ease of reference
 var routers   = {};
 routers.Child = { name: ChildRouter, path: '/children', handler: '../routes/children_routes.js' };
 routers.Auth  = { name: AuthRouter,  path: '/auth',     handler: '../routes/auth_routes.js' };
 routers.Users = { name: UsersRouter, path: '/users',    handler: '../routes/user_routes.js'};
-routers.Api   = { name: ApiRouter,   path: '/api',      handler: '../routes/api_routes.js'}
+routers.Api   = { name: ApiRouter,   path: '/api',      handler: '../routes/api_routes.js'};
+routers.Images = { name: ImagesRouter, path: '/images', handler: '../routes/images_routes.js'};
+// routers.Images = { name: ImagesRouter, path: '/images/*', handler: '../routes/images_routes.js'};
+
 
 //  Configure the app
 require( './express_config.js' )( app, express, routers );

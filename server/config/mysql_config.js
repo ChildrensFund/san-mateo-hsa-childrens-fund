@@ -19,6 +19,7 @@ var Child = sequelize.define('children', {
   location: Sequelize.STRING,
   cfid: {type: Sequelize.STRING, unique: true},
   programArea: Sequelize.STRING,
+  image: Sequelize.STRING,
   bio: Sequelize.TEXT,
   status: Sequelize.INTEGER,
   firstItemName: Sequelize.STRING,
