@@ -1,5 +1,11 @@
 <h1>List of Children ({{numChildren}})</h1>
 
+<ul class="pagination" ng-show="pages && pages.length > 1">
+  <li ng-class="page === 1 ? 'disabled' : ''"><a href="#" ng-click="(page - 1) > 0 && fetchAllChildren(page - 1)">&laquo;</a></li>
+  <li ng-repeat="pageNumber in pages" ng-click="fetchAllChildren(pageNumber)" ng-class="page === pageNumber ? 'active': ''"><a href="#">{{pageNumber}}</a></li>
+  <li ng-class="page === pages.length ? 'disabled' : ''"><a href="#" ng-click="(page + 1) <= pages.length && fetchAllChildren(page + 1)">&raquo;</a></li>
+</ul>
+
 <div class="panel-group" id="accordion">
   <div class="panel panel-default" ng-repeat="child in children">
     <div class="panel-heading">

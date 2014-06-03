@@ -127,17 +127,43 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
 }])
 
 .controller('adminController', ['$scope', '$http', '$state', '$location', function($scope, $http, $state, $location){
-  console.log($state.current.name);
-  if($state.current.name === 'admin.account.children'){
+  
+  $scope.fetchAllChildren = function(page){
+    $scope.page = page;
     $http({
       method: 'GET',
-      url: '/api/children?page=1'
+      url: '/api/children?page=' + page
     }).success(function(children){
       $scope.numChildren = children.shift();
       $scope.children = children;
+      $scope.pages = [];
+      for(var i = 0; i < $scope.numChildren/20; i++){
+        $scope.pages.push(i + 1);
+      }
     }).error(function(err){
       console.log(err);
     })
+  }
+
+  $scope.fetchAllWorkers = function(page){
+    $scope.page = page;
+    $http({
+      method: 'GET',
+      url: '/api/workers?page=' + page
+    }).success(function(workers){
+      $scope.numWorkers = workers.shift();
+      $scope.workers = workers;
+      $scope.pages = [];
+      for(var i = 0; i > $scope.numWorkers/20; i++){
+        $scope.pages.push(i + 1);
+      }
+    }).error(function(err){
+      console.log(err);
+    })
+  }
+
+  if($state.current.name === 'admin.account.children'){
+    $scope.fetchAllChildren(1);
   } else if ($state.current.name === 'admin.account.workers'){
     $http({
       method: 'GET',
@@ -149,6 +175,7 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
       console.log(err);
     })
   }
+
 
   $scope.getWorker = function(child){
     $http({
