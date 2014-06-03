@@ -22,6 +22,7 @@ var Child = sequelize.define('children', {
   image: Sequelize.STRING,
   bio: Sequelize.TEXT,
   status: Sequelize.INTEGER,
+  hsaStatus: Sequelize.INTEGER,
   firstItemName: Sequelize.STRING,
   firstItemPrice: Sequelize.DECIMAL,
   firstItemHsaReceivedDate: Sequelize.DATE,

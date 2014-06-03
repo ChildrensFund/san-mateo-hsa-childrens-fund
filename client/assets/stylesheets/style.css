@@ -41,9 +41,17 @@ body {
 }
 
 
+/* Input Verification Styles */
 input.ng-invalid {
   border: 1px solid red;
 }
 input.ng-valid {
   border: 1px solid green;
+
+/* Admin Dashboard Styles */
+#admin-navbar{
+}
+
+#admin-navbar a{
+  color: black;
 }

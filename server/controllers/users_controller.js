@@ -30,12 +30,18 @@ var setUserType = function(userPath){
 module.exports.getUsers = function(req, res){
   var userPath = url.parse(req.url).pathname;
   var User = setUserType(userPath);
+  var page = url.parse(req.url).query.split('=')[1];
+  var query = url.parse(req.url).query.split('=')[2];
+  var sqlQuery;
+  query ? sqlQuery = ["lastName LIKE '" + query + "%'"] : '';
 
-  User.findAll().success(function(users){
-    var arr = [];
-    for(var i = 0; i < users.length; i++){
-      arr[i] = {id: users[i].id, email: users[i].email, hasAccess: users[i].hasAccess};
-    }
-    res.send(arr);
+  User.findAndCountAll({
+    where: sqlQuery,
+    limit: 20,
+    offset: (20 * (page-1))
+  }).success(function(data){
+    var users = data.rows;
+    users.unshift(data.count);
+    res.send(users);
   });
 };

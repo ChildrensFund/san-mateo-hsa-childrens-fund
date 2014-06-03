@@ -91,7 +91,7 @@ module.exports = function(grunt) {
     nodemon.stdout.pipe(process.stdout);
     nodemon.stderr.pipe(process.stderr);
 
-    // grunt.task.run([ 'watch' ]);
+    grunt.task.run([ 'watch' ]);
   });
 
 
@@ -120,7 +120,7 @@ module.exports = function(grunt) {
       // add your production server task here
       grunt.task.run([ 'server-prod' ]);
     } else {
-      grunt.log.write('dev')
+      grunt.log.write('dev');
       grunt.task.run([ 'server-dev' ]);
     }
   });

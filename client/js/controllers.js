@@ -75,16 +75,36 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
 }])
 
 .controller('usersController', ['$scope', '$http', '$state', function($scope, $http, $state){
-  console.log('Fetching Users');
-  $http({
-    method: 'GET',
-    url: '/users' + $state.current.url
-  }).success(function(users){
-    console.log('Users fetched successfully');
-    $scope.users = users;
-  }).error(function(err){
-    console.log('Users not fetched successfully: Server Error');
-  });
+
+  $state.current.name === 'admin.account.accountManagement.workers' ||
+  $state.current.name === 'helpDesk.account.accountManagement.workers' ? $scope.workerPage = true : $scope.workerPage = false;
+
+  $scope.fetchUsers = function(page){
+    var queryString = '';
+    if($scope.userQuery){
+      var userQuery = $scope.userQuery;
+      $scope.userQuery = '';
+      queryString = '&query=' + userQuery;
+    }
+    $scope.page = page;
+    $http({
+      method: 'GET',
+      url: '/users' + $state.current.url + '?page=' + page + queryString
+    }).success(function(users){
+      console.log('Users fetched successfully');
+      $scope.page = page;
+      $scope.numUsers = users.shift();
+      $scope.users = users;
+      $scope.pages = [];
+      for(var i = 0; i < $scope.numUsers/20; i++){
+        $scope.pages.push(i + 1);
+      }
+    }).error(function(err){
+      console.log('Users not fetched successfully: Server Error');
+    })
+  }
+
+  $scope.fetchUsers(1);
 
   $scope.revokeAccess = function(user){
     var userType;
@@ -150,28 +170,59 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
 }])
 
 .controller('adminController', ['$scope', '$http', '$state', '$location', function($scope, $http, $state, $location){
-  console.log($state.current.name);
-  if($state.current.name === 'admin.account.children'){
+  
+  $scope.fetchAllChildren = function(page){
+    var queryString = '';
+    if($scope.userQuery){
+      var userQuery = $scope.userQuery;
+      $scope.userQuery = '';
+      queryString = '&query=' + userQuery;
+    }
+    $scope.page = page;
     $http({
       method: 'GET',
-      url: '/api/children?page=1'
+      url: '/api/children?page=' + page + queryString
     }).success(function(children){
       $scope.numChildren = children.shift();
       $scope.children = children;
-    }).error(function(err){
-      console.log(err);
-    })
-  } else if ($state.current.name === 'admin.account.workers'){
-    $http({
-      method: 'GET',
-      url: '/api/workers?page=1'
-    }).success(function(workers){
-      $scope.numWorkers = workers.shift();
-      $scope.workers = workers;
+      $scope.pages = [];
+      for(var i = 0; i < $scope.numChildren/20; i++){
+        $scope.pages.push(i + 1);
+      }
     }).error(function(err){
       console.log(err);
     })
   }
+
+  $scope.fetchAllWorkers = function(page){
+    var queryString = '';
+    if($scope.userQuery){
+      var userQuery = $scope.userQuery;
+      $scope.userQuery = '';
+      queryString = '&query=' + userQuery;
+    }
+    $scope.page = page;
+    $http({
+      method: 'GET',
+      url: '/api/workers?page=' + page + queryString
+    }).success(function(workers){
+      $scope.numWorkers = workers.shift();
+      $scope.workers = workers;
+      $scope.pages = [];
+      for(var i = 0; i < $scope.numWorkers/20; i++){
+        $scope.pages.push(i + 1);
+      }
+    }).error(function(err){
+      console.log(err);
+    })
+  }
+
+  if($state.current.name === 'admin.account.children'){
+    $scope.fetchAllChildren(1);
+  } else if ($state.current.name === 'admin.account.workers'){
+    $scope.fetchAllWorkers(1);
+  }
+
 
   $scope.getWorker = function(child){
     $http({
@@ -225,6 +276,7 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
         workerId: $scope.swapWorker.id
       }
     }).success(function(child){
+      $scope.
       console.log(child);
     }).error(function(err){
       console.log(err);
@@ -384,6 +436,23 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
     });
   }
 
+}])
+
+.controller('signoutController', ['$scope', '$http', '$state', '$cookies', function($scope, $http, $state, $cookies){
+  $http({
+    method: 'POST',
+    url: '/auth/signout'
+  }).success(function(){
+    console.log('User signed out');
+    docCookies.removeItem('sessionToken');
+    docCookies.removeItem('type');
+    docCookies.removeItem('id');
+    console.log($state.current.name);
+    var array = $state.current.name.split('.');
+    $state.go(array[0] + '.signin');
+  }).error(function(){
+    console.log('Something went wrong');
+  })
 }])
 
 

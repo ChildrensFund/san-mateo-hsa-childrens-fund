@@ -1,5 +1,16 @@
 <h1>List of Children ({{numChildren}})</h1>
 
+<form class="form-inline" ng-submit="fetchAllChildren(1)">
+  <input placeholder="Search by Last Name" class="form-control" ng-model="userQuery">
+  <input type="submit" class="btn btn-primary">
+</form>
+
+<ul class="pagination" ng-show="pages && pages.length > 1">
+  <li ng-class="page === 1 ? 'disabled' : ''"><a href="#" ng-click="(page - 1) > 0 && fetchAllChildren(page - 1)">&laquo;</a></li>
+  <li ng-repeat="pageNumber in pages" ng-click="fetchAllChildren(pageNumber)" ng-class="page === pageNumber ? 'active': ''"><a href="#">{{pageNumber}}</a></li>
+  <li ng-class="page === pages.length ? 'disabled' : ''"><a href="#" ng-click="(page + 1) <= pages.length && fetchAllChildren(page + 1)">&raquo;</a></li>
+</ul>
+
 <div class="panel-group" id="accordion">
   <div class="panel panel-default" ng-repeat="child in children">
     <div class="panel-heading">
@@ -29,10 +40,6 @@
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">{{modalChild.firstName}} {{modalChild.lastName}}</h4>
-      </div>
       <div class="modal-body">
         <h2>Change Worker for Child: {{modalChild.firstName}} {{modalChild.lastName}}</h2>
         <form role="form" class="form-inline" ng-submit="fetchWorker()">
@@ -40,10 +47,22 @@
             <input placeholder="Input worker last name" class="form-control" ng-model="workerQuery">
             <input type="submit" class="btn btn-primary">
           </div>
-          <table class="table">
-            <tr ng-repeat="worker in matchedWorkers" ng-click="setWorker(worker)"><td>{{worker.firstName}} {{worker.lastName}}</td></tr>
-          </table>
         </form>
+          <div ng-show="matchedWorkers">
+            <h3>Select New Worker Below</h3>
+            <table class="table">
+              <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th></th>
+              </tr>
+              <tr ng-repeat="worker in matchedWorkers" ng-click="setWorker(worker)" ng-class="swapWorker === worker ? 'active' : ''">
+                <td>{{worker.firstName}}</td>
+                <td>{{worker.lastName}}</td>
+                <td ng-hide="workerChangeSuccessful"><button class="btn btn-primary" ng-show="swapWorker === worker" ng-click="saveWorker()">Save Change</button></td>
+              </tr>
+            </table>
+          </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

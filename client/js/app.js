@@ -178,6 +178,10 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
         templateUrl: '/templates/authentication/resetPasswordView.html',
         controller: 'authController'
       })
+      .state('admin.signout', {
+        template: '<ui-view/>',
+        controller: 'signoutController'
+      })
     //################## Help Desk ROUTES #####################
     .state('helpDesk', {
       abstract: true,
