@@ -50,7 +50,6 @@ var setUserType = function(userPath){
 
 module.exports.fetchUsers = function(req, res){
   var page = parseUrl(req).page;
-  console.log(page);
   var urlArray = parseUrl(req).pathArray;
   var User = setUserType(urlArray[1]);
   User.findAndCountAll({

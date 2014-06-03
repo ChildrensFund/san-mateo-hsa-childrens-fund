@@ -31,8 +31,12 @@ module.exports.getUsers = function(req, res){
   var userPath = url.parse(req.url).pathname;
   var User = setUserType(userPath);
   var page = url.parse(req.url).query.split('=')[1];
+  var query = url.parse(req.url).query.split('=')[2];
+  var sqlQuery;
+  query ? sqlQuery = ["lastName LIKE '" + query + "%'"] : '';
 
   User.findAndCountAll({
+    where: sqlQuery,
     limit: 20,
     offset: (20 * (page-1))
   }).success(function(data){

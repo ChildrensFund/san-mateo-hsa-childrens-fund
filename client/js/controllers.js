@@ -53,11 +53,20 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
 
 .controller('usersController', ['$scope', '$http', '$state', function($scope, $http, $state){
 
+  $state.current.name === 'admin.account.accountManagement.workers' ||
+  $state.current.name === 'helpDesk.account.accountManagement.workers' ? $scope.workerPage = true : $scope.workerPage = false;
+
   $scope.fetchUsers = function(page){
+    var queryString = '';
+    if($scope.userQuery){
+      var userQuery = $scope.userQuery;
+      $scope.userQuery = '';
+      queryString = '&query=' + userQuery;
+    }
     $scope.page = page;
     $http({
       method: 'GET',
-      url: '/users' + $state.current.url + '?page=' + page
+      url: '/users' + $state.current.url + '?page=' + page + queryString
     }).success(function(users){
       console.log('Users fetched successfully');
       $scope.page = page;
