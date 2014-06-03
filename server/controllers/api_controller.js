@@ -135,7 +135,7 @@ module.exports.fetchChildDonor = function(req, res){
     if(!child){
       res.send(404);
     } else {
-      child.getDonor().success(function(donor){
+      Donor.find({where: {id: child.donorId}}).success(function(donor){
         res.send(donor);
       }).error(function(err){
         res.send(500);
