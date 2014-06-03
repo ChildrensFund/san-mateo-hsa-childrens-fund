@@ -107,7 +107,8 @@ module.exports = {
   Donor: Donor,
   Staff: Staff,
   Admin: Admin,
-  HelpDesk: HelpDesk
+  HelpDesk: HelpDesk,
+  sequelize: sequelize
 };
 
 

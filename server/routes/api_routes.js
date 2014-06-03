@@ -37,5 +37,9 @@ module.exports = function( router ) {
     .get( controller.fetchWorker );
   router.route('/children/:id/swap')
     .post( controller.swapChildWorker );
+  router.route('/generate')
+    .post( controller.generateReport );
+  router.route('/download/:filepath')
+    .get( controller.serveDownload );
 
 };
