@@ -47,7 +47,7 @@
             <input type="submit" class="btn btn-primary">
           </div>
           <table class="table">
-            <tr ng-repeat="worker in matchedWorkers" ng-click="setWorker(worker)"><td>{{worker.firstName}} {{worker.lastName}}</td></tr>
+            <tr ng-repeat="worker in matchedWorkers" ng-click="setWorker(worker)" ng-class="swapWorker === worker ? 'active' : ''"><td>{{worker.firstName}} {{worker.lastName}}</td></tr>
           </table>
         </form>
       </div>

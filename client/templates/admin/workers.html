@@ -19,7 +19,6 @@
       <div class="panel-body">
         <table class="table">
           <tr><th>Worker ID</th><td>{{worker.id}}</td></tr>
-          <tr><th>CFID</th><td>{{worker.cfid}}</td></tr>
           <tr><th>Children</th><th>First Name</th><th>Last Name</th><th></th></tr>
           <tr ng-repeat="child in worker.children">
             <td></td>
@@ -48,7 +47,7 @@
             <input type="submit" class="btn btn-primary">
           </div>
           <table class="table">
-            <tr ng-repeat="worker in matchedWorkers" ng-click="setWorker(worker)"><td>{{worker.firstName}} {{worker.lastName}}</td></tr>
+            <tr ng-repeat="worker in matchedWorkers" ng-click="setWorker(worker)" ng-class="swapWorker === worker ? 'active' : ''"><td>{{worker.firstName}} {{worker.lastName}}</td></tr>
           </table>
         </form>
       </div>

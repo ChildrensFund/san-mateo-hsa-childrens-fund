@@ -250,7 +250,7 @@ module.exports.fetchWorker = function(req, res){
   var pathname = parsedUrl.pathname;
   var query = parsedUrl.query;
   var lastName = query.split('=')[1];
-  Staff.findAll({where: {lastName: lastName}}).success(function(workers){
+  Staff.findAll({where: ["lastName LIKE '" + lastName + "%'"]}).success(function(workers){
     res.send(workers);
   }).error(function(){
     res.send(500);
