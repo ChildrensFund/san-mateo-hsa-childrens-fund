@@ -320,7 +320,7 @@ module.exports.generateReport = function(req, res){
     FIELDS TERMINATED BY ','\
     OPTIONALLY ENCLOSED BY '\"'\
     LINES TERMINATED BY '\\n';";
-  sequelize.query(queryString, null, { raw: true })
+  sequelize.query(queryString, null, { outfile: true })
   .success(function(){
     console.log('it worked');
     // console.log(path.resolve(__dirname + '/../reports/' + startDate + '-' + endDate + '.csv'));
