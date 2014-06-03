@@ -1,120 +1,136 @@
-<div class="container-fluid">
-  <div class="row">
-    <!-- child data -->
-    <div class="col-md-4">
-      <h2>Child Info</h2>
-      <input 
-      ng-model="tempChildObj.firstName" 
-      type="text" 
-      name="firstName" 
-      placeholder="Child's First Name"/>
-      <br/>
-      <input 
-      ng-model="tempChildObj.lastName" 
-      type="text" 
-      name="lastName" 
-      placeholder="Child's Last Name"/>
-      <br/>
-      <input 
-      ng-model="tempChildObj.phone" 
-      type="text" 
-      name="childPhone" 
-      placeholder="Child's Phone"/>
-      <br/>
-      <input 
-      ng-model="tempChildObj.gender" 
-      type="text" 
-      name="gender" 
-      placeholder="Child's Gender"/>
-      <br/>
-      <input 
-      ng-model="tempChildObj.dob" 
-      type="text" 
-      name="dob" 
-      placeholder="Child's DOB"/>
-      <br/>
-      <input 
-      ng-model="tempChildObj.age" 
-      type="text" 
-      name="age" 
-      placeholder="Child's Age"/>
-      <br/>
-      <input 
-      ng-model="tempChildObj.location" 
-      type="text" 
-      name="location" 
-      placeholder="Child's Location"/>
-      <br/>
-      <input 
-      ng-model="tempChildObj.programArea" 
-      type="text" 
-      name="programArea" 
-      placeholder="Program Area"/>
-      <br/>
-      <input 
-      ng-model="tempChildObj.bio" 
-      type="text" 
-      name="bio" 
-      placeholder="Bio"/>
-    </div>
-    <!-- Request Data -->
-    <div class="col-md-4">
-      <h2>Request Info</h2>
-      <input 
-      ng-model="tempChildObj.firstItemName" 
-      type="text" 
-      name="item1" 
-      placeholder="First Item"/>
-      <br/>
-      <input 
-      ng-model="tempChildObj.firstItemPrice" 
-      type="text" 
-      name="item1Price" 
-      placeholder="First Item Price"/>
-      <br/>
-      <br/>
-      <input 
-      ng-model="tempChildObj.secondItemName" 
-      type="text" 
-      name="item2" 
-      placeholder="Second Item"/>
-      <br/>
-      <input 
-      ng-model="tempChildObj.secondItemPrice" 
-      type="text" 
-      name="item2Price" 
-      placeholder="Second Item Price"/>
-      <br/>
-      <br/>
-      <input 
-      ng-model="tempChildObj.thirdItemName" 
-      type="text" 
-      name="item3" 
-      placeholder="Third Item"/>
-      <br/>
-      <input 
-      ng-model="tempChildObj.thirdItemPrice" 
-      type="text" 
-      name="item3Price" 
-      placeholder="Third Item Price"/>
-    </div>
-      <input type="text" ng-model="tempChildObj.image" value="">
+<form name="donor_info" role="form" novalidate>
+  <div class="container-fluid">
+    <div class="row">
+      <!-- child data -->
+      <div class="col-md-4">
+        <h2>Child Info</h2>
+        <input 
+        required
+        ng-pattern="/[\D]/g"
+        ng-model="tempChildObj.firstName" 
+        type="text" 
+        name="firstName" 
+        placeholder="First Name"/>
+        <br/>
+        <input 
+        required
+        ng-pattern="/[\D]/g"
+        ng-model="tempChildObj.lastName" 
+        type="text" 
+        name="lastName" 
+        placeholder="Last Name"/>
+        <br/>
+        <input
+        required 
+        ng-pattern="/[\d]/g"
+        ng-model="tempChildObj.phone" 
+        type="text" 
+        name="childPhone" 
+        placeholder="Phone"/>
+        <br/>
+        <input
+        required 
+        ng-pattern="/[a-zA-Z]/g"
+        ng-model="tempChildObj.gender" 
+        type="text" 
+        name="gender" 
+        placeholder="Gender"/>
+        <br/>
+        <input
+        required 
+        ng-pattern="/[\d\W]/g"
+        ng-model="tempChildObj.dob" 
+        type="date" 
+        name="dob"/>
+        <br/>
+        <input
+        required 
+        ng-pattern="/[\d]/g"
+        ng-model="tempChildObj.age" 
+        type="text" 
+        name="age" 
+        placeholder="Age"/>
+        <br/>
+        <input
+        required 
+        ng-model="tempChildObj.location" 
+        type="text" 
+        name="location" 
+        placeholder="Location"/>
+        <br/>
+        <input
+        required 
+        ng-model="tempChildObj.programArea" 
+        type="text" 
+        name="programArea" 
+        placeholder="Program Area"/>
+        <br/>
+        <input
+        required 
+        ng-model="tempChildObj.bio" 
+        type="text" 
+        name="bio" 
+        placeholder="Bio"/>
+      </div>
+      <!-- Request Data -->
+      <div class="col-md-4">
+        <h2>Request Info</h2>
+        <input 
+        required
+        ng-model="tempChildObj.firstItemName" 
+        type="text" 
+        name="item1" 
+        placeholder="First Item"/>
+        <br/>
+        <input 
+        required
+        ng-model="tempChildObj.firstItemPrice" 
+        type="number" 
+        name="item1Price" 
+        placeholder="Price"/>
+        <br/>
+        <br/>
+        <input 
+        ng-model="tempChildObj.secondItemName" 
+        type="text" 
+        name="item2" 
+        placeholder="Second Item"/>
+        <br/>
+        <input 
+        ng-model="tempChildObj.secondItemPrice" 
+        type="number" 
+        name="item2Price" 
+        placeholder="Price"/>
+        <br/>
+        <br/>
+        <input 
+        ng-model="tempChildObj.thirdItemName" 
+        type="text" 
+        name="item3" 
+        placeholder="Third Item"/>
+        <br/>
+        <input 
+        ng-model="tempChildObj.thirdItemPrice" 
+        type="number" 
+        name="item3Price" 
+        placeholder="Price"/>
+      </div>
 
+      <br/>
+      <br/>
+    <!-- end of .row -->
+    </div>
 
-    <br/>
-    <br/>
-  <!-- end of .row -->
+      <!-- buttons -->
+      <div class="center" ng-controller="imageController">
+        <input name="file" type="file" accept="image/*" ng-file-select="onFileSelect($files)">
+        <input
+        class="btn btn-success" 
+        type="button" 
+        ng-click="uploadImageThenCreateChild()"
+        name="submit" 
+        value="Submit"/>
+        <button class="btn btn-danger" ui-sref="workers.account">Back</button>
+      </div>
   </div>
-
-    <!-- buttons -->
-    <div class="center" ng-controller="imageController">
-      <input name="file" type="file" accept="image/*" ng-file-select="onFileSelect($files)">
-      <input
-      class="btn btn-success"
-      ng-click="uploadImageThenCreateChild()" 
-      type="button" 
-      name="submit" 
-      value="Submit"/>
-      <button class="btn btn-danger" ui-sref="workers.account">Back</button>
-    </div>
-</div>
+</form>
