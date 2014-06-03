@@ -17,7 +17,7 @@ var Child = sequelize.define('children', {
   dob: Sequelize.STRING,
   age: Sequelize.INTEGER,
   location: Sequelize.STRING,
-  cfid: Sequelize.STRING,
+  cfid: {type: Sequelize.STRING, unique: true},
   programArea: Sequelize.STRING,
   image: Sequelize.STRING,
   bio: Sequelize.TEXT,
@@ -108,7 +108,8 @@ module.exports = {
   Donor: Donor,
   Staff: Staff,
   Admin: Admin,
-  HelpDesk: HelpDesk
+  HelpDesk: HelpDesk,
+  sequelize: sequelize
 };
 
 

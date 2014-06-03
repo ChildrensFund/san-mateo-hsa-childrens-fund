@@ -120,7 +120,7 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
   };
 }])
 
-.controller('adminController', ['$scope', '$http', '$state', function($scope, $http, $state){
+.controller('adminController', ['$scope', '$http', '$state', '$location', function($scope, $http, $state, $location){
   console.log($state.current.name);
   if($state.current.name === 'admin.account.children'){
     $http({
@@ -203,7 +203,21 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
   };
 
   $scope.generateReport = function(){
-    console.log($scope.startDate, $scope.endDate);
+    if($scope.startDate < $scope.endDate){
+      $http({
+        method: 'POST',
+        url: '/api/generate',
+        data: {
+          startDate: $scope.startDate,
+          endDate: $scope.endDate
+        }
+      }).success(function(data){
+        console.log('Report generated');
+        window.location = '/api/download/' + data.filename;
+      }).error(function(){
+        console.log('Report not generated, server error');
+      });
+    }
   };
 
 }])
