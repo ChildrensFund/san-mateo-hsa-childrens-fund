@@ -1,7 +1,16 @@
 <div>
   <h1>Children</h1>
-  <div class="center box lg" ng-repeat="child in children | orderBy:'createdAt' :true | filter:{status: null}">
-    <img src="http://cdn.mhpbooks.com/uploads/2013/10/Success-Kid.jpg" alt="some kid">
+  <div class="center box lg" ng-repeat="child in children | orderBy:'createdAt' :true">
+
+  <!-- 
+
+  Commented out the "status" filter for child objects
+
+  <div class="center box lg" ng-repeat="child in children | orderBy:'createdAt' :true | filter:{status: null}"> 
+
+
+  -->
+    <img ng-src="http://localhost:4568/images/{{ child.image }}" alt="{{ child.firstName }}">
     <!-- child's name -->
     <div>
       {{ child.firstName }}

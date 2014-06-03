@@ -403,10 +403,51 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
 
 }])
 
+.controller('imageController', ['$scope', '$upload', '$cookies', function($scope, $upload, $cookies) {
+
+  var fileName;
+
+  var getMimetype = function (file) {
+    var uploadedFilename = file.name, found = false, index = uploadedFilename.length;
+    while (!found) {
+      if (uploadedFilename[index] === '.') { found = true; }
+      if (index < 0) { return res.send(404, 'Incorrect uploadedFilename'); }
+      index--;
+    }
+    return uploadedFilename.substr(index + 1, uploadedFilename.length);
+  };
 
 
+  $scope.onFileSelect = function($files) {
+    $scope.file = $files[0];
+  };
 
 
+  // Image is saved to root/server/images/ childCFID .(mimetype of image)
+  $scope.uploadImageThenCreateChild = function () {
+      $scope.$parent.tempChildObj.image = '';
+      $scope.$parent.tempChildObj.image += randNum();
+      $scope.$parent.tempChildObj.image += getMimetype($scope.file);
+      delete $scope.file.name
+      $scope.file.name = $scope.$parent.tempChildObj.image;
+
+      $upload.upload({
+        url: '/images',
+        method: 'POST',
+        file: $scope.file,
+      }).success(function(data, status, headers, config) {
+        console.log('Success!...uploading kid now...');
+        // upload kid to db
+        $scope.$parent.create();
+      });
+  };
+
+}])
+
+
+var randNum = function () {
+  return Math.floor(Math.random()*10e10);
+};
 
 
 
