@@ -165,15 +165,7 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
   if($state.current.name === 'admin.account.children'){
     $scope.fetchAllChildren(1);
   } else if ($state.current.name === 'admin.account.workers'){
-    $http({
-      method: 'GET',
-      url: '/api/workers?page=1'
-    }).success(function(workers){
-      $scope.numWorkers = workers.shift();
-      $scope.workers = workers;
-    }).error(function(err){
-      console.log(err);
-    })
+    $scope.fetchAllWorkers(1);
   }
 
 
