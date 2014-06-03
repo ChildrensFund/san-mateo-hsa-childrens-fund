@@ -174,7 +174,7 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
       $scope.numWorkers = workers.shift();
       $scope.workers = workers;
       $scope.pages = [];
-      for(var i = 0; i > $scope.numWorkers/20; i++){
+      for(var i = 0; i < $scope.numWorkers/20; i++){
         $scope.pages.push(i + 1);
       }
     }).error(function(err){
