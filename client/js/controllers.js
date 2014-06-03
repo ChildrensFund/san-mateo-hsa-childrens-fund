@@ -285,7 +285,6 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
       delete $scope.file.name
       $scope.file.name = fileName;
 
-
       $upload.upload({
         url: '/images',
         method: 'POST',

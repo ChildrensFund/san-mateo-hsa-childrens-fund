@@ -13,18 +13,27 @@ var imageFolder = path.normalize(__dirname + '/../images/');
 module.exports = {
 
   get: function (req, res) {
-    res.sendfile(path.normalize(__dirname + '/../' + req.originalUrl))
+    fs.exists(path.normalize(__dirname + '/../' + req.originalUrl), function (exists) {
+      if (exists) {
+        res.sendfile(path.normalize(__dirname + '/../' + req.originalUrl));
+      } else {
+        res.sendfile(imageFolder + 'placeholder.jpg');
+      }
+    })
   },
 
   post: function (req, res) {
     console.log('############# IMAGE UPLOAD POST #############');
 
-    console.log(req.body);
+    //validates file as image
+    if (!req.get('Content-Type').match(/image/)) {
+      res.send(404, 'Incorrect Content-Type');
+    }
+
 
     var fstream;
     req.pipe(req.busboy);
     req.busboy.on('file', function (fieldname, file, filename) {
-
       // Image is saved to root/server/images/ childFirstName + childLocation + workerID .(mimetype of image)
       fstream = fs.createWriteStream(imageFolder + filename);
       file.pipe(fstream);
