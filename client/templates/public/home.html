@@ -10,7 +10,7 @@
 
 
   -->
-    <img ng-src="http://localhost:4568/images/{{ child.image }}" alt="{{ child.firstName }}">
+    <img ng-src="http://localhost:4568/images/{{ child.image | undefined }}" alt="{{ child.firstName }}">
     <!-- child's name -->
     <div>
       {{ child.firstName }}

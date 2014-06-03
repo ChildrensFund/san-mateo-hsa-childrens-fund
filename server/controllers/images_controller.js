@@ -13,6 +13,7 @@ var imageFolder = path.normalize(__dirname + '/../images/');
 module.exports = {
 
   get: function (req, res) {
+    if (req.originalUrl === '/images/') res.sendfile(imageFolder + 'placeholder.jpg');
     fs.exists(path.normalize(__dirname + '/../' + req.originalUrl), function (exists) {
       if (exists) {
         res.sendfile(path.normalize(__dirname + '/../' + req.originalUrl));
