@@ -17,16 +17,12 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
   $scope.tempChildObj = {};
   var postObj;
 
-  // $scope.create = function () {
-  //   restful.createChild($scope.tempChildObj).then(function (promise) {
-  //     if (promise) {
-  //       return $scope.get();
-  //     }
-  //   });
-  // };
-
   $scope.create = function () {
-    return restful.createChild($scope.tempChildObj);
+    restful.createChild($scope.tempChildObj).then(function (promise) {
+      if (promise) {
+        return $scope.get();
+      }
+    });
   };
 
   $scope.get = function () {
@@ -261,13 +257,13 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
   var fileName;
 
   var getMimetype = function (file) {
-    var fileName = file.name, found = false, index = fileName.length;
+    var uploadedFilename = file.name, found = false, index = uploadedFilename.length;
     while (!found) {
-      if (fileName[index] === '.') { found = true; }
-      if (index < 0) { return res.send(404, 'Incorrect Filename'); }
+      if (uploadedFilename[index] === '.') { found = true; }
+      if (index < 0) { return res.send(404, 'Incorrect uploadedFilename'); }
       index--;
     }
-    return fileName.substr(index + 1, fileName.length);
+    return uploadedFilename.substr(index + 1, uploadedFilename.length);
   };
 
 
@@ -277,30 +273,30 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
 
 
   // Image is saved to root/server/images/ childCFID .(mimetype of image)
-  $scope.createChildThenUpload = function () {
-    $scope.$parent.create().then(function (promise) {
-      fileName = '';
-      fileName += promise.data.child.cfid;
-      fileName += getMimetype($scope.file);
+  $scope.uploadImageThenCreateChild = function () {
+      $scope.$parent.tempChildObj.image = '';
+      $scope.$parent.tempChildObj.image += randNum();
+      $scope.$parent.tempChildObj.image += getMimetype($scope.file);
       delete $scope.file.name
-      $scope.file.name = fileName;
+      $scope.file.name = $scope.$parent.tempChildObj.image;
 
       $upload.upload({
         url: '/images',
         method: 'POST',
         file: $scope.file,
       }).success(function(data, status, headers, config) {
-        console.log('Success!');
+        console.log('Success!...uploading kid now...');
+        // upload kid to db
+        $scope.$parent.create();
       });
-
-
-    });
   };
 
 }])
 
 
-
+var randNum = function () {
+  return Math.floor(Math.random()*10e10);
+};
 
 
 

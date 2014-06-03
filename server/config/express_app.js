@@ -21,7 +21,7 @@ routers.Auth  = { name: AuthRouter,  path: '/auth',     handler: '../routes/auth
 routers.Users = { name: UsersRouter, path: '/users',    handler: '../routes/user_routes.js'};
 routers.Api   = { name: ApiRouter,   path: '/api',      handler: '../routes/api_routes.js'};
 routers.Images = { name: ImagesRouter, path: '/images', handler: '../routes/images_routes.js'};
-routers.Images = { name: ImagesRouter, path: '/images/*', handler: '../routes/images_routes.js'};
+// routers.Images = { name: ImagesRouter, path: '/images/*', handler: '../routes/images_routes.js'};
 
 
 //  Configure the app

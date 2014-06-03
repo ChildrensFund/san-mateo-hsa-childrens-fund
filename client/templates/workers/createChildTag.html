@@ -98,6 +98,7 @@
       name="item3Price" 
       placeholder="Third Item Price"/>
     </div>
+      <input type="text" ng-model="tempChildObj.image" value="">
 
 
     <br/>
@@ -110,7 +111,7 @@
       <input name="file" type="file" accept="image/*" ng-file-select="onFileSelect($files)">
       <input
       class="btn btn-success"
-      ng-click="createChildThenUpload()" 
+      ng-click="uploadImageThenCreateChild()" 
       type="button" 
       name="submit" 
       value="Submit"/>

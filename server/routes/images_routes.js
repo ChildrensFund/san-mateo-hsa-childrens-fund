@@ -9,6 +9,7 @@ var controller  = require( '../controllers/images_controller.js' );
 
 module.exports = function( router ) {
   router.route('')
-    .post( controller.post )
-    .get ( controller.get );
+    .post( controller.post );
+  router.route('/*')
+    .get( controller.get );
 };

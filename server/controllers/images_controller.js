@@ -19,30 +19,28 @@ module.exports = {
       } else {
         res.sendfile(imageFolder + 'placeholder.jpg');
       }
-    })
+    });
   },
 
   post: function (req, res) {
     console.log('############# IMAGE UPLOAD POST #############');
-
-    //validates file as image
-    if (!req.get('Content-Type').match(/image/)) {
-      res.send(404, 'Incorrect Content-Type');
-    }
-
-
-    var fstream;
     req.pipe(req.busboy);
     req.busboy.on('file', function (fieldname, file, filename) {
       // Image is saved to root/server/images/ childFirstName + childLocation + workerID .(mimetype of image)
-      fstream = fs.createWriteStream(imageFolder + filename);
+      var fstream = fs.createWriteStream(imageFolder + filename);
       file.pipe(fstream);
       fstream.on('close', function () {
         res.send(200);
-      });
+      })
     });
-
   }
-
-
 };
+
+
+var findDot = function findDot (filename) {
+  for (var i = filename.length; i > 0; i--) {
+    if (filename[i] === '.') {
+      return i;
+    }
+  }
+}
