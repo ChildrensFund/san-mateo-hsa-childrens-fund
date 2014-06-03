@@ -17,12 +17,16 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
   $scope.tempChildObj = {};
   var postObj;
 
+  // $scope.create = function () {
+  //   restful.createChild($scope.tempChildObj).then(function (promise) {
+  //     if (promise) {
+  //       return $scope.get();
+  //     }
+  //   });
+  // };
+
   $scope.create = function () {
-    restful.createChild($scope.tempChildObj).then(function (promise) {
-      if (promise) {
-        return $scope.get();
-      }
-    });
+    return restful.createChild($scope.tempChildObj);
   };
 
   $scope.get = function () {
@@ -252,36 +256,48 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
 
 }])
 
-.controller('imageController', ['$scope', '$upload', function($scope, $upload) {
+.controller('imageController', ['$scope', '$upload', '$cookies', function($scope, $upload, $cookies) {
+
+  var fileName;
+
+  var getMimetype = function (file) {
+    var fileName = file.name, found = false, index = fileName.length;
+    while (!found) {
+      if (fileName[index] === '.') { found = true; }
+      if (index < 0) { return res.send(404, 'Incorrect Filename'); }
+      index--;
+    }
+    return fileName.substr(index + 1, fileName.length);
+  };
+
+
   $scope.onFileSelect = function($files) {
-    var file = $files[0];
-    console.log(file);
-      $scope.upload = $upload.upload({
+    $scope.file = $files[0];
+  };
+
+
+  // Image is saved to root/server/images/ childCFID .(mimetype of image)
+  $scope.createChildThenUpload = function () {
+    $scope.$parent.create().then(function (promise) {
+      fileName = '';
+      fileName += promise.data.child.cfid;
+      fileName += getMimetype($scope.file);
+      delete $scope.file.name
+      $scope.file.name = fileName;
+
+
+      $upload.upload({
         url: '/images',
         method: 'POST',
-        // headers: {'Content-Type': 'image/png'},
-        // transformRequest: angular.identity,
-        // withCredentials: true,
-        data: {myObj: $scope.$parent.tempChildObj.firstName + $scope.$parent.tempChildObj.lastName},
-        file: file,
-        /* set the file formData name ('Content-Desposition'). Default is 'file' */
-        // fileFormDataName: file.name, //or a list of names for multiple files (html5).
-        /* customize how data is added to formData. See #40#issuecomment-28612000 for sample code */
-        //formDataAppender: function(formData, key, val){}
-      }).progress(function(evt) {
-        console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
+        file: $scope.file,
       }).success(function(data, status, headers, config) {
-        // file is uploaded successfully
-        console.log(data, 'yay');
+        console.log('Success!');
       });
-      //.error(...)
-      //.then(success, error, progress); 
-      //.xhr(function(xhr){xhr.upload.addEventListener(...)})// access and attach any event listener to XMLHttpRequest.
-    /* alternative way of uploading, send the file binary with the file's content-type.
-       Could be used to upload files to CouchDB, imgur, etc... html5 FileReader is needed. 
-       It could also be used to monitor the progress of a normal http post/put request with large data*/
-    // $scope.upload = $upload.http({...})  see 88#issuecomment-31366487 for sample code.
+
+
+    });
   };
+
 }])
 
 
