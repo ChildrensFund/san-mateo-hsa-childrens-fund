@@ -84,8 +84,9 @@
         <br/>
         <input 
         required
+        ng-pattern="/[\d$.]/g"
         ng-model="tempChildObj.firstItemPrice" 
-        type="number" 
+        type="text" 
         name="item1Price" 
         placeholder="Price"/>
         <br/>
@@ -98,20 +99,22 @@
         <br/>
         <input 
         ng-model="tempChildObj.secondItemPrice" 
-        type="number" 
+        ng-pattern="/[\d$.]/g"
+        type="text" 
         name="item2Price" 
         placeholder="Price"/>
         <br/>
         <br/>
         <input 
         ng-model="tempChildObj.thirdItemName" 
+        ng-pattern="/[\d$.]/g"
         type="text" 
         name="item3" 
         placeholder="Third Item"/>
         <br/>
         <input 
         ng-model="tempChildObj.thirdItemPrice" 
-        type="number" 
+        type="text" 
         name="item3Price" 
         placeholder="Price"/>
       </div>
