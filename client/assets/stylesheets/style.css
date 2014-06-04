@@ -42,10 +42,10 @@ body {
 
 
 /* Input Verification Styles */
-input.ng-invalid {
+.createChildTag input.ng-invalid, .pledge input.ng-invalid {
   border: 1px solid red;
 }
-input.ng-valid {
+.createChildTag input.ng-valid, .pledge input.ng-valid {
   border: 1px solid green;
 
 /* Admin Dashboard Styles */
