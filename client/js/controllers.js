@@ -50,7 +50,7 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
     $scope.page = page;
     $http({
       method: 'GET',
-      url: '/users' + $state.current.url + '?page=' + page + queryString
+      url: '/users' + $state.current.url + '/accounts' + '?page=' + page + queryString
     }).success(function(users){
       console.log('Users fetched successfully');
       $scope.page = page;
@@ -142,7 +142,7 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
     $scope.page = page;
     $http({
       method: 'GET',
-      url: '/api/children?page=' + page + queryString
+      url: '/users/children?page=' + page + queryString
     }).success(function(children){
       $scope.numChildren = children.shift();
       $scope.children = children;
@@ -165,7 +165,7 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
     $scope.page = page;
     $http({
       method: 'GET',
-      url: '/api/workers?page=' + page + queryString
+      url: '/users/workers?page=' + page + queryString
     }).success(function(workers){
       $scope.numWorkers = workers.shift();
       $scope.workers = workers;
@@ -238,6 +238,7 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
   };
 
   $scope.saveWorker = function(){
+    console.log($scope.swapWorker);
     $http({
       method: 'POST',
       url: '/api/children/' + $scope.modalChild.id + '/swap',
@@ -250,7 +251,6 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
         $scope.modalChild.worker.firstName = $scope.swapWorker.firstName;
         $scope.modalChild.worker.lastName = $scope.swapWorker.lastName;
       } else { //If on the worker panel, remove the child from the current worker.
-        console.log('Modal Worker', $scope.modalWorker);
         for(var i = 0; i < $scope.modalWorker.children.length; i++){
           if($scope.modalWorker.children[i].id === $scope.modalChild.id && $scope.modalWorker.id !== $scope.swapWorker.id){
             $scope.modalWorker.children.splice(i, 1);
@@ -260,7 +260,6 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
       }
       $scope.modalWorker = null;
       $scope.swapWorker = null;
-      console.log(child);
     }).error(function(err){
       console.log(err);
     })
