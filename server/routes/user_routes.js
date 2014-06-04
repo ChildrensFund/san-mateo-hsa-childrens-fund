@@ -8,11 +8,14 @@
 var controller  = require( '../controllers/users_controller.js' );
 
 module.exports = function( router ) {
+  router.route('/workers/accounts')
+    .get( controller.getUsersAccountInformation );
+  router.route('/admin/accounts')
+    .get( controller.getUsersAccountInformation );
+  router.route('/help_desk/accounts')
+    .get( controller.getUsersAccountInformation );
   router.route('/workers')
-    .get( controller.getUsers );
-  router.route('/admin')
-    .get( controller.getUsers );
-  router.route('/help_desk')
-    .get( controller.getUsers );
-
+    .get( controller.fetchUsers )
+  router.route('/children')
+    .get( controller.fetchUsers )
 };

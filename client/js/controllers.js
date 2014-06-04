@@ -89,7 +89,7 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
     $scope.page = page;
     $http({
       method: 'GET',
-      url: '/users' + $state.current.url + '?page=' + page + queryString
+      url: '/users' + $state.current.url + '/accounts' + '?page=' + page + queryString
     }).success(function(users){
       console.log('Users fetched successfully');
       $scope.page = page;
@@ -181,7 +181,7 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
     $scope.page = page;
     $http({
       method: 'GET',
-      url: '/api/children?page=' + page + queryString
+      url: '/users/children?page=' + page + queryString
     }).success(function(children){
       $scope.numChildren = children.shift();
       $scope.children = children;
@@ -204,7 +204,7 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
     $scope.page = page;
     $http({
       method: 'GET',
-      url: '/api/workers?page=' + page + queryString
+      url: '/users/workers?page=' + page + queryString
     }).success(function(workers){
       $scope.numWorkers = workers.shift();
       $scope.workers = workers;

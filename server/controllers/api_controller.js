@@ -152,6 +152,10 @@ module.exports.fetchChildWorker = function(req, res){
       res.send(404);
     } else {
       Staff.find({where: {id: child.staffId}}).success(function(worker){
+        worker.passwordHash = 'protected';
+        worker.sessionToken = 'protected';
+        worker.resetToken = 'protected';
+        worker.resetTokenSetTime = 'protected';
         res.send(worker);
       }).error(function(err){
         res.send(500);
@@ -325,7 +329,20 @@ module.exports.fetchWorker = function(req, res){
   var query = parsedUrl.query;
   var lastName = query.split('=')[1];
   Staff.findAll({where: ["lastName LIKE '" + lastName + "%'"]}).success(function(workers){
-    res.send(workers);
+    var sanitizedWorkers = Sequelize.Utils._.map(workers, function(worker){
+      return {
+        email: worker.email,
+        firstName: worker.firstName,
+        lastName: worker.lastName,
+        phone: worker.phone,
+        department: worker.department,
+        supervisorFirstName: worker.supervisorFirstName,
+        supervisorLastName: worker.supervisorLastName,
+        coordinatorFirstName: worker.coordinatorFirstName,
+        coordinatorLastName: worker.coordinatorLastName
+      }
+    })
+    res.send(sanitizedWorkers);
   }).error(function(){
     res.send(500);
   });
