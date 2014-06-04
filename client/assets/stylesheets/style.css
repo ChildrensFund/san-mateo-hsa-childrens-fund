@@ -49,9 +49,10 @@ body {
   border: 1px solid green;
 
 /* Admin Dashboard Styles */
-#admin-navbar{
+#internal-navigation{
+
 }
 
-#admin-navbar a{
+#internal-navigation a{
   color: black;
 }
