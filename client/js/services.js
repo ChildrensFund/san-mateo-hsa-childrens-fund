@@ -223,45 +223,47 @@ app.factory('restful', ['$http', '$cookies', function ($http, $cookies) {
 
 .service('sanitize', [function () {
   return {
-
-    phone: function  (str) {
-      var clean, sol = '';
-      if (str) {
-        clean = str.match(/\d+/g).join('').split('').reverse();
-        if (clean.length <= 11) {
-          for (var i=0;i<clean.length;i++) {
-            if (i === 4 || i === 7 || i === 10) {
-              sol += '-';
+    update: function (key, val) {
+      if (key === 'phone') {
+        var clean, sol = '';
+        if (val) {
+          clean = val.match(/\d+/g).join('').split('').reverse();
+          if (clean.length <= 11) {
+            for (var i=0;i<clean.length;i++) {
+              if (i === 4 || i === 7 || i === 10) {
+                sol += '-';
+              }
+              sol += clean[i];
             }
-            sol += clean[i];
+            return sol.split('').reverse().join('');
+          } else {
+            return clean.reverse().join('');
           }
-          return sol.split('').reverse().join('');
-        } else {
-          return clean.reverse().join('');
         }
-      }
-      return undefined;
-    },
-
-    price: function(val) {
-      if (val) {
-        if (val[0] === '$') {
-          val = val.slice(1);
+        return undefined;
+      } else if (key.substr(key.length-5,key.length) === 'Price') {
+        if (val) {
+          if (val[0] === '$') {
+            val = val.slice(1);
+          }
+          return Number(val);
         }
-        return Number(val);
+        return undefined;
+      } else if (key === 'dob' || key.substr(key.length-4,key.length) === 'Date') {
+        return val.substr(0,4) + val.substr(4,6);
+      } else {
+        return val;
       }
-      return undefined;
     },
 
-    dobGet: function (dateStr) {
-      return dateStr.substr(5,6) + '-' + dateStr.substr(0,4);
-    },
+    post: function () {},
 
-    dobPost: function (dateStr) {
-      return dateStr.substr(0,4) + dateStr.substr(4,6);
+    get: function (key, val) {
+      if (key === 'dob' || key.substr(key.length-4,key.length) === 'Date') {
+        return val.substr(5,6) + '-' + val.substr(0,4);
+      }
     }
-
-  }
+  }  
 }])
 
 .service('randNum', [function () {

@@ -60,7 +60,7 @@
               {{ child.phone || 'Enter a Value' }}
             </td>
             <td>Item 1 HSA Receive Date</td>
-            <td editable-text="child.firstItemHsaReceivedDate" onaftersave="update(child.id, 'firstItemHsaReceivedDate', child.firstItemHsaReceivedDate)">
+            <td editable-date="child.firstItemHsaReceivedDate" onaftersave="update(child.id, 'firstItemHsaReceivedDate', child.firstItemHsaReceivedDate)">
               {{ child.firstItemHsaReceivedDate || 'Enter a Value' }}
             </td>
           </tr>
@@ -71,7 +71,7 @@
               {{ child.gender || 'Enter a Value' }}
             </td>
             <td>Item 1 Child Receive Date</td>
-            <td editable-text="child.firstItemChildReceivedDate" onaftersave="update(child.id, 'firstItemChildReceivedDate', child.firstItemChildReceivedDate)">
+            <td editable-date="child.firstItemChildReceivedDate" onaftersave="update(child.id, 'firstItemChildReceivedDate', child.firstItemChildReceivedDate)">
               {{ child.firstItemChildReceivedDate || 'Enter a Value' }}
             </td>
           </tr>
@@ -100,7 +100,7 @@
               {{ child.location || 'Enter a Value' }}
             </td>
             <td>Item 2 HSA Receive Date</td>
-            <td editable-text="child.secondItemHsaReceivedDate" onaftersave="update(child.id, 'secondItemHsaReceivedDate', child.secondItemHsaReceivedDate)">{{ child.secondItemHsaReceivedDate || 'Enter a Value' }}</td>
+            <td editable-date="child.secondItemHsaReceivedDate" onaftersave="update(child.id, 'secondItemHsaReceivedDate', child.secondItemHsaReceivedDate)">{{ child.secondItemHsaReceivedDate || 'Enter a Value' }}</td>
           </tr>
 
           <tr>
@@ -109,7 +109,7 @@
               {{ child.programArea || 'Enter a Value' }}
             </td>
             <td>Item 2 Child Receive Date</td>
-            <td editable-text="child.secondItemChildReceivedDate" onaftersave="update(child.id, 'secondItemChildReceivedDate', child.secondItemChildReceivedDate)">{{ child.secondItemChildReceivedDate || 'Enter a Value' }}</td>
+            <td editable-date="child.secondItemChildReceivedDate" onaftersave="update(child.id, 'secondItemChildReceivedDate', child.secondItemChildReceivedDate)">{{ child.secondItemChildReceivedDate || 'Enter a Value' }}</td>
           </tr>
 
           <tr>
@@ -153,14 +153,14 @@
               </select>
             </td>
             <td>Item 3 HSA Receive Date</td>
-            <td editable-text="child.thirdItemHsaReceivedDate" onaftersave="update(child.id, 'thirdItemHsaReceivedDate', child.thirdItemHsaReceivedDate)">{{ child.thirdItemHsaReceivedDate || 'Enter a Value' }}</td>
+            <td editable-date="child.thirdItemHsaReceivedDate" onaftersave="update(child.id, 'thirdItemHsaReceivedDate', child.thirdItemHsaReceivedDate)">{{ child.thirdItemHsaReceivedDate || 'Enter a Value' }}</td>
           </tr>
 
           <tr>
             <td></td>
             <td></td>
             <td>Item 3 Child Receive Date</td>
-            <td editable-text="child.thirdItemChildReceivedDate" onaftersave="update(child.id, 'thirdItemChildReceivedDate', child.thirdItemChildReceivedDate)">{{ child.thirdItemChildReceivedDate || 'Enter a Value' }}</td>
+            <td editable-date="child.thirdItemChildReceivedDate" onaftersave="update(child.id, 'thirdItemChildReceivedDate', child.thirdItemChildReceivedDate)">{{ child.thirdItemChildReceivedDate || 'Enter a Value' }}</td>
           </tr>
 
         </tbody>

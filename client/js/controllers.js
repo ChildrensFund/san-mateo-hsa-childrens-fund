@@ -9,7 +9,7 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
   }
 }])
 
-app.controller('childController', ['$scope', 'restful', '$cookies', '$state', 'sanitize', function ($scope, restful, $cookies, $state, sanitize) {
+app.controller('childController', ['$scope', 'restful', '$cookies', '$state', 'sanitize', 'sanitize', function ($scope, restful, $cookies, $state, sanitize, sanitize) {
   $scope.tempChildObj = {};
   var postObj;
 
@@ -18,16 +18,16 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', 's
 
     // sanitize phone numbers
     if ($scope.tempChildObj.phone) {
-      $scope.tempChildObj.phone = sanitize.phone($scope.tempChildObj.phone);
+      $scope.tempChildObj.phone = sanitize.update('phone',$scope.tempChildObj.phone);
     }
     // sanitize item price ($)
     if ($scope.tempChildObj.firstItemPrice || 
         $scope.tempChildObj.secondItemPrice || 
         $scope.tempChildObj.thirdItemPrice) 
     {
-      $scope.tempChildObj.firstItemPrice = sanitize.price($scope.tempChildObj.firstItemPrice);
-      $scope.tempChildObj.secondItemPrice = sanitize.price($scope.tempChildObj.secondItemPrice);
-      $scope.tempChildObj.thirdItemPrice = sanitize.price($scope.tempChildObj.thirdItemPrice);
+      $scope.tempChildObj.firstItemPrice = sanitize.update('firstItemPrice', $scope.tempChildObj.firstItemPrice);
+      $scope.tempChildObj.secondItemPrice = sanitize.update('secondItemPrice', $scope.tempChildObj.secondItemPrice);
+      $scope.tempChildObj.thirdItemPrice = sanitize.update('thirdItemPrice', $scope.tempChildObj.thirdItemPrice);
     }
     restful.createChild($scope.tempChildObj).then(function (promise) {
       if (promise) {
@@ -48,7 +48,7 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', 's
         $scope.children = promise.data;
         _.each($scope.children, function (val, ind, col) {
           if(val.dob) {
-            val.dob = sanitize.dobGet(val.dob);
+            val.dob = sanitize.get(val.dob);
           }
         });
       }
@@ -56,18 +56,8 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', 's
   };
 
   $scope.update = function (id, key, value) {
-    // sanitize phone numbers
-    if (key === 'phone') {
-      value = sanitize.phone(value);
-    }
-    // sanitize item price ($)
-    if (key.substr(key.length-5,key.length) === 'Price') {
-      value = sanitize.price(value);
-    }
-    // sanitize date
-    if (key === 'dob') {
-      value = sanitize.dobPost(value);
-    }
+
+    value = sanitize.update(key, value);
 
     postObj = {};
     postObj.id = id;
@@ -83,6 +73,7 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', 's
   $scope.get(1);
 
 }])
+
 
 .controller('usersController', ['$scope', '$http', '$state', function($scope, $http, $state){
 
@@ -490,7 +481,7 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', 's
 
 
 // Worker Account Controller
-.controller('workerController', ['$scope', 'restful', function ($scope, restful) {
+.controller('workerController', ['$scope', 'restful', 'sanitize', function ($scope, restful, sanitize) {
 
   $scope.getWorkerData = function () {
     restful.getWorkerData().then(function (promise) {
@@ -503,7 +494,9 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', 's
   $scope.getWorkerData();
 
   $scope.postWorkerData = function (key, val) {
-    // sanitze phone numbers
+
+    val = sanitize.update(key, val);
+
     var workerObj = {};
     workerObj[key] = val;
     restful.postWorkerData(workerObj).then(function (promise) {
