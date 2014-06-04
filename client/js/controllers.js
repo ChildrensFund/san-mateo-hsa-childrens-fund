@@ -247,8 +247,13 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
     });
   };
 
-  $scope.setChildForModal = function(child){
+  $scope.setChildForModal = function(child, worker){
     $scope.modalChild = child;
+    if(worker){
+      $scope.modalWorker = worker;  
+    } else {
+      $scope.modalWorker = null;
+    }
     $scope.matchedWorkers = null;
     $scope.swapWorker = null;
     $scope.success = null;
@@ -280,8 +285,20 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
       }
     }).success(function(child){
       $scope.success = true;
+      if($scope.modalChild.worker){ //If on the children panel, set new worker on child view
+        $scope.modalChild.worker.firstName = $scope.swapWorker.firstName;
+        $scope.modalChild.worker.lastName = $scope.swapWorker.lastName;
+      } else { //If on the worker panel, remove the child from the current worker.
+        console.log('Modal Worker', $scope.modalWorker);
+        for(var i = 0; i < $scope.modalWorker.children.length; i++){
+          if($scope.modalWorker.children[i].id === $scope.modalChild.id && $scope.modalWorker.id !== $scope.swapWorker.id){
+            $scope.modalWorker.children.splice(i, 1);
+            break;
+          }
+        }
+      }
+      $scope.modalWorker = null;
       $scope.swapWorker = null;
-      $scope.modalChild = child;
       console.log(child);
     }).error(function(err){
       console.log(err);
