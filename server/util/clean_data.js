@@ -63,10 +63,14 @@ module.exports.gender = function( sex ) {
   
   if ( sex === undefined ) { return error( '000', 'NO DATA: No gender data found' ); }
   if ( typeof sex !== 'string' ) { return error( '001', 'INVALID FORMAT: Gender not supplied as a string' ); }
-  sex = sex.toLowerCase();
   
+  sex = sex.toLowerCase();
   if ( sex === 'male' || sex === 'female' ) {
     return sex;
+  } else if (sex === 'm' || sex === 'boy') {
+    return 'male';
+  } else if (sex === 'f' || sex === 'girl') {
+    return 'female';
   } else {
     return error( '101', 'INVALID ENTRY: Gender supplied is not "male" or "female"' );
   }

@@ -622,9 +622,13 @@ var sanitizePhone = function sanitizePhone (str) {
   return undefined;
 };
 
-var sanitizePrice = function sanitizePrice (str) {
-  if (str) {
-    return str.match(/[0-9.]/g).join('');
+var sanitizePrice = function sanitizePrice (val) {
+  if (val) {
+    if (val[0] === '$') {
+      console.log('sanitized!');
+      val = val.slice(1);
+    }
+    return Number(val);
   }
   return undefined;
 };
