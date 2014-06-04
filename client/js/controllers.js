@@ -280,8 +280,9 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
       }
     }).success(function(child){
       $scope.success = true;
+      $scope.modalChild.worker.firstName = $scope.swapWorker.firstName;
+      $scope.modalChild.worker.lastName = $scope.swapWorker.lastName;
       $scope.swapWorker = null;
-      $scope.modalChild = child;
       console.log(child);
     }).error(function(err){
       console.log(err);
