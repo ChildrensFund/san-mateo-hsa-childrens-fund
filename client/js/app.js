@@ -15,7 +15,8 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
     .state('root', {
       url: '/',
       templateUrl: '/templates/public/home.html',
-      controller: 'childController'
+      controller: 'donorController'
+      // controller: 'childController'
     })
 
     .state('pledge', {
@@ -66,12 +67,12 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
       .state('workers.account.create', {
         url: '/create',
         templateUrl: '/templates/workers/createChildTag.html',
-        controller: 'childController'
+        controller: 'workerController'
       })
       .state('workers.account.myTags', {
         url: '/myTags',
         templateUrl: '/templates/workers/childrenFeed.html',
-        controller: 'childController'
+        controller: 'workerController'
       })
       .state('workers.signup', {
         url: '/workers/signup',

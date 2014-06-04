@@ -1,4 +1,8 @@
-<div>
+<div style="max-width: 90%; 
+margin-left: auto; 
+margin-right: auto;
+display:block;
+">
   <h1>Children</h1>
   <ul class="pagination" ng-show="pages && pages.length > 1">
     <li ng-class="page === 1 ? 'disabled' : ''"><a href="#" ng-click="(page - 1) > 0 && get(page - 1)">&laquo;</a></li>
@@ -6,60 +10,88 @@
     <li ng-class="page === pages.length ? 'disabled' : ''"><a href="#" ng-click="(page + 1) <= pages.length && get(page + 1)">&raquo;</a></li>
   </ul>
 
-  <div class="center box lg" ng-repeat="child in children | orderBy:'createdAt' :true">
+  <div>
 
-  <!-- 
-
-  Commented out the "status" filter for child objects
-
-  <div class="center box lg" ng-repeat="child in children | orderBy:'createdAt' :true | filter:{status: null}"> 
-
-
-  -->
-    <img ng-src="http://localhost:4568/images/{{ child.image }}" alt="{{ child.firstName }}">
-    <!-- child's name -->
-    <div>
-      {{ child.firstName }}
+  <div 
+    class="row" 
+    style="border: 3px solid lightgrey;
+           padding: 5px 0 5px 0;
+           margin: 5px 5px 5px 5px;" 
+    ng-repeat="child in children | orderBy:'createdAt' :true">
+    <div class="col-md-2">
+      <img 
+      style="display: block; margin-left: auto; margin-right: auto; height: 200px" 
+      ng-src="http://localhost:4568/images/{{ child.image }}" alt="">
     </div>
-    <!-- child's location -->
-    <div>
-      {{ child.firstName }}'s Location
-    </div>
-    <!-- blurb about child -->
-    <div>
-      Blurb: 
-      <br/>
-      {{ child.bio }}
-    </div>
-
-    <!-- ITEMS -->
-    <div>
-      <!-- item1 -->
-      <div>
-        ${{ child.firstItemPrice }} for {{ child.firstItemName }}
+    <div 
+    class="col-md-10" 
+    /*style="border: 1px solid blue"*/
+    >
+      <div class="col-md-1"></div>
+      <div 
+      class="col-md-5" 
+      /*ˆstyle="border: 1px solid blue"*/ 
+      >
+        <div>
+          <h3 >{{ child.firstName }}, {{ child.age }}, of {{ child.location }}
+            <br/>
+            <div 
+            style="
+            min-height: 100px;
+            "
+            >
+              <small>{{ child.bio }}</small>
+            </div>
+          </h3>
+        <div ng-controller="pledgeController">
+          <div
+          style="
+          text-align: center;
+          "
+          >
+            <input 
+            ng-click="pledgeButton(child, $index)"
+            ui-sref="pledge"
+            type="button" 
+            value="Pledge"/>      
+          </div>
+        </div>
+        </div>
       </div>
-      <!-- item2 -->
-      <div>
-        ${{ child.secondItemPrice }} for {{ child.secondItemName }}
-      </div>
-      <!-- item3 -->
-      <div>
-        ${{ child.thirdItemPrice }} for {{ child.thirdItemName }}
-      </div>
-    </div>
 
-    <div ng-controller="pledgeController">
-      <div>
-        <input 
-        ng-click="pledgeButton(child, $index)"
-        ui-sref="pledge"
-        type="button" 
-        value="PledgeButton"/>      
+      <div 
+      class="col-md-5" 
+      /*style="border: 1px solid blue"*/
+      >
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Wishlist</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-show="child.firstItemName">
+              <td>{{ child.firstItemName }}</td>
+              <td>${{  child.firstItemPrice  }}</td>
+            </tr>
+            <tr ng-show="child.secondItemName">
+              <td>{{ child.secondItemName }}</td>
+              <td>${{  child.secondItemPrice  }}</td>
+            </tr>
+            <tr ng-show="child.thirdItemName">
+              <td>{{ child.thirdItemName }}</td>
+              <td>${{  child.thirdItemPrice  }}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-    </div>
+      <div class="col-md-1"></div>
 
+  <div ng-hide="children">
+    <p class="center">no children data!</p>
   </div>
-</div>
-<div ng-hide="children">
-  <p class="center">no children data!</p>
+  <div ng-hide="children">
+    <p class="center">no children data!</p>
+  </div>
 </div>

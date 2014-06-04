@@ -9,32 +9,7 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
   }
 }])
 
-app.controller('childController', ['$scope', 'restful', '$cookies', '$state', 'sanitize', 'sanitize', function ($scope, restful, $cookies, $state, sanitize, sanitize) {
-  $scope.tempChildObj = {};
-  var postObj;
-
-  $scope.create = function () {
-
-
-    // sanitize phone numbers
-    if ($scope.tempChildObj.phone) {
-      $scope.tempChildObj.phone = sanitize.update('phone',$scope.tempChildObj.phone);
-    }
-    // sanitize item price ($)
-    if ($scope.tempChildObj.firstItemPrice || 
-        $scope.tempChildObj.secondItemPrice || 
-        $scope.tempChildObj.thirdItemPrice) 
-    {
-      $scope.tempChildObj.firstItemPrice = sanitize.update('firstItemPrice', $scope.tempChildObj.firstItemPrice);
-      $scope.tempChildObj.secondItemPrice = sanitize.update('secondItemPrice', $scope.tempChildObj.secondItemPrice);
-      $scope.tempChildObj.thirdItemPrice = sanitize.update('thirdItemPrice', $scope.tempChildObj.thirdItemPrice);
-    }
-    restful.createChild($scope.tempChildObj).then(function (promise) {
-      if (promise) {
-        $state.go('workers.account.myTags');
-      }
-    });
-  };
+.controller('donorController', ['$scope', 'restful', 'sanitize', function ($scope, restful, sanitize) {
 
   $scope.get = function (pageNumber) {
     $scope.page = pageNumber;
@@ -51,21 +26,6 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', 's
             val.dob = sanitize.get(val.dob);
           }
         });
-      }
-    });
-  };
-
-  $scope.update = function (id, key, value) {
-
-    value = sanitize.update(key, value);
-
-    postObj = {};
-    postObj.id = id;
-    postObj[key] = value;
-
-    restful.updateChild(postObj).then(function (promise) {
-      if (promise) {
-        $scope.get();
       }
     });
   };
@@ -481,7 +441,9 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', 's
 
 
 // Worker Account Controller
-.controller('workerController', ['$scope', 'restful', 'sanitize', function ($scope, restful, sanitize) {
+.controller('workerController', ['$scope', 'restful', 'sanitize', '$cookies', '$state', function ($scope, restful, sanitize, $cookies, $state) {
+  $scope.tempChildObj = {};
+  var postObj;
 
   $scope.getWorkerData = function () {
     restful.getWorkerData().then(function (promise) {
@@ -505,6 +467,65 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', 's
       }
     })
   };
+
+
+  $scope.create = function () {
+
+    // sanitize phone numbers
+    if ($scope.tempChildObj.phone) {
+      $scope.tempChildObj.phone = sanitize.update('phone',$scope.tempChildObj.phone);
+    }
+    // sanitize item price ($)
+    if ($scope.tempChildObj.firstItemPrice || 
+        $scope.tempChildObj.secondItemPrice || 
+        $scope.tempChildObj.thirdItemPrice) 
+    {
+      $scope.tempChildObj.firstItemPrice = sanitize.update('firstItemPrice', $scope.tempChildObj.firstItemPrice);
+      $scope.tempChildObj.secondItemPrice = sanitize.update('secondItemPrice', $scope.tempChildObj.secondItemPrice);
+      $scope.tempChildObj.thirdItemPrice = sanitize.update('thirdItemPrice', $scope.tempChildObj.thirdItemPrice);
+    }
+    restful.createChild($scope.tempChildObj).then(function (promise) {
+      if (promise) {
+        $state.go('workers.account.myTags');
+      }
+    });
+  };
+
+  $scope.get = function (pageNumber) {
+    $scope.page = pageNumber;
+    restful.getWorkersChildren(pageNumber).then(function (promise) {
+      if (promise) {
+        $scope.numChildren = promise.data.shift();
+        $scope.pages = [];
+        for(var i = 0; i < $scope.numChildren/20; i++){
+          $scope.pages.push(i + 1);
+        }
+        $scope.children = promise.data;
+        _.each($scope.children, function (val, ind, col) {
+          if(val.dob) {
+            val.dob = sanitize.get('dob', val.dob);
+          }
+        });
+      }
+    });
+  };
+
+  $scope.update = function (id, key, value) {
+
+    value = sanitize.update(key, value);
+
+    postObj = {};
+    postObj.id = id;
+    postObj[key] = value;
+
+    restful.updateChild(postObj).then(function (promise) {
+      if (promise) {
+        $scope.get();
+      }
+    });
+  };
+
+  $scope.get(1);
 
 }])
 
