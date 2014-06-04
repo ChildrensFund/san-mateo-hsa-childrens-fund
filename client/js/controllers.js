@@ -278,6 +278,7 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', 's
   };
 
   $scope.saveWorker = function(){
+    console.log($scope.swapWorker);
     $http({
       method: 'POST',
       url: '/api/children/' + $scope.modalChild.id + '/swap',
@@ -290,7 +291,6 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', 's
         $scope.modalChild.worker.firstName = $scope.swapWorker.firstName;
         $scope.modalChild.worker.lastName = $scope.swapWorker.lastName;
       } else { //If on the worker panel, remove the child from the current worker.
-        console.log('Modal Worker', $scope.modalWorker);
         for(var i = 0; i < $scope.modalWorker.children.length; i++){
           if($scope.modalWorker.children[i].id === $scope.modalChild.id && $scope.modalWorker.id !== $scope.swapWorker.id){
             $scope.modalWorker.children.splice(i, 1);
@@ -300,7 +300,6 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', 's
       }
       $scope.modalWorker = null;
       $scope.swapWorker = null;
-      console.log(child);
     }).error(function(err){
       console.log(err);
     })

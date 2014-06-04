@@ -102,6 +102,7 @@ module.exports.fetchUser = function(req, res){
     } else {
       if(User === Staff){
         var sanitizedStaff = {
+          id: user.id,
           firstName: user.firstName,
           lastName: user.lastName,
           phone: user.phone,
@@ -331,6 +332,7 @@ module.exports.fetchWorker = function(req, res){
   Staff.findAll({where: ["lastName LIKE '" + lastName + "%'"]}).success(function(workers){
     var sanitizedWorkers = Sequelize.Utils._.map(workers, function(worker){
       return {
+        id: worker.id,
         email: worker.email,
         firstName: worker.firstName,
         lastName: worker.lastName,
