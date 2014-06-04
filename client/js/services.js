@@ -207,7 +207,7 @@ app.factory('restful', ['$http', '$cookies', function ($http, $cookies) {
 })
 
 
-.service('childObjSaver', function () {
+.service('childObjSaver', [function () {
   var childObj = {};
   return {
     setChildObj: function (obj) {
@@ -218,49 +218,68 @@ app.factory('restful', ['$http', '$cookies', function ($http, $cookies) {
       return childObj;
     }
   }
-})
+}])
 
-.filter('tel', function () {
-    return function (tel) {
-        if (!tel) { return ''; }
 
-        var value = tel.toString().trim().replace(/^\+/, '');
-
-        if (value.match(/[^0-9]/)) {
-            return tel;
+.service('sanitize', [function () {
+  return {
+    update: function (key, val) {
+      if (key === 'phone') {
+        var clean, sol = '';
+        if (val) {
+          clean = val.match(/\d+/g).join('').split('').reverse();
+          if (clean.length <= 11) {
+            for (var i=0;i<clean.length;i++) {
+              if (i === 4 || i === 7 || i === 10) {
+                sol += '-';
+              }
+              sol += clean[i];
+            }
+            return sol.split('').reverse().join('');
+          } else {
+            return clean.reverse().join('');
+          }
         }
-
-        var country, city, number;
-
-        switch (value.length) {
-            case 10: // +1PPP####### -> C (PPP) ###-####
-                country = 1;
-                city = value.slice(0, 3);
-                number = value.slice(3);
-                break;
-
-            case 11: // +CPPP####### -> CCC (PP) ###-####
-                country = value[0];
-                city = value.slice(1, 4);
-                number = value.slice(4);
-                break;
-
-            case 12: // +CCCPP####### -> CCC (PP) ###-####
-                country = value.slice(0, 3);
-                city = value.slice(3, 5);
-                number = value.slice(5);
-                break;
-
-            default:
-                return tel;
+        return undefined;
+      } else if (key.substr(key.length-5,key.length) === 'Price') {
+        if (val) {
+          if (val[0] === '$') {
+            val = val.slice(1);
+          }
+          return Number(val);
         }
+        return undefined;
+      } else if (key === 'dob' || key.substr(key.length-4,key.length) === 'Date') {
+        return val.substr(0,4) + val.substr(4,6);
+      } else {
+        return val;
+      }
+    },
 
-        if (country == 1) {
-            country = "";
-        }
+    post: function () {},
 
-        number = number.slice(0, 3) + '-' + number.slice(3);
+    get: function (key, val) {
+      if (key === 'dob' || key.substr(key.length-4,key.length) === 'Date') {
+        return val.substr(5,6) + '-' + val.substr(0,4);
+      }
+    }
+  }  
+}])
 
-        return (country + " (" + city + ") " + number).trim();
-    };
-})
+.service('randNum', [function () {
+  return function () {
+    return Math.floor(Math.random()*10e10);
+  }
+}])
+
+
+
+
+
+
+
+
+
+
+
+
