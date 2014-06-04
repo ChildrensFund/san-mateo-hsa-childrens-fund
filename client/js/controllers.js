@@ -9,7 +9,7 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
   }
 }])
 
-app.controller('childController', ['$scope', 'restful', '$cookies', '$state', function ($scope, restful, $cookies, $state) {
+app.controller('childController', ['$scope', 'restful', '$cookies', '$state', 'sanitize', function ($scope, restful, $cookies, $state, sanitize) {
   $scope.tempChildObj = {};
   var postObj;
 
@@ -18,16 +18,16 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
 
     // sanitize phone numbers
     if ($scope.tempChildObj.phone) {
-      $scope.tempChildObj.phone = sanitizePhone($scope.tempChildObj.phone);
+      $scope.tempChildObj.phone = sanitize.phone($scope.tempChildObj.phone);
     }
     // sanitize item price ($)
     if ($scope.tempChildObj.firstItemPrice || 
         $scope.tempChildObj.secondItemPrice || 
         $scope.tempChildObj.thirdItemPrice) 
     {
-      $scope.tempChildObj.firstItemPrice = sanitizePrice($scope.tempChildObj.firstItemPrice);
-      $scope.tempChildObj.secondItemPrice = sanitizePrice($scope.tempChildObj.secondItemPrice);
-      $scope.tempChildObj.thirdItemPrice = sanitizePrice($scope.tempChildObj.thirdItemPrice);
+      $scope.tempChildObj.firstItemPrice = sanitize.price($scope.tempChildObj.firstItemPrice);
+      $scope.tempChildObj.secondItemPrice = sanitize.price($scope.tempChildObj.secondItemPrice);
+      $scope.tempChildObj.thirdItemPrice = sanitize.price($scope.tempChildObj.thirdItemPrice);
     }
     restful.createChild($scope.tempChildObj).then(function (promise) {
       if (promise) {
@@ -46,6 +46,11 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
           $scope.pages.push(i + 1);
         }
         $scope.children = promise.data;
+        _.each($scope.children, function (val, ind, col) {
+          if(val.dob) {
+            val.dob = sanitize.dobGet(val.dob);
+          }
+        });
       }
     });
   };
@@ -53,12 +58,17 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
   $scope.update = function (id, key, value) {
     // sanitize phone numbers
     if (key === 'phone') {
-      value = sanitizePhone(value);
+      value = sanitize.phone(value);
     }
     // sanitize item price ($)
     if (key.substr(key.length-5,key.length) === 'Price') {
-      value = sanitizePrice(value);
+      value = sanitize.price(value);
     }
+    // sanitize date
+    if (key === 'dob') {
+      value = sanitize.dobPost(value);
+    }
+
     postObj = {};
     postObj.id = id;
     postObj[key] = value;
@@ -538,7 +548,7 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
 
 }])
 
-.controller('imageController', ['$scope', '$upload', '$cookies', function($scope, $upload, $cookies) {
+.controller('imageController', ['$scope', '$upload', '$cookies', 'randNum', function($scope, $upload, $cookies, randNum) {
 
   var fileName;
 
@@ -597,42 +607,6 @@ app.controller('childController', ['$scope', 'restful', '$cookies', '$state', fu
   };
 
 }])
-
-
-var randNum = function randNum () {
-  return Math.floor(Math.random()*10e10);
-};
-
-var sanitizePhone = function sanitizePhone (str) {
-  var clean, sol = '';
-  if (str) {
-    clean = str.match(/\d+/g).join('').split('').reverse();
-    if (clean.length <= 11) {
-      for (var i=0;i<clean.length;i++) {
-        if (i === 4 || i === 7 || i === 10) {
-          sol += '-';
-        }
-        sol += clean[i];
-      }
-      return sol.split('').reverse().join('');
-    } else {
-      return clean.reverse().join('');
-    }
-  }
-  return undefined;
-};
-
-var sanitizePrice = function sanitizePrice (val) {
-  if (val) {
-    if (val[0] === '$') {
-      console.log('sanitized!');
-      val = val.slice(1);
-    }
-    return Number(val);
-  }
-  return undefined;
-};
-
 
 
 

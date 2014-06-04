@@ -207,7 +207,7 @@ app.factory('restful', ['$http', '$cookies', function ($http, $cookies) {
 })
 
 
-.service('childObjSaver', function () {
+.service('childObjSaver', [function () {
   var childObj = {};
   return {
     setChildObj: function (obj) {
@@ -218,49 +218,66 @@ app.factory('restful', ['$http', '$cookies', function ($http, $cookies) {
       return childObj;
     }
   }
-})
+}])
 
-.filter('tel', function () {
-    return function (tel) {
-        if (!tel) { return ''; }
 
-        var value = tel.toString().trim().replace(/^\+/, '');
+.service('sanitize', [function () {
+  return {
 
-        if (value.match(/[^0-9]/)) {
-            return tel;
+    phone: function  (str) {
+      var clean, sol = '';
+      if (str) {
+        clean = str.match(/\d+/g).join('').split('').reverse();
+        if (clean.length <= 11) {
+          for (var i=0;i<clean.length;i++) {
+            if (i === 4 || i === 7 || i === 10) {
+              sol += '-';
+            }
+            sol += clean[i];
+          }
+          return sol.split('').reverse().join('');
+        } else {
+          return clean.reverse().join('');
         }
+      }
+      return undefined;
+    },
 
-        var country, city, number;
-
-        switch (value.length) {
-            case 10: // +1PPP####### -> C (PPP) ###-####
-                country = 1;
-                city = value.slice(0, 3);
-                number = value.slice(3);
-                break;
-
-            case 11: // +CPPP####### -> CCC (PP) ###-####
-                country = value[0];
-                city = value.slice(1, 4);
-                number = value.slice(4);
-                break;
-
-            case 12: // +CCCPP####### -> CCC (PP) ###-####
-                country = value.slice(0, 3);
-                city = value.slice(3, 5);
-                number = value.slice(5);
-                break;
-
-            default:
-                return tel;
+    price: function(val) {
+      if (val) {
+        if (val[0] === '$') {
+          val = val.slice(1);
         }
+        return Number(val);
+      }
+      return undefined;
+    },
 
-        if (country == 1) {
-            country = "";
-        }
+    dobGet: function (dateStr) {
+      return dateStr.substr(5,6) + '-' + dateStr.substr(0,4);
+    },
 
-        number = number.slice(0, 3) + '-' + number.slice(3);
+    dobPost: function (dateStr) {
+      return dateStr.substr(0,4) + dateStr.substr(4,6);
+    }
 
-        return (country + " (" + city + ") " + number).trim();
-    };
-})
+  }
+}])
+
+.service('randNum', [function () {
+  return function () {
+    return Math.floor(Math.random()*10e10);
+  }
+}])
+
+
+
+
+
+
+
+
+
+
+
+
