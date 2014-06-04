@@ -14,6 +14,7 @@ var Donor = require('../config/mysql_config.js').Donor;
 var Staff = require('../config/mysql_config.js').Staff;
 var Admin = require('../config/mysql_config.js').Admin;
 var HelpDesk = require('../config/mysql_config.js').HelpDesk;
+var Sequelize = require('sequelize');
 var sequelize = require('../config/mysql_config.js').sequelize;
 var url = require('url');
 var path = require('path');
@@ -51,6 +52,7 @@ var setUserType = function(userPath){
   }
 }
 
+
 module.exports.fetchUsers = function(req, res){
   var page = parseUrl(req).page;
   var query = parseUrl(req).query;
@@ -65,6 +67,26 @@ module.exports.fetchUsers = function(req, res){
     offset: (20 * (page-1))
   }).success(function(results){
     var array = results.rows;
+    //If User is children, we need to sanitize these rows before we do anything because
+    //this JSON will be passed back to clients at the root
+    if(User === Child){
+      console.log('child detected, sanitizing output');
+      array = Sequelize.Utils._.map(results.rows, function(child){
+        return {
+          id: child.id,
+          image: child.image,
+          createdAt: child.createdAt,
+          firstName: child.firstName,
+          bio: child.bio,
+          firstItemPrice: child.firstItemPrice,
+          firstItemName: child.firstItemName,
+          secondItemPrice: child.secondItemPrice,
+          secondItemName: child.secondItemName,
+          thirdItemPrice: child.thirdItemPrice,
+          thirdItemName: child.thirdItemName
+        }
+      })
+    }
     array.unshift(results.count);
     res.send(array);
   });
@@ -78,7 +100,22 @@ module.exports.fetchUser = function(req, res){
     if(!user) {
       res.send(404);
     } else {
-      res.send(user);
+      if(User === Staff){
+        var sanitizedStaff = {
+          firstName: user.firstName,
+          lastName: user.lastName,
+          phone: user.phone,
+          email: user.email,
+          department: user.department,
+          supervisorFirstName: user.supervisorFirstName,
+          supervisorLastName: user.supervisorLastName,
+          coordinatorFirstName: user.coordinatorFirstName,
+          coordinatorLastName: user.coordinatorLastName
+        }
+        res.send(sanitizedStaff);
+      } else {
+        res.send(user);
+      }
     }
   }).error(function(err){
     res.send(500);
@@ -208,7 +245,37 @@ module.exports.fetchWorkerChildren = function(req, res){
       res.send(404);
     } else {
       worker.getChildren().success(function(children){
-        res.send(children);
+        var sanitizedChildren = Sequelize.Utils._.map(children, function(child){
+          return {
+            createdAt: child.createdAt,
+            image: child.image,
+            firstName: child.firstName,
+            firstItemName: child.firstItemName,
+            lastName: child.lastName,
+            firstItemPrice: child.firstItemPrice,
+            phone: child.phone,
+            firstItemHsaReceivedDate: child.firstItemHsaReceivedDate,
+            gender: child.gender,
+            firstItemChildReceivedDate: child.firstItemChildReceivedDate,
+            dob: child.dob,
+            secondItemPrice: child.secondItemPrice,
+            age: child.age,
+            secondItemName: child.secondItemName,
+            location: child.location,
+            secondItemHsaReceivedDate: child.secondItemHsaReceivedDate,
+            programArea: child.programArea,
+            secondItemChildReceivedDate: child.secondItemChildReceivedDate,
+            bio: child.bio,
+            thirdItemName: child.thirdItemName,
+            thirdItemPrice: child.thirdItemPrice,
+            status: child.status,
+            hsaStatus: child.hsaStatus,
+            thirdItemHsaReceivedDate: child.thirdItemHsaReceivedDate,
+            thirdItemChildReceivedDate: child.thirdItemChildReceivedDate,
+            id: child.id
+          }
+        });
+        res.send(sanitizedChildren);
       }).error(function(err){res.send(500);});
     }
   }).error(function(err){res.send(500);});
