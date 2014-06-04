@@ -59,14 +59,13 @@
               <tr ng-repeat="worker in matchedWorkers" ng-click="setWorker(worker)" ng-class="swapWorker === worker ? 'active' : ''">
                 <td>{{worker.firstName}}</td>
                 <td>{{worker.lastName}}</td>
-                <td ng-hide="workerChangeSuccessful"><button class="btn btn-primary" ng-show="swapWorker === worker" ng-click="saveWorker()">Save Change</button></td>
+                <td>
+                  <button class="btn btn-primary" ng-show="swapWorker === worker && !success" ng-click="saveWorker()">Save Change</button>
+                  <button class="btn btn-success" ng-show="success" data-dismiss="modal">Worker Changed</button>
+                </td>
               </tr>
             </table>
           </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" ng-click="saveWorker()">Save changes</button>
       </div>
     </div>
   </div>
