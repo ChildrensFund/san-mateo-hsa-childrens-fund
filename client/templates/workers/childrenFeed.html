@@ -129,31 +129,6 @@
               <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal">
                 Unpledge
               </button>
-
-              <!-- Modal -->
-              <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                      <h4 class="modal-title" id="myModalLabel">Are you sure?</h4>
-                    </div>
-                    <div class="modal-body">
-                      This action will <strong>delete</strong> {{ child.firstName }} {{ child.lastName }}'s current donor and add him/her back to the home page.
-                      <br/>
-                      <br/>
-                      If you're sure, please type DELETE into the box below, and click Delete.
-                      <input type="text" name="delete" ng-model="deleteConfirm" placeholder="DELETE"/>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                      <button type="button" class="deleteBtn btn btn-danger" ng-click="unpledge(child.id, deleteConfirm)" ng-show="!waitDelete" ng-disabled="waitDelete === 1">Delete</button>
-                      <button class="deleteBtn btn btn-success" ng-show="waitDelete === 2" data-dismiss="modal">Donor Removed</button>
-                  <!--     <button ng- type="button" data-dismiss="modal">Exit</button> -->
-                    </div>
-                  </div>
-                </div>
-              </div>
               <!-- /Undo Pledge -->
             </td>
           </tr>
@@ -186,13 +161,35 @@
       </div>
     </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">Are you sure?</h4>
+          </div>
+          <div class="modal-body">
+            This action will <strong>delete</strong> {{ child.firstName }} {{ child.lastName }}'s current donor and add him/her back to the home page.
+            <br/>
+            <br/>
+            If you're sure, please type DELETE into the box below, and click Delete.
+            <input type="text" name="delete" ng-model="deleteConfirm" placeholder="DELETE"/>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="deleteBtn btn btn-danger" ng-click="unpledge(child, deleteConfirm)" ng-show="!(child.waitDelete)" ng-disabled="child.waitDelete === 1">Delete</button>
+            <button class="deleteBtn btn btn-success" ng-show="child.waitDelete === 2" data-dismiss="modal">Donor Removed</button>
+        <!--     <button ng- type="button" data-dismiss="modal">Exit</button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 <div ng-hide="children">
   <p class="center">no children data!</p>
 </div>
-
-
-
 
 
