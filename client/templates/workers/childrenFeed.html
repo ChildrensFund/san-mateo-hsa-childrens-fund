@@ -20,12 +20,15 @@
   </div>
 </div>
   
-  <div class="panel-group" id="accordion">
+  <div class="panel-group children-feed" id="accordion">
     <div class="panel panel-default" ng-repeat="child in children | orderBy:'createdAt' :true | filter:search:strict">
 
     <div class="panel-heading">
       <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{child.id}}">{{child.firstName}} {{child.lastName}}</a>
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{child.id}}">
+          <span class="child-meta">{{child.firstName}} {{child.lastName}} ( {{child.cfid}} )</span>
+          <span class="child-status" ng-class="child.status ? 'pledged' : 'not-pledged'">{{child.status ? 'Pledged' : 'Not Pledged'}}</span>
+        </a>
       </h4>
     </div>
 
