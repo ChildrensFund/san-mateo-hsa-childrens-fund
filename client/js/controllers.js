@@ -514,7 +514,8 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
   })
 }])
 
-.controller('workerController', ['$scope', 'restful', 'sanitize', '$cookies', '$state', function ($scope, restful, sanitize, $cookies, $state) {
+.controller('workerController', ['$scope', 'restful', 'sanitize', '$cookies', '$state', '$location',
+ function ($scope, restful, sanitize, $cookies, $state, $location) {
   $scope.tempChildObj = {};
   $scope.deleteConfirm='';
   var postObj;
@@ -547,17 +548,17 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
     })
   };
 
-  $scope.unpledge = function (id, confirm) {
+  $scope.unpledge = function (child, confirm) {
     if (confirm === 'delete' || confirm === 'DELETE') {
-      $scope.waitDelete = 1;
+      child.waitDelete = 1;
       postObj = {};
       postObj.donorId = null;
       postObj.status = 0;
-      postObj.id = id;
+      postObj.id = child.id;
       restful.updateChild(postObj).then(function (promise) {
         if (promise) {
-          $scope.waitDelete = 2;
-          $scope.get();
+          child.waitDelete = 2;
+          child.status = 0;
         }
       });
     }
