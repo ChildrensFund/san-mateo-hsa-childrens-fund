@@ -132,7 +132,8 @@
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                      <button type="button" class="deleteBtn btn btn-danger" ng-click="unpledge(child.id, deleteConfirm)">Delete</button>
+                      <button type="button" class="deleteBtn btn btn-danger" ng-click="unpledge(child.id, deleteConfirm)" ng-show="!waitDelete" ng-disabled="waitDelete === 1">Delete</button>
+                      <button class="deleteBtn btn btn-success" ng-show="waitDelete === 2" data-dismiss="modal">Donor Removed</button>
                   <!--     <button ng- type="button" data-dismiss="modal">Exit</button> -->
                     </div>
                   </div>
