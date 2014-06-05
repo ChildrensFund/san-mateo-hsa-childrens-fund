@@ -63,6 +63,7 @@ module.exports.getUsersAccountInformation = function(req, res){
 
   User.findAndCountAll({
     where: sqlQuery,
+    order: 'lastName ASC',
     limit: 20,
     offset: (20 * (page-1))
   }).success(function(data){
@@ -89,6 +90,7 @@ module.exports.fetchUsers = function(req, res){
 
   User.findAndCountAll({
     where: sqlQuery,
+    order: 'lastName ASC',
     limit: 20,
     offset: (20 * (page-1))
   }).success(function(results){
