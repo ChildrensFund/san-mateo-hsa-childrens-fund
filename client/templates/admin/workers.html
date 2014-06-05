@@ -66,7 +66,7 @@
                 <td>{{worker.lastName}}</td>
                 <td>
                   <button class="btn btn-primary" ng-show="swapWorker === worker && !success" ng-click="saveWorker()">Save Change</button>
-                  <button class="btn btn-success" ng-show="success" data-dismiss="modal">Worker Changed</button>
+                  <button class="btn btn-success" ng-show="success && tempWorkerForButton === worker" data-dismiss="modal">Worker Changed</button>
                 </td>
               </tr>
             </table>
