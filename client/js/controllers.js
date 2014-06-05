@@ -65,7 +65,9 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
     })
   }
 
-  $scope.fetchUsers(1);
+  if($state.current.name !== 'admin.account.accountManagement.create' && 
+     $state.current.name !== 'helpDesk.account.accountManagement.create')
+    $scope.fetchUsers(1);
 
   $scope.revokeAccess = function(user){
     var userType;
@@ -294,14 +296,31 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
   '$stateParams', '$location', 'oneTimeAuthorization', 'sessionCache',
   function($scope, $http, $state, $cookies, $stateParams, $location, oneTimeAuthorization, sessionCache){
 
+  $scope.stateUserType = $state.current.name.split('.')[0];
+  switch ($scope.stateUserType) {
+    case 'workers':
+      $scope.userHeader = 'Staff';
+      break;
+    case 'helpDesk':
+      $scope.userHeader = 'Help Desk';
+      break;
+    case 'admin':
+      $scope.userHeader = 'Admin';
+      break;
+  }
+
   $scope.signup = function(manual){
     if($scope.password === $scope.passwordConfirmation){
-      var userType, password, email;
+      var userType, password, email, firstName, lastName;
       email = $scope.email;
       if(manual){ //If admin or helpdesk is creating a new account, we want to generate a random password and passthrough userType
         userType = $scope.userType;
+        firstName = $scope.firstName;
+        lastName = $scope.lastName;
         password = Math.random().toString();
         $scope.email = '';
+        $scope.firstName = '';
+        $scope.lastName = '';
       } else { //Otherwise, grab user submitted data from signin page
         userType = $state.current.data.userType;
         password = $scope.password;
@@ -311,6 +330,8 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
         method: 'POST',
         url: '/auth/signup',
         data: {
+          firstName: firstName,
+          lastName: lastName,
           userType: userType,
           email: email,
           password: password
@@ -416,7 +437,8 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
         resetToken: $stateParams.resetToken
       }
     }).success(function(data, status){
-      console.log('Password successfully reset');
+      console.log('Password successfully reset, sending you to signin page');
+      $state.go($state.current.data.userType + '.signin');
     }).error(function(data, status){
       console.log('Password not reset: Server Error');
     });

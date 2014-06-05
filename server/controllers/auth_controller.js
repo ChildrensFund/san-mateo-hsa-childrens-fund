@@ -83,6 +83,8 @@ module.exports.signup = function(request, response){
     console.log(email);
     console.log(hash);
     User.create({
+      firstName: request.body.firstName,
+      lastName: request.body.lastName,
       email: email,
       passwordHash: hash
     }).success(function(a){

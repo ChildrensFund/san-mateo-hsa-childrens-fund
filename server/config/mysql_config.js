@@ -82,6 +82,8 @@ var Admin = sequelize.define('admins', {
   sessionToken: Sequelize.STRING,
   resetToken: Sequelize.STRING,
   resetTokenSetTime: Sequelize.DATE,
+  firstName: Sequelize.STRING,
+  lastName: Sequelize.STRING,
   hasAccess: {type: Sequelize.BOOLEAN, defaultValue: true}
 });
 
@@ -91,6 +93,8 @@ var HelpDesk = sequelize.define('helpdesks', {
   sessionToken: Sequelize.STRING,
   resetToken: Sequelize.STRING,
   resetTokenSetTime: Sequelize.DATE,
+  firstName: Sequelize.STRING,
+  lastName: Sequelize.STRING,
   hasAccess: {type: Sequelize.BOOLEAN, defaultValue: true}
 });
 
