@@ -4,5 +4,5 @@
 
 <form ng-submit="sendReset()" ng-hide="status">
   <input placeholder="email address" type="email" ng-model="email">
-  <input type="submit">
+  <input type="submit" ng-disabled="waitSendPassword === 1">
 </form>

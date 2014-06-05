@@ -441,6 +441,7 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
   }
 
   $scope.sendReset = function(userType, email){
+    $scope.waitSendPassword = 1;
     $http({
       method: 'POST',
       url: '/auth/sendReset',
