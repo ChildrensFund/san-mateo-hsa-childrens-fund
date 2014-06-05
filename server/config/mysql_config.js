@@ -27,20 +27,14 @@ var Child = sequelize.define('children', {
   programArea: Sequelize.STRING,
   image: Sequelize.STRING,
   bio: Sequelize.TEXT,
-  status: Sequelize.INTEGER,
-  hsaStatus: Sequelize.INTEGER,
+  status: {type: Sequelize.INTEGER, defaultValue: 0},
+  hsaStatus: {type: Sequelize.INTEGER, defaultValue: 0},
   firstItemName: Sequelize.STRING,
-  firstItemPrice: Sequelize.DECIMAL,
-  firstItemHsaReceivedDate: Sequelize.DATE,
-  firstItemChildReceivedDate: Sequelize.DATE,
+  firstItemPrice: Sequelize.STRING,
   secondItemName: Sequelize.STRING,
-  secondItemPrice: Sequelize.DECIMAL,
-  secondItemHsaReceivedDate: Sequelize.DATE,
-  secondItemChildReceivedDate: Sequelize.DATE,
+  secondItemPrice: Sequelize.STRING,
   thirdItemName: Sequelize.STRING,
-  thirdItemPrice: Sequelize.DECIMAL,
-  thirdItemHsaReceivedDate: Sequelize.DATE,
-  thirdItemChildReceivedDate: Sequelize.DATE
+  thirdItemPrice: Sequelize.STRING
 });
 
 //These three tables are for user signin. Feel free to modify as needed, but the email, 
