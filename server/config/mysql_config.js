@@ -3,11 +3,17 @@
 
 /*  This file creates a connection to a database, then creates the proper schemas,
  *  tables, etc. unless they exist at that database already.  */
- //   This file is required by (root folder)/server/config/express_config.js
+//    This file is required by controller files, which are each invoked in
+//    (root folder)/server/config/express_app.js. The controller files that require
+//    this file are located in (root folder)/server/controllers
 
 var output    = require( '../util/output.js' );
 var Sequelize = require('sequelize');
-var sequelize = new Sequelize('hsa_cf', 'hsa', '');
+if(process.env.MYSQLCONNSTR_hsacfdb){
+  var sequelize = new Sequelize( process.env.MYSQLCONNSTR_hsacfdb );
+} else {
+  var sequelize = new Sequelize( 'hsa_cf', 'hsa', '' );
+}
 
 var Child = sequelize.define('children', {
   firstName: Sequelize.STRING,
@@ -80,6 +86,8 @@ var Admin = sequelize.define('admins', {
   sessionToken: Sequelize.STRING,
   resetToken: Sequelize.STRING,
   resetTokenSetTime: Sequelize.DATE,
+  firstName: Sequelize.STRING,
+  lastName: Sequelize.STRING,
   hasAccess: {type: Sequelize.BOOLEAN, defaultValue: true}
 });
 
@@ -89,6 +97,8 @@ var HelpDesk = sequelize.define('helpdesks', {
   sessionToken: Sequelize.STRING,
   resetToken: Sequelize.STRING,
   resetTokenSetTime: Sequelize.DATE,
+  firstName: Sequelize.STRING,
+  lastName: Sequelize.STRING,
   hasAccess: {type: Sequelize.BOOLEAN, defaultValue: true}
 });
 
@@ -105,12 +115,12 @@ HelpDesk.sync();
 
 
 module.exports = {
-  Child: Child,
-  Donor: Donor,
-  Staff: Staff,
-  Admin: Admin,
-  HelpDesk: HelpDesk,
-  sequelize: sequelize
+  Child     : Child,
+  Donor     : Donor,
+  Staff     : Staff,
+  Admin     : Admin,
+  HelpDesk  : HelpDesk,
+  sequelize : sequelize
 };
 
 

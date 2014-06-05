@@ -1,5 +1,11 @@
+<h1>{{userHeader}} Signin</h1>
+
 <form ng-submit="signin()">
   <input placeholder="email address" type="email" ng-model="email">
   <input placeholder="password" type="password" ng-model="password">
   <input type="submit">
 </form>
+
+<a ui-sref="workers.sendReset" ng-show="stateUserType === 'workers'">Forgot Password?</a>
+<a ui-sref="admin.sendReset" ng-show="stateUserType === 'admin'">Forgot Password?</a>
+<a ui-sref="helpDesk.sendReset" ng-show="stateUserType === 'helpDesk'">Forgot Password?</a>

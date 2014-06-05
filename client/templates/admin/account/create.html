@@ -1,10 +1,13 @@
 <h1>Create New User</h1>
+<h2 ng-show="error">{{error}}</h2>
 <form ng-submit="signup(true)" ng-hide="submitting" class="form-inline">
   <select name="select" ng-model="userType" class="form-control">
     <option value="workers">Worker</option> 
     <option value="admin" selected>Admin</option>
     <option value="helpDesk">Help Desk</option>
   </select>
-  <input placeholder="email address" type="email" ng-model="email" class="form-control">
+  <input placeholder="First Name" ng-model="firstName" class="form-control">
+  <input placeholder="Last Name" ng-model="lastName" class="form-control">
+  <input placeholder="Email Address" type="email" ng-model="email" class="form-control">
   <input type="submit" class="btn btn-primary">
 </form>
