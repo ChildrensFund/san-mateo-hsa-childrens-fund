@@ -25,7 +25,7 @@
         <table class="table">
           <tr><th>Child ID</th><td>{{child.id}}</td></tr>
           <tr><th>CFID</th><td>{{child.cfid}}</td></tr>
-          <tr>
+          <tr ng-show="child.worker">
             <th>Worker</th>
             <td>{{child.worker.firstName}}</td>
             <td>{{child.worker.lastName}}</td>
