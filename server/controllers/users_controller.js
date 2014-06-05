@@ -63,6 +63,7 @@ module.exports.getUsersAccountInformation = function(req, res){
 
   User.findAndCountAll({
     where: sqlQuery,
+    order: 'lastName ASC',
     limit: 20,
     offset: (20 * (page-1))
   }).success(function(data){
@@ -89,6 +90,7 @@ module.exports.fetchUsers = function(req, res){
 
   User.findAndCountAll({
     where: sqlQuery,
+    order: 'lastName ASC',
     limit: 20,
     offset: (20 * (page-1))
   }).success(function(results){
@@ -100,17 +102,27 @@ module.exports.fetchUsers = function(req, res){
       array = Sequelize.Utils._.map(results.rows, function(child){
         return {
           id: child.id,
-          image: child.image,
+          cfid: child.cfid,
+          phone: child.phone,
+          gender: child.gender,
+          age: child.age,
+          location: child.location,
+          programArea: child.programArea,
           createdAt: child.createdAt,
           firstName: child.firstName,
+          lastName: child.lastName,
           bio: child.bio,
-          firstItemPrice: child.firstItemPrice,
-          firstItemName: child.firstItemName,
-          secondItemPrice: child.secondItemPrice,
-          secondItemName: child.secondItemName,
-          thirdItemPrice: child.thirdItemPrice,
-          thirdItemName: child.thirdItemName
+          status: child.status,
+          hsaStatus: child.hsaStatus
         }
+      })
+    } else {
+      array = Sequelize.Utils._.map(results.rows, function(user){
+        user.passwordHash = 'protected';
+        user.sessionToken = 'protected';
+        user.resetToken = 'protected';
+        user.resetTokenSetTime = 'protected';
+        return user;
       })
     }
     array.unshift(results.count);
