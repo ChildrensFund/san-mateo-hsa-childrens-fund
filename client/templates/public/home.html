@@ -1,18 +1,85 @@
+<div class="container">
+  <div class="row" id="header-bar">
+    <div class="col-md-12">
+      <img id="hsa-logo" src="/assets/images/hsf_logo.png">
+    </div>
+  </div>
+</div>
+
+<div class="row" id="tagline">
+  <div class="container">
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+  </div>
+</div>
+
+<ul class="pagination" ng-show="pages && pages.length > 1">
+  <li ng-class="page === 1 ? 'disabled' : ''"><a href="#" ng-click="(page - 1) > 0 && get(page - 1)">&laquo;</a></li>
+  <li ng-repeat="pageNumber in pages" ng-click="get(pageNumber)" ng-class="page === pageNumber ? 'active': ''"><a href="#">{{pageNumber}}</a></li>
+  <li ng-class="page === pages.length ? 'disabled' : ''"><a href="#" ng-click="(page + 1) <= pages.length && get(page + 1)">&raquo;</a></li>
+</ul>
+
+<div class="row child-box" ng-repeat="child in children | orderBy:'createdAt' :true">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <p class="name">Firstname Lastname</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <img class="img-thumbnail" ng-src="/images/{{child.image}}" />
+      </div>
+      <div class="col-md-5">
+        {{child.bio}}
+      </div>
+      <div class="col-md-5">
+        <table class="table">
+          <thead>
+            <tr>
+              <th
+              style="color: #5cb85c"
+              >Wishlist</th>
+              <th
+              style="color: #5cb85c"
+              >Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-show="child.firstItemName">
+              <td>{{ child.firstItemName }}</td>
+              <td>${{  child.firstItemPrice  }}</td>
+            </tr>
+            <tr ng-show="child.secondItemName">
+              <td>{{ child.secondItemName }}</td>
+              <td>${{  child.secondItemPrice  }}</td>
+            </tr>
+            <tr ng-show="child.thirdItemName">
+              <td>{{ child.thirdItemName }}</td>
+              <td>${{  child.thirdItemPrice  }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div ng-controller="pledgeController">
+          <input 
+          style="width: 200px"
+          class="btn btn-success"
+          ng-click="pledgeButton(child, $index)"
+          ui-sref="pledge"
+          type="button" 
+          value="Pledge"/>      
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 
 <div style="max-width: 70%; 
 margin-left: auto; 
 margin-right: auto;
 display:block;
 ">
-  <div class="center">
-    <img class="logo" src="../../assets/images/hsf_logo.png" style="height: 200px" alt=""/>    
-  </div>
 
-  <h1 class="center">Children</h1>
-  <ul class="pagination" ng-show="pages && pages.length > 1">
-    <li ng-class="page === 1 ? 'disabled' : ''"><a href="#" ng-click="(page - 1) > 0 && get(page - 1)">&laquo;</a></li>
-    <li ng-repeat="pageNumber in pages" ng-click="get(pageNumber)" ng-class="page === pageNumber ? 'active': ''"><a href="#">{{pageNumber}}</a></li>
-    <li ng-class="page === pages.length ? 'disabled' : ''"><a href="#" ng-click="(page + 1) <= pages.length && get(page + 1)">&raquo;</a></li>
-  </ul>
 
   <div>
 
@@ -112,4 +179,4 @@ display:block;
   <div ng-hide="children">
     <p class="center">no children data!</p>
   </div>
-</div>
+</div> -->

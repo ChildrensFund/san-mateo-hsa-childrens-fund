@@ -375,6 +375,7 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
           //If the user was manually added, we need to immediately fire a sendReset, which
           //will allow the user to enter their own password
           $scope.waitSignup = false;
+          $scope.success = 'User successfully created and should check email for password reset';
           if(manual) $scope.sendReset(userType, email);
         }).error(function(data, status){
           console.log('User Not Created: Server Error');
