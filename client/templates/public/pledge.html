@@ -1,17 +1,12 @@
 <div class="pledge">
-  <h2>
+  <h2 class="center">
     Donation submission for {{ currentChild.firstName }} from {{ currentChild.location }}
   </h2>
 
-  <p>
-  Thank you for your tax-deductible donation!
-  </p>
-  <p>
-  Our tax ID number is: <strong>94-6000532</strong>
-  </p>
-
 
   <form name="donor_info" role="form" novalidate ng-submit="donorSubmit()">
+  <div class="row">
+  <div class="col-md-4">
     <div class="form-group" style="width: 300px">
       <label>First Name</label>  (Required)
       <input 
@@ -54,7 +49,9 @@
       class="form-control"
       placeholder="name@example.com"/>
     </div>
+  </div>
 
+  <div class="col-md-4">
     <div class="form-group" style="width: 300px">
       <label>Address Line 1</label>  (Required)
       <input 
@@ -107,8 +104,16 @@
       class="form-control"
       placeholder="94103"/>
     </div>
-
+  </div>
+  
+  <div class="col-md-4">
     <div class="radio">
+      <h4>
+  Thank you for your tax-deductible donation!
+  </h4>
+  <h4>
+  Our tax ID number is: <strong>94-6000532</strong>
+  </h4>
       <label>
         <input type="radio" ng-model="donor.paymentMethod" value="items">I will be donating the requested items:<br/>
         <div>
@@ -120,12 +125,23 @@
         </div>
         <input type="radio" ng-model="donor.paymentMethod" value="cash">I will be donating cash for all of <strong>{{ currentChild.firstName }}</strong>'s items.<br/>
         <input type="radio" ng-model="donor.paymentMethod" value="check">I will be donating a check for all of <strong>{{ currentChild.firstName }}</strong>'s items.<br/>
-        <p>
-        Please make checks payable to <strong>Children's Fund</strong> located at <strong>Children's Fund, 472 Harbor Blvd. Bldg C, Belmont, CA 94002</strong>
+        <p ng-if="donor.paymentMethod === 'check'">
+          Please make checks payable to:
+          <br/>
+          <strong style="margin-left: 10px">Children's Fund</strong><br/>
+          <strong style="margin-left: 10px">472 Harbor Blvd. Bldg C,</strong><br/><strong style="margin-left: 10px">Belmont, CA 94002</strong>
         </p>
       </label>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+    <button type="submit" class="btn btn-success disabled" ng-hide="donor.paymentMethod" ng-disabled="donor_info.$invalid">Submit</button>
+    <button type="submit" class="btn btn-success" ng-show="donor.paymentMethod" ng-disabled="donor_info.$invalid">Submit</button>
     </div>
-    <button type="submit" class="btn btn-default" ng-disabled="donor_info.$invalid">Submit</button>
+  </div>
+  </div>
   </form>
 
 </div>

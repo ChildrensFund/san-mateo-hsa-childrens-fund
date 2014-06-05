@@ -505,6 +505,7 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
 
 .controller('workerController', ['$scope', 'restful', 'sanitize', '$cookies', '$state', function ($scope, restful, sanitize, $cookies, $state) {
   $scope.tempChildObj = {};
+  $scope.deleteConfirm='';
   var postObj;
 
   $scope.genders = [
@@ -516,6 +517,7 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
     restful.getWorkerData().then(function (promise) {
       if (promise) {
         $scope.workerData = promise.data;
+        // $scope.deleteBox = false;
       }
     });
   };
@@ -528,9 +530,24 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
     workerObj[key] = val;
     restful.postWorkerData(workerObj).then(function (promise) {
       if (promise) {
-        $scope.getWorkerData();
+        // $scope.deleteBox = false;
+        // $scope.getWorkerData();
       }
     })
+  };
+
+  $scope.unpledge = function (id, confirm) {
+    if (confirm === 'delete' || confirm === 'DELETE') {
+      postObj = {};
+      postObj.donorId = null;
+      postObj.status = 0;
+      postObj.id = id;
+      restful.updateChild(postObj).then(function (promise) {
+        if (promise) {
+          $scope.get();
+        }
+      });
+    }
   };
 
 
@@ -700,8 +717,6 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
   };
 
 }])
-
-
 
 
 
