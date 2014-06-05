@@ -65,9 +65,26 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
     })
   }
 
+  //Only fetch users if on one of the account management pages that's NOT create
   if($state.current.name !== 'admin.account.accountManagement.create' && 
-     $state.current.name !== 'helpDesk.account.accountManagement.create')
-    $scope.fetchUsers(1);
+     $state.current.name !== 'helpDesk.account.accountManagement.create'){
+    $scope.fetchUsers(1); 
+  }
+
+  $scope.issuePasswordReset = function(user){
+    $http({
+      method: 'POST',
+      url: '/auth/sendReset',
+      data: {
+        userType: $state.current.name.split('.')[3],
+        email: user.email
+      }
+    }).success(function(data, status){
+      console.log('Reset token sent');
+    }).error(function(data, status){
+      console.log('Reset token not sent: Server Error');
+    });
+  };
 
   $scope.revokeAccess = function(user){
     var userType;
