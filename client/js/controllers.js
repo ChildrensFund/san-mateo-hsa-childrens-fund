@@ -310,6 +310,7 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
   }
 
   $scope.signup = function(manual){
+    $scope.error = null;
     if($scope.password === $scope.passwordConfirmation){
       var userType, password, email, firstName, lastName;
       email = $scope.email;
@@ -343,6 +344,7 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
         if(manual) $scope.sendReset(userType, email);
       }).error(function(data, status){
         console.log('User Not Created: Server Error');
+        $scope.error = 'E-mail address: ' + email + ' already in use';
       })
     }
   };
