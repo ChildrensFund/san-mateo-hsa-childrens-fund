@@ -59,6 +59,11 @@
   margin-top: -12px;
 }
 
+/* General Dashboard Styles */
+.navbar-padding{
+  padding-top: 60px;
+}
+
 /* Input Verification Styles */
 .createChildTag input.ng-invalid, .pledge input.ng-invalid {
   border: 1px solid red;
