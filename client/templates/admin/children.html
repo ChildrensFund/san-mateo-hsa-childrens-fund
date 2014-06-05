@@ -12,7 +12,7 @@
 </ul>
 
 <div class="panel-group" id="accordion">
-  <div class="panel panel-default" ng-repeat="child in children">
+  <div class="panel panel-default" ng-repeat="child in children | orderBy:'lastName'">
     <div class="panel-heading">
       <h4 class="panel-title" ng-click="getWorker(child)">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{child.id}}">
