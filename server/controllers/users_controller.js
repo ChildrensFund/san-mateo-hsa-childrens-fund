@@ -114,6 +114,14 @@ module.exports.fetchUsers = function(req, res){
           hsaStatus: child.hsaStatus
         }
       })
+    } else {
+      array = Sequelize.Utils._.map(results.rows, function(user){
+        user.passwordHash = 'protected';
+        user.sessionToken = 'protected';
+        user.resetToken = 'protected';
+        user.resetTokenSetTime = 'protected';
+        return user;
+      })
     }
     array.unshift(results.count);
     res.send(array);
