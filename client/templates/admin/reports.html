@@ -4,6 +4,8 @@
   <h2>{{generateReportMessage}}</h2>
 </div>
 
+<h2 ng-show="error">{{error}}</h2>
+
 <div class="row" ng-hide="generatingReport" ng-submit="generateReport()">
   <div class="col-md-2">
     <form role="form" class="form">

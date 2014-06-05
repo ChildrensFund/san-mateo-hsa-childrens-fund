@@ -296,9 +296,9 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
   };
 
   $scope.generateReport = function(){
-    $scope.generatingReport = true;
-    $scope.generateReportMessage = 'Creating Your Report';
-    if($scope.startDate < $scope.endDate){
+    if($scope.startDate && $scope.endDate && $scope.startDate < $scope.endDate){
+      $scope.generatingReport = true;
+      $scope.generateReportMessage = 'Creating Your Report';
       $http({
         method: 'POST',
         url: '/api/generate',
@@ -308,10 +308,13 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
         }
       }).success(function(data){
         $scope.generateReportMessage = 'Report Created, Downloading Now';
+        $scope.error = null;
         window.location = '/api/download/' + data.filename;
       }).error(function(){
         console.log('Report not generated, server error');
       });
+    } else {
+      $scope.error = 'Please enter valid start and end date';
     }
   };
 
