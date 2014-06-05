@@ -283,6 +283,7 @@ module.exports.fetchWorkerChildren = function(req, res){
       worker.getChildren().success(function(children){
         var sanitizedChildren = Sequelize.Utils._.map(children, function(child){
           return {
+            cfid: child.cfid,
             createdAt: child.createdAt,
             image: child.image,
             firstName: child.firstName,

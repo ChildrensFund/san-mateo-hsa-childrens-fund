@@ -7,7 +7,7 @@
     <div class="panel-body">
       <form class="form-inline" role="form">
         <div class="form-group">
-          <input class="form-control" style="width: 200px" ng-model="search.$" placeholder="Search First/Last Name"/>
+          <input class="form-control" style="width: 200px" ng-model="search.$" placeholder="Search First/Last Name/CFID"/>
         </div>
         <div class="checkbox">
             <input type="checkbox" ng-model="search.status" ng-true-value="1" ng-false-value="">Pledged
@@ -158,6 +158,12 @@
                     <option value="2" ng-selected="child.hsaStatus === 2">Complete</option>
                   </select>
                 </td>
+              </tr>
+              <tr>
+                <td>CFID</td>
+                <td>{{child.cfid}}</td>
+                <td></td>
+                <td></td>
               </tr>
             </tbody>
           </table>
