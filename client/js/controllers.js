@@ -458,20 +458,27 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
   }
 
   $scope.resetPassword = function(){
-    $http({
-      method: 'POST',
-      url: '/auth/resetPassword',
-      data: {
-        userType: $state.current.data.userType,
-        password: $scope.password,
-        resetToken: $stateParams.resetToken
-      }
-    }).success(function(data, status){
-      console.log('Password successfully reset, sending you to signin page');
-      $state.go($state.current.data.userType + '.signin');
-    }).error(function(data, status){
-      console.log('Password not reset: Server Error');
-    });
+    if($scope.password === $scope.passwordConfirmation){
+      $http({
+        method: 'POST',
+        url: '/auth/resetPassword',
+        data: {
+          userType: $state.current.data.userType,
+          password: $scope.password,
+          resetToken: $stateParams.resetToken
+        }
+      }).success(function(data, status){
+        console.log('Password successfully reset, sending you to signin page');
+        $state.go($state.current.data.userType + '.signin');
+      }).error(function(data, status){
+        console.log('Password not reset: Server Error');
+        $scope.error = 'User not found, try sending a new password reset';
+      });
+    } else {
+      $scope.password = '';
+      $scope.passwordConfirmation = '';
+      $scope.error = 'Password and Password Confirmation Didn\'t Match';
+    }
   }
 
 }])
