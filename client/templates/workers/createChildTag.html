@@ -1,7 +1,20 @@
 <form name="donor_info" role="form" novalidate class="createChildTag">
+<div style="max-width: 80%; display: block; margin: 0 auto;">
+      
   <div class="row">
-    <div class="col-md-4">
-      <h2>Child Info</h2>
+    <div class="col-md-6">
+      <h2 class="center">Child Info
+      <br/>
+      <small>(All text fields are required.)</small>
+  </h2>
+      <input 
+      class="form-control"
+      required
+      ng-pattern="/[\D]/g"
+      ng-model="tempChildObj.firstName" 
+      type="text" 
+      name="firstName" 
+      placeholder="First Name"/>
       <input 
       class="form-control"
       required
@@ -19,17 +32,10 @@
       name="childPhone" 
       placeholder="Phone"/>
       <select class="form-control" ng-model="tempChildObj.gender" name="gender">
-        <option value="Male">Male</option> 
-        <option value="Female">Female</option>
+        <option value="" selected>Choose Gender</option> 
+        <option value="male">Male</option> 
+        <option value="female">Female</option>
       </select>
-      <!-- <input
-      class="form-control"
-      required 
-      ng-pattern="/[a-zA-Z]/g"
-      ng-model="tempChildObj.gender" 
-      type="text" 
-      name="gender" 
-      placeholder="Male or Female"/> -->
       <input
       class="form-control"
       required 
@@ -67,8 +73,11 @@
       name="bio" 
       placeholder="Bio"/>
     </div>
-    <div class="col-md-4">
-      <h2>Request Info</h2>
+    <div class="col-md-6">
+      <h2 class="center">Request Info
+       <br/>
+       <small>(One item and price is required.)</small>
+      </h2>
       <input 
       class="form-control"
       required
@@ -112,16 +121,17 @@
       placeholder="Price"/>
     </div>
   </div>
-  <div class="row">
-    <div class="col-md-8" ng-controller="imageController">
-      <input name="file" type="file" accept="image/*" ng-file-select="onFileSelect($files)">
-      <input
-      class="btn btn-success" 
-      type="button" 
-      ng-click="uploadImageThenCreateChild()"
-      name="submit" 
-      value="Submit"/>
-      <button class="btn btn-danger" ui-sref="workers.account">Back</button>
-    </div>
+  <div class="center" ng-controller="imageController">
+    <input name="file" class="form-control" style="width: 48.5%" type="file" accept="image/*" ng-file-select="onFileSelect($files)"/>
+    <br/>
+    <input
+    class="btn btn-success" 
+    type="button" 
+    ng-click="uploadImageThenCreateChild()"
+    name="submit" 
+    value="Submit"/>
+    <button class="btn btn-danger" ui-sref="workers.account">Back</button>
   </div>
+</div>
+
 </form>

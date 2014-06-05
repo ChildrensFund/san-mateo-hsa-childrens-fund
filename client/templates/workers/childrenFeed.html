@@ -29,10 +29,10 @@
           <img style="height: 200px" ng-src="http://localhost:4568/images/{{ child.image }}" alt="{{ child.firstName }}">
           <div ng-controller="imageController" style="border: 1px solid lightgrey; border-radius: 2px">
           <div ng-hide="child.image">
-            Please Upload a Photo for {{ child.firstName }}
+            Please Upload a Photo
           </div>
           <div ng-show="child.image">
-            Click to Change {{ child.firstName }}'s Photo
+            Click to Change Photo
           </div>
             <input type="file" accept="image/*" ng-file-select="onFileSelect($files)">
             <div ng-show="file">
