@@ -195,15 +195,38 @@ module.exports.fetchChildDonor = function(req, res){
   })
 };
 
-var donorMailer = function donorMailer (reqBody) {
-  var transport = nodemailer.createTransport("Direct", {debug: true});
+var itemsTotal = function itemsTotal (childObj) {
+  var total = 0;
+  if (childObj.firstItemPrice !== undefined) {
+    total += Number(childObj.firstItemPrice);
+  }
+  if (childObj.secondItemPrice !== undefined) {
+    total += Number(childObj.secondItemPrice);
+  }
+  if (childObj.thirdItemPrice !== undefined) {
+    total += Number(childObj.thirdItemPrice);
+  }
+  return total;
+};
 
-  var htmlString = '<h2>Hey ' + reqBody.firstName + ' thanks for donating!</h2><h4>Make sure you do</h4><ul><li>this</li><li>and this</li><li>also this</li></ul>';
+var donorMailer = function donorMailer (reqBody, childObj) {
+  var transport = nodemailer.createTransport("Direct", {debug: true});
+  var htmlString = '';
+  var totalDonation = itemsTotal(childObj);
+
+  if (reqBody.paymentMethod === 'cash') {
+    htmlString += '<p>Dear ' + reqBody.firstName + ',</p><div style="margin-left: 20px"><p>Thank you for making a cash donation to the County of San Mateo\'s Children\'s Fund.</p><p>Please mail or drop-off cash in the amount of <strong>$' + totalDonation + '</strong> to:</p><p style="margin-left: 20px">Children\'s Fund<br/>1 Davis Drive<br/>Belmont, CA 94002<br/></p><p>For your records, please keep your donation number in a safe place:</p><H2>' + childObj.cfid + '</H2><p>This number will allow you to receive your tax benefit.</p><p>If you have any questions, please contact us at <a href="mailto:childrensfund@smchsa.org">childrensfund@smchsa.org</a> or by phone at (650) 802-5152</p><br/><p>Thank you again,</p><p>County of San Mateo</p><p>Children\'s Fund</p></div>';
+  } else if (reqBody.paymentMethod === 'check') {
+    htmlString += '<p>Dear ' + reqBody.firstName + ',</p><div style="margin-left: 20px"><p>Thank you for making a donation to the County of San Mateo\'s Children\'s Fund.</p><p>Please make your check payable for the amount of <strong>$' + totalDonation + '</strong> to: <strong>"Children\'s Fund"</strong></p><p>Checks can be mailed to:</p><p style="margin-left: 20px">Children\'s Fund<br/>1 Davis Drive<br/>Belmont, CA 94002<br/></p><p>For your records, please keep your donation number in a safe place:</p><H2>' + childObj.cfid + '</H2><p>This number will allow you to receive your tax benefit.</p><p>If you have any questions, please contact us at <a href="mailto:childrensfund@smchsa.org">childrensfund@smchsa.org</a> or by phone at (650) 802-5152</p><br/><p>Thank you again,</p><p>County of San Mateo</p><p>Children\'s Fund</p></div>';
+  } else {
+    htmlString += '<p>Dear ' + reqBody.firstName + ',</p><div style="margin-left: 20px"><p>Thank you for making a donation to the County of San Mateo\'s Children\'s Fund.</p><p>Please purchase and <strong>include copies of your receipts</strong> for the following products:</p><ul><li>'+ childObj.firstItemName +': '+ childObj.firstItemPrice +'</li><li>'+ childObj.secondItemName +': '+ childObj.secondItemPrice +'</li><li>'+ childObj.thirdItemName +': '+ childObj.thirdItemPrice +'</li></ul><p>Items can be mailed or dropped off to:</p><p style="margin-left: 20px">Children\'s Fund<br/>1 Davis Drive<br/>Belmont, CA 94002<br/></p><strong>Please include the following number with your package of items:</strong><H2>' + childObj.cfid + '</H2><p>This number will allow you to receive your tax benefit.</p><p>If you have any questions, please contact us at <a href="mailto:childrensfund@smchsa.org">childrensfund@smchsa.org</a> or by phone at (650) 802-5152</p><br/><p>Thank you again,</p><p>County of San Mateo</p><p>Children\'s Fund</p></div>';
+  }
+
   
   var message = {
-    from: 'HSA CF DONOR CONFIRMATION <hsacf@example.com>',
+    from: 'San Mateo\'s Children\'s Fund - Donor Confirmation <childrensfund@smchsa.org>',
     to: '"" <' + reqBody.email + ' >',
-    subject: 'HSA CF DONOR CONFIRMATION',
+    subject: 'San Mateo\'s Children\'s Fund - Donor Confirmation',
     html: htmlString
   };
 
@@ -236,7 +259,7 @@ module.exports.createChildDonor = function(req, res){
           child.save(['donorId']).success(function(child){
 
 
-            donorMailer(req.body);
+            donorMailer(req.body, child);
 
 
             res.send({child: child, donor: donor});

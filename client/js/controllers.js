@@ -493,9 +493,6 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
   })
 }])
 
-
-
-// Worker Account Controller
 .controller('workerController', ['$scope', 'restful', 'sanitize', '$cookies', '$state', function ($scope, restful, sanitize, $cookies, $state) {
   $scope.tempChildObj = {};
   var postObj;

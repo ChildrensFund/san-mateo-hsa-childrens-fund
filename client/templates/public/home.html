@@ -4,10 +4,10 @@ margin-right: auto;
 display:block;
 ">
   <div class="center">
-    <img class="logo" src="../../assets/images/hsf_logo.png" alt=""/>    
+    <img class="logo" src="../../assets/images/hsf_logo.png" style="height: 200px" alt=""/>    
   </div>
 
-  <h1>Children</h1>
+  <h1 class="center">Children</h1>
   <ul class="pagination" ng-show="pages && pages.length > 1">
     <li ng-class="page === 1 ? 'disabled' : ''"><a href="#" ng-click="(page - 1) > 0 && get(page - 1)">&laquo;</a></li>
     <li ng-repeat="pageNumber in pages" ng-click="get(pageNumber)" ng-class="page === pageNumber ? 'active': ''"><a href="#">{{pageNumber}}</a></li>

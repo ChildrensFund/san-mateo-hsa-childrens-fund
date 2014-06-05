@@ -9,16 +9,17 @@ var url = require('url');
 var path = require('path');
 var fs = require('fs');
 var imageFolder = path.normalize(__dirname + '/../images/');
+var placeHolderImg = path.normalize(__dirname + '/../../client/assets/images/placeholder.jpg');
 
 module.exports = {
 
   get: function (req, res) {
-    if (req.originalUrl === '/images/') res.sendfile(imageFolder + 'placeholder.jpg');
+    if (req.originalUrl === '/images/') res.sendfile(placeHolderImg);
     fs.exists(path.normalize(__dirname + '/../' + req.originalUrl), function (exists) {
       if (exists) {
         res.sendfile(path.normalize(__dirname + '/../' + req.originalUrl));
       } else {
-        res.sendfile(imageFolder + 'placeholder.jpg');
+        res.sendfile(placeHolderImg);
       }
     });
   },
