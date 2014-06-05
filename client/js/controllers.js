@@ -487,6 +487,11 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
   $scope.tempChildObj = {};
   var postObj;
 
+  $scope.genders = [
+  {value: 'male', text: 'male'},
+  {value: 'female', text: 'female'}
+  ];
+
   $scope.getWorkerData = function () {
     restful.getWorkerData().then(function (promise) {
       if (promise) {
@@ -498,9 +503,7 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
   $scope.getWorkerData();
 
   $scope.postWorkerData = function (key, val) {
-
     val = sanitize.update(key, val);
-
     var workerObj = {};
     workerObj[key] = val;
     restful.postWorkerData(workerObj).then(function (promise) {
@@ -512,7 +515,6 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
 
 
   $scope.create = function () {
-
     // sanitize phone numbers
     if ($scope.tempChildObj.phone) {
       $scope.tempChildObj.phone = sanitize.update('phone',$scope.tempChildObj.phone);
@@ -553,13 +555,10 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
   };
 
   $scope.update = function (id, key, value) {
-
     value = sanitize.update(key, value);
-
     postObj = {};
     postObj.id = id;
     postObj[key] = value;
-
     restful.updateChild(postObj).then(function (promise) {
       if (promise) {
         $scope.get();
@@ -568,6 +567,24 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
   };
 
   $scope.get(1);
+
+  $scope.checkData = function (data, type) {
+    if (type === 'firstName' || type === 'lastName') {
+      if (Boolean(data.match(/[^\w-'`]/g))) {
+        return 'Valid characters are letters and -\`\''
+      }
+    }
+    if (type === 'age') {
+      if (Boolean(data.match(/[^\d]/g))) {
+        return 'Please enter only numbers';
+      }
+    }
+    if (type === 'price') {
+      if (Boolean(data.match(/[^\d$.]/g))) {
+        return 'Please enter only numbers';
+      }
+    }
+  };
 
 }])
 

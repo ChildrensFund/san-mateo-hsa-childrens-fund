@@ -37,10 +37,10 @@ app.factory('restful', ['$http', '$cookies', function ($http, $cookies) {
         method: 'GET',
         url: queryUrl
       }).success(function (data, status) {
-        console.log('GET Success! ', data);
+        console.log('(getChildren) GET Success! ', data);
         return data;
       }).error(function (data, status) {
-        console.log('GET Error! ', data, status);
+        console.log('(getChildren) GET Error! ', data, status);
       });
     },
 
@@ -61,10 +61,10 @@ app.factory('restful', ['$http', '$cookies', function ($http, $cookies) {
         method: 'GET',
         url: '/api/workers/' + $cookies.id
       }).success(function (data, status) {
-        console.log('(Worker Data) GET Success! ', data);
+        console.log('(getWorkerData) GET Success! ', data);
         return data;
       }).error(function (data, status) {
-        console.log('(Worker Data) GET Error! ', data, status);
+        console.log('(getWorkerData) GET Error! ', data, status);
       });
     },
 
@@ -74,10 +74,10 @@ app.factory('restful', ['$http', '$cookies', function ($http, $cookies) {
         url: '/api/workers/' + $cookies.id,
         data: workerObj
       }).success(function (data, status) {
-        console.log('(Worker Data) POST Success! ', data);
+        console.log('(postWorkerData) POST Success! ', data);
         return data;
       }).error(function (data, status) {
-        console.log('(Worker Data) POST Error! ', data, status);
+        console.log('(postWorkerData) POST Error! ', data, status);
       });
     },
 
@@ -87,10 +87,10 @@ app.factory('restful', ['$http', '$cookies', function ($http, $cookies) {
         url: '/api/children/' + postObj.id + '/donor',
         data: postObj.donor
       }).success(function (data, status) {
-        console.log('(Donor) POST Success! ', data);
+        console.log('(postDonor) POST Success! ', data);
         return data;
       }).error(function (data, status) {
-        console.log('(Donor) POST Error! ', data, status);
+        console.log('(postDonor) POST Error! ', data, status);
       });
     }
 

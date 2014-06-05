@@ -257,11 +257,8 @@ module.exports.createChildDonor = function(req, res){
           //Hacky solution -> manually setting donor id on child
           child.donorId = donor.id;
           child.save(['donorId']).success(function(child){
-
-
+            // Confirmation email is sent to donor
             donorMailer(req.body, child);
-
-
             res.send({child: child, donor: donor});
           }).error(function(err){res.send(500);});
         }).error(function(err){res.send(500);});

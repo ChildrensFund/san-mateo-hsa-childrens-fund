@@ -37,7 +37,7 @@
         <tbody>
           <tr>
             <td class="col-md-3">First Name</td>
-            <td class="col-md-3" editable-text="child.firstName" onaftersave="update(child.id, 'firstName', child.firstName)">
+            <td class="col-md-3" editable-text="child.firstName" onbeforesave="checkData($data, 'firstName')" onaftersave="update(child.id, 'firstName', child.firstName)">
               {{ child.firstName || 'Enter a Value' }}
             </td>
             <td class="col-md-3">Item 1 Name</td>
@@ -46,11 +46,11 @@
 
           <tr>
             <td class="col-md-3">Last Name</td>
-            <td class="col-md-3" editable-text="child.lastName" onaftersave="update(child.id, 'lastName', child.lastName)">
+            <td class="col-md-3" editable-text="child.lastName" onbeforesave="checkData($data, 'lastName')" onaftersave="update(child.id, 'lastName', child.lastName)">
               {{ child.lastName || 'Enter a Value' }}
             </td>
             <td class="col-md-3">Item 1 Price</td>
-            <td class="col-md-3" editable-text="child.firstItemPrice" onaftersave="update(child.id, 'firstItemPrice', child.firstItemPrice)">{{ child.firstItemPrice || 'Enter a Value' }}</td>
+            <td class="col-md-3" editable-text="child.firstItemPrice" onbeforesave="checkData($data, 'price')" onaftersave="update(child.id, 'firstItemPrice', child.firstItemPrice)">{{ child.firstItemPrice || 'Enter a Value' }}</td>
           </tr>
 
 
@@ -66,11 +66,11 @@
 
           <tr>
             <td class="col-md-3">Gender</td>
-            <td class="col-md-3" editable-text="child.gender" onaftersave="update(child.id, 'gender', child.gender)">
+            <td class="col-md-3" editable-select="child.gender" e-ng-options="s.value as s.text for s in genders" onaftersave="update(child.id, 'gender', child.gender)">
               {{ child.gender || 'Enter a Value' }}
             </td>
             <td class="col-md-3">Item 2 Price</td>
-            <td class="col-md-3" editable-text="child.secondItemPrice" onaftersave="update(child.id, 'secondItemPrice', child.secondItemPrice)">{{ child.secondItemPrice || 'Enter a Value' }}</td>
+            <td class="col-md-3" editable-text="child.secondItemPrice" onbeforesave="checkData($data, 'price')" onaftersave="update(child.id, 'secondItemPrice', child.secondItemPrice)">{{ child.secondItemPrice || 'Enter a Value' }}</td>
           </tr>
 
           <tr>
@@ -85,11 +85,11 @@
 
           <tr>
             <td class="col-md-3">Age</td>
-            <td class="col-md-3" editable-text="child.age" onaftersave="update(child.id, 'age', child.age)">
+            <td class="col-md-3" editable-text="child.age" onbeforesave="checkData($data, 'age')" onaftersave="update(child.id, 'age', child.age)">
               {{ child.age || 'Enter a Value' }}
             </td>
             <td class="col-md-3">Item 3 Price</td>
-            <td class="col-md-3" editable-text="child.thirdItemPrice" onaftersave="update(child.id, 'thirdItemPrice', child.thirdItemPrice)">{{ child.thirdItemPrice || 'Enter a Value' }}</td>
+            <td class="col-md-3" editable-text="child.thirdItemPrice" onbeforesave="checkData($data, 'price')" onaftersave="update(child.id, 'thirdItemPrice', child.thirdItemPrice)">{{ child.thirdItemPrice || 'Enter a Value' }}</td>
           </tr>
 
           <tr>
