@@ -72,6 +72,7 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
   }
 
   $scope.issuePasswordReset = function(user){
+    user.waitPasswordReset = 1;
     $http({
       method: 'POST',
       url: '/auth/sendReset',
@@ -80,14 +81,17 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
         email: user.email
       }
     }).success(function(data, status){
+      user.waitPasswordReset = 2;
       console.log('Reset token sent');
     }).error(function(data, status){
+      user.waitPasswordReset = 3;
       console.log('Reset token not sent: Server Error');
     });
   };
 
   $scope.revokeAccess = function(user){
     var userType;
+    user.waitAccess = 1;
     switch($state.current.url){
       case '/help_desk':
         userType = 'helpDesk';
@@ -110,15 +114,18 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
         userType: userType
       }
     }).success(function(){
+      user.waitAccess = 2;
       console.log('User access revoked');
       user.hasAccess = false;
     }).error(function(){
+      user.waitAccess = 3;
       console.log('Something went wrong');
     })
   };
 
   $scope.grantAccess = function(user){
     var userType;
+    user.waitAccess = 1;
     switch($state.current.url){
       case '/help_desk':
         userType = 'helpDesk';
@@ -141,9 +148,11 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
         userType: userType
       }
     }).success(function(){
+      user.waitAccess = 2;
       console.log('User access granted');
       user.hasAccess = true;
     }).error(function(){
+      user.waitAccess = 3;
       console.log('Something went wrong');
     });
   };
@@ -432,6 +441,7 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
   }
 
   $scope.sendReset = function(userType, email){
+    $scope.waitSendPassword = 1;
     $http({
       method: 'POST',
       url: '/auth/sendReset',
@@ -448,20 +458,27 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
   }
 
   $scope.resetPassword = function(){
-    $http({
-      method: 'POST',
-      url: '/auth/resetPassword',
-      data: {
-        userType: $state.current.data.userType,
-        password: $scope.password,
-        resetToken: $stateParams.resetToken
-      }
-    }).success(function(data, status){
-      console.log('Password successfully reset, sending you to signin page');
-      $state.go($state.current.data.userType + '.signin');
-    }).error(function(data, status){
-      console.log('Password not reset: Server Error');
-    });
+    if($scope.password === $scope.passwordConfirmation){
+      $http({
+        method: 'POST',
+        url: '/auth/resetPassword',
+        data: {
+          userType: $state.current.data.userType,
+          password: $scope.password,
+          resetToken: $stateParams.resetToken
+        }
+      }).success(function(data, status){
+        console.log('Password successfully reset, sending you to signin page');
+        $state.go($state.current.data.userType + '.signin');
+      }).error(function(data, status){
+        console.log('Password not reset: Server Error');
+        $scope.error = 'User not found, try sending a new password reset';
+      });
+    } else {
+      $scope.password = '';
+      $scope.passwordConfirmation = '';
+      $scope.error = 'Password and Password Confirmation Didn\'t Match';
+    }
   }
 
 }])
