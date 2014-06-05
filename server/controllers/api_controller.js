@@ -160,11 +160,15 @@ module.exports.fetchChildWorker = function(req, res){
       res.send(404);
     } else {
       Staff.find({where: {id: child.staffId}}).success(function(worker){
-        worker.passwordHash = 'protected';
-        worker.sessionToken = 'protected';
-        worker.resetToken = 'protected';
-        worker.resetTokenSetTime = 'protected';
-        res.send(worker);
+        if(!worker){
+          res.send(404, 'Worker not found');
+        } else {
+          worker.passwordHash = 'protected';
+          worker.sessionToken = 'protected';
+          worker.resetToken = 'protected';
+          worker.resetTokenSetTime = 'protected';
+          res.send(worker);
+        }
       }).error(function(err){
         res.send(500);
       })
