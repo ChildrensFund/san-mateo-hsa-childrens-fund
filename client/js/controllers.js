@@ -340,6 +340,7 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
 
   $scope.signup = function(manual){
     $scope.error = null;
+    $scope.waitSignup = true;
     if($scope.password === $scope.passwordConfirmation){
       var userType, password, email, firstName, lastName;
       email = $scope.email;
@@ -356,25 +357,32 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
         password = $scope.password;
       }
       console.log(userType);
-      $http({
-        method: 'POST',
-        url: '/auth/signup',
-        data: {
-          firstName: firstName,
-          lastName: lastName,
-          userType: userType,
-          email: email,
-          password: password
-        }
-      }).success(function(data, status){
-        console.log('User Created!');
-        //If the user was manually added, we need to immediately fire a sendReset, which
-        //will allow the user to enter their own password
-        if(manual) $scope.sendReset(userType, email);
-      }).error(function(data, status){
-        console.log('User Not Created: Server Error');
-        $scope.error = 'E-mail address: ' + email + ' already in use';
-      })
+      if(!manual || (manual && firstName && lastName && email && userType)){ //If manual creation, we want to make sure all fields are filled
+        $http({
+          method: 'POST',
+          url: '/auth/signup',
+          data: {
+            firstName: firstName,
+            lastName: lastName,
+            userType: userType,
+            email: email,
+            password: password
+          }
+        }).success(function(data, status){
+          console.log('User Created!');
+          //If the user was manually added, we need to immediately fire a sendReset, which
+          //will allow the user to enter their own password
+          $scope.waitSignup = false;
+          if(manual) $scope.sendReset(userType, email);
+        }).error(function(data, status){
+          console.log('User Not Created: Server Error');
+          $scope.waitSignup = false;
+          $scope.error = 'E-mail address: ' + email + ' already in use';
+        })
+      } else { //If all fields are not filled, throw an error instead
+        $scope.error = 'Please fill all fields';
+        $scope.waitSignup = false;
+      }
     }
   };
 
