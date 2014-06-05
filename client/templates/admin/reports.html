@@ -1,6 +1,10 @@
 <h1>Generate Reports</h1>
 
-<div class="row" ng-submit="generateReport()">
+<div ng-show="generatingReport">
+  <h2>{{generateReportMessage}}</h2>
+</div>
+
+<div class="row" ng-hide="generatingReport" ng-submit="generateReport()">
   <div class="col-md-2">
     <form role="form" class="form">
       <label for="startDate">Start Date</label>

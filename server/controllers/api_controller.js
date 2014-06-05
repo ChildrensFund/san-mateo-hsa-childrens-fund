@@ -61,6 +61,10 @@ module.exports.fetchUsers = function(req, res){
   var sqlQuery;
   query ? sqlQuery = ["lastName LIKE '" + query + "%'"] : '';
 
+  if(User === Child){
+    sqlQuery = ['status=0'];
+  }
+
   User.findAndCountAll({
     where: sqlQuery,
     limit: 20,

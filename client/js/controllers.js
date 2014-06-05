@@ -132,6 +132,8 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
 
 .controller('adminController', ['$scope', '$http', '$state', '$location', function($scope, $http, $state, $location){
   
+  $scope.generatingReport;
+
   $scope.fetchAllChildren = function(page){
     var queryString = '';
     if($scope.userQuery){
@@ -266,6 +268,8 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
   };
 
   $scope.generateReport = function(){
+    $scope.generatingReport = true;
+    $scope.generateReportMessage = 'Creating Your Report';
     if($scope.startDate < $scope.endDate){
       $http({
         method: 'POST',
@@ -275,7 +279,7 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
           endDate: $scope.endDate
         }
       }).success(function(data){
-        console.log('Report generated');
+        $scope.generateReportMessage = 'Report Created, Downloading Now';
         window.location = '/api/download/' + data.filename;
       }).error(function(){
         console.log('Report not generated, server error');
