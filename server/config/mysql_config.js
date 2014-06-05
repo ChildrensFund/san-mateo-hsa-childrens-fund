@@ -9,7 +9,11 @@
 
 var output    = require( '../util/output.js' );
 var Sequelize = require('sequelize');
-var sequelize = new Sequelize( process.env.MYSQLCONNSTR_hsacfdb );
+if(process.env.MYSQLCONNSTR_hsacfdb){
+  var sequelize = new Sequelize( process.env.MYSQLCONNSTR_hsacfdb );
+} else {
+  var sequelize = new Sequelize( 'hsa_cf', 'hsa', '' );
+}
 
 var Child = sequelize.define('children', {
   firstName: Sequelize.STRING,
