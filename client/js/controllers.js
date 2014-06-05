@@ -494,11 +494,11 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
     $scope.page = pageNumber;
     restful.getWorkersChildren(pageNumber).then(function (promise) {
       if (promise) {
-        $scope.numChildren = promise.data.shift();
-        $scope.pages = [];
-        for(var i = 0; i < $scope.numChildren/20; i++){
-          $scope.pages.push(i + 1);
-        }
+        // $scope.numChildren = promise.data.shift();
+        // $scope.pages = [];
+        // for(var i = 0; i < $scope.numChildren/20; i++){
+        //   $scope.pages.push(i + 1);
+        // }
         $scope.children = promise.data;
         _.each($scope.children, function (val, ind, col) {
           if(val.dob) {
