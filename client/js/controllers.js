@@ -248,6 +248,7 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
     $scope.matchedWorkers = null;
     $scope.swapWorker = null;
     $scope.success = null;
+    $scope.swapWorkerForButton = null;
   };
 
   $scope.fetchWorker = function(){
@@ -288,8 +289,9 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
           }
         }
       }
-      $scope.modalWorker = null;
-      $scope.swapWorker = null;
+      $scope.tempWorkerForButton = $scope.swapWorker;
+      // $scope.modalWorker = null;
+      // $scope.swapWorker = null;
     }).error(function(err){
       console.log(err);
     })
