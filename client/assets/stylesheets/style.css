@@ -29,17 +29,6 @@ body {
   display: inline-block;
 }
 
-.pledgedText {
-  color: green;
-}
-.notPledgedText {
-  color: red;
-}
-
-.redBorder {
-  border: 1px solid red;
-}
-
 
 /* Input Verification Styles */
 .createChildTag input.ng-invalid, .pledge input.ng-invalid {

@@ -1,4 +1,4 @@
-<div style="max-width: 90%; 
+<div style="max-width: 70%; 
 margin-left: auto; 
 margin-right: auto;
 display:block;
@@ -18,14 +18,28 @@ display:block;
 
   <div 
     class="row" 
-    style="border: 3px solid lightgrey;
+    style="border: 3px solid #5cb85c;
            padding: 5px 0 5px 0;
            margin: 5px 5px 5px 5px;" 
     ng-repeat="child in children | orderBy:'createdAt' :true">
     <div class="col-md-2">
-      <img 
-      style="display: block; margin-left: auto; margin-right: auto; height: 200px" 
-      ng-src="http://localhost:4568/images/{{ child.image }}" alt="">
+      <div style="
+
+      ">
+        <img 
+        style="display:block;
+               margin-left: auto; 
+               margin-right: auto; 
+               height: 200px; 
+               border: 1px solid lightgrey;
+               padding: 5px 5px 5px 5px;
+               " 
+
+
+
+
+        ng-src="http://localhost:4568/images/{{ child.image }}"/>
+      </div>
     </div>
     <div 
     class="col-md-10" 
@@ -37,41 +51,31 @@ display:block;
       /*ˆstyle="border: 1px solid blue"*/ 
       >
         <div>
-          <h3 >{{ child.firstName }}, {{ child.age }}, of {{ child.location }}
+          <h3 style="color: #5cb85c">{{ child.firstName }}, {{ child.age }}<br/> of {{ child.location }}
             <br/>
             <div 
             style="
-            min-height: 100px;
+            min-height: 50px;
             "
             >
               <small>{{ child.bio }}</small>
             </div>
           </h3>
-        <div ng-controller="pledgeController">
-          <div
-          style="
-          center
-          "
-          >
-            <input 
-            ng-click="pledgeButton(child, $index)"
-            ui-sref="pledge"
-            type="button" 
-            value="Pledge"/>      
-          </div>
-        </div>
         </div>
       </div>
-
       <div 
-      class="col-md-5" 
+      class="col-md-6" 
       /*style="border: 1px solid blue"*/
       >
         <table class="table">
           <thead>
             <tr>
-              <th>Wishlist</th>
-              <th>Price</th>
+              <th
+              style="color: #5cb85c"
+              >Wishlist</th>
+              <th
+              style="color: #5cb85c"
+              >Price</th>
             </tr>
           </thead>
           <tbody>
@@ -89,12 +93,22 @@ display:block;
             </tr>
           </tbody>
         </table>
+          <div ng-controller="pledgeController">
+            <div
+            style="
+            text-align: center
+            "
+            >
+              <input 
+              style="width: 200px"
+              class="btn btn-success"
+              ng-click="pledgeButton(child, $index)"
+              ui-sref="pledge"
+              type="button" 
+              value="Pledge"/>      
+            </div>
+          </div>
       </div>
-      <div class="col-md-1"></div>
-
-  <div ng-hide="children">
-    <p class="center">no children data!</p>
-  </div>
   <div ng-hide="children">
     <p class="center">no children data!</p>
   </div>
