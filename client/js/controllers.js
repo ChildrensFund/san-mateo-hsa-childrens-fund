@@ -437,7 +437,8 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
         resetToken: $stateParams.resetToken
       }
     }).success(function(data, status){
-      console.log('Password successfully reset');
+      console.log('Password successfully reset, sending you to signin page');
+      $state.go($state.current.data.userType + '.signin');
     }).error(function(data, status){
       console.log('Password not reset: Server Error');
     });
