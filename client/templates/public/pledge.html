@@ -113,9 +113,9 @@
         <input type="radio" ng-model="donor.paymentMethod" value="items">I will be donating the requested items:<br/>
         <div>
         <ul>
-          <li>{{ currentChild.firstItemName }}</li>
-          <li>{{ currentChild.secondItemName }}</li>
-          <li>{{ currentChild.thirdItemName }}</li>
+          <li ng-show="currentChild.firstItemName">{{ currentChild.firstItemName }}</li>
+          <li ng-show="currentChild.secondItemName">{{ currentChild.secondItemName }}</li>
+          <li ng-show="currentChild.thirdItemName">{{ currentChild.thirdItemName }}</li>
         </ul>
         </div>
         <input type="radio" ng-model="donor.paymentMethod" value="cash">I will be donating cash for all of <strong>{{ currentChild.firstName }}</strong>'s items.<br/>
