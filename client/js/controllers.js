@@ -424,6 +424,7 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
       }
     }).success(function(data, status){
       console.log('Reset token sent');
+      $scope.status = 'Password reset sent to email: ' + $scope.email;
     }).error(function(data, status){
       console.log('Reset token not sent: Server Error');
     });
