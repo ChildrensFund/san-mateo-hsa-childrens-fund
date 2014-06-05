@@ -100,16 +100,18 @@ module.exports.fetchUsers = function(req, res){
       array = Sequelize.Utils._.map(results.rows, function(child){
         return {
           id: child.id,
-          image: child.image,
+          cfid: child.cfid,
+          phone: child.phone,
+          gender: child.gender,
+          age: child.age,
+          location: child.location,
+          programArea: child.programArea,
           createdAt: child.createdAt,
           firstName: child.firstName,
+          lastName: child.lastName,
           bio: child.bio,
-          firstItemPrice: child.firstItemPrice,
-          firstItemName: child.firstItemName,
-          secondItemPrice: child.secondItemPrice,
-          secondItemName: child.secondItemName,
-          thirdItemPrice: child.thirdItemPrice,
-          thirdItemName: child.thirdItemName
+          status: child.status,
+          hsaStatus: child.hsaStatus
         }
       })
     }
