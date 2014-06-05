@@ -56,3 +56,8 @@ body {
 #internal-navigation a{
   color: black;
 }
+
+.logo {
+  width: 90%;
+  height: auto;
+}
