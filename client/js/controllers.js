@@ -549,12 +549,14 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
 
   $scope.unpledge = function (id, confirm) {
     if (confirm === 'delete' || confirm === 'DELETE') {
+      $scope.waitDelete = 1;
       postObj = {};
       postObj.donorId = null;
       postObj.status = 0;
       postObj.id = id;
       restful.updateChild(postObj).then(function (promise) {
         if (promise) {
+          $scope.waitDelete = 2;
           $scope.get();
         }
       });
