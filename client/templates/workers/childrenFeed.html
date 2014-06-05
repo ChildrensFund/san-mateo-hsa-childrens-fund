@@ -38,164 +38,163 @@
             <img style="height: 200px" ng-src="http://localhost:4568/images/{{ child.image }}" alt="{{ child.firstName }}">
             <div ng-controller="imageController" style="border: 1px solid lightgrey; border-radius: 2px">
             <div ng-hide="child.image">
-              Please Upload a Photo for {{ child.firstName }}
+              Please Upload a Photo
             </div>
             <div ng-show="child.image">
-              Click to Change {{ child.firstName }}'s Photo
+              Click to Change Photo
             </div>
               <input type="file" accept="image/*" ng-file-select="onFileSelect($files)">
               <div ng-show="file">
                 <input type="button" ng-click="updatePhoto(child.id)" value="Update Photo">
               </div>
             </div>
-          </div>
-        <div class="col-md-4"></div>
-          <thead>
-            <tr>
-              <th>Field</th>
-              <th>Value (Click to edit)</th>
-              <th>Field</th>
-              <th>Value (Click to edit)</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="col-md-3">First Name</td>
-              <td class="col-md-3" editable-text="child.firstName" onbeforesave="checkData($data, 'firstName')" onaftersave="update(child.id, 'firstName', child.firstName)">
-                {{ child.firstName || 'Enter a Value' }}
-              </td>
-              <td class="col-md-3">Item 1 Name</td>
-              <td class="col-md-3" editable-text="child.firstItemName" onaftersave="update(child.id, 'firstItemName', child.firstItemName)">{{ child.firstItemName || 'Enter a Value' }}</td>
-            </tr>
+          <div class="col-md-4"></div>
+            <thead>
+              <tr>
+                <th>Field</th>
+                <th>Value (Click to edit)</th>
+                <th>Field</th>
+                <th>Value (Click to edit)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="col-md-3">First Name</td>
+                <td class="col-md-3" editable-text="child.firstName" onbeforesave="checkData($data, 'firstName')" onaftersave="update(child.id, 'firstName', child.firstName)">
+                  {{ child.firstName || 'Enter a Value' }}
+                </td>
+                <td class="col-md-3">Item 1 Name</td>
+                <td class="col-md-3" editable-text="child.firstItemName" onaftersave="update(child.id, 'firstItemName', child.firstItemName)">{{ child.firstItemName || 'Enter a Value' }}</td>
+              </tr>
 
-            <tr>
-              <td class="col-md-3">Last Name</td>
-              <td class="col-md-3" editable-text="child.lastName" onbeforesave="checkData($data, 'lastName')" onaftersave="update(child.id, 'lastName', child.lastName)">
-                {{ child.lastName || 'Enter a Value' }}
-              </td>
-              <td class="col-md-3">Item 1 Price</td>
-              <td class="col-md-3" editable-text="child.firstItemPrice" onbeforesave="checkData($data, 'price')" onaftersave="update(child.id, 'firstItemPrice', child.firstItemPrice)">{{ child.firstItemPrice || 'Enter a Value' }}</td>
-            </tr>
+              <tr>
+                <td class="col-md-3">Last Name</td>
+                <td class="col-md-3" editable-text="child.lastName" onbeforesave="checkData($data, 'lastName')" onaftersave="update(child.id, 'lastName', child.lastName)">
+                  {{ child.lastName || 'Enter a Value' }}
+                </td>
+                <td class="col-md-3">Item 1 Price</td>
+                <td class="col-md-3" editable-text="child.firstItemPrice" onbeforesave="checkData($data, 'price')" onaftersave="update(child.id, 'firstItemPrice', child.firstItemPrice)">{{ child.firstItemPrice || 'Enter a Value' }}</td>
+              </tr>
 
 
-            <tr>
-              <td class="col-md-3">Phone</td>
-              <td class="col-md-3" editable-text="child.phone" onaftersave="update(child.id, 'phone', child.phone)">
-                {{ child.phone || 'Enter a Value' }}
-              </td>
-              <td class="col-md-3">Item 2 Name</td>
-              <td class="col-md-3" editable-text="child.secondItemName" onaftersave="update(child.id, 'secondItemName', child.secondItemName)">{{ child.secondItemName || 'Enter a Value' }}
-              </td>
-            </tr>
+              <tr>
+                <td class="col-md-3">Phone</td>
+                <td class="col-md-3" editable-text="child.phone" onaftersave="update(child.id, 'phone', child.phone)">
+                  {{ child.phone || 'Enter a Value' }}
+                </td>
+                <td class="col-md-3">Item 2 Name</td>
+                <td class="col-md-3" editable-text="child.secondItemName" onaftersave="update(child.id, 'secondItemName', child.secondItemName)">{{ child.secondItemName || 'Enter a Value' }}
+                </td>
+              </tr>
 
-            <tr>
-              <td class="col-md-3">Gender</td>
-              <td class="col-md-3" editable-select="child.gender" e-ng-options="s.value as s.text for s in genders" onaftersave="update(child.id, 'gender', child.gender)">
-                {{ child.gender || 'Enter a Value' }}
-              </td>
-              <td class="col-md-3">Item 2 Price</td>
-              <td class="col-md-3" editable-text="child.secondItemPrice" onbeforesave="checkData($data, 'price')" onaftersave="update(child.id, 'secondItemPrice', child.secondItemPrice)">{{ child.secondItemPrice || 'Enter a Value' }}</td>
-            </tr>
+              <tr>
+                <td class="col-md-3">Gender</td>
+                <td class="col-md-3" editable-select="child.gender" e-ng-options="s.value as s.text for s in genders" onaftersave="update(child.id, 'gender', child.gender)">
+                  {{ child.gender || 'Enter a Value' }}
+                </td>
+                <td class="col-md-3">Item 2 Price</td>
+                <td class="col-md-3" editable-text="child.secondItemPrice" onbeforesave="checkData($data, 'price')" onaftersave="update(child.id, 'secondItemPrice', child.secondItemPrice)">{{ child.secondItemPrice || 'Enter a Value' }}</td>
+              </tr>
 
-            <tr>
-              <td class="col-md-3">Date of Birth</td>
-              <td class="col-md-3" editable-date="child.dob" onaftersave="update(child.id, 'dob', child.dob)">
-                {{ child.dob || 'Enter a Value' }}
-              </td>
-              <td class="col-md-3">Item 3 Name</td>
-              <td class="col-md-3" editable-text="child.thirdItemName" onaftersave="update(child.id, 'thirdItemName', child.thirdItemName)">{{ child.thirdItemName || 'Enter a Value' }}
-              </td>
-            </tr>
+              <tr>
+                <td class="col-md-3">Date of Birth</td>
+                <td class="col-md-3" editable-date="child.dob" onaftersave="update(child.id, 'dob', child.dob)">
+                  {{ child.dob || 'Enter a Value' }}
+                </td>
+                <td class="col-md-3">Item 3 Name</td>
+                <td class="col-md-3" editable-text="child.thirdItemName" onaftersave="update(child.id, 'thirdItemName', child.thirdItemName)">{{ child.thirdItemName || 'Enter a Value' }}
+                </td>
+              </tr>
 
-            <tr>
-              <td class="col-md-3">Age</td>
-              <td class="col-md-3" editable-text="child.age" onbeforesave="checkData($data, 'age')" onaftersave="update(child.id, 'age', child.age)">
-                {{ child.age || 'Enter a Value' }}
-              </td>
-              <td class="col-md-3">Item 3 Price</td>
-              <td class="col-md-3" editable-text="child.thirdItemPrice" onbeforesave="checkData($data, 'price')" onaftersave="update(child.id, 'thirdItemPrice', child.thirdItemPrice)">{{ child.thirdItemPrice || 'Enter a Value' }}</td>
-            </tr>
+              <tr>
+                <td class="col-md-3">Age</td>
+                <td class="col-md-3" editable-text="child.age" onbeforesave="checkData($data, 'age')" onaftersave="update(child.id, 'age', child.age)">
+                  {{ child.age || 'Enter a Value' }}
+                </td>
+                <td class="col-md-3">Item 3 Price</td>
+                <td class="col-md-3" editable-text="child.thirdItemPrice" onbeforesave="checkData($data, 'price')" onaftersave="update(child.id, 'thirdItemPrice', child.thirdItemPrice)">{{ child.thirdItemPrice || 'Enter a Value' }}</td>
+              </tr>
 
-            <tr>
-              <td class="col-md-3">Location</td>
-              <td class="col-md-3" editable-text="child.location" onaftersave="update(child.id, 'location', child.location)">
-                {{ child.location || 'Enter a Value' }}
-              </td>
-              <td class="col-md-3">Status</td>
-              <!-- Not Pledged -->
-              <td class="col-md-3"
-              class="notPledgedText" 
-              ng-hide="child.status">
-              Not pledged
-              </td>
-              <!-- Pledged -->
-              <td class="col-md-3"
-              class="pledgedText" 
-              ng-show="child.status">
-                Pledged
-                <!-- Undo Pledge -->
-                <!-- Button trigger modal -->
-                <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal">
-                  Unpledge
-                </button>
-                <!-- /Undo Pledge -->
-              </td>
-            </tr>
+              <tr>
+                <td class="col-md-3">Location</td>
+                <td class="col-md-3" editable-text="child.location" onaftersave="update(child.id, 'location', child.location)">
+                  {{ child.location || 'Enter a Value' }}
+                </td>
+                <td class="col-md-3">Status</td>
+                <!-- Not Pledged -->
+                <td class="col-md-3"
+                class="notPledgedText" 
+                ng-hide="child.status">
+                Not pledged
+                </td>
+                <!-- Pledged -->
+                <td class="col-md-3"
+                class="pledgedText" 
+                ng-show="child.status">
+                  Pledged
+                  <!-- Undo Pledge -->
+                  <!-- Button trigger modal -->
+                  <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal">
+                    Unpledge
+                  </button>
+                  <!-- /Undo Pledge -->
+                </td>
+              </tr>
 
-            <tr>
-              <td class="col-md-3">Program Area</td>
-              <td class="col-md-3" editable-text="child.programArea" onaftersave="update(child.id, 'programArea', child.programArea)">
-                {{ child.programArea || 'Enter a Value' }}
-              </td>
-                          <td class="col-md-3" ng-show="!child.status"></td>
-              <td class="col-md-3" ng-show="!child.status"></td>
-              <td class="col-md-3" ng-show="child.status">
-                HSA Status
-              </td>
-              <td class="col-md-3" ng-show="child.status">
-                <select class="form-control" ng-model="hsaStatusModel" ng-change="update(child.id, 'hsaStatus', hsaStatusModel)">
-                  <option value="0" ng-selected="child.hsaStatus === 0">Not Received</option>
-                  <option value="1" ng-selected="child.hsaStatus === 1">Received</option>
-                  <option value="2" ng-selected="child.hsaStatus === 2">Complete</option>
-                </select>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="center">
-          <h4>
-          {{ child.firstName }}'s Bio
-          </h4>
-          <p editable-text="child.bio" onaftersave="update(child.id, 'bio', child.bio)">(Click to edit) <br/> {{ child.bio }}</p>
-        </div>
-      </div>
-
-      <!-- Modal -->
-      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h4 class="modal-title" id="myModalLabel">Are you sure?</h4>
-            </div>
-            <div class="modal-body">
-              This action will <strong>delete</strong> {{ child.firstName }} {{ child.lastName }}'s current donor and add him/her back to the home page.
-              <br/>
-              <br/>
-              If you're sure, please type DELETE into the box below, and click Delete.
-              <input type="text" name="delete" ng-model="deleteConfirm" placeholder="DELETE"/>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="button" class="deleteBtn btn btn-danger" ng-click="unpledge(child, deleteConfirm)" ng-show="!(child.waitDelete)" ng-disabled="child.waitDelete === 1">Delete</button>
-              <button class="deleteBtn btn btn-success" ng-show="child.waitDelete === 2" data-dismiss="modal">Donor Removed</button>
-          <!--     <button ng- type="button" data-dismiss="modal">Exit</button> -->
-            </div>
+              <tr>
+                <td class="col-md-3">Program Area</td>
+                <td class="col-md-3" editable-text="child.programArea" onaftersave="update(child.id, 'programArea', child.programArea)">
+                  {{ child.programArea || 'Enter a Value' }}
+                </td>
+                            <td class="col-md-3" ng-show="!child.status"></td>
+                <td class="col-md-3" ng-show="!child.status"></td>
+                <td class="col-md-3" ng-show="child.status">
+                  HSA Status
+                </td>
+                <td class="col-md-3" ng-show="child.status">
+                  <select class="form-control" ng-model="hsaStatusModel" ng-change="update(child.id, 'hsaStatus', hsaStatusModel)">
+                    <option value="0" ng-selected="child.hsaStatus === 0">Not Received</option>
+                    <option value="1" ng-selected="child.hsaStatus === 1">Received</option>
+                    <option value="2" ng-selected="child.hsaStatus === 2">Complete</option>
+                  </select>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="center">
+            <h4>
+            {{ child.firstName }}'s Bio
+            </h4>
+            <p editable-text="child.bio" onaftersave="update(child.id, 'bio', child.bio)">(Click to edit) <br/> {{ child.bio }}</p>
           </div>
         </div>
-      </div>
 
-    </div>
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Are you sure?</h4>
+              </div>
+              <div class="modal-body">
+                This action will <strong>delete</strong> {{ child.firstName }} {{ child.lastName }}'s current donor and add him/her back to the home page.
+                <br/>
+                <br/>
+                If you're sure, please type DELETE into the box below, and click Delete.
+                <input type="text" name="delete" ng-model="deleteConfirm" placeholder="DELETE"/>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="deleteBtn btn btn-danger" ng-click="unpledge(child, deleteConfirm)" ng-show="!(child.waitDelete)" ng-disabled="child.waitDelete === 1">Delete</button>
+                <button class="deleteBtn btn btn-success" ng-show="child.waitDelete === 2" data-dismiss="modal">Donor Removed</button>
+            <!--     <button ng- type="button" data-dismiss="modal">Exit</button> -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
 
   </div>
 

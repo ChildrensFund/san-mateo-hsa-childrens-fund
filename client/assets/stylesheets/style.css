@@ -64,13 +64,6 @@
   padding-top: 60px;
 }
 
-/* Input Verification Styles */
-.createChildTag input.ng-invalid, .pledge input.ng-invalid {
-  border: 1px solid red;
-}
-.createChildTag input.ng-valid, .pledge input.ng-valid {
-  border: 1px solid green;
-
 /* Admin Dashboard Styles */
 #internal-navigation{
 

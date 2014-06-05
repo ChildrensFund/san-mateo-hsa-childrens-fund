@@ -709,6 +709,21 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
   };
 
   $scope.uploadImageThenCreateChild = function () {
+    if (
+      !$scope.$parent.tempChildObj.firstName ||
+      !$scope.$parent.tempChildObj.lastName ||
+      !$scope.$parent.tempChildObj.gender ||
+      $scope.$parent.tempChildObj.gender !== '' ||
+      !$scope.$parent.tempChildObj.dob ||
+      !$scope.$parent.tempChildObj.age ||
+      !$scope.$parent.tempChildObj.location ||
+      !$scope.$parent.tempChildObj.programArea ||
+      !$scope.$parent.tempChildObj.bio ||
+      !$scope.$parent.tempChildObj.firstItemName ||
+      !$scope.$parent.tempChildObj.firstItemPrice 
+    )
+      {return;}
+
     if ($scope.file) {
       $scope.$parent.tempChildObj.image = '';
       $scope.$parent.tempChildObj.image += randNum();
