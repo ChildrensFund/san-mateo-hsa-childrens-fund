@@ -1,5 +1,5 @@
 <h1>Create New User</h1>
-<h2 ng-show="error">{{error}}</h2>
+<div class="alert alert-danger" ng-show="error">{{error}}</div>
 <form ng-submit="signup(true)" ng-hide="submitting" class="form-inline">
   <select name="select" ng-model="userType" class="form-control">
     <option value="workers">Worker</option> 

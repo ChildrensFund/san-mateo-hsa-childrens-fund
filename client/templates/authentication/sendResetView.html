@@ -1,6 +1,6 @@
 <h1>{{userHeader}} Send Password Reset</h1>
 
-<h3 ng-show="status">{{status}}</h3>
+<div class="alert alert-info" ng-show="status">{{status}}</div>
 
 <form ng-submit="sendReset()" ng-hide="status">
   <input placeholder="email address" type="email" ng-model="email">
