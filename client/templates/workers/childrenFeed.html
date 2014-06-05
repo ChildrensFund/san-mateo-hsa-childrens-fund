@@ -1,11 +1,26 @@
 <div>
   <h2 class="center">Children</h2>
 
-<!-- 
-  Add child images!!!
- -->
+<!-- search for children -->
+<div style="display: table; margin: 0 auto;">
+  <div class="panel panel-default" style="display:inline-block;">
+    <div class="panel-body">
+      <form class="form-inline" role="form">
+        <div class="form-group">
+          <input class="form-control" style="width: 200px" ng-model="search.$" placeholder="Search First/Last Name"/>
+        </div>
+        <div class="checkbox">
+            <input type="checkbox" ng-model="search.status" ng-true-value="1" ng-false-value="">Pledged
+        </div>
+        <div class="checkbox">
+            <input type="checkbox" ng-model="search.hsaStatus" ng-true-value="1" ng-false-value="">HSA Received
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
-  <div class="box lg" ng-repeat="child in children | orderBy:'createdAt' :true">
+  <div class="box lg" ng-repeat="child in children | orderBy:'createdAt' :true | filter:search:strict">
 
     <div>
       <table class="table table-condensed table-striped">
