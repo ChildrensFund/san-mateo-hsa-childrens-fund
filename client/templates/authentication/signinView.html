@@ -1,11 +1,21 @@
-<h1>{{userHeader}} Signin</h1>
+<div class="container">
 
-<form ng-submit="signin()">
-  <input placeholder="email address" type="email" ng-model="email">
-  <input placeholder="password" type="password" ng-model="password">
-  <input type="submit">
-</form>
+  <div class="col-md-4"></div>
+  <div class="col-md-4 auth-box">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h1 class="panel-title">{{userHeader}} Signin</h1>
+      </div>
+      <form ng-submit="signin()" >
+        <input placeholder="email address" type="email" ng-model="email" class="form-control">
+        <input placeholder="password" type="password" ng-model="password" class="form-control">
+        <input type="submit" class="form-control btn-primary">
+      </form>
+    </div>
 
-<a ui-sref="workers.sendReset" ng-show="stateUserType === 'workers'">Forgot Password?</a>
-<a ui-sref="admin.sendReset" ng-show="stateUserType === 'admin'">Forgot Password?</a>
-<a ui-sref="helpDesk.sendReset" ng-show="stateUserType === 'helpDesk'">Forgot Password?</a>
+    <a ui-sref="workers.sendReset" ng-show="stateUserType === 'workers'">Forgot Password?</a>
+    <a ui-sref="admin.sendReset" ng-show="stateUserType === 'admin'">Forgot Password?</a>
+    <a ui-sref="helpDesk.sendReset" ng-show="stateUserType === 'helpDesk'">Forgot Password?</a>
+  </div>
+  <div class="col-md-4"></div>
+</div>

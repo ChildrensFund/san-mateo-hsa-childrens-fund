@@ -1,8 +1,19 @@
-<h1>{{userHeader}} Send Password Reset</h1>
+<div class="container">
 
-<div class="alert alert-info" ng-show="status">{{status}}</div>
+  <div class="col-md-4"></div>
+  <div class="col-md-4 auth-box">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h1 class="panel-title">{{userHeader}} Send Password Reset</h1>
+      </div>
 
-<form ng-submit="sendReset()" ng-hide="status">
-  <input placeholder="email address" type="email" ng-model="email">
-  <input type="submit" ng-disabled="waitSendPassword === 1">
-</form>
+      <div class="alert alert-info" ng-show="status">{{status}}</div>
+      <form ng-submit="sendReset()">
+        <input placeholder="email address" type="email" ng-model="email" class="form-control">
+        <input type="submit" ng-disabled="waitSendPassword === 1" class="form-control btn-primary">
+      </form>
+    </div>
+  </div>
+  <div class="col-md-4"></div>
+
+</div>

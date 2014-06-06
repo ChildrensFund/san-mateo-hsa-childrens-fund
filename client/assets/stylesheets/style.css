@@ -86,3 +86,18 @@
   width: 90%;
   height: auto;
 }
+
+/* Authentication Styles */
+.auth-box {
+  margin-top: 100px;
+}
+
+.auth-box .form-control{
+  margin: 10px;
+  width: 95%;
+}
+
+.auth-box .alert{
+  margin: 10px;
+  width: 95%;
+}
