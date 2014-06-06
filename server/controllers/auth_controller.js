@@ -186,23 +186,25 @@ module.exports.sendReset = function(request, response){
           console.log('resetToken saved successfully');
           console.log('Complete: resetToken is:', hash);
 
-          var htmlString;
+          var htmlString = '<p>We received a request to reset the password for your account.</p><p>If you made this request, use the following link to reset your password:</p>';
           switch(userType){
             case 'workers':
-              htmlString = '<a href="http://localhost:4568/workers/reset_password/' + hash + '">Reset Link</a>';
+              htmlString += '<a href="http://localhost:4568/workers/reset_password/' + hash + '">Password Reset Link</a>';
               break;
             case 'admin':
-              htmlString = '<a href="http://localhost:4568/admin/reset_password/' + hash + '">Reset Link</a>';
+              htmlString += '<a href="http://localhost:4568/admin/reset_password/' + hash + '">Reset Link</a>';
               break;
             case 'helpDesk':
-              htmlString = '<a href="http://localhost:4568/help_desk/reset_password/' + hash + '">Reset Link</a>';
+              htmlString += '<a href="http://localhost:4568/help_desk/reset_password/' + hash + '">Reset Link</a>';
               break;
           }
 
+          htmlString += '<p>If you didn\'t make this request, you can safely ignore this email.';
+
           var message = {
-            from: 'HSA CF TEST <hsacf@example.com>',
+            from: 'San Mateo Children\'s Fund <childrensfund@smchsa.org>',
             to: '"" <' + user.email + ' >',
-            subject: 'HSA CF TEST Password Reset',
+            subject: 'San Mateo Children\'s Fund: Password Reset',
             html: htmlString
           };
 

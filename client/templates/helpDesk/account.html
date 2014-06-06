@@ -1,8 +1,19 @@
-<button ui-sref="helpDesk.account.accountManagement.create" class="btn btn-primary">Add New User</button>
-<button ui-sref="helpDesk.account.accountManagement.workers" class="btn btn-primary">Show Workers</button>
-<button ui-sref="helpDesk.account.accountManagement.admin" class="btn btn-primary">Show Admin</button>
-<button ui-sref="helpDesk.account.accountManagement.helpDesk" class="btn btn-primary">Show Help Desk Users</button>
+<nav class="navbar navbar-default navbar-fixed-top" id="internal-navigation" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <a href="#" class="navbar-brand">Help Desk Dashboard</a>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a ui-sref="helpDesk.account.accountManagement.create">Add New User</a></li>
+        <li><a ui-sref="helpDesk.account.accountManagement.workers">Show Worker Accounts</a></li>
+        <li><a ui-sref="helpDesk.account.accountManagement.admin">Show Admin Accounts</a></li>
+        <li><a ui-sref="helpDesk.account.accountManagement.helpDesk">Show Help Desk Accounts</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
 
- <div class="container navbar-padding">
+<div class="container navbar-padding">
   <div ui-view></div>
- </div>
+</div>
