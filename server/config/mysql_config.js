@@ -10,7 +10,7 @@ var output    = require( '../util/output.js' );
 var Sequelize = require( 'sequelize' );
 var sequelize;
 
-if ( process.env ) {
+if ( process.env.PORT ) {
   var parseData   = function( id ) {
     var _AzureDB    = process.env['MYSQLCONNSTR_hsa-cf-db'];
     var itr         = (_AzureDB.indexOf( id )) + id.length;
