@@ -94,6 +94,10 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
         templateUrl: '/templates/authentication/resetPasswordView.html',
         controller: 'authController'
       })
+      .state('workers.signout', {
+        template: '<ui-view/>',
+        controller: 'signoutController'
+      })
     //################## Admin ROUTES #####################
     .state('admin', {
       abstract: true,
@@ -252,6 +256,10 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider){
         url: '/help_desk/reset_password/:resetToken',
         templateUrl: '/templates/authentication/resetPasswordView.html',
         controller: 'authController'
+      })
+      .state('helpDesk.signout', {
+        template: '<ui-view/>',
+        controller: 'signoutController'
       })
 
 });
