@@ -5,6 +5,10 @@
   <input type="submit" class="btn btn-primary">
 </form>
 
+<form class="form-inline">
+  <input ng-show="!workerPage" ng-model="query" class="form-control" placeholder="Smart Search"/>
+</form>
+
 <ul class="pagination" ng-show="pages && pages.length > 1">
   <li ng-class="page === 1 ? 'disabled' : ''"><a href="#" ng-click="(page - 1) > 0 && fetchUsers(page - 1)">&laquo;</a></li>
   <li ng-repeat="pageNumber in pages" ng-click="fetchUsers(pageNumber)" ng-class="page === pageNumber ? 'active': ''"><a href="#">{{pageNumber}}</a></li>
@@ -13,7 +17,7 @@
 
 <table class="table table-striped">
   <tr><th>User ID</th><th>Email</th><th>Privileges</th><th>Send Reset Email</th></tr>
-  <tr ng-repeat="user in users"><td>{{ user.id }}</td><td>{{ user.email }}</td>
+  <tr ng-repeat="user in users | filter:query"><td>{{ user.id }}</td><td>{{ user.email }}</td>
     <td>
       <button class="btn btn-primary" ng-click="grantAccess(user)" ng-hide="user.hasAccess" ng-disabled="user.waitAccess === 1">Grant Access</button>
       <button class="btn btn-danger" ng-click="revokeAccess(user)" ng-show="user.hasAccess" ng-disabled="user.waitAccess === 1">Revoke Access</button>

@@ -423,6 +423,7 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
           // $state.go(userType + '.account');
         // }, 500);
       }).error(function(data){
+        $scope.error = 'Incorrect Username or Password';
         console.log('User not signed in: Server Error');
       });
     }
@@ -465,8 +466,11 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
       }
     }).success(function(data, status){
       console.log('Reset token sent');
+      $scope.error = '';
       $scope.status = 'Password reset sent to email: ' + $scope.email;
     }).error(function(data, status){
+      $scope.error = 'Email not found'
+      $scope.waitSendPassword = 0;
       console.log('Reset token not sent: Server Error');
     });
   }
@@ -486,7 +490,7 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
         $state.go($state.current.data.userType + '.signin');
       }).error(function(data, status){
         console.log('Password not reset: Server Error');
-        $scope.error = 'User not found, try sending a new password reset';
+        $scope.error = 'We couldn\'t find your account. This can happen if you used an old password reset link. Check your email for a newer password reset email or contact the help desk.';
       });
     } else {
       $scope.password = '';
