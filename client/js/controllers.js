@@ -608,7 +608,8 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
     postObj[key] = value;
     restful.updateChild(postObj).then(function (promise) {
       if (promise) {
-        $scope.get();
+        // $scope.get();
+        console.log('update success!');
       }
     });
   };
