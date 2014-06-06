@@ -8,6 +8,7 @@
       </div>
 
       <div class="alert alert-info" ng-show="status">{{status}}</div>
+      <div class="alert alert-danger" ng-show="error">{{error}}</div>
       <form ng-submit="sendReset()">
         <input placeholder="email address" type="email" ng-model="email" class="form-control">
         <input type="submit" ng-disabled="waitSendPassword === 1" class="form-control btn-primary">

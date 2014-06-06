@@ -6,6 +6,9 @@
       <div class="panel-heading">
         <div class="panel-title">{{userHeader}} Signin</div>
       </div>
+
+      <div class="alert alert-info" ng-show="status">{{status}}</div>
+      <div class="alert alert-danger" ng-show="error">{{error}}</div>
       <form ng-submit="signin()" >
         <input placeholder="email address" type="email" ng-model="email" class="form-control">
         <input placeholder="password" type="password" ng-model="password" class="form-control">
