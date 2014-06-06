@@ -165,8 +165,26 @@
               <tr>
                 <td>CFID</td>
                 <td>{{child.cfid}}</td>
-                <td></td>
-                <td></td>
+                <td ng-if="child.status === 0"></td>
+                <td ng-if="child.status === 0"></td>
+                <td ng-if="child.status > 0">
+                  <button class="btn btn-success btn-sm" ng-click="getChildsDonor(child.id)">
+                    See Donor
+                  </button>
+                </td>
+                <td ng-if="!childsDonor"></td>
+                <td ng-if="child.status > 0 && childsDonor">
+                  {{ childsDonor.firstName }} {{ childsDonor.lastName }} <br/>
+                  Phone: {{ childsDonor.phone }} <br/>
+                  Email: {{ childsDonor.email }} <br/>
+                  {{ childsDonor.address1 }} <br/>
+                  <div ng-show="childsDonor.address2">
+                    {{ childsDonor.address2 }} <br/>
+                  </div>
+                  {{ childsDonor.city }}, {{ childsDonor.state }} {{ childsDonor.zip }} <br/>
+                  Donation Method: {{ childsDonor.paymentMethod }} <br/>
+                  Donation Time: {{ childsDonor.createdAt | date:'short' }}
+                </td>
               </tr>
             </tbody>
           </table>

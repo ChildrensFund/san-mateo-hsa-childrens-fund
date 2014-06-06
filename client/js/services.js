@@ -81,6 +81,18 @@ app.factory('restful', ['$http', '$cookies', function ($http, $cookies) {
       });
     },
 
+    getChildsDonor: function (id) {
+      return $http({
+        method: 'GET',
+        url: '/api/children/' + id + '/donor'
+      }).success(function (data, status) {
+        console.log('(getChildsDonor) GET Success! ', data);
+        return data;
+      }).error(function (data, status) {
+        console.log('(getChildsDonor) GET Error! ', data, status);
+      });
+    },
+
     postDonor: function (postObj) {
       return $http({
         method: 'POST',

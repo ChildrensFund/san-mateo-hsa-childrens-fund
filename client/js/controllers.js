@@ -607,6 +607,15 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
     });
   };
 
+  $scope.getChildsDonor = function (id) {
+    $scope.childsDonor = {};
+    restful.getChildsDonor(id).then(function (promise) {
+      if (promise) {
+        $scope.childsDonor = promise.data;
+      }
+    })
+  };
+
   $scope.update = function (id, key, value) {
     value = sanitize.update(key, value);
     postObj = {};
@@ -614,7 +623,6 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
     postObj[key] = value;
     restful.updateChild(postObj).then(function (promise) {
       if (promise) {
-        // $scope.get();
         console.log('update success!');
       }
     });
