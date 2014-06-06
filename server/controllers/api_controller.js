@@ -81,7 +81,6 @@ module.exports.fetchUsers = function(req, res){
           image: child.image,
           createdAt: child.createdAt,
           firstName: child.firstName,
-          lastName: child.lastName,
           location: child.location,
           status: child.status,
           cfid: child.cfid,
