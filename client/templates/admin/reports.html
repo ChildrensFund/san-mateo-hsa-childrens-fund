@@ -1,17 +1,16 @@
 <h1>Generate Reports</h1>
 
 <div class="alert alert-info" ng-show="generatingReport">{{generateReportMessage}}</div>
-
 <div class="alert alert-danger" ng-show="error">{{error}}</div>
 
 <div class="row" ng-hide="generatingReport" ng-submit="generateReport()">
-  <div class="col-md-2">
+  <div class="col-md-3 panel panel-default reports">
     <form role="form" class="form">
       <label for="startDate">Start Date</label>
       <input type="date" class="form-control" id="startDate" ng-model="startDate">
       <label for="endDate">End Date</label>
       <input type="date" class="form-control" id="endDate" ng-model="endDate">
-      <input type="submit" class="btn btn-primary">
+      <input type="submit" class="form-control btn-primary">
     </form>
   </div>
 </div>

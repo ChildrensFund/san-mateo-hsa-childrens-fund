@@ -87,6 +87,18 @@
   height: auto;
 }
 
+.reports {
+  margin-left: 15px;
+}
+
+.reports form{
+  margin: 10px;
+}
+
+.reports .form-control{
+  margin-bottom: 15px;
+}
+
 /* Authentication Styles */
 .auth-box {
   margin-top: 100px;
