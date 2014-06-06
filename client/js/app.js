@@ -1,4 +1,4 @@
-var app = angular.module('childrensFund', ['ui.router', 'ngCookies', 'xeditable', 'angularFileUpload'])
+var app = angular.module('childrensFund', ['ui.router', 'ngCookies', 'xeditable', 'angularFileUpload', 'ui.bootstrap'])
 
 app.run(function (editableOptions) {
   editableOptions.theme = 'bs3';
