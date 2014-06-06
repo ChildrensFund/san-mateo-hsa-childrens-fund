@@ -314,7 +314,7 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
         window.location = '/api/download/' + data.filename;
       }).error(function(){
         $scope.generateReportMessage = null;
-        $scope.error = 'Something went wrong, try refreshing the page and submitting a new request'
+        $scope.error = 'Something went wrong, try refreshing the page and submitting a new request';
         console.log('Report not generated, server error');
       });
     } else {
