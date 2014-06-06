@@ -83,6 +83,7 @@ module.exports.fetchUsers = function(req, res){
           firstName: child.firstName,
           location: child.location,
           status: child.status,
+          cfid: child.cfid,
           age: child.age,
           bio: child.bio,
           firstItemPrice: child.firstItemPrice,

@@ -2,8 +2,11 @@
   <h2 class="center">
     Donation submission for {{ currentChild.firstName }} from {{ currentChild.location }}
   </h2>
-
-
+  <div ng-show="confirmation">
+     <div class="alert alert-success">
+        Your donation request has been submitted!  Please record your confirmation key as it will be used for your tax-benefit: <strong>{{ currentChild.cfid }}</strong> Please check your email for further instructions.  <a ui-sref="root">Click here to return home</a>
+    </div>
+  </div>
   <form name="donor_info" role="form" novalidate ng-submit="donorSubmit()">
   <div class="row">
   <div class="col-md-4">
@@ -138,7 +141,8 @@
       <br/>
       <br/>
     <button type="submit" class="btn btn-success disabled" ng-hide="donor.paymentMethod" ng-disabled="donor_info.$invalid">Submit</button>
-    <button type="submit" class="btn btn-success" ng-show="donor.paymentMethod" ng-disabled="donor_info.$invalid">Submit</button>
+    <button type="submit" class="btn btn-success" ng-show="donor.paymentMethod && !confirmation" ng-disabled="donor_info.$invalid">Submit</button>
+    <button class="btn btn-success disabled" ng-show="confirmation">Submit</button>
     </div>
   </div>
   </div>
