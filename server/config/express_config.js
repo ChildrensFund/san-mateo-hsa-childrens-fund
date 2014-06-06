@@ -14,10 +14,10 @@ var busboy        = require( 'connect-busboy' );
 
 module.exports = function( app, express, routers ) {
   app.set( 'port', process.env.PORT || 4568 );
-  app.use( '/assets', express.static( __dirname + '/../../client/assets' ));
-  app.use( '/bower_components', express.static( __dirname + '/../../client/bower_components' ));
-  app.use( '/js', express.static( __dirname + '/../../client/js' ));
-  app.use( '/templates', express.static( __dirname + '/../../client/templates' ));
+  app.use( '/assets', express.static( path.resolve( __dirname + '/../../client/assets' )));
+  app.use( '/bower_components', express.static( path.resolve( __dirname + '/../../client/bower_components' )));
+  app.use( '/js', express.static( path.resolve( __dirname + '/../../client/js' )));
+  app.use( '/templates', express.static( path.resolve( __dirname + '/../../client/templates' )));
   app.use( bodyParser() );
   app.use( cookieParser() );
   app.use( busboy() );

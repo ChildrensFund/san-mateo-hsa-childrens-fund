@@ -6,13 +6,37 @@
 //    This file is required by controller files, which are each invoked in
 //    (root folder)/server/config/express_app.js. The controller files that require
 //    this file are located in (root folder)/server/controllers
-
 var output    = require( '../util/output.js' );
-var Sequelize = require('sequelize');
-if(process.env.MYSQLCONNSTR_hsacfdb){
-  var sequelize = new Sequelize( process.env.MYSQLCONNSTR_hsacfdb );
+var Sequelize = require( 'sequelize' );
+var sequelize;
+
+if ( process.env ) {
+  var parseData   = function( id ) {
+    var _AzureDB    = process.env['MYSQLCONNSTR_hsa-cf-db'];
+    var itr         = (_AzureDB.indexOf( id )) + id.length;
+    if ( itr === -1 ) { return null; }
+    var currentChar = '';
+    var result      = '';
+    
+    while (  (itr < _AzureDB.length)
+          && ((currentChar = _AzureDB.charAt( itr )) && (currentChar !== ';')) ) {
+      result += currentChar;
+      itr++;
+    }
+    
+    return ( result === '' ) ? null : result;
+  };
+  var dbHost      = parseData( 'Data Source=' );
+  var dbName      = parseData( 'Database=' );
+  var dbUser      = parseData( 'User Id=' );
+  var dbPassword  = parseData( 'Password=' );
+  
+  sequelize = new Sequelize( dbName, dbUser, dbPassword, {
+    host: dbHost,
+    dialect: 'mysql'
+  } );
 } else {
-  var sequelize = new Sequelize( 'hsa_cf', 'hsa', '' );
+  sequelize = new Sequelize( 'hsa_cf', 'hsa', '' );
 }
 
 var Child = sequelize.define('children', {

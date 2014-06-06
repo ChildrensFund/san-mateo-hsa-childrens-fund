@@ -13,3 +13,35 @@
   OK response. As there's no set to work with, when sequelize attempts
   to call set.map, it throws an error. My fix simply prevents further
   action since there's nothing left to do.
+  
+  
+##########
+DEPLOYMENT
+##########
+
+When deploying to Azure, the simplest way to set up the database is to create
+the website with a database (choose a new MySQL database from the Database
+drop-down menu).
+
+The 'DB CONNECTION STRING NAME' MUST BE THE FOLLOWING: hsa-cf-db
+
+If the client wishes this name to be different, this will require them to
+make an update in the mysql_config.js file (root/server/config/mysql_config.js).
+
+On line 15 of mysql_config.js, the parseData() function references an identifier
+called
+
+  process.env['MYSQLCONNSTR_hsa-cf-db']
+
+If the db connection string name is set to something else, the string in square
+brackets must be changed to
+
+  'MYSQLCONNSTR_<new name>'
+
+supplying the new connection string name in place of <new name>. The underscore
+between the MYSQLCONNSTR and the name must be kept.
+
+Failing to update this property name when using a different connection string
+name will cause Sequelize to always fail connecting to the MySQL database and
+the client will only see response status 500 error codes.
+  
