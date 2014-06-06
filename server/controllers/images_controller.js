@@ -14,7 +14,9 @@ var placeHolderImg = path.normalize(__dirname + '/../../client/assets/images/pla
 module.exports = {
 
   get: function (req, res) {
-    if (req.originalUrl === '/images/') res.sendfile(placeHolderImg);
+    if (req.originalUrl === '/images/') {
+      res.sendfile(placeHolderImg);
+    }
     fs.exists(path.normalize(__dirname + '/../' + req.originalUrl), function (exists) {
       if (exists) {
         res.sendfile(path.normalize(__dirname + '/../' + req.originalUrl));

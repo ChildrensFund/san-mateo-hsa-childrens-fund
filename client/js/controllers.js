@@ -562,6 +562,7 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
         }
       });
     }
+    $scope.deleteConfirm = '';
   };
 
 
@@ -658,10 +659,8 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
 
         restful.postDonor(postObj).then(function (promise) {
           if (promise) {
-            childObjSaver.setChildObj();
-            $state.go('donationSubmitted');
             $timeout(function () {
-              $state.go('root');
+              childObjSaver.setChildObj();
             }, 3000);
           }
         })
@@ -713,7 +712,7 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
       !$scope.$parent.tempChildObj.firstName ||
       !$scope.$parent.tempChildObj.lastName ||
       !$scope.$parent.tempChildObj.gender ||
-      $scope.$parent.tempChildObj.gender !== '' ||
+      $scope.$parent.tempChildObj.gender === '' ||
       !$scope.$parent.tempChildObj.dob ||
       !$scope.$parent.tempChildObj.age ||
       !$scope.$parent.tempChildObj.location ||
