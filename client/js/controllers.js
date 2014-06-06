@@ -634,6 +634,10 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
     }
   };
 
+  $scope.setModalChild = function(child){
+    $scope.modalChild = child;
+  };
+
 }])
 
 .controller('pledgeController', ['$scope', 'restful', 'childObjSaver', '$state', '$timeout', function ($scope, restful, childObjSaver, $state, $timeout) {
