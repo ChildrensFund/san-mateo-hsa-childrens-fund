@@ -64,6 +64,15 @@
   padding-top: 60px;
 }
 
+/* Worker Panel Styles */
+.children-feed .pledged{
+  color: green;
+}
+
+.children-feed .not-pledged{
+  color: grey;
+}
+
 /* Admin Dashboard Styles */
 #internal-navigation{
 
