@@ -127,7 +127,7 @@ Admin.sync().success(function(){
   var adminParams = {
     firstName: 'Admin',
     lastName: 'Account',
-    email: 'evan.kim.390@gmail.com',
+    email: 'master@master.com',
     passwordHash: '$2a$10$KGWmPW2lirmckcDHRKZyz..S18xVPWX288CKDjuT4YFSsyLmqHrzS'
   }
 
