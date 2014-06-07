@@ -11,7 +11,7 @@ var Staff = require('../config/mysql_config.js').Staff;
 var Admin = require('../config/mysql_config.js').Admin;
 var HelpDesk = require('../config/mysql_config.js').HelpDesk;
 var url = require('url');
-var Sequelize = require('Sequelize');
+var Sequelize = require('../lib/sequelize');
 
 var parseUrl = function(req){
   var pathname = url.parse(req.url).pathname;

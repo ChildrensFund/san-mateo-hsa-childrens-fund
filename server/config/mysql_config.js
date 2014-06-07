@@ -7,7 +7,7 @@
 //    (root folder)/server/config/express_app.js. The controller files that require
 //    this file are located in (root folder)/server/controllers
 var output    = require( '../util/output.js' );
-var Sequelize = require( 'sequelize' );
+var Sequelize = require( '../lib/sequelize' );
 var sequelize;
 
 if ( process.env.PORT ) {
