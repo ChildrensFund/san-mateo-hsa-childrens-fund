@@ -65,13 +65,6 @@
       type="text" 
       name="programArea" 
       placeholder="Program Area"/>
-      <input
-      class="form-control"
-      required 
-      ng-model="tempChildObj.bio" 
-      type="text" 
-      name="bio" 
-      placeholder="Bio"/>
     </div>
     <div class="col-md-6">
       <h2 class="center">Request Info
@@ -85,6 +78,9 @@
       type="text" 
       name="item1" 
       placeholder="First Item"/>
+            <small ng-if="tempChildObj.firstItemName.length <= 16 || !tempChildObj.firstItemName.length" style="float: right">Character Limit: {{ 16 - tempChildObj.firstItemName.length }} / 16</small>
+      <small ng-if="tempChildObj.firstItemName.length > 16" style="float: right; color: red; font-weight: bold;">Character Limit: {{ 16 - tempChildObj.firstItemName.length }} / 16</small>
+
       <input 
       class="form-control"
       required
@@ -93,12 +89,17 @@
       type="text" 
       name="item1Price" 
       placeholder="Price"/>
+      <br/>
+      <br/>
       <input 
       class="form-control"
       ng-model="tempChildObj.secondItemName" 
       type="text" 
       name="item2" 
       placeholder="Second Item"/>
+            <small ng-if="tempChildObj.secondItemName.length <= 16 || !tempChildObj.secondItemName.length" style="float: right">Character Limit: {{ 16 - tempChildObj.secondItemName.length }} / 16</small>
+      <small ng-if="tempChildObj.secondItemName.length > 16" style="float: right; color: red; font-weight: bold;">Character Limit: {{ 16 - tempChildObj.secondItemName.length }} / 16</small>
+
       <input 
       class="form-control"
       ng-model="tempChildObj.secondItemPrice" 
@@ -106,12 +107,16 @@
       type="text" 
       name="item2Price" 
       placeholder="Price"/>
+      <br/>
+      <br/>
       <input 
       class="form-control"
       ng-model="tempChildObj.thirdItemName" 
       type="text" 
       name="item3" 
       placeholder="Third Item"/>
+      <small ng-if="tempChildObj.thirdItemName.length <= 16 || !tempChildObj.thirdItemName.length" style="float: right">Character Limit: {{ 16 - tempChildObj.thirdItemName.length }} / 16</small>
+      <small ng-if="tempChildObj.thirdItemName.length > 16" style="float: right; color: red; font-weight: bold;">Character Limit: {{ 16 - tempChildObj.thirdItemName.length }} / 16</small>
       <input 
       class="form-control"
       ng-model="tempChildObj.thirdItemPrice" 
@@ -119,6 +124,20 @@
       type="text" 
       name="item3Price" 
       placeholder="Price"/>
+      <br/>
+      <br/>
+      <div>
+        <textarea
+        style="height: 100px"
+        class="form-control"
+        required 
+        ng-model="tempChildObj.bio" 
+        type="text" 
+        name="bio" 
+        placeholder="Bio"/>
+        <small ng-if="tempChildObj.bio.length <= 600 || !tempChildObj.bio.length" style="float: right">Character Limit: {{ 600 - tempChildObj.bio.length }} / 600</small>
+        <small ng-if="tempChildObj.bio.length > 600" style="float: right; color: red; font-weight: bold;">Character Limit: {{ 600 - tempChildObj.bio.length }} / 600</small>
+      </div>
     </div>
   </div>
   <div class="center" ng-controller="imageController">

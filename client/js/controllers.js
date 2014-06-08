@@ -735,7 +735,10 @@ app.controller('appController', ['$scope', '$cookies', 'signout', function ($sco
       !$scope.$parent.tempChildObj.location ||
       !$scope.$parent.tempChildObj.programArea ||
       !$scope.$parent.tempChildObj.bio ||
-      !$scope.$parent.tempChildObj.firstItemName ||
+      $scope.$parent.tempChildObj.bio.length > 600 ||
+      (!$scope.$parent.tempChildObj.firstItemName && $scope.$parent.tempChildObj.firstItemName.length > 16) ||
+      ($scope.$parent.tempChildObj.secondItemName && $scope.$parent.tempChildObj.secondItemName.length > 16) ||
+      ($scope.$parent.tempChildObj.thirdItemName && $scope.$parent.tempChildObj.thirdItemName.length > 16) ||
       !$scope.$parent.tempChildObj.firstItemPrice 
     )
       {return;}
