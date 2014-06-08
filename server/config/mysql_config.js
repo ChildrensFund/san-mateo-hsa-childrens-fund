@@ -7,7 +7,7 @@
 //    (root folder)/server/config/express_app.js. The controller files that require
 //    this file are located in (root folder)/server/controllers
 var output    = require( '../util/output.js' );
-var Sequelize = require( 'sequelize' );
+var Sequelize = require( '../lib/sequelize' );
 var sequelize;
 
 if ( process.env.PORT ) {
@@ -123,8 +123,22 @@ Child.hasOne(Staff);
 Child.sync();
 Donor.sync();
 Staff.sync();
-Admin.sync();
+Admin.sync().success(function(){
+  var adminParams = {
+    firstName: 'Admin',
+    lastName: 'Account',
+    email: 'master@master.com',
+    passwordHash: '$2a$10$KGWmPW2lirmckcDHRKZyz..S18xVPWX288CKDjuT4YFSsyLmqHrzS'
+  }
+
+  Admin.find({ where: adminParams }).success(function(admin){
+    if(!admin){
+      Admin.create(adminParams);
+    }
+  });
+});
 HelpDesk.sync();
+
 
 
 module.exports = {
