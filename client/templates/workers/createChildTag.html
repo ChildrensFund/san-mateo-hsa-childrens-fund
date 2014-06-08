@@ -91,9 +91,8 @@
       type="text" 
       name="item1" 
       placeholder="First Item"/>
-            <small ng-if="tempChildObj.firstItemName.length <= 16 || !tempChildObj.firstItemName.length" style="float: right">Character Limit: {{ 16 - tempChildObj.firstItemName.length }} / 16</small>
+      <small ng-if="tempChildObj.firstItemName.length <= 16 || !tempChildObj.firstItemName.length" style="float: right">Character Limit: {{ 16 - tempChildObj.firstItemName.length }} / 16</small>
       <small ng-if="tempChildObj.firstItemName.length > 16" style="float: right; color: red; font-weight: bold;">Character Limit: {{ 16 - tempChildObj.firstItemName.length }} / 16</small>
-
       <input 
       class="form-control"
       required
