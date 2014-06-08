@@ -1,0 +1,82 @@
+{
+  "name": "node_sqlite3",
+  "force": true,
+  "stage": true,
+  "configuration": "Release",
+  "target_arch": "x64",
+  "platform": "darwin",
+  "uri": "http://dei9kzb8scfgo.cloudfront.net/",
+  "paths": {
+    "runtime_module_path": "lib/binding/Release/node-v11-darwin-x64/node_sqlite3.node",
+    "runtime_folder": "lib/binding/Release",
+    "staged_module_file_name": "stage/node_sqlite3-v2.1.a/node-v11-darwin-x64/node_sqlite3.node",
+    "build_module_path": "build/Release/node_sqlite3.node",
+    "tarball_path": "stage/Release/node_sqlite3-v2.1.a-node-v11-darwin-x64.tar.gz",
+    "tarball_shasum": "stage/Release/node_sqlite3-v2.1.a-node-v11-darwin-x64.sha1.txt"
+  },
+  "args": [
+    "--stage"
+  ],
+  "binary": {
+    "name": "node_sqlite3",
+    "configuration": "Release",
+    "uri": "http://dei9kzb8scfgo.cloudfront.net/",
+    "module_maj_min": "2.1",
+    "module_abi": "a",
+    "platform": "darwin",
+    "target_arch": "x64",
+    "node_abi": "node-v11"
+  },
+  "date": "2013-09-09T16:04:51.135Z",
+  "node_features": {
+    "debug": false,
+    "uv": true,
+    "ipv6": true,
+    "tls_npn": true,
+    "tls_sni": true,
+    "tls": true
+  },
+  "versions": {
+    "http_parser": "1.0",
+    "node": "0.10.18",
+    "v8": "3.14.5.9",
+    "ares": "1.9.0-DEV",
+    "uv": "0.10.15",
+    "zlib": "1.2.3",
+    "modules": "11",
+    "openssl": "1.0.1e"
+  },
+  "config": {
+    "target_defaults": {
+      "cflags": [],
+      "default_configuration": "Release",
+      "defines": [],
+      "include_dirs": [],
+      "libraries": []
+    },
+    "variables": {
+      "clang": 1,
+      "host_arch": "x64",
+      "node_install_npm": true,
+      "node_prefix": "",
+      "node_shared_cares": false,
+      "node_shared_http_parser": false,
+      "node_shared_libuv": false,
+      "node_shared_openssl": false,
+      "node_shared_v8": false,
+      "node_shared_zlib": false,
+      "node_tag": "",
+      "node_unsafe_optimizations": 0,
+      "node_use_dtrace": true,
+      "node_use_etw": false,
+      "node_use_openssl": true,
+      "node_use_perfctr": false,
+      "python": "/usr/bin/python",
+      "target_arch": "x64",
+      "v8_enable_gdbjit": 0,
+      "v8_no_strict_aliasing": 1,
+      "v8_use_snapshot": false
+    }
+  },
+  "execPath": "/usr/local/bin/node"
+}
