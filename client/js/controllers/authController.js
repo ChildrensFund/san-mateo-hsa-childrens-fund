@@ -53,12 +53,16 @@ app.controller('authController', ['$scope', '$http', '$state', '$cookies',
             password: password
           }
         }).success(function(data, status){
-          console.log('User Created!');
-          //If the user was manually added, we need to immediately fire a sendReset, which
-          //will allow the user to enter their own password
           $scope.waitSignup = false;
           $scope.success = 'User successfully created and should check email for password reset';
-          if(manual) $scope.sendReset(userType, email);
+          if(manual){//If the user was manually added, we need to immediately fire a sendReset, which
+          //will allow the user to enter their own password
+            $scope.sendReset(userType, email);
+          } else { //Else the user is adding themselves, we need to redirect to account page
+            $scope.email = email;
+            $scope.password = password;
+            $scope.signin();
+          }
         }).error(function(data, status){
           console.log('User Not Created: Server Error');
           $scope.waitSignup = false;
