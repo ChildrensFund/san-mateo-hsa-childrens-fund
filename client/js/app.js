@@ -45,7 +45,7 @@ app.config(['$stateProvider','$locationProvider','$urlRouterProvider',function($
         url: '/workers',
         templateUrl: '/templates/workers/account.html',
         resolve: {
-          auth: function($q, $state, protect){
+          auth: ['$q', '$state', 'protect', function($q, $state, protect){
             var deferred = $q.defer();
             protect('workers').then(function(authorized){
               if(authorized) {
@@ -56,7 +56,7 @@ app.config(['$stateProvider','$locationProvider','$urlRouterProvider',function($
               }
             })
             return deferred.promise;
-          }
+          }]
         },
         controller: function($state){
           $state.go('workers.account.myAccount');
@@ -81,7 +81,7 @@ app.config(['$stateProvider','$locationProvider','$urlRouterProvider',function($
         url: '/workers/signup',
         templateUrl: '/templates/authentication/signupView.html',
         resolve: {
-          authenticate: function($http, $q, $state){
+          authenticate: ['$http', '$q', '$state', function($http, $q, $state){
             var deferred = $q.defer();
 
             $http({
@@ -97,7 +97,7 @@ app.config(['$stateProvider','$locationProvider','$urlRouterProvider',function($
             })
 
             return deferred.promise;
-          }
+          }]
         },
         controller: 'authController'
       })
@@ -130,7 +130,7 @@ app.config(['$stateProvider','$locationProvider','$urlRouterProvider',function($
         url: '/admin',
         templateUrl: '/templates/admin/account.html',
         resolve: {
-          auth: function($q, $state, protect){
+          auth: ['$q', '$state', 'protect', function($q, $state, protect){
             var deferred = $q.defer();
             protect('admin').then(function(authorized){
               if(authorized) {
@@ -141,7 +141,7 @@ app.config(['$stateProvider','$locationProvider','$urlRouterProvider',function($
               }
             })
             return deferred.promise;
-          }
+          }]
         }
       })
         .state('admin.account.children', {
@@ -214,7 +214,7 @@ app.config(['$stateProvider','$locationProvider','$urlRouterProvider',function($
         url: '/help_desk',
         templateUrl: '/templates/helpDesk/account.html',
         resolve: {
-          auth: function($q, $state, protect){
+          auth: ['$q', '$state', 'protect', function($q, $state, protect){
             var deferred = $q.defer();
             protect('helpDesk').then(function(authorized){
               if(authorized) {
@@ -225,7 +225,7 @@ app.config(['$stateProvider','$locationProvider','$urlRouterProvider',function($
               }
             })
             return deferred.promise;
-          }
+          }]
         },
         controller: 'authController'
       })

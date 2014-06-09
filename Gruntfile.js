@@ -3,10 +3,31 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     concat: {
-      // dist: {
-      //   src: [],
-      //   dest: '',
-      // }
+      options: {
+        separator: ';'
+      },
+      dist: {
+        src: ["client/js/cookies.js",
+              "client/js/app.js",
+              "client/js/controllers/appController.js",
+              "client/js/controllers/donorController.js",
+              "client/js/controllers/usersController.js",
+              "client/js/controllers/adminController.js",
+              "client/js/controllers/authController.js",
+              "client/js/controllers/signoutController.js",
+              "client/js/controllers/workerController.js",
+              "client/js/controllers/pledgeController.js",
+              "client/js/controllers/imageController.js",
+              "client/js/factories/restful.js",
+              "client/js/factories/oneTimeAuthorization.js",
+              "client/js/factories/sessionCache.js",
+              "client/js/factories/protect.js",
+              "client/js/factories/signout.js",
+              "client/js/services/childObjSaver.js",
+              "client/js/services/sanitize.js",
+              "client/js/services/randNum.js"],
+        dest: 'client/js/compiled/application.js'
+      }
     },
 
     nodemon: {
@@ -21,31 +42,12 @@ module.exports = function(grunt) {
     uglify: {
       dist: {
         files: {
+          'client/js/compiled/application.js': ['<%= concat.dist.dest %>']
         }
       }
     },
 
-    jshint: {
-      files: [
-       'client/*.js',
-       'server/**/*.js'
-      ],
-      options: {
-        force: true,
-        jshintrc: '.jshintrc',
-        ignores: [
-          'README.md',
-          'bower_components/*',
-          'npm_modules/*'
-        ]
-      }
-    },
-
     cssmin: {
-      // build : {
-      //   src :'',
-      //   dest:''
-      // }
     },
 
     watch: {
@@ -106,13 +108,7 @@ module.exports = function(grunt) {
   // Main grunt tasks
   ////////////////////////////////////////////////////
 
-  grunt.registerTask('build', [
-    'jshint',
-    'nodemon'
-    // 'concat',
-    // 'uglify',
-    // 'cssmin'
-  ]);
+  grunt.registerTask('build', ['concat','uglify','nodemon']);
 
   grunt.registerTask('upload', function(n) {
     if(grunt.option('prod')) {
