@@ -1,7 +1,7 @@
 app.controller('authController', ['$scope', '$http', '$state', '$cookies', 
   '$stateParams', '$location', 'oneTimeAuthorization', 'sessionCache',
   function($scope, $http, $state, $cookies, $stateParams, $location, oneTimeAuthorization, sessionCache){
-
+    
   $scope.stateUserType = $state.current.name.split('.')[0];
   switch ($scope.stateUserType) {
     case 'workers':
@@ -16,6 +16,7 @@ app.controller('authController', ['$scope', '$http', '$state', '$cookies',
   }
 
   $scope.signup = function(manual){
+    $scope.waitAuth = 0;
     $scope.error = null;
     $scope.waitSignup = true;
     if($scope.password === $scope.passwordConfirmation){
@@ -42,6 +43,7 @@ app.controller('authController', ['$scope', '$http', '$state', '$cookies',
       }
       console.log(userType);
       if(firstName && lastName && email && userType){ //If manual creation, we want to make sure all fields are filled
+        $scope.waitAuth = 1;
         $http({
           method: 'POST',
           url: '/auth/signup',
@@ -53,6 +55,7 @@ app.controller('authController', ['$scope', '$http', '$state', '$cookies',
             password: password
           }
         }).success(function(data, status){
+          $scope.waitAuth = 2;
           $scope.waitSignup = false;
           $scope.success = 'User successfully created and should check email for password reset.  (Emails can sometimes appear in spam folder.)';
           if(manual){//If the user was manually added, we need to immediately fire a sendReset, which
@@ -64,6 +67,7 @@ app.controller('authController', ['$scope', '$http', '$state', '$cookies',
             $scope.signin();
           }
         }).error(function(data, status){
+          $scope.waitAuth = 0;
           console.log('User Not Created: Server Error');
           $scope.waitSignup = false;
           $scope.error = 'E-mail address: ' + email + ' already in use';
@@ -79,12 +83,14 @@ app.controller('authController', ['$scope', '$http', '$state', '$cookies',
   };
 
   $scope.signin = function(){
+    $scope.waitAuth = 0;
     var userType = $state.current.data.userType;
     if($scope.password){
       var email = $scope.email;
       var password = $scope.password;
       $scope.email = '';
       $scope.password = '';
+      $scope.waitAuth = 1;
       $http({
         method: 'POST',
         url: '/auth/signin',
@@ -94,6 +100,7 @@ app.controller('authController', ['$scope', '$http', '$state', '$cookies',
           password: password
         }
       }).success(function(data){
+        $scope.waitAuth = 2;
         console.log('User signed in');
         $cookies.sessionToken = data.sessionToken;
         $cookies.type = data.type;
@@ -116,6 +123,7 @@ app.controller('authController', ['$scope', '$http', '$state', '$cookies',
           // $state.go(userType + '.account');
         // }, 500);
       }).error(function(data){
+        $scope.waitAuth = 0;
         $scope.error = 'Incorrect Username or Password';
         console.log('User not signed in: Server Error');
       });
@@ -161,6 +169,7 @@ app.controller('authController', ['$scope', '$http', '$state', '$cookies',
       console.log('Reset token sent');
       $scope.error = '';
       $scope.status = 'Password reset sent to email: ' + $scope.email;
+      $scope.waitSendPassword = 2;
     }).error(function(data, status){
       $scope.error = 'Email not found'
       $scope.waitSendPassword = 0;

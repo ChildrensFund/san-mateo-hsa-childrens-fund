@@ -1,5 +1,4 @@
 <div class="container">
-
   <div class="col-md-4"></div>
   <div class="col-md-4 auth-box">
     <div class="panel panel-primary">
@@ -12,7 +11,9 @@
       <form ng-submit="signin()" >
         <input placeholder="email address" type="email" ng-model="email" class="form-control">
         <input placeholder="password" type="password" ng-model="password" class="form-control">
-        <input type="submit" class="form-control btn-primary">
+        <input type="submit" class="form-control btn-primary" ng-show="!waitAuth" ng-disabled="waitAuth === 1">
+        <button class="btn btn-primary form-control" disabled ng-show="waitAuth === 1">Logging In</button>
+        <button class="btn btn-primary form-control" disabled ng-show="waitAuth === 2">Login Successful!</button>
       </form>
     </div>
 

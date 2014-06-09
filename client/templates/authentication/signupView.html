@@ -12,7 +12,9 @@
         <input placeholder="email address" type="email" ng-model="email" class="form-control">
         <input placeholder="password" type="password" ng-model="password" class="form-control">
         <input placeholder="password confirmation" type="password" ng-model="passwordConfirmation" class="form-control">
-        <input type="submit" class="form-control btn-primary">
+        <input type="submit" class="form-control btn-primary" ng-show="!waitAuth" ng-disabled="waitAuth === 1">
+        <button class="btn btn-primary form-control" disabled ng-show="waitAuth === 1">Signing Up</button>
+        <button class="btn btn-primary form-control" disabled ng-show="waitAuth === 2">Signup Successful!</button>
       </form>
     </div>
   <div class="col-md-4"></div>

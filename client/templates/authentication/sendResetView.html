@@ -11,7 +11,9 @@
       <div class="alert alert-danger" ng-show="error">{{error}}</div>
       <form ng-submit="sendReset()">
         <input placeholder="email address" type="email" ng-model="email" class="form-control">
-        <input type="submit" ng-disabled="waitSendPassword === 1" class="form-control btn-primary">
+        <input type="submit" ng-disabled="waitSendPassword === 1" ng-show="waitSendPassword === 0 || waitSendPassword === undefined" class="form-control btn-primary">
+        <button class="btn btn-primary form-control" ng-show="waitSendPassword === 1" ng-hide="waitSendPassword !== 1" disabled>Submitting...</button>
+        <button class="btn btn-success form-control" ng-show="waitSendPassword === 2" disabled>Password Sent!</button>
       </form>
     </div>
   </div>
