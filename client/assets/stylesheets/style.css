@@ -1,3 +1,116 @@
+/* BEGIN Public Facing Home Page Additions BEGIN */
+html, body {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 100;
+  color: #686868;
+  background-color: #f7f7f7;
+}
+
+.col-centered { float: none; margin: 0 auto; }
+.col-gutterless { padding-left: 0px; padding-right: 0px; }
+.col-gutter-left { padding-left: 10px; padding-right: 0px;}
+
+/* header */
+.header-logo {
+  width: auto;
+  height: 50px;
+  margin-top: 10px;
+  margin-bottom: 4px;
+}
+.box-header, .box-tagline {
+  border-bottom: 1px solid #e4e0e0;
+  padding-left: 0px;
+  padding-right: 0px;
+  line-height: 0.8;
+}
+.box-tagline { margin-top: 53px; font-size: 14px;}
+
+
+/* structure */
+.tbl-row { 
+  display: table; 
+  width: 100%; 
+  margin-top: 20px;
+}
+
+.box-image { display: table-cell; width: 33%; }
+.box-content { display: table-cell; vertical-align: bottom; width: 67%; }
+
+.tbl-content { display: table; }
+.box-description, .box-pledge { 
+  display: table-cell; 
+  padding-left: 15px;
+}
+.box-description {
+  width: 67%;
+}
+.box-pledge {
+  width: 33%;
+}
+
+/* image */
+.image-child {
+  width: 100%;
+  height: auto;
+  border: 1px solid #e4e0e0;
+  border-radius: 10px;
+}
+
+/* description */
+.description-title {
+  border-bottom: 1px solid #e4e0e0;
+  width: 100%;
+
+  color: #da0a18;
+  font-size: 1.8em; font-weight: 100; 
+  line-height: 0.85;
+
+  margin-bottom: 10px;
+}
+.description-body {
+  font-size: 0.85em; line-height: 1.5em;
+  padding-bottom: 0px; margin-bottom: 0px;
+  width: 85%;
+}
+
+/* pledge */
+.pledge-button { 
+  background-color: #da0a18; color: #f7f7f7;
+  
+  font-weight: 300; font-size: 1em; 
+  letter-spacing: 0.5px; text-transform: uppercase;
+  
+  border-radius: 5px;
+
+  padding-bottom: 2px;
+  padding-top: 2px; 
+  margin-bottom: 8px;
+}
+.pledge-button:hover { cursor: pointer; }
+
+.pledge-wishlist { display: table; width: 100%; }
+.box-item, .box-price { 
+  display: table-cell; 
+  font-size: 1.1em; font-weight: 300;
+  color: #989898;
+}
+.box-item { width: 67%; }
+.box-price { width: 33%; }
+
+.pledge-currency { font-size: 0.8em;}
+
+/* pagination -- ugly hack to override default for now */
+.pagination a { 
+  margin-top: 20px;
+  color: #da0a18 !important; 
+  background-color: #f7f7f7 !important;
+
+  font-size: 0.8em;
+}
+
+/* END Public Facing Home Page Additions BEGIN */
+
+
 .center {
   text-align: center;
 }
