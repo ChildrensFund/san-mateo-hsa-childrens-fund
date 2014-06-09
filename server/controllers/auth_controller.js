@@ -1,3 +1,5 @@
+var domain = 'http://localhost:4568';
+
 /*jslint node: true */
 'use strict';
 
@@ -189,13 +191,13 @@ module.exports.sendReset = function(request, response){
           var htmlString = '<p>We received a request to reset the password for your account.</p><p>If you made this request, use the following link to reset your password:</p>';
           switch(userType){
             case 'workers':
-              htmlString += '<a href="http://localhost:4568/workers/reset_password/' + hash + '">Password Reset Link</a>';
+              htmlString += '<a href="' + domain + '/workers/reset_password/' + hash + '">Password Reset Link</a>';
               break;
             case 'admin':
-              htmlString += '<a href="http://localhost:4568/admin/reset_password/' + hash + '">Reset Link</a>';
+              htmlString += '<a href="' + domain + '/admin/reset_password/' + hash + '">Reset Link</a>';
               break;
             case 'helpDesk':
-              htmlString += '<a href="http://localhost:4568/help_desk/reset_password/' + hash + '">Reset Link</a>';
+              htmlString += '<a href="' + domain + '/help_desk/reset_password/' + hash + '">Reset Link</a>';
               break;
           }
 

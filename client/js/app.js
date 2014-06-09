@@ -57,6 +57,9 @@ app.config(['$stateProvider','$locationProvider','$urlRouterProvider',function($
             })
             return deferred.promise;
           }
+        },
+        controller: function($state){
+          $state.go('workers.account.myAccount');
         }
       })
       .state('workers.account.myAccount', {
