@@ -35,6 +35,7 @@ app.controller('imageController', ['$scope', '$upload', '$cookies', 'randNum', f
   };
 
   $scope.uploadImageThenCreateChild = function () {
+    $scope.error = '';
     if (
       !$scope.$parent.tempChildObj.firstName ||
       !$scope.$parent.tempChildObj.lastName ||
@@ -51,7 +52,64 @@ app.controller('imageController', ['$scope', '$upload', '$cookies', 'randNum', f
       ($scope.$parent.tempChildObj.thirdItemName && $scope.$parent.tempChildObj.thirdItemName.length > 16) ||
       !$scope.$parent.tempChildObj.firstItemPrice 
     )
-      {return;}
+      {
+        if (!$scope.$parent.tempChildObj.firstName) {
+          $scope.error += 'First Name: ' + $scope.$parent.tempChildObj.firstName;
+          return;
+        }
+        if (!$scope.$parent.tempChildObj.lastName) {
+          $scope.error += 'Last Name: ' + $scope.$parent.tempChildObj.lastName;
+          return;
+        }
+        if (!$scope.$parent.tempChildObj.gender) {
+          $scope.error += 'Gender: ' + $scope.$parent.tempChildObj.gender;
+          return;
+        }
+        if ($scope.$parent.tempChildObj.gender === '') {
+          $scope.error += 'Gender: ' + $scope.$parent.tempChildObj.gender;
+          return;
+        }
+        if (!$scope.$parent.tempChildObj.dob) {
+          $scope.error += 'Date of Birth: ' + $scope.$parent.tempChildObj.dob;
+          return;
+        }
+        if (!$scope.$parent.tempChildObj.age) {
+          $scope.error += 'Age: ' + $scope.$parent.tempChildObj.age;
+          return;
+        }
+        if (!$scope.$parent.tempChildObj.location) {
+          $scope.error += 'Location: ' + $scope.$parent.tempChildObj.location;
+          return;
+        }
+        if (!$scope.$parent.tempChildObj.programArea) {
+          $scope.error += 'Program Area: ' + $scope.$parent.tempChildObj.programArea;
+          return;
+        }
+        if (!$scope.$parent.tempChildObj.bio) {
+          $scope.error += 'Bio: ' + $scope.$parent.tempChildObj.bio;
+          return;
+        }
+        if ($scope.$parent.tempChildObj.bio.length > 600) {
+          $scope.error += 'Bio:'  + $scope.$parent.tempChildObj.bio;
+          return;
+        }
+        if ((!$scope.$parent.tempChildObj.firstItemName && $scope.$parent.tempChildObj.firstItemName.length > 16)) {
+          $scope.error += 'First Item Name: ' + $scope.$parent.tempChildObj.firstItemName;
+          return;
+        }
+        if (($scope.$parent.tempChildObj.secondItemName && $scope.$parent.tempChildObj.secondItemName.length > 16)) {
+          $scope.error += 'Second Item Name: ' + $scope.$parent.tempChildObj.secondItemName;
+          return;
+        }
+        if (($scope.$parent.tempChildObj.thirdItemName && $scope.$parent.tempChildObj.thirdItemName.length > 16)) {
+          $scope.error += 'Third Item Name: ' + $scope.$parent.tempChildObj.thirdItemName;
+          return;
+        }
+        if (!$scope.$parent.tempChildObj.firstItemPrice) {
+          $scope.error += 'First Item Price: ' + $scope.$parent.tempChildObj.firstItemPrice;
+          return;
+        }
+      }
 
     if ($scope.file) {
       $scope.$parent.tempChildObj.image = '';
