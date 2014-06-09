@@ -185,11 +185,6 @@ app.config(['$stateProvider','$locationProvider','$urlRouterProvider',function($
             templateUrl: '/templates/admin/account/users.html',
             controller: 'usersController'
           })
-      .state('admin.signup', {
-        url: '/admin/signup',
-        templateUrl: '/templates/authentication/signupView.html',
-        controller: 'authController'
-      })
       .state('admin.signin', {
         url: '/admin/signin',
         templateUrl: '/templates/authentication/signinView.html',
@@ -259,11 +254,6 @@ app.config(['$stateProvider','$locationProvider','$urlRouterProvider',function($
             templateUrl: '/templates/helpDesk/account/users.html',
             controller: 'usersController'
           })
-      .state('helpDesk.signup', {
-        url: '/help_desk/signup',
-        templateUrl: '/templates/authentication/signupView.html',
-        controller: 'authController'
-      })
       .state('helpDesk.signin', {
         url: '/help_desk/signin',
         templateUrl: '/templates/authentication/signinView.html',
