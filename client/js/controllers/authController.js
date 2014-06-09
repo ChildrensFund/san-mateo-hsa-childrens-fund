@@ -214,6 +214,9 @@ app.controller('authController', ['$scope', '$http', '$state', '$cookies',
 
   if($state.current.name === 'admin.account.accountManagement.create'){
     $scope.fetchWorkerSignup();
+    $scope.url = 'http://' + $location.host();
+    if($location.port()) $scope.url += (':' + $location.port());
+    $scope.url += '/workers/signup';
   }
 
 }]);
