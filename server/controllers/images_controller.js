@@ -9,21 +9,29 @@ var url = require('url');
 var path = require('path');
 var fs = require('fs');
 var imageFolder = path.normalize(__dirname + '/../images/');
-var placeHolderImg = path.normalize(__dirname + '/../../client/assets/images/placeholder.jpg');
+var placeHolderBoy = path.normalize(__dirname + '/../../client/assets/images/boy.jpeg');
+var placeHolderGirl = path.normalize(__dirname + '/../../client/assets/images/girl.jpeg');
 
 module.exports = {
 
   get: function (req, res) {
-    if (req.originalUrl === '/images/') {
-      res.sendfile(placeHolderImg);
+    if (req.originalUrl === '/images/male/') {
+      res.sendfile(placeHolderBoy);
+    } else if (req.originalUrl === '/images/female/') {
+      res.sendfile(placeHolderGirl);
+    } else {
+      fs.exists(path.normalize(__dirname + '/../' + req.originalUrl), function (exists) {
+        if (exists) {
+          res.sendfile(path.normalize(__dirname + '/../' + req.originalUrl));
+        } else {
+          if (req.originalUrl === '/images/male/') {
+            res.sendfile(placeHolderBoy);
+          } else {
+            res.sendfile(placeHolderGirl);
+          }
+        }
+      });
     }
-    fs.exists(path.normalize(__dirname + '/../' + req.originalUrl), function (exists) {
-      if (exists) {
-        res.sendfile(path.normalize(__dirname + '/../' + req.originalUrl));
-      } else {
-        res.sendfile(placeHolderImg);
-      }
-    });
   },
 
   post: function (req, res) {

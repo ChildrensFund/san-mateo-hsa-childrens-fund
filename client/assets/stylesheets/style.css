@@ -36,7 +36,11 @@ html, body {
 .box-image { display: table-cell; width: 33%; }
 .box-content { display: table-cell; vertical-align: bottom; width: 67%; }
 
-.tbl-content { display: table; }
+.tbl-content { 
+  display: table;
+  width: 100%; 
+}
+
 .box-description, .box-pledge { 
   display: table-cell; 
   padding-left: 15px;
