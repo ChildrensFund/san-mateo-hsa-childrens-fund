@@ -277,15 +277,19 @@ module.exports.access = function(request, response){
 };
 
 module.exports.toggleWorkerSignup = function(request, response){
-  // auth(request).then(function(authorized){
-  //   console.log(authorized.result);
-  // });
-  UserAccess.findAll().success(function(data){
-    var userAccess = data[0];
-    userAccess.access = !userAccess.access;
-    userAccess.save(['access']).success(function(data){
-      response.send(200, data);
-    })
+  auth(request, 'admin').then(function(data){
+    var authorized = data.result;
+    if(authorized){
+      UserAccess.findAll().success(function(data){
+        var userAccess = data[0];
+        userAccess.access = !userAccess.access;
+        userAccess.save(['access']).success(function(data){
+          response.send(200, data);
+        })
+      });
+    } else {
+      response.send(403);
+    }
   });
 };
 
