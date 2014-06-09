@@ -1,4 +1,4 @@
-<h1>List of Children ({{numChildren}})</h1>
+<h1>List of Children</h1>
 
 <form class="form-inline" ng-submit="fetchAllChildren(1)">
   <input placeholder="Search by Last Name" class="form-control" ng-model="userQuery">
@@ -10,6 +10,9 @@
   <li ng-repeat="pageNumber in pages" ng-click="fetchAllChildren(pageNumber)" ng-class="page === pageNumber ? 'active': ''"><a href="#">{{pageNumber}}</a></li>
   <li ng-class="page === pages.length ? 'disabled' : ''"><a href="#" ng-click="(page + 1) <= pages.length && fetchAllChildren(page + 1)">&raquo;</a></li>
 </ul>
+
+<div style="height:100px;" ng-show="!pages || pages.length === 0">
+</div>
 
 <div class="panel-group" id="accordion">
   <div class="panel panel-default" ng-repeat="child in children | orderBy:'lastName'">
