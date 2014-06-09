@@ -203,10 +203,16 @@
             </tbody>
           </table>
           <div class="center">
-            <h4>
-            {{ child.firstName }}'s Bio
-            </h4>
-            <p editable-text="child.bio" onaftersave="update(child.id, 'bio', child.bio)">(Click to edit) <br/> {{ child.bio }}</p>
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+              <div class="panel panel-default">
+                <div class="panel-heading">{{child.firstName}}'s Bio (Click text to edit)</div>
+                <div class="panel-body">
+                  <p editable-text="child.bio" onaftersave="update(child.id, 'bio', child.bio)">{{ child.bio }}</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3"></div>
           </div>
         </div>
 
