@@ -43,7 +43,9 @@ app.controller('workerController', ['$scope', 'restful', 'sanitize', '$cookies',
       child.waitDelete = 1;
       postObj = {};
       postObj.donorId = null;
+      postObj.sortedByDate = new Date();
       postObj.status = 0;
+      postObj.hsaStatus = 0;
       postObj.id = child.id;
       restful.updateChild(postObj).then(function (promise) {
         if (promise) {
@@ -70,6 +72,7 @@ app.controller('workerController', ['$scope', 'restful', 'sanitize', '$cookies',
       $scope.tempChildObj.secondItemPrice = sanitize.update('secondItemPrice', $scope.tempChildObj.secondItemPrice);
       $scope.tempChildObj.thirdItemPrice = sanitize.update('thirdItemPrice', $scope.tempChildObj.thirdItemPrice);
     }
+    $scope.tempChildObj.sortedByDate = new Date();
     restful.createChild($scope.tempChildObj).then(function (promise) {
       if (promise) {
         $state.go('workers.account.myTags');

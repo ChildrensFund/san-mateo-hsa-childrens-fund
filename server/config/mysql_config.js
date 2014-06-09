@@ -44,6 +44,7 @@ var Child = sequelize.define('children', {
   lastName: Sequelize.STRING,
   phone: Sequelize.STRING,
   gender: Sequelize.STRING,
+  sortedByDate: Sequelize.STRING,
   dob: Sequelize.STRING,
   age: Sequelize.INTEGER,
   location: Sequelize.STRING,
