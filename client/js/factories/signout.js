@@ -1,4 +1,4 @@
-app.factory('signout', function($http, $state, $cookies){
+app.factory('signout', ['$http', '$state', '$cookies', function($http, $state, $cookies){
   return function(){
     return $http({
       method: 'POST',
@@ -15,4 +15,4 @@ app.factory('signout', function($http, $state, $cookies){
       console.log('Something went wrong');
     })
   }
-});
+}]);

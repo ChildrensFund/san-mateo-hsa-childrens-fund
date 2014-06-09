@@ -1,4 +1,4 @@
-app.factory('oneTimeAuthorization', function(){
+app.factory('oneTimeAuthorization', [function(){
   var authorized = false;
   return {
     authorize: function(){
@@ -10,4 +10,4 @@ app.factory('oneTimeAuthorization', function(){
       return temp;
     }
   }
-});
+}]);

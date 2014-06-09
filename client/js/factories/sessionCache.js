@@ -1,4 +1,4 @@
-app.factory('sessionCache', function(){
+app.factory('sessionCache', [function(){
   var cache = {};
   var sessionCacheService = {};
   sessionCacheService.updateSessionToken = function(sessionToken){
@@ -17,4 +17,4 @@ app.factory('sessionCache', function(){
     return cache.userType;
   };
   return sessionCacheService;
-});
+}]);
