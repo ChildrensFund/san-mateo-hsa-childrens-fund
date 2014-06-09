@@ -1,4 +1,4 @@
-<h1>{{userType}} Accounts</h1>
+<h1>Manage {{userType}} Accounts</h1>
 
 <form class="form-inline" ng-submit="fetchUsers(1)" ng-show="workerPage">
   <input placeholder="Search by Last Name" class="form-control" ng-model="userQuery">
@@ -9,13 +9,13 @@
   <input ng-show="!workerPage" ng-model="query" class="form-control" placeholder="Smart Search"/>
 </form>
 
-<ul class="pagination" ng-show="pages && pages.legingth > 1">
+<ul class="pagination" ng-show="pages && pages.length > 1">
   <li ng-class="page === 1 ? 'disabled' : ''"><a href="#" ng-click="(page - 1) > 0 && fetchUsers(page - 1)">&laquo;</a></li>
   <li ng-repeat="pageNumber in pages" ng-click="fetchUsers(pageNumber)" ng-class="page === pageNumber ? 'active': ''"><a href="#">{{pageNumber}}</a></li>
   <li ng-class="page === pages.length ? 'disabled' : ''"><a href="#" ng-click="(page + 1) <= pages.length && fetchUsers(page + 1)">&raquo;</a></li>
 </ul>
 
-<table class="table table-striped">
+<table class="table table-striped pad-top">
   <tr><th>User ID</th><th>Email</th><th>Privileges</th><th>Send Reset Email</th></tr>
   <tr ng-repeat="user in users | filter:query"><td>{{ user.id }}</td><td>{{ user.email }}</td>
     <td>

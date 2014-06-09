@@ -25,6 +25,10 @@
   display: inline-block;
 }
 
+.pad-top{
+  margin-top: 10px;
+}
+
 /* Homepage Styles */
 #hsa-logo {
   height: 17%;
