@@ -12,3 +12,7 @@
   <input placeholder="Email Address" type="email" ng-model="email" class="form-control">
   <input type="submit" class="btn btn-primary" ng-disabled="waitSignup">
 </form>
+
+<h1>Worker Signup</h1>
+<button class="btn btn-danger" ng-click="toggleWorkerSignup()" ng-show="!hasAccess">Enable Signup</button>
+<button class="btn btn-success" ng-click="toggleWorkerSignup()" ng-show="hasAccess">Disable Signup</button>

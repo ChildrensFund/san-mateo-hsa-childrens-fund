@@ -30,11 +30,18 @@ app.controller('authController', ['$scope', '$http', '$state', '$cookies',
         $scope.firstName = '';
         $scope.lastName = '';
       } else { //Otherwise, grab user submitted data from signin page
+        firstName = $scope.firstName;
+        lastName = $scope.lastName;
         userType = $state.current.data.userType;
         password = $scope.password;
+        $scope.firstName = '';
+        $scope.lastName = '';
+        $scope.password = '';
+        $scope.passwordConfirmation = '';
+        $scope.email = '';
       }
       console.log(userType);
-      if(!manual || (manual && firstName && lastName && email && userType)){ //If manual creation, we want to make sure all fields are filled
+      if(firstName && lastName && email && userType){ //If manual creation, we want to make sure all fields are filled
         $http({
           method: 'POST',
           url: '/auth/signup',
@@ -61,6 +68,9 @@ app.controller('authController', ['$scope', '$http', '$state', '$cookies',
         $scope.error = 'Please fill all fields';
         $scope.waitSignup = false;
       }
+    } else {
+      $scope.error = 'Password and Password Confirmation Don\'t Match';
+      $scope.waitSignup = false;
     }
   };
 
@@ -176,6 +186,30 @@ app.controller('authController', ['$scope', '$http', '$state', '$cookies',
       $scope.passwordConfirmation = '';
       $scope.error = 'Password and Password Confirmation Didn\'t Match';
     }
+  };
+
+  $scope.fetchWorkerSignup = function(){
+    $http({
+      method: 'GET',
+      url: '/auth/toggle'
+    }).success(function(data){
+      $scope.hasAccess = data.access;
+    });
+  };
+
+  $scope.toggleWorkerSignup = function(){
+    $http({
+      method: 'POST',
+      url: '/auth/toggle'
+    }).success(function(data){
+      $scope.hasAccess = data.access;
+    }).error(function(){
+      console.log('Something went wrong');
+    });
+  };
+
+  if($state.current.name === 'admin.account.accountManagement.create'){
+    $scope.fetchWorkerSignup();
   }
 
 }]);

@@ -115,6 +115,10 @@ var HelpDesk = sequelize.define('helpdesks', {
   hasAccess: {type: Sequelize.BOOLEAN, defaultValue: true}
 });
 
+var UserAccess = sequelize.define('access', {
+  access: {type: Sequelize.BOOLEAN, defaultValue: false}
+});
+
 Donor.hasMany(Child);
 Staff.hasMany(Child);
 Child.hasOne(Donor);
@@ -138,6 +142,13 @@ Admin.sync().success(function(){
   });
 });
 HelpDesk.sync();
+UserAccess.sync().success(function(){
+  UserAccess.findAll().success(function(access){
+    if(access.length === 0){
+      UserAccess.create({});
+    }
+  })
+})
 
 
 
@@ -147,7 +158,8 @@ module.exports = {
   Staff     : Staff,
   Admin     : Admin,
   HelpDesk  : HelpDesk,
-  sequelize : sequelize
+  sequelize : sequelize,
+  UserAccess: UserAccess
 };
 
 

@@ -80,6 +80,25 @@ app.config(['$stateProvider','$locationProvider','$urlRouterProvider',function($
       .state('workers.signup', {
         url: '/workers/signup',
         templateUrl: '/templates/authentication/signupView.html',
+        resolve: {
+          authenticate: function($http, $q, $state){
+            var deferred = $q.defer();
+
+            $http({
+              method: 'GET',
+              url: '/auth/toggle'
+            }).then(function(data){
+              if(data.data.access){
+                deferred.resolve();
+              } else {
+                deferred.reject();
+                $state.go('workers.signin');
+              }
+            })
+
+            return deferred.promise;
+          }
+        },
         controller: 'authController'
       })
       .state('workers.signin', {

@@ -6,6 +6,9 @@
         <div class="panel-title">{{userHeader}} Signup</div>
       </div>
       <form ng-submit="signup()">
+        <div ng-show="error" class="alert alert-danger">{{error}}</div>
+        <input placeholder="first name" ng-model="firstName" class="form-control">
+        <input placeholder="last name" ng-model="lastName" class="form-control">
         <input placeholder="email address" type="email" ng-model="email" class="form-control">
         <input placeholder="password" type="password" ng-model="password" class="form-control">
         <input placeholder="password confirmation" type="password" ng-model="passwordConfirmation" class="form-control">
