@@ -126,8 +126,8 @@
           <li ng-show="currentChild.thirdItemName">{{ currentChild.thirdItemName }}</li>
         </ul>
         </div>
-        <input type="radio" ng-model="donor.paymentMethod" value="Cash">I will be donating cash for all of <strong>{{ currentChild.firstName }}</strong>'s items.<br/>
-        <input type="radio" ng-model="donor.paymentMethod" value="Check">I will be donating a check for all of <strong>{{ currentChild.firstName }}</strong>'s items.<br/>
+        <input type="radio" ng-model="donor.paymentMethod" value="Cash">I will be making a <strong>cash</strong> donation for all of {{ currentChild.firstName }}'s items in the amount of {{ currentChild.itemTotalPrice | currency }}<br/>
+        <input type="radio" ng-model="donor.paymentMethod" value="Check">I will be making a <strong>check</strong> donation for all of {{ currentChild.firstName }}'s items in the amount of {{ currentChild.itemTotalPrice | currency }}<br/>
         <p ng-if="donor.paymentMethod === 'Check'">
           Please make checks payable to:
           <br/>

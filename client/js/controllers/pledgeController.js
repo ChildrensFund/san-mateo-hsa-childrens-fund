@@ -2,6 +2,20 @@ app.controller('pledgeController', ['$scope', 'restful', 'childObjSaver', '$stat
   $scope.currentChild = childObjSaver.getChildObj() || undefined;
   var postObj;
 
+  var totalPrice = function itemTotal () {
+    var sum = 0;
+    for (var i=0;i<arguments.length;i++) {
+      if (arguments[i]) {
+        sum += Number(arguments[i]);
+      }
+    }
+    return sum;
+  };
+
+  $scope.$watch('currentChild', function() {
+    $scope.currentChild.itemTotalPrice = totalPrice($scope.currentChild.firstItemPrice, $scope.currentChild.secondItemPrice, $scope.currentChild.thirdItemPrice)
+  });
+
 
   $scope.pledgeButton = function (child, index) {
     childObjSaver.setChildObj(child);
@@ -19,7 +33,6 @@ app.controller('pledgeController', ['$scope', 'restful', 'childObjSaver', '$stat
         restful.postDonor(postObj).then(function (promise) {
           if (promise) {
             $scope.confirmation = $scope.currentChild.cfid;
-            // $state.go('')
             $timeout(function () {
               childObjSaver.setChildObj();
             }, 3000);

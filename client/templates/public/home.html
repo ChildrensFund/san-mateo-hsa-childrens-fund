@@ -47,15 +47,15 @@
           <tbody>
             <tr ng-show="child.firstItemName">
               <td>{{ child.firstItemName }}</td>
-              <td>${{  child.firstItemPrice  }}</td>
+              <td>{{ child.firstItemPrice | currency }}</td>
             </tr>
             <tr ng-show="child.secondItemName">
               <td>{{ child.secondItemName }}</td>
-              <td>${{  child.secondItemPrice  }}</td>
+              <td>{{ child.secondItemPrice | currency }}</td>
             </tr>
             <tr ng-show="child.thirdItemName">
               <td>{{ child.thirdItemName }}</td>
-              <td>${{  child.thirdItemPrice  }}</td>
+              <td>{{ child.thirdItemPrice | currency }}</td>
             </tr>
           </tbody>
         </table>
