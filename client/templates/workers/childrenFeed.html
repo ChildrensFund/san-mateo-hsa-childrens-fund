@@ -41,14 +41,14 @@
         <table class="table table-condensed table-striped">
         <div class="col-md-4"></div>
           <div class="col-md-4 center">
-            <img style="height: 200px" ng-src="/images/{{ child.image }}" alt="{{ child.firstName }}">
+            <img style="height: 200px" ng-src="/images/{{ child.gender }}/{{ child.image }}" alt="{{ child.firstName }}">
             <div ng-controller="imageController" style="border: 1px solid lightgrey; border-radius: 2px">
-            <div ng-hide="child.image">
-              Please Upload a Photo
-            </div>
-            <div ng-show="child.image">
-              Click to Change Photo
-            </div>
+              <div ng-hide="child.image">
+                Please Upload a Photo
+              </div>
+              <div ng-show="child.image">
+                Click to Change Photo
+              </div>
               <input type="file" accept="image/*" ng-file-select="onFileSelect($files)">
               <div ng-show="file">
                 <input type="button" ng-click="updatePhoto(child.id)" value="Update Photo">

@@ -15,22 +15,27 @@ var placeHolderGirl = path.normalize(__dirname + '/../../client/assets/images/gi
 module.exports = {
 
   get: function (req, res) {
+    // if images/male || images/female 
+      // return placeholder
+    // else 
+
     if (req.originalUrl === '/images/male/') {
       res.sendfile(placeHolderBoy);
     } else if (req.originalUrl === '/images/female/') {
       res.sendfile(placeHolderGirl);
     } else {
-      fs.exists(path.normalize(__dirname + '/../' + req.originalUrl), function (exists) {
+
+      var urlNoGender = req.originalUrl.replace(/male\/|female\//g,'');
+      var gender = req.originalUrl.match(/male\/|female\//g,'').join('');
+
+      fs.exists(path.normalize(__dirname + '/../' + urlNoGender), function (exists) {
         if (exists) {
-          res.sendfile(path.normalize(__dirname + '/../' + req.originalUrl));
+          res.sendfile(path.normalize(__dirname + '/../' + urlNoGender));
         } else {
-          if (req.originalUrl === '/images/male/') {
-            res.sendfile(placeHolderBoy);
-          } else {
-            res.sendfile(placeHolderGirl);
-          }
+          (gender[0] === 'f') ? res.sendfile(placeHolderGirl) : res.sendfile(placeHolderBoy)
         }
       });
+
     }
   },
 
