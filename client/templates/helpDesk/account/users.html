@@ -13,7 +13,7 @@
 
 <table class="table table-striped">
   <tr><th>User ID</th><th>Email</th><th>Send Reset Email</th></tr>
-  <tr ng-repeat="user in users"><td>{{ user.id }}</td><td>{{ user.email }}</td>
+  <tr ng-repeat="user in users"><td>{{ user.id }}</td><td class="readable">{{ user.email }}</td>
     <td>
       <button 
         class="btn btn-primary" ng-click="issuePasswordReset(user)" ng-disabled="user.waitPasswordReset === 1" ng-hide="user.waitPasswordReset === 2">Send Password Reset Email</button>

@@ -8,11 +8,11 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a ui-sref="admin.account.children">Children</a></li>
-        <li><a ui-sref="admin.account.workers">Workers</a></li>
-        <li><a ui-sref="admin.account.reports">Generate Reports</a></li>
+        <li><a ui-sref="admin.account.children" class="readable">Children</a></li>
+        <li><a ui-sref="admin.account.workers" class="readable">Workers</a></li>
+        <li><a ui-sref="admin.account.reports" class="readable">Generate Reports</a></li>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Manage Accounts <b class="caret"></b></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="readable">Manage Accounts</span> <b class="caret"></b></a>
           <ul class="dropdown-menu">
             <li><a ui-sref="admin.account.accountManagement.create">Add New User</a></li>
             <li class="divider"></li>
@@ -24,7 +24,7 @@
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
-        <li><a ui-sref="admin.signout">Sign Out</a></li>
+        <li><a ui-sref="admin.signout" class="readable">Sign Out</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

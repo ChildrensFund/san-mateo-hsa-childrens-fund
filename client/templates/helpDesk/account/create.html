@@ -1,13 +1,16 @@
-<h1>Create New User</h1>
-<div class="alert alert-danger" ng-show="error">{{error}}</div>
-<form ng-submit="signup(true)" ng-hide="submitting" class="form-inline">
-  <select name="select" ng-model="userType" class="form-control">
-    <option value="workers">Worker</option> 
-    <option value="admin" selected>Admin</option>
-    <option value="helpDesk">Help Desk</option>
-  </select>
-  <input placeholder="First Name" ng-model="firstName" class="form-control">
-  <input placeholder="Last Name" ng-model="lastName" class="form-control">
-  <input placeholder="Email Address" type="email" ng-model="email" class="form-control">
-  <input type="submit" class="btn btn-primary" ng-disabled="waitSignup">
-</form>
+<div class="jumbotron">
+  <h1>Create New User</h1>
+  <div class="alert alert-danger" ng-show="error">{{error}}</div>
+  <div class="alert alert-success" ng-show="success">{{success}}</div>
+  <form ng-submit="signup(true)" ng-hide="submitting" class="form-inline">
+    <select name="select" ng-model="userType" class="form-control">
+      <option value="workers">Worker</option> 
+      <option value="admin" selected>Admin</option>
+      <option value="helpDesk">Help Desk</option>
+    </select>
+    <input placeholder="First Name" ng-model="firstName" class="form-control">
+    <input placeholder="Last Name" ng-model="lastName" class="form-control">
+    <input placeholder="Email Address" type="email" ng-model="email" class="form-control">
+    <input type="submit" class="btn btn-primary" ng-disabled="waitSignup">
+  </form>
+</div>
