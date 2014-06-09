@@ -66,7 +66,7 @@ var Child = sequelize.define('children', {
 var Donor = sequelize.define('donors', {
   firstName: Sequelize.STRING,
   lastName: Sequelize.STRING,
-  phone: Sequelize.INTEGER,
+  phone: Sequelize.STRING,
   email: Sequelize.STRING,
   address1: Sequelize.STRING,
   address2: Sequelize.STRING,

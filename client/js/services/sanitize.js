@@ -29,6 +29,7 @@ app.service('sanitize', [function () {
       } else if (key === 'dob' || key.substr(key.length-4,key.length) === 'Date') {
         return val.substr(0,4) + val.substr(4,6);
       } else {
+        console.log('no sanitization needed!');
         return val;
       }
     },

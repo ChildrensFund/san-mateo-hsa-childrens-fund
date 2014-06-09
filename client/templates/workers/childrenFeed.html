@@ -174,15 +174,26 @@
                 </td>
                 <td ng-if="!childsDonor"></td>
                 <td ng-if="child.status > 0 && childsDonor">
-                  {{ childsDonor.firstName }} {{ childsDonor.lastName }} <br/>
-                  Phone: {{ childsDonor.phone }} <br/>
-                  Email: {{ childsDonor.email }} <br/>
-                  {{ childsDonor.address1 }} <br/>
+                  <span editable-text="childsDonor.firstName" onbeforesave="checkData($data, 'firstName')" onaftersave="updateDonor(childsDonor.id, 'firstName', childsDonor.firstName)">{{ childsDonor.firstName }}</span>
+                  <span> </span>
+                  <span editable-text="childsDonor.lastName" onbeforesave="checkData($data, 'lastName')" onaftersave="updateDonor(childsDonor.id, 'lastName', childsDonor.lastName)">{{ childsDonor.lastName }}</span>
+                  <br/>
+                  Phone: <span editable-tel="childsDonor.phone" onaftersave="updateDonor(childsDonor.id, 'phone', childsDonor.phone)">{{ childsDonor.phone }}</span>
+                  <br/>
+                  Email: <span editable-email="childsDonor.email" onaftersave="updateDonor(childsDonor.id, 'email', childsDonor.email)">{{ childsDonor.email }}</span>
+                  <br/>
+                  Address:
+                  <br/>
+                  <span editable-text="childsDonor.address1" onaftersave="updateDonor(childsDonor.id, 'address1', childsDonor.address1)">{{ childsDonor.address1 }}</span>
+                  <br/>
                   <div ng-show="childsDonor.address2">
-                    {{ childsDonor.address2 }} <br/>
+                    <span editable-text="childsDonor.address2" onaftersave="updateDonor(childsDonor.id, 'address2', childsDonor.address2)">{{ childsDonor.address2 }}</span>
+                    <br/>
                   </div>
-                  {{ childsDonor.city }}, {{ childsDonor.state }} {{ childsDonor.zip }} <br/>
-                  Donation Method: {{ childsDonor.paymentMethod }} <br/>
+                  <span editable-text="childsDonor.city" onaftersave="updateDonor(childsDonor.id, 'city', childsDonor.city)">{{ childsDonor.city }}</span>, <span editable-text="childsDonor.state" onaftersave="updateDonor(childsDonor.id, 'state', childsDonor.state)">{{ childsDonor.state }}</span> <span editable-text="childsDonor.zip" onaftersave="updateDonor(childsDonor.id, 'zip', childsDonor.zip)">{{ childsDonor.zip }}</span>
+                  <br/>
+                  Donation Method: <span editable-select="childsDonor.paymentMethod" e-ng-options="s.value as s.text for s in paymentMethods" onaftersave="updateDonor(childsDonor.id, 'paymentMethod', childsDonor.paymentMethod)">{{ childsDonor.paymentMethod }}</span>
+                  <br/>
                   Donation Time: {{ childsDonor.createdAt | date:'short' }}
                 </td>
               </tr>
