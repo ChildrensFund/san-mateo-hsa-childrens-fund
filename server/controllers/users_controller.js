@@ -59,7 +59,7 @@ module.exports.getUsersAccountInformation = function(req, res){
   var page = url.parse(req.url).query.split('=')[1];
   var query = url.parse(req.url).query.split('=')[2];
   var sqlQuery;
-  query ? sqlQuery = ["lastName LIKE '" + query + "%'"] : '';
+  query ? sqlQuery = ["lastName LIKE '" + query + "%' AND email!='master@master.com'"] : sqlQuery = 'email!="master@master.com"';
 
   User.findAndCountAll({
     where: sqlQuery,
