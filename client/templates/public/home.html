@@ -1,53 +1,62 @@
 <div class="container">
-<div class="row">
-  <div class="col-md-10 col-xs-12 col-centered">
-    <div class="col-xs-6 box-header"><img class="header-logo" src="images/hsf_logo.png"></div>
-    <div class="col-xs-6 box-tagline text-right">a tagline for the county (optional)</div>
+
+
+  <div class="row">
+    <div class="col-md-10 col-xs-12 col-centered">
+      <div class="col-xs-6 box-header"><img class="header-logo" src="/assets/images/hsf_logo.png"></div>
+      <div class="col-xs-6 box-tagline text-right">a tagline for the county (optional)</div>
+    </div>
   </div>
-</div>
-<div class="row ng-repeat="child in children | orderBy:'createdAt' :true"">
-  <div class="col-md-9 col-xs-11 col-centered">
-    <div class="tbl-row">
-      <div class="box-image">
-        <img class="image-child" src="/images/{{child.image}}">
-      </div>
-      <div class="box-content">
-        <div class="tbl-content">
-          <div class="box-description">
-            <div class="description-title">{{child.firstName}} {{child.lastName}}</div>
-            <p class="description-body">{{child.bio}}</p>
-          </div>
-          <div class="box-pledge">
-            <div ng-controller="pledgeController" class="pledge-button text-center">
-              <span ng-click="pledgeButton(child, $index)" ui-sref="pledge">pledge</span>
+
+
+  <div class="row" ng-repeat="child in children | orderBy:'createdAt' :true">
+    <div class="col-md-9 col-xs-11 col-centered">
+      <div class="tbl-row">
+
+        <div class="box-image">
+          <img class="image-child" src="/images/{{child.image}}"/>
+        </div>
+
+        <div class="box-content">
+          <div class="tbl-content">
+            <div class="box-description">
+              <div class="description-title">
+                {{child.firstName}} {{child.lastName}}
+              </div>
+                <p class="description-body">{{child.bio}}</p>
             </div>
-            <div class="pledge-wishlist">
-              <div class="box-item">{{ child.firstItemName }}</div>
-              <div class="box-price text-right"><span class="pledge-currency">$ </span>{{ child.firstItemPrice }}</div>
-            </div>
-            <div class="pledge-wishlist">
-              <div class="box-item">{{ child.secondItemName }}</div>
-              <div class="box-price text-right"><span class="pledge-currency">$ </span>{{ child.secondItemPrice }}</div>
-            </div>
-            <div class="pledge-wishlist">
-              <div class="box-item">{{ child.thirdItemName }}</div>
-              <div class="box-price text-right"><span class="pledge-currency">$ </span>{{ child.thirdItemPrice }}</div>
-            </div>
+            <div class="box-pledge">
+              <div ng-controller="pledgeController" class="pledge-button text-center">
+                <span ng-click="pledgeButton(child, $index)" ui-sref="pledge">pledge</span>
+              </div>
+              <div class="pledge-wishlist">
+                <div class="box-item">{{ child.firstItemName }}</div>
+                <div class="box-price text-right"><span class="pledge-currency">$ </span>{{ child.firstItemPrice }}</div>
+              </div>
+                <div class="pledge-wishlist">
+                <div class="box-item">{{ child.secondItemName }}</div>
+                <div class="box-price text-right"><span class="pledge-currency">$ </span>{{ child.secondItemPrice }}</div>
+              </div>
+              <div class="pledge-wishlist">
+                <div class="box-item">{{ child.thirdItemName }}</div>
+                <div class="box-price text-right"><span class="pledge-currency">$ </span>{{ child.thirdItemPrice }}</div>
+              </div>
             </div>
           </div>
         </div>
+
       </div>
     </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-xs-3 col-centered text-center">
-    <ul class="pagination" ng-show="pages && pages.length > 1">
-      <li ng-class="page === 1 ? 'disabled' : ''"><a href="#" ng-click="(page - 1) > 0 && get(page - 1)">&laquo;</a></li>
-      <li ng-repeat="pageNumber in pages" ng-click="get(pageNumber)" ng-class="page === pageNumber ? 'active': ''"><a href="#">{{pageNumber}}</a></li>
-      <li ng-class="page === pages.length ? 'disabled' : ''"><a href="#" ng-click="(page + 1) <= pages.length && get(page + 1)">&raquo;</a></li>
-    </ul>
+
+  <div class="row">
+    <div class="col-xs-3 col-centered text-center">
+      <ul class="pagination" ng-show="pages && pages.length > 1">
+        <li ng-class="page === 1 ? 'disabled' : ''"><a href="#" ng-click="(page - 1) > 0 && get(page - 1)">&laquo;</a></li>
+        <li ng-repeat="pageNumber in pages" ng-click="get(pageNumber)" ng-class="page === pageNumber ? 'active': ''"><a href="#">{{pageNumber}}</a></li>
+        <li ng-class="page === pages.length ? 'disabled' : ''"><a href="#" ng-click="(page + 1) <= pages.length && get(page + 1)">&raquo;</a></li>
+      </ul>
+    </div>
   </div>
-</div>
 
 </div>
