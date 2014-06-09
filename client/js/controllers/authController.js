@@ -30,11 +30,18 @@ app.controller('authController', ['$scope', '$http', '$state', '$cookies',
         $scope.firstName = '';
         $scope.lastName = '';
       } else { //Otherwise, grab user submitted data from signin page
+        firstName = $scope.firstName;
+        lastName = $scope.lastName;
         userType = $state.current.data.userType;
         password = $scope.password;
+        $scope.firstName = '';
+        $scope.lastName = '';
+        $scope.password = '';
+        $scope.passwordConfirmation = '';
+        $scope.email = '';
       }
       console.log(userType);
-      if(!manual || (manual && firstName && lastName && email && userType)){ //If manual creation, we want to make sure all fields are filled
+      if(firstName && lastName && email && userType){ //If manual creation, we want to make sure all fields are filled
         $http({
           method: 'POST',
           url: '/auth/signup',
@@ -46,12 +53,16 @@ app.controller('authController', ['$scope', '$http', '$state', '$cookies',
             password: password
           }
         }).success(function(data, status){
-          console.log('User Created!');
-          //If the user was manually added, we need to immediately fire a sendReset, which
-          //will allow the user to enter their own password
           $scope.waitSignup = false;
           $scope.success = 'User successfully created and should check email for password reset';
-          if(manual) $scope.sendReset(userType, email);
+          if(manual){//If the user was manually added, we need to immediately fire a sendReset, which
+          //will allow the user to enter their own password
+            $scope.sendReset(userType, email);
+          } else { //Else the user is adding themselves, we need to redirect to account page
+            $scope.email = email;
+            $scope.password = password;
+            $scope.signin();
+          }
         }).error(function(data, status){
           console.log('User Not Created: Server Error');
           $scope.waitSignup = false;
@@ -61,6 +72,9 @@ app.controller('authController', ['$scope', '$http', '$state', '$cookies',
         $scope.error = 'Please fill all fields';
         $scope.waitSignup = false;
       }
+    } else {
+      $scope.error = 'Password and Password Confirmation Don\'t Match';
+      $scope.waitSignup = false;
     }
   };
 
@@ -176,6 +190,33 @@ app.controller('authController', ['$scope', '$http', '$state', '$cookies',
       $scope.passwordConfirmation = '';
       $scope.error = 'Password and Password Confirmation Didn\'t Match';
     }
+  };
+
+  $scope.fetchWorkerSignup = function(){
+    $http({
+      method: 'GET',
+      url: '/auth/toggle'
+    }).success(function(data){
+      $scope.hasAccess = data.access;
+    });
+  };
+
+  $scope.toggleWorkerSignup = function(){
+    $http({
+      method: 'POST',
+      url: '/auth/toggle'
+    }).success(function(data){
+      $scope.hasAccess = data.access;
+    }).error(function(){
+      console.log('Something went wrong');
+    });
+  };
+
+  if($state.current.name === 'admin.account.accountManagement.create'){
+    $scope.fetchWorkerSignup();
+    $scope.url = 'http://' + $location.host();
+    if($location.port()) $scope.url += (':' + $location.port());
+    $scope.url += '/workers/signup';
   }
 
 }]);

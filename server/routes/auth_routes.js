@@ -22,4 +22,7 @@ module.exports = function( router ) {
     .post( controller.resetPassword );
   router.route('/access')
     .post( controller.access );
+  router.route('/toggle')
+    .post( controller.toggleWorkerSignup )
+    .get( controller.fetchWorkerSignup );
 };

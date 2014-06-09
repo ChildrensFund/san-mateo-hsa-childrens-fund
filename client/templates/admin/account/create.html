@@ -12,3 +12,16 @@
   <input placeholder="Email Address" type="email" ng-model="email" class="form-control">
   <input type="submit" class="btn btn-primary" ng-disabled="waitSignup">
 </form>
+
+<div class="row">
+  <div class="col-md-6">
+    <h1>Worker Signup Page</h1>
+    <div ng-show="!hasAccess"><h3>Currently: Disabled</h3></div>
+    <div ng-show="hasAccess">
+      <h3>Currently: Enabled</h3>
+      <p>Workers can currently sign themselves up at {{url}}. We recommend turning this feature OFF after the initial users sign up. Instead, use the create new user box above or help desk acount to manually create new users.</p>
+    </div>
+    <button class="btn btn-danger" ng-click="toggleWorkerSignup()" ng-show="!hasAccess">Enable</button>
+    <button class="btn btn-success" ng-click="toggleWorkerSignup()" ng-show="hasAccess">Disable</button>
+  </div>
+</div>

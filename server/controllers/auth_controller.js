@@ -11,8 +11,10 @@ var Donor = require('../config/mysql_config.js').Donor;
 var Staff = require('../config/mysql_config.js').Staff;
 var Admin = require('../config/mysql_config.js').Admin;
 var HelpDesk = require('../config/mysql_config.js').HelpDesk;
+var UserAccess = require('../config/mysql_config.js').UserAccess;
 var nodemailer = require('nodemailer');
 var bcrypt = require('bcrypt-nodejs');
+var auth = require('../util/auth.js');
 
 var transport = nodemailer.createTransport("Direct", {debug: true});
 
@@ -272,6 +274,26 @@ module.exports.access = function(request, response){
     }
   }).error(function(){response.send(500);});
 
-}
+};
+
+module.exports.toggleWorkerSignup = function(request, response){
+  // auth(request).then(function(authorized){
+  //   console.log(authorized.result);
+  // });
+  UserAccess.findAll().success(function(data){
+    var userAccess = data[0];
+    userAccess.access = !userAccess.access;
+    userAccess.save(['access']).success(function(data){
+      response.send(200, data);
+    })
+  });
+};
+
+module.exports.fetchWorkerSignup = function(request, response){
+  UserAccess.findAll().success(function(data){
+    var userAccess = data[0];
+    response.send({access: userAccess.access});
+  })
+};
 
 
