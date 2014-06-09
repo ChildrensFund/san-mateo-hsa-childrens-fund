@@ -155,6 +155,11 @@
   <div class="center" ng-controller="imageController">
     <input name="file" class="form-control" style="width: 48.5%" type="file" accept="image/*" ng-file-select="onFileSelect($files)"/>
     <br/>
+    <div ng-model="error">
+      <div class="alert alert-danger" ng-if="error.length > 1">
+        Input Error: <strong>{{ error }}</strong>
+      </div>
+    </div>
     <input
     class="btn btn-success" 
     type="button" 
