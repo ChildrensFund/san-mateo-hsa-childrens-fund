@@ -1,8 +1,8 @@
 var app = angular.module('childrensFund', ['ui.router', 'ngCookies', 'xeditable', 'angularFileUpload'])
 
-app.run(function (editableOptions) {
+app.run(['editableOptions', function (editableOptions) {
   editableOptions.theme = 'bs3';
-});
+}]);
 
 app.config(['$stateProvider','$locationProvider','$urlRouterProvider',function($stateProvider, $locationProvider, $urlRouterProvider){
   $locationProvider.html5Mode(true);
