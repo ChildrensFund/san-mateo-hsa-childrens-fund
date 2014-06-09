@@ -1,5 +1,17 @@
 app.controller('usersController', ['$scope', '$http', '$state', function($scope, $http, $state){
 
+  switch($state.current.url){
+    case('/workers'):
+      $scope.userType = 'Staff';
+      break;
+    case('/admin'):
+      $scope.userType = 'Admin';
+      break;
+    case('/help_desk'):
+      $scope.userType = 'Help Desk';
+      break;
+  };
+
   $state.current.name === 'admin.account.accountManagement.workers' ||
   $state.current.name === 'helpDesk.account.accountManagement.workers' ? $scope.workerPage = true : $scope.workerPage = false;
 
