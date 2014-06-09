@@ -160,7 +160,12 @@
     type="button" 
     ng-click="uploadImageThenCreateChild()"
     name="submit" 
-    value="Submit"/>
+    value="Submit"
+    ng-show="!waitSubmit"
+    ng-disabled="waitSubmit === 1"
+    />
+    <button class="btn btn-info" disabled ng-show="waitSubmit === 1">Uploading...</button>
+    <button class="btn btn-success" disabled ng-show="waitSubmit === 2">Child Added!</button>
     <button class="btn btn-danger" ui-sref="workers.account">Back</button>
   </div>
 </div>

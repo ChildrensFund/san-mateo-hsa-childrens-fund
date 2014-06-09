@@ -59,6 +59,7 @@ app.controller('workerController', ['$scope', 'restful', 'sanitize', '$cookies',
 
 
   $scope.create = function () {
+    $scope.waitSubmit = 0;
     // sanitize phone numbers
     if ($scope.tempChildObj.phone) {
       $scope.tempChildObj.phone = sanitize.update('phone',$scope.tempChildObj.phone);
@@ -73,7 +74,9 @@ app.controller('workerController', ['$scope', 'restful', 'sanitize', '$cookies',
       $scope.tempChildObj.thirdItemPrice = sanitize.update('thirdItemPrice', $scope.tempChildObj.thirdItemPrice);
     }
     $scope.tempChildObj.sortedByDate = new Date();
+    $scope.waitSubmit = 1;
     restful.createChild($scope.tempChildObj).then(function (promise) {
+      $scope.waitSubmit = 2;
       if (promise) {
         $state.go('workers.account.myTags');
       }
