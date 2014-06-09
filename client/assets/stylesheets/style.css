@@ -1,6 +1,6 @@
 /* BEGIN Public Facing Home Page Additions BEGIN */
 html, body {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Helvetica', 'Arial', sans-serif;
   font-weight: 100;
   color: #686868;
   background-color: #f7f7f7;
@@ -233,4 +233,10 @@ html, body {
 .auth-box .alert{
   margin: 10px;
   width: 95%;
+}
+
+.readable {
+  color: black;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 16px;
 }

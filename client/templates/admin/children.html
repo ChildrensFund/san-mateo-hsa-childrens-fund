@@ -26,17 +26,17 @@
     <div id="collapse{{child.id}}" class="panel-collapse collapse">
       <div class="panel-body">
         <table class="table">
-          <tr><th>Name</th><td>{{child.firstName + ' ' + child.lastName}}</td></tr>
-          <tr><th>CFID</th><td>{{child.cfid}}</td></tr>
-          <tr><th>Phone</th><td>{{child.phone || 'N/A'}}</td></tr>
-          <tr><th>Gender</th><td>{{child.gender || 'N/A'}}</td></tr>
-          <tr><th>Age</th><td>{{child.age || 'N/A'}}</td></tr>
-          <tr><th>Location</th><td>{{child.location || 'N/A'}}</td></tr>
-          <tr><th>Program Area</th><td>{{child.programArea || 'N/A'}}</td></tr>
+          <tr><th>Name</th><td class="readable">{{child.firstName}} {{child.lastName}}</td></tr>
+          <tr><th>CFID</th><td class="readable">{{child.cfid}}</td></tr>
+          <tr><th>Phone</th><td class="readable">{{child.phone || 'N/A'}}</td></tr>
+          <tr><th>Gender</th><td class="readable">{{child.gender || 'N/A'}}</td></tr>
+          <tr><th>Age</th><td class="readable">{{child.age || 'N/A'}}</td></tr>
+          <tr><th>Location</th><td class="readable">{{child.location || 'N/A'}}</td></tr>
+          <tr><th>Program Area</th><td class="readable">{{child.programArea || 'N/A'}}</td></tr>
           <tr ng-show="child.worker">
             <th>Worker</th>
-            <td>{{child.worker.firstName}}</td>
-            <td>{{child.worker.lastName}}</td>
+            <td class="readable">{{child.worker.firstName}}</td>
+            <td class="readable">{{child.worker.lastName}}</td>
             <td><button class="btn btn-primary" data-toggle="modal" data-target="#myModal" ng-click="setChildForModal(child)">Change Worker</button></td>
           </tr>
         </table>
