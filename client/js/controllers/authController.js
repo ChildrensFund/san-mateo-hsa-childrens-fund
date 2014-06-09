@@ -54,7 +54,7 @@ app.controller('authController', ['$scope', '$http', '$state', '$cookies',
           }
         }).success(function(data, status){
           $scope.waitSignup = false;
-          $scope.success = 'User successfully created and should check email for password reset';
+          $scope.success = 'User successfully created and should check email for password reset.  (Emails can sometimes appear in spam folder.)';
           if(manual){//If the user was manually added, we need to immediately fire a sendReset, which
           //will allow the user to enter their own password
             $scope.sendReset(userType, email);
