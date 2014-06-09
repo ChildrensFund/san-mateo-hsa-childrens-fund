@@ -15,7 +15,7 @@
   <li ng-class="page === pages.length ? 'disabled' : ''"><a href="#" ng-click="(page + 1) <= pages.length && fetchUsers(page + 1)">&raquo;</a></li>
 </ul>
 
-<table class="table table-striped">
+<table class="table table-striped pad-top">
   <tr><th>User ID</th><th>Email</th><th>Privileges</th><th>Send Reset Email</th></tr>
   <tr ng-repeat="user in users | filter:query"><td>{{ user.id }}</td><td>{{ user.email }}</td>
     <td>

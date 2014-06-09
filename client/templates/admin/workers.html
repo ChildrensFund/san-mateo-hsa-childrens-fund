@@ -11,7 +11,7 @@
   <li ng-class="page === pages.length ? 'disabled' : ''"><a href="#" ng-click="(page + 1) <= pages.length && fetchAllWorkers(page + 1)">&raquo;</a></li>
 </ul>
 
-<div class="panel-group" id="accordion">
+<div class="panel-group pad-top" id="accordion">
   <div class="panel panel-default" ng-repeat="worker in workers | orderBy:'lastName'">
     <div class="panel-heading">
       <h4 class="panel-title" ng-click="getChildren(worker)">
