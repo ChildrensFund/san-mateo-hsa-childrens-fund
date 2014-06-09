@@ -67,13 +67,17 @@ app.controller('authController', ['$scope', '$http', '$state', '$cookies',
   $scope.signin = function(){
     var userType = $state.current.data.userType;
     if($scope.password){
+      var email = $scope.email;
+      var password = $scope.password;
+      $scope.email = '';
+      $scope.password = '';
       $http({
         method: 'POST',
         url: '/auth/signin',
         data: {
           userType: userType,
-          email: $scope.email,
-          password: $scope.password
+          email: email,
+          password: password
         }
       }).success(function(data){
         console.log('User signed in');
