@@ -18,7 +18,7 @@
   <li ng-class="page === pages.length ? 'disabled' : ''"><a href="#" ng-click="(page + 1) <= pages.length && get(page + 1)">&raquo;</a></li>
 </ul>
 
-<div class="row child-box" ng-repeat="child in children | orderBy:'createdAt' :true">
+<div class="row child-box" ng-repeat="child in children | orderBy:'sortedByDate' :true">
   <div class="container">
     <div class="row">
       <div class="col-md-12">
