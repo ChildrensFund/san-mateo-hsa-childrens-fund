@@ -4,9 +4,9 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
     concat: {
       options: {
-        separator: ';'
+        separator: ';\n'
       },
-      dist: {
+      app: {
         src: ["client/js/cookies.js",
               "client/js/app.js",
               "client/js/controllers/appController.js",
@@ -26,6 +26,25 @@ module.exports = function(grunt) {
               "client/js/services/childObjSaver.js",
               "client/js/services/sanitize.js",
               "client/js/services/randNum.js"],
+        dest: 'client/js/compiled/resources.js'
+      },
+      bower: {
+        src: ["client/bower_components/jquery/dist/jquery.min.js",
+              "client/bower_components/bootstrap/dist/js/bootstrap.min.js",
+              "client/bower_components/ng-file-upload/angular-file-upload-shim.js", 
+              "client/bower_components/angular/angular.js",
+              "client/bower_components/ng-file-upload/angular-file-upload.js", 
+              "client/bower_components/underscore/underscore.js",
+              "client/bower_components/angular-route/angular-route.js",
+              "client/bower_components/angular-cookies/angular-cookies.js",
+              "client/bower_components/angular-ui-router/release/angular-ui-router.js",
+              "client/bower_components/angular-xeditable/dist/js/xeditable.js"
+        ],
+        dest: 'client/js/compiled/dependencies.js'
+      },
+      all: {
+        src: ["client/js/compiled/dependencies.js",
+              "client/js/compiled/resources.js"],
         dest: 'client/js/compiled/application.js'
       }
     },
@@ -40,9 +59,14 @@ module.exports = function(grunt) {
     },
 
     uglify: {
-      dist: {
+      app: {
         files: {
-          'client/js/compiled/application.js': ['<%= concat.dist.dest %>']
+          'client/js/compiled/resources.js': ['<%= concat.app.dest %>']
+        }
+      },
+      bower: {
+        files: {
+          'client/js/compiled/dependencies.js': ['<%= concat.bower.dest %>']
         }
       }
     },
@@ -108,7 +132,7 @@ module.exports = function(grunt) {
   // Main grunt tasks
   ////////////////////////////////////////////////////
 
-  grunt.registerTask('build', ['concat','uglify']);
+  grunt.registerTask('build', ['concat:app', 'concat:bower' ,'uglify:app', 'uglify:bower', 'concat:all']);
 
   grunt.registerTask('upload', function(n) {
     if(grunt.option('prod')) {
