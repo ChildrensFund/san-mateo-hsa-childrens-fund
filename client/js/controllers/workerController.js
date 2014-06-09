@@ -9,6 +9,12 @@ app.controller('workerController', ['$scope', 'restful', 'sanitize', '$cookies',
   {value: 'female', text: 'female'}
   ];
 
+  $scope.paymentMethods = [
+  {value: 'Items', text: 'Items'},
+  {value: 'Cash', text: 'Cash'},
+  {value: 'Check', text: 'Check'}
+  ];
+
   $scope.getWorkerData = function () {
     restful.getWorkerData().then(function (promise) {
       if (promise) {
@@ -85,9 +91,22 @@ app.controller('workerController', ['$scope', 'restful', 'sanitize', '$cookies',
     });
   };
 
-  $scope.getChildsDonor = function (id) {
+  $scope.updateDonor = function (donorId, key, value) {
+    value = sanitize.update(key, value);
+    postObj = {};
+    postObj.id = donorId;
+    postObj[key] = value;
+    console.log(postObj);
+    restful.updateDonor(postObj).then(function (promise) {
+      if (promise) {
+        console.log('edit donor success!');
+      }
+    });
+  };
+
+  $scope.getChildsDonor = function (childId) {
     $scope.childsDonor = {};
-    restful.getChildsDonor(id).then(function (promise) {
+    restful.getChildsDonor(childId).then(function (promise) {
       if (promise) {
         $scope.childsDonor = promise.data;
       }
@@ -121,6 +140,13 @@ app.controller('workerController', ['$scope', 'restful', 'sanitize', '$cookies',
     }
     if (type === 'price') {
       if (Boolean(data.match(/[^\d$.]/g))) {
+        return 'Please enter only numbers';
+      }
+    }
+    if (type === 'paymentMethod') {
+      str = data[0].toUpperCase() + data.slice(1);
+      if (str !== 'Cash' && str !== 'Check' && str !== 'Items') {
+        console.log(str, data)
         return 'Please enter only numbers';
       }
     }

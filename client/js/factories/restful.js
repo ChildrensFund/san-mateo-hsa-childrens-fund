@@ -103,6 +103,19 @@ app.factory('restful', ['$http', '$cookies', function ($http, $cookies) {
       }).error(function (data, status) {
         console.log('(postDonor) POST Error! ', data, status);
       });
+    },
+
+    updateDonor: function (postObj) {
+      return $http({
+        method: 'POST',
+        url: '/api/donors/' + postObj.id,
+        data: postObj
+      }).success(function (data, status) {
+        console.log('(updateDonor) POST Success! ', data);
+        return data;
+      }).error(function (data, status) {
+        console.log('(updateDonor) POST Error! ', data, status);
+      });
     }
 
   }
