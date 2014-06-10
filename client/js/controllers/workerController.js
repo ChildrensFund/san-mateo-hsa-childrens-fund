@@ -146,6 +146,9 @@ app.controller('workerController', ['$scope', 'restful', 'sanitize', '$cookies',
     restful.updateChild(postObj).then(function (promise) {
       if (promise) {
         console.log('update success!');
+        if (key === 'image') {
+          $scope.get();
+        }
       }
     });
   };
