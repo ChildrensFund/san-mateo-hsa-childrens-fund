@@ -1,6 +1,5 @@
 <div class="container">
 
-
   <div class="row">
     <div class="col-md-10 col-xs-12 col-centered">
       <div class="col-xs-6 box-header"><img class="header-logo" src="/assets/images/hsf_logo.png"></div>
@@ -8,6 +7,17 @@
     </div>
   </div>
 
+<!--
+
+USE THIS DIV FOR ADDING A BLURB ABOUT THE HOMEPAGE
+
+  <div class="row">
+    <div class="col-md-10 col-xs-12 col-centered">
+        ADD TEXT HERE FOR BLURB!
+    </div>
+  </div>
+
+-->
 
   <div class="row" ng-repeat="child in children | orderBy:'createdAt' :true">
     <div class="col-md-9 col-xs-11 col-centered">
@@ -33,11 +43,11 @@
                 <div class="box-item">{{ child.firstItemName }}</div>
                 <div class="box-price text-right"><span class="pledge-currency">$ </span>{{ child.firstItemPrice }}</div>
               </div>
-                <div class="pledge-wishlist">
+                <div class="pledge-wishlist" ng-show="child.secondItemName">
                 <div class="box-item">{{ child.secondItemName }}</div>
                 <div class="box-price text-right"><span class="pledge-currency">$ </span>{{ child.secondItemPrice }}</div>
               </div>
-              <div class="pledge-wishlist">
+              <div class="pledge-wishlist" ng-show="child.thirdItemName">
                 <div class="box-item">{{ child.thirdItemName }}</div>
                 <div class="box-price text-right"><span class="pledge-currency">$ </span>{{ child.thirdItemPrice }}</div>
               </div>
