@@ -24,19 +24,19 @@ Back-end:
 ##The Team
 This application was a Hack Reactor client project. We received five weeks of intense JavaScript training prior to starting this project.
 
- - **Evan Kim** - *Project Manager / Software Engineer*
+ - **[Evan Kim](https://github.com/FCStrike)** - *Project Manager / Software Engineer*
     - Designed and implemented RESTful API
     - Client/server-side authentication
     - Structured front-end routes
     - Full stack implementaiton of admin/help desk panels
- - **Amar Patel** - *Lead Front-End Engineer*
+ - **[Amar Patel](https://github.com/theamarpatel)** - *Lead Front-End Engineer*
     - Created donor and worker interfaces
     - Integrated front-end interaction with mySQL database through RESTful API
     - Constructed and implemented interface and logic for creating/editing children, worker, and donor data
     - Architect of worker's and donor's work-flow through web application
- - **Wayland Woodruff** 
+ - **[Wayland Woodruff](https://github.com/waylandwoodruff)** 
     - Designed and implemented Node/Express server
     - Server-side data sanitization
     - Implemented code to optimize deployment and resolved deployment issues
 
-Special thanks to Will Lo for doing our homepage design work
+ Special thanks to [Will Lo](https://github.com/willwclo) for doing our homepage design work
