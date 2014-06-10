@@ -119,11 +119,30 @@ app.controller('workerController', ['$scope', 'restful', 'sanitize', '$cookies',
     })
   };
 
+  $scope.updateHSAstatusDates = function (value) {
+    var newDateObj = {};
+    if (value === '2') {
+      newDateObj['completedDate'] = new Date();
+      return newDateObj;
+    }
+    if (value === '1') {
+      newDateObj['receivedDate'] = new Date();
+      return newDateObj;
+    }
+    if (value === '3') {
+      newDateObj['inactiveDate'] = new Date();
+      return newDateObj;
+    }
+  };
+
   $scope.update = function (id, key, value) {
     value = sanitize.update(key, value);
     postObj = {};
     postObj.id = id;
     postObj[key] = value;
+    if (key === 'hsaStatus') {
+      _.extend(postObj, $scope.updateHSAstatusDates(value));
+    }
     restful.updateChild(postObj).then(function (promise) {
       if (promise) {
         console.log('update success!');
@@ -152,7 +171,6 @@ app.controller('workerController', ['$scope', 'restful', 'sanitize', '$cookies',
     if (type === 'paymentMethod') {
       str = data[0].toUpperCase() + data.slice(1);
       if (str !== 'Cash' && str !== 'Check' && str !== 'Items') {
-        console.log(str, data)
         return 'Please enter only numbers';
       }
     }
@@ -163,3 +181,10 @@ app.controller('workerController', ['$scope', 'restful', 'sanitize', '$cookies',
   };
 
 }]);
+
+
+
+
+
+
+
