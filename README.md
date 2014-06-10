@@ -37,6 +37,6 @@ This application was a Hack Reactor client project. We received five weeks of in
  - **[Wayland Woodruff](https://github.com/waylandwoodruff)** 
     - Designed and implemented Node/Express server
     - Server-side data sanitization
-    - Implemented code to optimize deployment and resolved deployment issues
+    - Implemented code to optimize deployment and resolved deployment issues 
 
  Special thanks to [Will Lo](https://github.com/willwclo) for doing our homepage design work
