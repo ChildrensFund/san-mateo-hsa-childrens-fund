@@ -42,6 +42,7 @@ app.controller('imageController', ['$scope', '$upload', '$cookies', 'randNum', f
       !$scope.$parent.tempChildObj.gender ||
       $scope.$parent.tempChildObj.gender === '' ||
       !$scope.$parent.tempChildObj.dob ||
+      !$scope.$parent.tempChildObj.phone ||
       !$scope.$parent.tempChildObj.age ||
       !$scope.$parent.tempChildObj.location ||
       !$scope.$parent.tempChildObj.programArea ||
@@ -53,60 +54,64 @@ app.controller('imageController', ['$scope', '$upload', '$cookies', 'randNum', f
       !$scope.$parent.tempChildObj.firstItemPrice 
     )
       {
+        if (!$scope.$parent.tempChildObj.phone) {
+          $scope.error += 'Phone: Must be only numbers';
+          return;
+        }
         if (!$scope.$parent.tempChildObj.firstName) {
-          $scope.error += 'First Name: ' + $scope.$parent.tempChildObj.firstName;
+          $scope.error += 'First Name: Must be only letters';
           return;
         }
         if (!$scope.$parent.tempChildObj.lastName) {
-          $scope.error += 'Last Name: ' + $scope.$parent.tempChildObj.lastName;
+          $scope.error += 'Last Name: Must be only letters';
           return;
         }
         if (!$scope.$parent.tempChildObj.gender) {
-          $scope.error += 'Gender: ' + $scope.$parent.tempChildObj.gender;
+          $scope.error += 'Gender: Must be either "Male" or "Female"';
           return;
         }
         if ($scope.$parent.tempChildObj.gender === '') {
-          $scope.error += 'Gender: ' + $scope.$parent.tempChildObj.gender;
+          $scope.error += 'Gender: Must be either "Male" or "Female"';
           return;
         }
         if (!$scope.$parent.tempChildObj.dob) {
-          $scope.error += 'Date of Birth: ' + $scope.$parent.tempChildObj.dob;
+          $scope.error += 'Date of Birth';
           return;
         }
         if (!$scope.$parent.tempChildObj.age) {
-          $scope.error += 'Age: ' + $scope.$parent.tempChildObj.age;
+          $scope.error += 'Age';
           return;
         }
         if (!$scope.$parent.tempChildObj.location) {
-          $scope.error += 'Location: ' + $scope.$parent.tempChildObj.location;
+          $scope.error += 'Location';
           return;
         }
         if (!$scope.$parent.tempChildObj.programArea) {
-          $scope.error += 'Program Area: ' + $scope.$parent.tempChildObj.programArea;
+          $scope.error += 'Program Area';
           return;
         }
         if (!$scope.$parent.tempChildObj.bio) {
-          $scope.error += 'Bio: ' + $scope.$parent.tempChildObj.bio;
+          $scope.error += 'Bio';
           return;
         }
         if ($scope.$parent.tempChildObj.bio.length > 600) {
-          $scope.error += 'Bio:'  + $scope.$parent.tempChildObj.bio;
+          $scope.error += 'Bio';
           return;
         }
         if ((!$scope.$parent.tempChildObj.firstItemName && $scope.$parent.tempChildObj.firstItemName.length > 16)) {
-          $scope.error += 'First Item Name: ' + $scope.$parent.tempChildObj.firstItemName;
+          $scope.error += 'First Item Name';
           return;
         }
         if (($scope.$parent.tempChildObj.secondItemName && $scope.$parent.tempChildObj.secondItemName.length > 16)) {
-          $scope.error += 'Second Item Name: ' + $scope.$parent.tempChildObj.secondItemName;
+          $scope.error += 'Second Item Name';
           return;
         }
         if (($scope.$parent.tempChildObj.thirdItemName && $scope.$parent.tempChildObj.thirdItemName.length > 16)) {
-          $scope.error += 'Third Item Name: ' + $scope.$parent.tempChildObj.thirdItemName;
+          $scope.error += 'Third Item Name';
           return;
         }
         if (!$scope.$parent.tempChildObj.firstItemPrice) {
-          $scope.error += 'First Item Price: ' + $scope.$parent.tempChildObj.firstItemPrice;
+          $scope.error += 'First Item Price: Must be only numbers';
           return;
         }
       }
